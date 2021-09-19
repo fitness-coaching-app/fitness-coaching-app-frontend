@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,37 +32,37 @@ class MyApp extends StatelessWidget {
         //accentColor: Colors.cyan[600],
 
         // Define the default font family.
-        fontFamily: 'Poppins',
+        fontFamily: GoogleFonts.poppins().fontFamily,
 
         // Define the default TextTheme. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
-          headline1: TextStyle(
+          headline1: GoogleFonts.poppins(
               fontSize: 48.0,
               fontWeight: FontWeight.w800,
               fontStyle: FontStyle.italic,
-              color: Colors.white), //Title Highlight
-          subtitle2: TextStyle(fontSize: 16.0), //Normal
-          button: TextStyle(
+              color: Colors.white,), //Title Highlight
+          subtitle2: GoogleFonts.poppins(fontSize: 16.0), //Normal
+          button: GoogleFonts.poppins(
               fontSize: 22.0, fontWeight: FontWeight.w600), //main button text
-          overline: TextStyle(
+          overline: GoogleFonts.poppins(
               fontSize: 16.0, fontWeight: FontWeight.w600), //Tappable Text
           headline2:
-              TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold), //title1
+              GoogleFonts.poppins(fontSize: 28.0, fontWeight: FontWeight.bold), //title1
           headline4:
-              TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600), //title2
-          bodyText1: TextStyle(
+              GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.w600), //title2
+          bodyText1: GoogleFonts.poppins(
               fontSize: 14.0, fontWeight: FontWeight.w600), // Text Heading
-          bodyText2: TextStyle(fontSize: 14.0), // Text Heading
-          caption: TextStyle(fontSize: 12.0), //tiny text
-          subtitle1: TextStyle(
+          bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text Heading
+          caption: GoogleFonts.poppins(fontSize: 12.0), //tiny text
+          subtitle1: GoogleFonts.poppins(
               fontSize: 12.0, fontWeight: FontWeight.w600), //title heading
-          headline3: TextStyle(
+          headline3: GoogleFonts.poppins(
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      //home: MyHomePage(),
-      home: NewUserSetup(),
+      home: MyHomePage(),
+      //home: NewUserSetup(),
     );
   }
 }
