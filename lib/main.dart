@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'color.dart';
+import 'signIn_view.dart';
+import 'newUserSetUp1_view.dart';
 
 void main() {
   runApp(MyApp());
 }
-
-const Color color_dark = Color(0xFF0C2B42);
-const Color color_teal = Color(0xFF07EBB9);
-
-final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-  primary: color_teal, //change background color of button
-  onPrimary: color_dark, //change text color of button
-  fixedSize: Size(325, 66),
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(50),
-  ),
-  elevation: 5.0,
-);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -32,25 +22,26 @@ class MyApp extends StatelessWidget {
         //accentColor: Colors.cyan[600],
 
         // Define the default font family.
-        fontFamily: GoogleFonts.poppins().fontFamily,
+        fontFamily: 'Poppins',
 
         // Define the default TextTheme. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
           headline1: GoogleFonts.poppins(
-              fontSize: 48.0,
-              fontWeight: FontWeight.w800,
-              fontStyle: FontStyle.italic,
-              color: Colors.white,), //Title Highlight
+            fontSize: 48.0,
+            fontWeight: FontWeight.w800,
+            fontStyle: FontStyle.italic,
+            color: Colors.white,
+          ), //Title Highlight
           subtitle2: GoogleFonts.poppins(fontSize: 16.0), //Normal
           button: GoogleFonts.poppins(
               fontSize: 22.0, fontWeight: FontWeight.w600), //main button text
           overline: GoogleFonts.poppins(
               fontSize: 16.0, fontWeight: FontWeight.w600), //Tappable Text
-          headline2:
-              GoogleFonts.poppins(fontSize: 28.0, fontWeight: FontWeight.bold), //title1
-          headline4:
-              GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.w600), //title2
+          headline2: GoogleFonts.poppins(
+              fontSize: 28.0, fontWeight: FontWeight.bold), //title1
+          headline4: GoogleFonts.poppins(
+              fontSize: 20.0, fontWeight: FontWeight.w600), //title2
           bodyText1: GoogleFonts.poppins(
               fontSize: 14.0, fontWeight: FontWeight.w600), // Text Heading
           bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text Heading
@@ -61,12 +52,14 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      home: MyHomePage(),
+      //home: MyHomePage(),
       //home: NewUserSetup(),
+      home: SignIn(),
     );
   }
 }
 
+//home
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -100,62 +93,4 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class NewUserSetup extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: color_dark,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(child: Container()),
-            Center(
-                child: Text(
-              'Welcome to',
-              style: Theme.of(context).textTheme.headline1,
-            )),
-            Center(
-                child: Text(
-              'FIT+',
-              style: Theme.of(context).textTheme.headline1,
-            )),
-            Expanded(child: Container()),
-            Center(
-              child: Text(
-                'We’ll ask you some questions to',
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
-            ),
-            Center(
-              child: Text(
-                'personalize your experience.',
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
-            ),
-            Container(
-              //color: Colors.red,
-              height: 10,
-            ),
-            Center(
-                child: ElevatedButton(
-              style: buttonStyle,
-              onPressed: () {},
-              child: Text(
-                'Get started',
-                style: Theme.of(context).textTheme.button,
-              ),
-            )),
-            Container(
-              //color: Colors.red,
-              height: 50,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+  }}
