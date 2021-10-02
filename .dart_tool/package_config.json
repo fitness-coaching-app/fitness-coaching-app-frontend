@@ -74,6 +74,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_svg",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-0.22.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/src/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -98,6 +104,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "ionicons",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/ionicons-0.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.10",
       "packageUri": "lib/",
@@ -112,6 +124,18 @@
     {
       "name": "path",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_drawing",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_drawing-0.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_parsing",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/path_parsing-0.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -148,6 +172,12 @@
     {
       "name": "pedantic",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.11.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "petitparser",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-4.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -236,13 +266,19 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "xml",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/xml-5.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_application_2",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-09-20T20:58:17.957134Z",
+  "generated": "2021-10-02T22:09:56.203369Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }

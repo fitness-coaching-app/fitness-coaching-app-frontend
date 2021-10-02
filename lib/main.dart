@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
-import 'signIn_view.dart';
-import 'newUserSetUp1_view.dart';
+//import 'signIn_view.dart';
+//import 'newUserSetUp1_view.dart';
+//import 'testview.dart';
+import 'forgotPassword1_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,9 +54,12 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
+      //home: TestView(),
       //home: MyHomePage(),
       //home: NewUserSetup(),
-      home: SignIn(),
+      //home: SignIn(),
+      home: ForgotPassword1(),
+
     );
   }
 }
