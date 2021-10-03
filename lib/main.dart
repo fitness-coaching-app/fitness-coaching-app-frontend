@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
 //import 'signIn_view.dart';
-//import 'newUserSetUp1_view.dart';
+//import 'newUserSetup0_view.dart';
+//import 'newUserSetup1_gender_view.dart';
+//import 'newUserSetup2_bd_view.dart';
+//import 'newUserSetup3_exPref_view.dart';
+//import 'newUserSetup3_weight_view.dart';
+//import 'newUserSetup4_comp_view.dart';
+import 'newUserSetup5_exPref2_view.dart';
+//import 'loading_view.dart';
 //import 'testview.dart';
-import 'forgotPassword1_view.dart';
+//import 'forgotPassword1_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,9 +63,12 @@ class MyApp extends StatelessWidget {
       ),
       //home: TestView(),
       //home: MyHomePage(),
-      //home: NewUserSetup(),
+      //home: NewUserSetupWeight(),
       //home: SignIn(),
-      home: ForgotPassword1(),
+      //home: ForgotPassword1(),
+      //home: NewUserSetupComp(),
+      //home: Loading(),
+      home: NewUserSetupExPref2(),
 
     );
   }
