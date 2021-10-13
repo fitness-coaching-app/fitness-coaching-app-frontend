@@ -62,13 +62,13 @@ class MyApp extends StatelessWidget {
         ),
       ),
       //home: TestView(),
-      //home: MyHomePage(),
+      home: MyHomePage(),
       //home: NewUserSetupWeight(),
       //home: SignIn(),
       //home: ForgotPassword1(),
       //home: NewUserSetupComp(),
       //home: Loading(),
-      home: NewUserSetupExPref2(),
+      //home: NewUserSetupExPref2(),
 
     );
   }
