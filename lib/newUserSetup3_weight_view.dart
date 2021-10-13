@@ -67,25 +67,28 @@ class NewUserSetupWeight extends StatelessWidget {
             ),
             Container(
                 width: 325,
-                height: 80,
+                height: 60,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 243,
-                        height: 30.5,
-                        child: Text("Enter your weight",
-                            style: const TextStyle(
-                                color: color_subtitle,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16.0),
-                            textAlign: TextAlign.left),
-                      ),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0, 18, 6, 18),
+                          child: Container(
+                            width: 240,
+                            height: 31,
+                            child: Text("Enter your weight",
+                                style: const TextStyle(
+                                  color: color_subtitle,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 16.0,
+                                ),
+                                textAlign: TextAlign.left),
+                          )),
                       // kg
                       Text("kg",
                           style: const TextStyle(
@@ -101,31 +104,34 @@ class NewUserSetupWeight extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     color: color_lightGrey)),
-                    Container(
+            Container(
               height: 15,
             ),
             Container(
                 width: 325,
-                height: 80,
+                height: 60,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 243,
-                        height: 30.5,
-                        child: Text("Enter your height",
-                            style: const TextStyle(
-                                color: color_subtitle,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16.0),
-                            textAlign: TextAlign.left),
-                      ),
-                      // kg
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0, 18, 0, 18),
+                          child: Container(
+                            width: 240,
+                            height: 31,
+                            child: Text("Enter your height",
+                                style: const TextStyle(
+                                  color: color_subtitle,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 16.0,
+                                ),
+                                textAlign: TextAlign.left),
+                          )),
+                      // cm
                       Text("cm",
                           style: const TextStyle(
                               color: color_dimmedTeal,

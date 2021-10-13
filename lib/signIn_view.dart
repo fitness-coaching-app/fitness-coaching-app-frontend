@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'color.dart';
+
 class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,28 +14,28 @@ class SignIn extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                              width: 132,
-                              height: 133,
+                              width: 325,
+                              height: 200,
                               decoration: BoxDecoration(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
+                                      BorderRadius.all(Radius.circular(15)),
                                   color: const Color(0xffc4c4c4))),
                           Container(
                             //color: Colors.red,
-                            height: 56,
+                            height: 25,
                           ),
                           // Let’s sign you in
-                          Text("Let’s sign you in",
+                          Text("Sign In",
                               style: const TextStyle(
                                   color: color_dark,
                                   fontWeight: FontWeight.w700,
                                   fontFamily: "Poppins",
                                   fontStyle: FontStyle.normal,
-                                  fontSize: 28.0),
+                                  fontSize: 26.0),
                               textAlign: TextAlign.left),
                           Container(
                             //color: Colors.red,
-                            height: 6,
+                            height: 5,
                           ), // Welcome back !
                           Text("Welcome back !",
                               style: const TextStyle(
@@ -42,11 +43,11 @@ class SignIn extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                   fontFamily: "Poppins",
                                   fontStyle: FontStyle.normal,
-                                  fontSize: 22.0),
+                                  fontSize: 16.0),
                               textAlign: TextAlign.left),
                           Container(
                             //color: Colors.red,
-                            height: 51,
+                            height: 25,
                           ),
                           // Rectangle 2
                           Container(
@@ -54,7 +55,7 @@ class SignIn extends StatelessWidget {
                             height: 63,
                             child: TextFormField(
                                 decoration: InputDecoration(
-                              hintText: "Username or Email",
+                              hintText: "Email",
                               hintStyle: const TextStyle(
                                   color: color_subtitle,
                                   fontWeight: FontWeight.w400,
@@ -96,6 +97,42 @@ class SignIn extends StatelessWidget {
                                 color: color_lightGrey),
                             padding: EdgeInsets.zero,
                           ),
+                          Container(
+                            height: 25,
+                          ),
+                          // Rectangle 1
+                          Container(
+                              width: 325,
+                              height: 60,
+                              // TEXT
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16.5),
+                                child: new Text("Sign In",
+                                    style: const TextStyle(
+                                        color: color_dark,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "Poppins",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 18.0),
+                                    textAlign: TextAlign.center),
+                              ),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15)),
+                                  color: color_teal)),
+                          Container(
+                            height: 20,
+                          ),
+                          Center(
+                            child: Text("Forget Password?",
+                                style: const TextStyle(
+                                    color: color_dimmedTeal,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 16.0),
+                                textAlign: TextAlign.center),
+                          ),
                           Expanded(child: Container()),
                           // Didn’t have account? Register
                           Center(
@@ -118,40 +155,7 @@ class SignIn extends StatelessWidget {
                                     fontSize: 16.0),
                                 text: " Register")
                           ]))),
-                          Container(
-                            //color: Colors.red,
-                            height: 13,
-                          ),
-                          // Rectangle 1
-                          Container(
-                              width: 325,
-                              height: 66,
-                              // TEXT
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 16.5),
-                                child: new Text(
-                                  "Sign in",
-                                  style: const TextStyle(
-                                      color: color_dark,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "Poppins",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 22.0),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(33)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: const Color(0x4d000000),
-                                        offset: Offset(0, 0),
-                                        blurRadius: 7,
-                                        spreadRadius: 0)
-                                  ],
-                                  color: color_teal)),
-                          Container(
-                            height: 44,
-                          ),
-                        ])))));}}
+                          Expanded(child: Container()),
+                        ])))));
+  }
+}

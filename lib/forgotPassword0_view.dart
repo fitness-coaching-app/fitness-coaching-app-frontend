@@ -65,7 +65,7 @@ class ForgotPassword0 extends StatelessWidget {
                         height: 63,
                         child: TextFormField(
                             decoration: InputDecoration(
-                          hintText: "Username or Email",
+                          hintText: "Enter your email",
                           hintStyle: const TextStyle(
                               color: color_subtitle,
                               fontWeight: FontWeight.w400,

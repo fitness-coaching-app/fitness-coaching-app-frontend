@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
-//import 'signIn_view.dart';
-//import 'newUserSetup0_view.dart';
-//import 'newUserSetup1_gender_view.dart';
-//import 'newUserSetup2_bd_view.dart';
-//import 'newUserSetup3_exPref_view.dart';
-//import 'newUserSetup3_weight_view.dart';
-//import 'newUserSetup4_comp_view.dart';
+import 'signIn_view.dart';
+import 'newUserSetup0_view.dart';
+import 'newUserSetup1_gender_view.dart';
+import 'newUserSetup2_bd_view.dart';
+import 'newUserSetup3_exPref_view.dart';
+import 'newUserSetup3_weight_view.dart';
+import 'newUserSetup4_comp_view.dart';
 import 'newUserSetup5_exPref2_view.dart';
-//import 'loading_view.dart';
-//import 'testview.dart';
-//import 'forgotPassword1_view.dart';
+import 'loading_view.dart';
+import 'testview.dart';
+import 'forgotPassword0_view.dart';
+import 'forgotPassword1_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -64,12 +65,21 @@ class MyApp extends StatelessWidget {
       //home: TestView(),
       home: MyHomePage(),
       //home: NewUserSetupWeight(),
+<<<<<<< Updated upstream
       //home: SignIn(),
       //home: ForgotPassword1(),
       //home: NewUserSetupComp(),
       //home: Loading(),
       //home: NewUserSetupExPref2(),
 
+=======
+      // home: SignIn(),
+      // home: ForgotPassword0(),
+      // home: NewUserSetupComp(),
+      //home: NewUserSetup0(),
+      // home: Loading(),
+      // home: NewUserSetupExPref2(),
+>>>>>>> Stashed changes
     );
   }
 }
@@ -86,20 +96,35 @@ class MyHomePage extends StatelessWidget {
           children: <Widget>[
             Expanded(child: Container()),
             Center(
-                child: Text(
-              'FIT+',
-              style: Theme.of(context).textTheme.headline1,
-            )),
+                child: Text("FIT+",
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 48.0),
+                    textAlign: TextAlign.center)),
             Expanded(child: Container()),
             Center(
-                child: ElevatedButton(
-              style: buttonStyle,
-              onPressed: () {},
-              child: Text(
-                'Get started',
-                style: Theme.of(context).textTheme.button,
-              ),
-            )),
+              child: Container(
+                  width: 325,
+                  height: 60,
+                  // TEXT
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.5),
+                    child: new Text("Get Started",
+                        style: const TextStyle(
+                            color: color_dark,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Poppins",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 18.0),
+                        textAlign: TextAlign.center),
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: color_teal)),
+            ),
             Container(
               //color: Colors.red,
               height: 50,
@@ -108,4 +133,5 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
-  }}
+  }
+}

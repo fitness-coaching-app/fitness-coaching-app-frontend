@@ -65,7 +65,7 @@ class ForgotPassword1 extends StatelessWidget {
                           // TEXT
                           child: Padding(
                             padding: EdgeInsets.symmetric(vertical: 16.5),
-                            child: new Text("Sign In",
+                            child: new Text("Sign In Again",
                                 style: const TextStyle(
                                     color: color_dark,
                                     fontWeight: FontWeight.w600,
