@@ -23,7 +23,7 @@ class NewUserSetupWeight extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.4),
             child: new SvgPicture.asset(
-              'assets/icons/Cartoon Illustration_weight.svg',
+              'assets/Icon/Cartoon Illustration_weight.svg',
               height: 100,
             ),
           ),
@@ -66,7 +66,6 @@ class NewUserSetupWeight extends StatelessWidget {
               height: 40,
             ),
             Container(
-                width: 325,
                 height: 60,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -77,7 +76,6 @@ class NewUserSetupWeight extends StatelessWidget {
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 18, 6, 18),
                           child: Container(
-                            width: 240,
                             height: 31,
                             child: Text("Enter your weight",
                                 style: const TextStyle(
@@ -89,6 +87,7 @@ class NewUserSetupWeight extends StatelessWidget {
                                 ),
                                 textAlign: TextAlign.left),
                           )),
+                      Expanded(child: Container()),
                       // kg
                       Text("kg",
                           style: const TextStyle(
@@ -108,7 +107,6 @@ class NewUserSetupWeight extends StatelessWidget {
               height: 15,
             ),
             Container(
-                width: 325,
                 height: 60,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -119,7 +117,6 @@ class NewUserSetupWeight extends StatelessWidget {
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 18, 0, 18),
                           child: Container(
-                            width: 240,
                             height: 31,
                             child: Text("Enter your height",
                                 style: const TextStyle(
@@ -132,6 +129,7 @@ class NewUserSetupWeight extends StatelessWidget {
                                 textAlign: TextAlign.left),
                           )),
                       // cm
+                      Expanded(child: Container()),
                       Text("cm",
                           style: const TextStyle(
                               color: color_dimmedTeal,
@@ -149,24 +147,27 @@ class NewUserSetupWeight extends StatelessWidget {
             Container(
               height: 40,
             ),
-            Container(
-                width: 325,
-                height: 60,
-                // TEXT
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.5),
-                  child: new Text("Next",
-                      style: const TextStyle(
-                          color: color_dark,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Poppins",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 18.0),
-                      textAlign: TextAlign.center),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: color_teal)),
+            // Next Button
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Expanded(
+                child: Container(
+                    height: 60,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.5),
+                      child: new Text("Next",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18.0),
+                          textAlign: TextAlign.center),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: color_teal)),
+              )
+            ]),
           ]),
         )),
         Expanded(child: Container()),

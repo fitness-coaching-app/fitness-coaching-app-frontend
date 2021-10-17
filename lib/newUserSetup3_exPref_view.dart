@@ -39,7 +39,7 @@ class NewUserSetupExPref extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                      "Select the exercise that you prefer\nYou can select more than one",
+                      "Select the exercise that you prefer\. You can select more than one\.",
                       style: const TextStyle(
                           color: color_subtitle,
                           fontWeight: FontWeight.w400,
@@ -54,7 +54,6 @@ class NewUserSetupExPref extends StatelessWidget {
               height: 40,
             ),
             Container(
-                width: 325,
                 height: 80,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -62,9 +61,6 @@ class NewUserSetupExPref extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: 20,
-                      ),
                       Container(
                         child: Text("Yoga",
                             style: const TextStyle(
@@ -85,7 +81,6 @@ class NewUserSetupExPref extends StatelessWidget {
               height: 15,
             ),
             Container(
-                width: 325,
                 height: 80,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
@@ -93,9 +88,6 @@ class NewUserSetupExPref extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: 20,
-                      ),
                       Container(
                         child: Text("Cardio",
                             style: const TextStyle(
@@ -115,24 +107,27 @@ class NewUserSetupExPref extends StatelessWidget {
             Container(
               height: 40,
             ),
-            Container(
-                width: 325,
-                height: 60,
-                // TEXT
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.5),
-                  child: new Text("Next",
-                      style: const TextStyle(
-                          color: color_dark,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Poppins",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 18.0),
-                      textAlign: TextAlign.center),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: color_teal)),
+            // Next Button
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Expanded(
+                child: Container(
+                    height: 60,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.5),
+                      child: new Text("Next",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18.0),
+                          textAlign: TextAlign.center),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: color_teal)),
+              )
+            ]),
           ]),
         )),
         Expanded(child: Container()),

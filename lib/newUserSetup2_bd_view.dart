@@ -23,7 +23,7 @@ class NewUserSetupBd extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.4),
             child: new SvgPicture.asset(
-              'assets/icons/Cartoon Illustration_bd.svg',
+              'assets/Icon/Cartoon Illustration_bd.svg',
               height: 100,
             ),
           ),
@@ -66,17 +66,14 @@ class NewUserSetupBd extends StatelessWidget {
               height: 40,
             ),
             Container(
-                width: 325,
-                height: 80,
+                height: 60,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        width: 230,
-                        height: 30.5,
                         child: Text("Enter your birthday year",
                             style: const TextStyle(
                                 color: color_subtitle,
@@ -86,6 +83,7 @@ class NewUserSetupBd extends StatelessWidget {
                                 fontSize: 16.0),
                             textAlign: TextAlign.left),
                       ),
+                      Expanded(child: Container()),
                       Icon(
                         Ionicons.calendar,
                         size: 28,
@@ -100,24 +98,27 @@ class NewUserSetupBd extends StatelessWidget {
             Container(
               height: 40,
             ),
-            Container(
-                width: 325,
-                height: 60,
-                // TEXT
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.5),
-                  child: new Text("Next",
-                      style: const TextStyle(
-                          color: color_dark,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Poppins",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 18.0),
-                      textAlign: TextAlign.center),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: color_teal)),
+            // Next Button
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Expanded(
+                child: Container(
+                    height: 60,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.5),
+                      child: new Text("Next",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18.0),
+                          textAlign: TextAlign.center),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: color_teal)),
+              )
+            ]),
           ]),
         )),
         Expanded(child: Container()),

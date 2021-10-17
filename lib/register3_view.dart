@@ -3,7 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ForgotPassword0 extends StatelessWidget {
+class Register3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class ForgotPassword0 extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.4),
                     child: new SvgPicture.asset(
-                      'assets/Icon/Cartoon Illustration1.svg',
+                      'assets/Icon/Cartoon Illustration_man1.svg',
                       height: 100,
                     ),
                   ),
@@ -39,7 +39,7 @@ class ForgotPassword0 extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Forget Password?",
+                      Text("Pick Your Display Name",
                           style: const TextStyle(
                               color: color_dark,
                               fontWeight: FontWeight.w700,
@@ -50,8 +50,7 @@ class ForgotPassword0 extends StatelessWidget {
                       Container(
                         height: 5,
                       ),
-                      Text(
-                          "Enter the email associated with your account and we’ll send an email with instructions to reset your password.",
+                      Text("Pick a display name for your account",
                           style: const TextStyle(
                               color: color_subtitle,
                               fontWeight: FontWeight.w400,
@@ -63,10 +62,10 @@ class ForgotPassword0 extends StatelessWidget {
                         height: 40,
                       ),
                       Container(
-                        height: 63,
+                        height: 60,
                         child: TextFormField(
                             decoration: InputDecoration(
-                          hintText: "Enter your email",
+                          hintText: "Enter your display name",
                           hintStyle: const TextStyle(
                               color: color_subtitle,
                               fontWeight: FontWeight.w400,
@@ -94,7 +93,7 @@ class ForgotPassword0 extends StatelessWidget {
                                   child: Padding(
                                     padding:
                                         EdgeInsets.symmetric(vertical: 16.5),
-                                    child: new Text("Send Instructions",
+                                    child: new Text("Next",
                                         style: const TextStyle(
                                             color: color_dark,
                                             fontWeight: FontWeight.w600,

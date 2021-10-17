@@ -14,7 +14,6 @@ class SignIn extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                              
                               height: 200,
                               decoration: BoxDecoration(
                                   borderRadius:
@@ -100,26 +99,31 @@ class SignIn extends StatelessWidget {
                           Container(
                             height: 25,
                           ),
-                          // Rectangle 1
-                          Container(
-                              width: 325,
-                              height: 60,
-                              // TEXT
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 16.5),
-                                child: new Text("Sign In",
-                                    style: const TextStyle(
-                                        color: color_dark,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 18.0),
-                                    textAlign: TextAlign.center),
-                              ),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  color: color_teal)),
+                          // Next Button
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                      height: 60,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 16.5),
+                                        child: new Text("Sign In",
+                                            style: const TextStyle(
+                                                color: color_dark,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily: "Poppins",
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 18.0),
+                                            textAlign: TextAlign.center),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15)),
+                                          color: color_teal)),
+                                )
+                              ]),
                           Container(
                             height: 20,
                           ),

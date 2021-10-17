@@ -20,7 +20,6 @@ class NewUserSetupComp extends StatelessWidget {
             Expanded(child: Container()),
             Center(
                 child: Container(
-                    width: 325,
                     height: 56,
                     child: Text("You can now use the app",
                         style: const TextStyle(
@@ -37,24 +36,29 @@ class NewUserSetupComp extends StatelessWidget {
               height: 10,
             ),
             Center(
-              child: Container(
-                  width: 325,
-                  height: 60,
-                  // TEXT
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.5),
-                    child: new Text("Let’s Go",
-                        style: const TextStyle(
-                            color: color_dark,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18.0),
-                        textAlign: TextAlign.center),
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color: color_teal)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Expanded(
+                    child: Container(
+                        height: 60,
+                        child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16.5),
+                            child: new Text("Let’s Go",
+                                style: const TextStyle(
+                                    color: color_dark,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 18.0),
+                                textAlign: TextAlign.center)),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: color_teal)),
+                  )
+                ]),
+              ), // Next Button
             ),
             Container(
               //color: Colors.red,

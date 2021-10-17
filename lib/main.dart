@@ -13,6 +13,12 @@ import 'loading_view.dart';
 import 'testview.dart';
 import 'forgotPassword0_view.dart';
 import 'forgotPassword1_view.dart';
+import 'register0_view.dart';
+import 'register1_view.dart';
+import 'register2_view.dart';
+import 'register3_view.dart';
+import 'register4_view.dart';
+import 'exerciseSummary_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,14 +69,24 @@ class MyApp extends StatelessWidget {
         ),
       ),
       //home: TestView(),
-      //home: MyHomePage(),
-      home: NewUserSetupWeight(),
-      //home: SignIn(),
-      //home: ForgotPassword0(),
-      //home: NewUserSetupComp(),
-      //home: Loading(),
-      //home: NewUserSetupExPref2(),
-
+      // home: MyHomePage(),
+      // home: SignIn(),
+      // home: ForgotPassword0(),
+      // home: ForgotPassword1(),
+      // home: Register0(),
+      // home: Register1(),
+      // home: Register2(),
+      // home: Register3(),
+      // home: Register4(),
+      // home: NewUserSetup0(),
+      // home: NewUserSetupGender(),
+      // home: NewUserSetupBd(),
+      // home: NewUserSetupExPref(),
+      // home: NewUserSetupComp(),
+      // home: NewUserSetupWeight(),
+      // home: NewUserSetupExPref2(),
+      home: ExerciseSummary(),
+      // home: Loading(),
     );
   }
 }
@@ -97,24 +113,30 @@ class MyHomePage extends StatelessWidget {
                     textAlign: TextAlign.center)),
             Expanded(child: Container()),
             Center(
-              child: Container(
-                  width: 325,
-                  height: 60,
-                  // TEXT
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.5),
-                    child: new Text("Get Started",
-                        style: const TextStyle(
-                            color: color_dark,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18.0),
-                        textAlign: TextAlign.center),
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color: color_teal)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Expanded(
+                    child: Container(
+                        height: 60,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.5),
+                          child: new Text("Get Started",
+                              style: const TextStyle(
+                                  color: color_dark,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 18.0),
+                              textAlign: TextAlign.center),
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: color_teal)),
+                  )
+                ]),
+              ),
             ),
             Container(
               //color: Colors.red,

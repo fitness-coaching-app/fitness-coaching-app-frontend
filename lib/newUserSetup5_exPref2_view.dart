@@ -54,7 +54,6 @@ class NewUserSetupExPref2 extends StatelessWidget {
             ),
 // Rectangle 22
             Container(
-                width: 325,
                 height: 350,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -62,24 +61,27 @@ class NewUserSetupExPref2 extends StatelessWidget {
             Container(
               height: 40,
             ),
-            Container(
-                width: 325,
-                height: 60,
-                // TEXT
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.5),
-                  child: new Text("Next",
-                      style: const TextStyle(
-                          color: color_dark,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Poppins",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 18.0),
-                      textAlign: TextAlign.center),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: color_teal)),
+            // Next Button
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Expanded(
+                child: Container(
+                    height: 60,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.5),
+                      child: new Text("Next",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18.0),
+                          textAlign: TextAlign.center),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: color_teal)),
+              )
+            ]),
           ]),
         )),
         Expanded(child: Container()),
