@@ -63,23 +63,14 @@ class MyApp extends StatelessWidget {
         ),
       ),
       //home: TestView(),
-      home: MyHomePage(),
-      //home: NewUserSetupWeight(),
-<<<<<<< Updated upstream
+      //home: MyHomePage(),
+      home: NewUserSetupWeight(),
       //home: SignIn(),
-      //home: ForgotPassword1(),
+      //home: ForgotPassword0(),
       //home: NewUserSetupComp(),
       //home: Loading(),
       //home: NewUserSetupExPref2(),
 
-=======
-      // home: SignIn(),
-      // home: ForgotPassword0(),
-      // home: NewUserSetupComp(),
-      //home: NewUserSetup0(),
-      // home: Loading(),
-      // home: NewUserSetupExPref2(),
->>>>>>> Stashed changes
     );
   }
 }

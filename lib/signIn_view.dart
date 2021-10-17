@@ -14,7 +14,7 @@ class SignIn extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                              width: 325,
+                              
                               height: 200,
                               decoration: BoxDecoration(
                                   borderRadius:
@@ -51,7 +51,7 @@ class SignIn extends StatelessWidget {
                           ),
                           // Rectangle 2
                           Container(
-                            width: 325,
+                            //width: 325,
                             height: 63,
                             child: TextFormField(
                                 decoration: InputDecoration(
@@ -77,7 +77,7 @@ class SignIn extends StatelessWidget {
                           ),
                           // Rectangle 2
                           Container(
-                            width: 325,
+                            //width: 325,
                             height: 63,
                             child: TextFormField(
                                 decoration: InputDecoration(
