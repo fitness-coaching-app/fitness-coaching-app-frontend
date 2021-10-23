@@ -42,13 +42,39 @@ class ExerciseSummary extends StatelessWidget {
                       Container(
                         height: 30,
                       ),
-                      Center(
-                          child: Container(
-                              width: 155,
-                              height: 155,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: color_purple, width: 7)))),
+                      Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 155.0,
+                            child: Stack(
+                              children: <Widget>[
+                                Center(
+                                  child: Container(
+                                    width: 155,
+                                    height: 155,
+                                    child: new CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          color_purple),
+                                      backgroundColor: color_lightGrey,
+                                      value: 0.95,
+                                      strokeWidth: 7,
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                    child: Text("99 %",
+                                        style: const TextStyle(
+                                            color: color_purple,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 40.0),
+                                        textAlign: TextAlign.center)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                       Container(
                         height: 35,
                       ),
@@ -119,7 +145,7 @@ class ExerciseSummary extends StatelessWidget {
                                 textAlign: TextAlign.right),
                           ]),
                       Container(
-                        height: 52,
+                        height: 20,
                       ),
                       Text("Rate this Course",
                           style: const TextStyle(
@@ -130,7 +156,7 @@ class ExerciseSummary extends StatelessWidget {
                               fontSize: 20.0),
                           textAlign: TextAlign.left),
                       Container(
-                        height: 21.9,
+                        height: 10,
                       ),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -138,7 +164,7 @@ class ExerciseSummary extends StatelessWidget {
                             Container(
                               child: new SvgPicture.asset(
                                 'assets/Icon/Star-Outline.svg',
-                                height: 26.3,
+                                height: 28.1,
                               ),
                             ),
                             Container(
@@ -147,7 +173,7 @@ class ExerciseSummary extends StatelessWidget {
                             Container(
                               child: new SvgPicture.asset(
                                 'assets/Icon/Star-Outline.svg',
-                                height: 26.3,
+                                height: 28.1,
                               ),
                             ),
                             Container(
@@ -156,7 +182,7 @@ class ExerciseSummary extends StatelessWidget {
                             Container(
                               child: new SvgPicture.asset(
                                 'assets/Icon/Star-Outline.svg',
-                                height: 26.3,
+                                height: 28.1,
                               ),
                             ),
                             Container(
@@ -165,7 +191,7 @@ class ExerciseSummary extends StatelessWidget {
                             Container(
                               child: new SvgPicture.asset(
                                 'assets/Icon/Star-Outline.svg',
-                                height: 26.3,
+                                height: 28.1,
                               ),
                             ),
                             Container(
@@ -174,7 +200,7 @@ class ExerciseSummary extends StatelessWidget {
                             Container(
                               child: new SvgPicture.asset(
                                 'assets/Icon/Star-Outline.svg',
-                                height: 26.3,
+                                height: 28.1,
                               ),
                             ),
                           ]),
