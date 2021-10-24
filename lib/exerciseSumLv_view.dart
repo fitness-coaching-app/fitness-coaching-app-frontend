@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ExerciseSumFinished extends StatelessWidget {
+class ExerciseSumLv extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +13,7 @@ class ExerciseSumFinished extends StatelessWidget {
           children: <Widget>[
             Container(height: MediaQuery.of(context).size.height * 0.05),
             Center(
-                child: Text("COURSE\nCOMPLETED !",
+                child: Text("Level Up !",
                     style: const TextStyle(
                         color: color_white,
                         fontWeight: FontWeight.w700,
@@ -22,27 +22,41 @@ class ExerciseSumFinished extends StatelessWidget {
                         fontSize: 32.0),
                     textAlign: TextAlign.center)),
             Expanded(
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  // This makes the blue container full width.
-                  Expanded(
+                  Center(
                     child: Container(
-                      margin: EdgeInsets.all(100.0),
-                      decoration: BoxDecoration(
-                          color: color_white, shape: BoxShape.circle),
-                      height: 220,
-                      child: Center(
-                        child: Container(
-                          height: 110,
-                          child: new SvgPicture.asset(
-                            'assets/Icon/Cartoon Illustration_cheers.svg',
-                          ),
-                        ),
-                      ),
+                      height: 170.0,
+                      width: 170.0,
+                      color: Colors.transparent,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: color_dimmedTeal,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30.0))),
+                          child: new Center(
+                            child: new Text("4",
+                                style: const TextStyle(
+                                    color: color_dark,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 64.0),
+                                textAlign: TextAlign.center),
+                          )),
                     ),
                   ),
+                  Container(height: MediaQuery.of(context).size.height * 0.05),
+                  Text("Congratulations!\nYou’ve reached level 4",
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Poppins",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 16.0),
+                      textAlign: TextAlign.center),
                 ],
               ),
             ),

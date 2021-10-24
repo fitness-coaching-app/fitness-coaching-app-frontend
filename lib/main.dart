@@ -20,6 +20,7 @@ import 'register3_view.dart';
 import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'exerciseSumFinished_view.dart';
+import 'exerciseSumLv_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -87,7 +88,8 @@ class MyApp extends StatelessWidget {
       // home: NewUserSetupWeight(),
       // home: NewUserSetupExPref2(),
       // home: ExerciseSummary(),
-      home: ExerciseSumFinished(),
+      // home: ExerciseSumFinished(),
+      home: ExerciseSumLv(),
       // home: Loading(),
     );
   }
