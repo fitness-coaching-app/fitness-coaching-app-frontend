@@ -19,6 +19,8 @@ import 'register2_view.dart';
 import 'register3_view.dart';
 import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
+import 'exerciseSumFinished_view.dart';
+import 'exerciseSumLv_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -60,7 +62,7 @@ class MyApp extends StatelessWidget {
               fontSize: 20.0, fontWeight: FontWeight.w600), //title2
           bodyText1: GoogleFonts.poppins(
               fontSize: 14.0, fontWeight: FontWeight.w600), // Text Heading
-          bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text Heading
+          bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text HeadingR
           caption: GoogleFonts.poppins(fontSize: 12.0), //tiny text
           subtitle1: GoogleFonts.poppins(
               fontSize: 12.0, fontWeight: FontWeight.w600), //title heading
@@ -85,7 +87,9 @@ class MyApp extends StatelessWidget {
       // home: NewUserSetupComp(),
       // home: NewUserSetupWeight(),
       // home: NewUserSetupExPref2(),
-      home: ExerciseSummary(),
+      // home: ExerciseSummary(),
+      // home: ExerciseSumFinished(),
+      home: ExerciseSumLv(),
       // home: Loading(),
     );
   }
