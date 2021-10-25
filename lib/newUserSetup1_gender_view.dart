@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/newUserSetup2_bd_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NewUserSetupGender extends StatelessWidget {
+  const NewUserSetupGender({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,11 +15,15 @@ class NewUserSetupGender extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Ionicons.arrow_back,
-                  size: 30,
-                  color: color_dark,
-                ),
+                new GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Ionicons.arrow_back,
+                      size: 30,
+                      color: color_dark,
+                    )),
                 Container(
                   height: 45,
                 ),
@@ -162,6 +168,14 @@ class NewUserSetupGender extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
+                              child:  new GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NewUserSetupBd()),
+                                );
+                              },
                               child: Container(
                                   height: 60,
                                   child: Padding(
@@ -179,7 +193,7 @@ class NewUserSetupGender extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(15)),
-                                      color: color_teal)),
+                                      color: color_teal))),
                             )
                           ]),
                     ],

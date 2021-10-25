@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/loading_view.dart';
 import 'color.dart';
 
 //New User Setup
 class NewUserSetupComp extends StatelessWidget {
+  const NewUserSetupComp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,21 +43,30 @@ class NewUserSetupComp extends StatelessWidget {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Expanded(
-                    child: Container(
-                        height: 60,
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16.5),
-                            child: new Text("Let’s Go",
-                                style: const TextStyle(
-                                    color: color_dark,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 18.0),
-                                textAlign: TextAlign.center)),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            color: color_teal)),
+                    child: new GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Loading()),
+                          );
+                        },
+                        child: Container(
+                            height: 60,
+                            child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16.5),
+                                child: new Text("Let’s Go",
+                                    style: const TextStyle(
+                                        color: color_dark,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "Poppins",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 18.0),
+                                    textAlign: TextAlign.center)),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
+                                color: color_teal))),
                   )
                 ]),
               ), // Next Button

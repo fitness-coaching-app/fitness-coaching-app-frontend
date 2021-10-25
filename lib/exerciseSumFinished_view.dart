@@ -3,6 +3,7 @@ import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ExerciseSumFinished extends StatelessWidget {
+  const ExerciseSumFinished({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
