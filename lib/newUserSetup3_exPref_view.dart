@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/newUserSetup3_weight_view.dart';
 import 'package:flutter_application_2/newUserSetup5_exPref2_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
+import 'package:flutter_application_2/home_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
 import 'signIn_view.dart';
+import 'home_view.dart';
 import 'newUserSetup0_view.dart';
 import 'newUserSetup1_gender_view.dart';
 import 'newUserSetup2_bd_view.dart';
@@ -72,8 +74,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       //home: TestView(),
-      home: MyHomePage(),
+      // home: MyHomePage(),
       // home: SignIn(),
+      home: Home(),
       // home: ForgotPassword0(),
       // home: ForgotPassword1(),
       // home: Register0(),
