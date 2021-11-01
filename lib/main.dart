@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      //home: TestView(),
+      // home: TestView(),
       // home: MyHomePage(),
       // home: SignIn(),
       home: Home(),

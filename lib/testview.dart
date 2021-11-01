@@ -3,26 +3,49 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class TestView extends StatelessWidget {
-  static const _from = 0xe900;
-  static const _to = 0xee33;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter Ionicons'),
-      ),
-      body: GridView.extent(
-        maxCrossAxisExtent: 72,
-        children: List.generate(_to - _from + 1, (index) {
-          final code = index + _from;
-          return Column(
-            children: [
-              Icon(Ionicons.arrow_back, size: 48),
-              Text(code.toRadixString(16)),
-            ],
-          );
-        }),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: 200.0,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              //This exactly likeyour AppBar
+              title: Text('helloworld'),
+            ),
+          ),
+          SliverFillRemaining(
+              child: //This is exactly like the body which we have for scaffold
+                  BottomAppBar(
+                      shape: CircularNotchedRectangle(),
+                      color: Colors.blue,
+                      child: IconTheme(
+                        data: IconThemeData(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                        child: Row(
+                          children: <Widget>[
+                            IconButton(
+                              tooltip: 'Open navigation menu',
+                              icon: const Icon(Icons.menu),
+                              onPressed: () {},
+                            ),
+                            IconButton(
+                              tooltip: 'Search',
+                              icon: const Icon(Icons.search),
+                              onPressed: () {},
+                            ),
+                            IconButton(
+                              tooltip: 'Favorite',
+                              icon: const Icon(Icons.favorite),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ))),
+        ],
       ),
     );
   }
