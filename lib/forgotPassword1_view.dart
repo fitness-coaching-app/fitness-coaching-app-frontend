@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'signIn_view.dart';
 
 class ForgotPassword1 extends StatelessWidget {
+  const ForgotPassword1({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +66,14 @@ class ForgotPassword1 extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
+                                child: new GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignIn()),
+                                );
+                              },
                               child: Container(
                                   height: 60,
                                   child: Padding(
@@ -82,7 +92,7 @@ class ForgotPassword1 extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(15)),
                                       color: color_teal)),
-                            )
+                            ))
                           ]),
                     ],
                   ),

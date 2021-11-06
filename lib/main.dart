@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/exerciseSumFinished_view.dart';
+import 'package:flutter_application_2/exerciseSumLv_view.dart';
+import 'package:flutter_application_2/home_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
 import 'signIn_view.dart';
+import 'home_view.dart';
 import 'newUserSetup0_view.dart';
 import 'newUserSetup1_gender_view.dart';
 import 'newUserSetup2_bd_view.dart';
@@ -19,14 +23,14 @@ import 'register2_view.dart';
 import 'register3_view.dart';
 import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
-import 'exerciseSumFinished_view.dart';
-import 'exerciseSumLv_view.dart';
+import 'workoutDetail_view.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,7 @@ class MyApp extends StatelessWidget {
               fontSize: 20.0, fontWeight: FontWeight.w600), //title2
           bodyText1: GoogleFonts.poppins(
               fontSize: 14.0, fontWeight: FontWeight.w600), // Text Heading
-          bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text HeadingR
+          bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text Heading
           caption: GoogleFonts.poppins(fontSize: 12.0), //tiny text
           subtitle1: GoogleFonts.poppins(
               fontSize: 12.0, fontWeight: FontWeight.w600), //title heading
@@ -70,9 +74,10 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      //home: TestView(),
+      // home: TestView(),
       // home: MyHomePage(),
       // home: SignIn(),
+      // home: Home(),
       // home: ForgotPassword0(),
       // home: ForgotPassword1(),
       // home: Register0(),
@@ -89,7 +94,7 @@ class MyApp extends StatelessWidget {
       // home: NewUserSetupExPref2(),
       // home: ExerciseSummary(),
       // home: ExerciseSumFinished(),
-      home: ExerciseSumLv(),
+      home: WorkoutDetail(),
       // home: Loading(),
     );
   }
@@ -122,22 +127,30 @@ class MyHomePage extends StatelessWidget {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Expanded(
-                    child: Container(
-                        height: 60,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.5),
-                          child: new Text("Get Started",
-                              style: const TextStyle(
-                                  color: color_dark,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 18.0),
-                              textAlign: TextAlign.center),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            color: color_teal)),
+                    child: new GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignIn()),
+                          );
+                        },
+                        child: Container(
+                            height: 60,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16.5),
+                              child: new Text("Get Started",
+                                  style: const TextStyle(
+                                      color: color_dark,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Poppins",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 18.0),
+                                  textAlign: TextAlign.center),
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
+                                color: color_teal))),
                   )
                 ]),
               ),

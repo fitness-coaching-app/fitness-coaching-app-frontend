@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/forgotPassword0_view.dart';
+import 'package:flutter_application_2/loading_view.dart';
+import 'package:flutter_application_2/register0_view.dart';
 import 'color.dart';
 
 class SignIn extends StatelessWidget {
+  const SignIn({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,61 +108,86 @@ class SignIn extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Expanded(
-                                  child: Container(
-                                      height: 60,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 16.5),
-                                        child: new Text("Sign In",
-                                            style: const TextStyle(
-                                                color: color_dark,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 18.0),
-                                            textAlign: TextAlign.center),
-                                      ),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: color_teal)),
+                                  child: new GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Loading()),
+                                        );
+                                      },
+                                      child: Container(
+                                          height: 60,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 16.5),
+                                            child: new Text("Sign In",
+                                                style: const TextStyle(
+                                                    color: color_dark,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: "Poppins",
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 18.0),
+                                                textAlign: TextAlign.center),
+                                          ),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15)),
+                                              color: color_teal))),
                                 )
                               ]),
                           Container(
                             height: 20,
                           ),
                           Center(
-                            child: Text("Forget Password?",
-                                style: const TextStyle(
-                                    color: color_dimmedTeal,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 16.0),
-                                textAlign: TextAlign.center),
+                            child: new GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ForgotPassword0()),
+                                  );
+                                },
+                                child: Text("Forget Password?",
+                                    style: const TextStyle(
+                                        color: color_dimmedTeal,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "Poppins",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 16.0),
+                                    textAlign: TextAlign.center)),
                           ),
                           Expanded(child: Container()),
                           // Didn’t have account? Register
                           Center(
-                              child: RichText(
-                                  text: TextSpan(children: [
-                            TextSpan(
-                                style: const TextStyle(
-                                    color: color_dark,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 16.0),
-                                text: "Didn’t have account?"),
-                            TextSpan(
-                                style: const TextStyle(
-                                    color: color_dimmedTeal,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 16.0),
-                                text: " Register")
-                          ]))),
+                              child: new GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Register0()),
+                                    );
+                                  },
+                                  child: RichText(
+                                      text: TextSpan(children: [
+                                    TextSpan(
+                                        style: const TextStyle(
+                                            color: color_dark,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 16.0),
+                                        text: "Didn’t have account?"),
+                                    TextSpan(
+                                        style: const TextStyle(
+                                            color: color_dimmedTeal,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 16.0),
+                                        text: " Register")
+                                  ])))),
                           Expanded(child: Container()),
                         ])))));
   }

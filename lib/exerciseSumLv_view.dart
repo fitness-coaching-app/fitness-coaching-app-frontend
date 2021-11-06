@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'color.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ExerciseSumLv extends StatelessWidget {
+  const ExerciseSumLv({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

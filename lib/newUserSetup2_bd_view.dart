@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'newUserSetup3_weight_view.dart';
 
 class NewUserSetupBd extends StatelessWidget {
+  const NewUserSetupBd({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,11 +13,15 @@ class NewUserSetupBd extends StatelessWidget {
             child: Padding(
       padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Icon(
-          Ionicons.arrow_back,
-          size: 30,
-          color: color_dark,
-        ),
+        new GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Ionicons.arrow_back,
+              size: 30,
+              color: color_dark,
+            )),
         Container(
           height: 45,
         ),
@@ -101,22 +107,30 @@ class NewUserSetupBd extends StatelessWidget {
             // Next Button
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               Expanded(
-                child: Container(
-                    height: 60,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.5),
-                      child: new Text("Next",
-                          style: const TextStyle(
-                              color: color_dark,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 18.0),
-                          textAlign: TextAlign.center),
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: color_teal)),
+                child: new GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NewUserSetupWeight()),
+                      );
+                    },
+                    child: Container(
+                        height: 60,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.5),
+                          child: new Text("Next",
+                              style: const TextStyle(
+                                  color: color_dark,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 18.0),
+                              textAlign: TextAlign.center),
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: color_teal))),
               )
             ]),
           ]),
