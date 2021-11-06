@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/home_view.dart';
 import 'color.dart';
-import 'signIn_view.dart';
 
 //New User Setup
 class Loading extends StatelessWidget {
@@ -21,7 +21,7 @@ class Loading extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SignIn()),
+                                        builder: (context) => Home()),
                                   );
                                 },
                                 child: Text("Loading",
