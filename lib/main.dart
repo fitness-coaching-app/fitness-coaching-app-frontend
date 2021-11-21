@@ -24,6 +24,7 @@ import 'register3_view.dart';
 import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'workoutDetail_view.dart';
+import 'workoutPortraitWarnning_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -94,7 +95,8 @@ class MyApp extends StatelessWidget {
       // home: NewUserSetupExPref2(),
       // home: ExerciseSummary(),
       // home: ExerciseSumFinished(),
-      home: WorkoutDetail(),
+      // home: WorkoutDetail(),
+      home: WorkoutPortraitWarnning(),
       // home: Loading(),
     );
   }
