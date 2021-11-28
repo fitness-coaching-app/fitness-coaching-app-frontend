@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ionicons/ionicons.dart';
 import 'color.dart';
-import 'loading_view.dart';
 
 class WorkoutPortraitStepCounting extends StatelessWidget {
   const WorkoutPortraitStepCounting({Key? key}) : super(key: key);

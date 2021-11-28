@@ -24,6 +24,7 @@ import 'register3_view.dart';
 import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'workoutDetail_view.dart';
+import 'workoutPortraitStepBegin.dart';
 import 'workoutPortraitStepCounting.dart';
 import 'workoutPortraitWarnning_view.dart';
 
@@ -98,7 +99,8 @@ class MyApp extends StatelessWidget {
       // home: ExerciseSumFinished(),
       // home: WorkoutDetail(),
       // home: WorkoutPortraitWarnning(),
-      home: WorkoutPortraitStepCounting(),
+      // home: WorkoutPortraitStepCounting(),
+      home: WorkoutPortraitStepBegin(),
       // home: Loading(),
     );
   }
