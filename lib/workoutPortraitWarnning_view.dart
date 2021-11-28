@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ionicons/ionicons.dart';
 import 'color.dart';
-import 'loading_view.dart';
 
-class WorkoutPortraitWarnning extends StatelessWidget {
+class WorkoutPortraitWarnning extends StatefulWidget {
   const WorkoutPortraitWarnning({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+  _WorkoutPortraitWarnningState createState() =>
+      _WorkoutPortraitWarnningState();
+}
+
+class _WorkoutPortraitWarnningState extends State<WorkoutPortraitWarnning> {
+  Widget _portraitMode() {
+    return SafeArea(
         child: Column(
           children: [
             Stack(
@@ -76,6 +78,48 @@ class WorkoutPortraitWarnning extends StatelessWidget {
             ]),
           ],
         ),
+      );
+  }
+
+  Widget _landscapeMode() {
+    return SafeArea(
+        child: new Container(
+            decoration: new BoxDecoration(color: color_white),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                    'assets/Icon/Miscellaneous-Outline_phone.svg',// dot dot dot
+                    height: 100,
+                  ),
+                Container(height: 15,),
+                Center(
+                    child: Container(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Text("Please rotate your device vertically",
+                      style: const TextStyle(
+                          color: color_dark,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Poppins",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20.0),
+                      textAlign: TextAlign.center),
+                )),
+              ],
+            )));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          if (orientation == Orientation.portrait) {
+            return _portraitMode();
+          } else {
+            return _landscapeMode();
+          }
+        },
       ),
     );
   }
