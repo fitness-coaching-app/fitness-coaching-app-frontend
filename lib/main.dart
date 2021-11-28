@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
+import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
 import 'signIn_view.dart';
@@ -28,6 +29,7 @@ import 'workoutPortraitStepBegin_view.dart';
 import 'workoutPortraitStepCounting_view.dart';
 import 'workoutPortraitStepFinish_view.dart';
 import 'workoutPortraitWarnning_view.dart';
+import 'workoutPortraitAlignCamera_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -100,9 +102,10 @@ class MyApp extends StatelessWidget {
       // home: ExerciseSumFinished(),
       // home: WorkoutDetail(),
       // home: WorkoutPortraitWarnning(),
-      home: WorkoutPortraitStepCounting(),
+      // home: WorkoutPortraitStepCounting(),
       // home: WorkoutPortraitStepBegin(),
       // home: WorkoutPortraitStepFinish(),
+      home: WorkoutPortraitAlignCamera(),
       // home: Loading(),
     );
   }
