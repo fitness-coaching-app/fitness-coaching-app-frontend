@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
+import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
+import 'package:flutter_application_2/workoutPortraitStepPause_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
 import 'signIn_view.dart';
@@ -24,6 +26,18 @@ import 'register3_view.dart';
 import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'workoutDetail_view.dart';
+import 'workoutLandscapeAlignCamera_view.dart';
+import 'workoutLandscapeFinish_view.dart';
+import 'workoutLandscapeStepBegin_view.dart';
+import 'workoutLandscapeStepCounting_view.dart';
+import 'workoutLandscapeStepPause_view.dart';
+import 'workoutLandscapeWarnning_view.dart';
+import 'workoutPortraitStepBegin_view.dart';
+import 'workoutPortraitStepCounting_view.dart';
+import 'workoutPortraitStepFinish_view.dart';
+import 'workoutPortraitWarnning_view.dart';
+import 'workoutPortraitAlignCamera_view.dart';
+import 'workoutPortraitStepPause_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -94,7 +108,19 @@ class MyApp extends StatelessWidget {
       // home: NewUserSetupExPref2(),
       // home: ExerciseSummary(),
       // home: ExerciseSumFinished(),
-      home: WorkoutDetail(),
+      // home: WorkoutDetail(),
+      home: WorkoutPortraitWarnning(),
+      // home: WorkoutPortraitStepCounting(),
+      // home: WorkoutPortraitStepBegin(),
+      // home: WorkoutPortraitStepFinish(),
+      // home: WorkoutPortraitAlignCamera(),
+      // home: WorkoutPortraitStepPause(),
+      // home: WorkoutLandscapeAlignCamera(),
+      // home: WorkoutLandscapeStepBegin(),
+      // home: WorkoutLandscapeStepCounting(),
+      // home: WorkoutLandscapeStepFinish(),
+      // home: WorkoutLandscapeStepPause(),
+      // home: WorkoutLandscapeWarnning(),
       // home: Loading(),
     );
   }
