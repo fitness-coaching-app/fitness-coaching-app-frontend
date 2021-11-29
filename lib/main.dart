@@ -109,7 +109,7 @@ class MyApp extends StatelessWidget {
       // home: ExerciseSummary(),
       // home: ExerciseSumFinished(),
       // home: WorkoutDetail(),
-      // home: WorkoutPortraitWarnning(),
+      home: WorkoutPortraitWarnning(),
       // home: WorkoutPortraitStepCounting(),
       // home: WorkoutPortraitStepBegin(),
       // home: WorkoutPortraitStepFinish(),
@@ -120,7 +120,7 @@ class MyApp extends StatelessWidget {
       // home: WorkoutLandscapeStepCounting(),
       // home: WorkoutLandscapeStepFinish(),
       // home: WorkoutLandscapeStepPause(),
-      home: WorkoutLandscapeWarnning(),
+      // home: WorkoutLandscapeWarnning(),
       // home: Loading(),
     );
   }

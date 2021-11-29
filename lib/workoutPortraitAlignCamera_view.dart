@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ionicons/ionicons.dart';
 import 'color.dart';
+import 'package:flutter/services.dart';
 
 class WorkoutPortraitAlignCamera extends StatefulWidget {
   const WorkoutPortraitAlignCamera({Key? key}) : super(key: key);
@@ -13,56 +13,53 @@ class WorkoutPortraitAlignCamera extends StatefulWidget {
 class _WorkoutPortraitAlignCameraState
     extends State<WorkoutPortraitAlignCamera> {
   Widget _portraitMode() {
-    return SafeArea(
-      child: Column(
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    return Column(
         children: [
-          SafeArea(
-            child: Column(
-              children: [
-                Stack(
-                  children: <Widget>[
-                    Container(
-                        height: MediaQuery.of(context).size.height - 29.34,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                'https://i.kym-cdn.com/photos/images/newsfeed/000/002/110/longcat.jpg?1241726484'),
-                            fit: BoxFit.fill,
-                          ),
-                        )),
-                        Positioned(
-                      top: (MediaQuery.of(context).size.height * 0.3) - 20,
-                      left: (MediaQuery.of(context).size.width) / 3,
-                      child: Center(
-                          child: SvgPicture.asset(
-                    'assets/Icon/Workouts.svg', // dot dot dot
-                    height: 116,
-                  )),
-                    ),
-                    Positioned(
-                      top: (MediaQuery.of(context).size.height * 0.5) - 30,
-                      left: (MediaQuery.of(context).size.width) / 5,
-                      child: Center(
-                          child: Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: Text("Please align your phone",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 20.0),
-                            textAlign: TextAlign.center),
+          Column(
+            children: [
+              Stack(
+                children: <Widget>[
+                  Container(
+                      height: MediaQuery.of(context).size.height,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              'https://i.kym-cdn.com/photos/images/newsfeed/000/002/110/longcat.jpg?1241726484'),
+                          fit: BoxFit.fill,
+                        ),
                       )),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          )
+                  Positioned(
+                    top: (MediaQuery.of(context).size.height * 0.3) - 20,
+                    left: (MediaQuery.of(context).size.width) / 3,
+                    child: Center(
+                        child: SvgPicture.asset(
+                      'assets/Icon/Workouts.svg', // dot dot dot
+                      height: 116,
+                    )),
+                  ),
+                  Positioned(
+                    top: (MediaQuery.of(context).size.height * 0.5) - 30,
+                    left: (MediaQuery.of(context).size.width) / 5,
+                    child: Center(
+                        child: Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: Text("Please align your phone",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0),
+                          textAlign: TextAlign.center),
+                    )),
+                  )
+                ],
+              ),
+            ],
+          ),
         ],
-      ),
-    );
+      );
   }
 
   Widget _landscapeMode() {

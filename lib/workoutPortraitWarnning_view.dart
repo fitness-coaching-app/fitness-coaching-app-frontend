@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'color.dart';
+import 'package:flutter/services.dart';
 
 class WorkoutPortraitWarnning extends StatefulWidget {
   const WorkoutPortraitWarnning({Key? key}) : super(key: key);
@@ -11,8 +12,8 @@ class WorkoutPortraitWarnning extends StatefulWidget {
 
 class _WorkoutPortraitWarnningState extends State<WorkoutPortraitWarnning> {
   Widget _portraitMode() {
-    return SafeArea(
-        child: Column(
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    return Column(
           children: [
             Stack(
               children: <Widget>[
@@ -61,7 +62,7 @@ class _WorkoutPortraitWarnningState extends State<WorkoutPortraitWarnning> {
               Container(
                 decoration: new BoxDecoration(color: color_dark),
                 height: MediaQuery.of(context).size.height -
-                    (MediaQuery.of(context).size.height * 0.2197),
+                    (MediaQuery.of(context).size.height * 0.14),
                 width: MediaQuery.of(context).size.width,
               ),
               Positioned(
@@ -77,8 +78,7 @@ class _WorkoutPortraitWarnningState extends State<WorkoutPortraitWarnning> {
                   ))
             ]),
           ],
-        ),
-      );
+        );
   }
 
   Widget _landscapeMode() {

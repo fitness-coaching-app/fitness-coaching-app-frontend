@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
+import 'package:flutter/services.dart';
 
 class WorkoutPortraitStepFinish extends StatefulWidget {
   const WorkoutPortraitStepFinish({Key? key}) : super(key: key);
@@ -12,8 +13,8 @@ class WorkoutPortraitStepFinish extends StatefulWidget {
 
 class _WorkoutPortraitStepFinishState extends State<WorkoutPortraitStepFinish> {
   Widget _portraitMode() {
-    return SafeArea(
-      child: Column(
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    return Column(
         children: [
           Stack(
             children: <Widget>[
@@ -41,7 +42,7 @@ class _WorkoutPortraitStepFinishState extends State<WorkoutPortraitStepFinish> {
             Container(
               decoration: new BoxDecoration(color: color_white),
               height: MediaQuery.of(context).size.height -
-                  (MediaQuery.of(context).size.height * 0.2197),
+                  (MediaQuery.of(context).size.height * 0.14),
               width: MediaQuery.of(context).size.width,
             ),
             Positioned(
@@ -57,8 +58,7 @@ class _WorkoutPortraitStepFinishState extends State<WorkoutPortraitStepFinish> {
                 ))
           ]),
         ],
-      ),
-    );
+      );
   }
 
   Widget _landscapeMode() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'color.dart';
 
@@ -11,6 +12,7 @@ class WorkoutLandscapeStepBegin extends StatefulWidget {
 
 class _WorkoutLandscapeStepBeginState extends State<WorkoutLandscapeStepBegin> {
   Widget _landscapeMode() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Column(
       children: [
         Stack(

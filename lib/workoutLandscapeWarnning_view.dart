@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'color.dart';
 
@@ -11,8 +12,8 @@ class WorkoutLandscapeWarnning extends StatefulWidget {
 
 class _WorkoutLandscapeWarnningState extends State<WorkoutLandscapeWarnning> {
   Widget _landscapeMode() {
-    return SafeArea(
-      child: Column(
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    return Column(
         children: [
           Stack(
             children: <Widget>[
@@ -75,8 +76,7 @@ class _WorkoutLandscapeWarnningState extends State<WorkoutLandscapeWarnning> {
             //     ))
           ]),
         ],
-      ),
-    );
+      );
   }
 
   Widget _portraitMode() {

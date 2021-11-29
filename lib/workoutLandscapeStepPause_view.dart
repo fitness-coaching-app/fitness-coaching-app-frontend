@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
@@ -12,6 +13,7 @@ class WorkoutLandscapeStepPause extends StatefulWidget {
 
 class _WorkoutLandscapeStepPauseState extends State<WorkoutLandscapeStepPause> {
   Widget _landscapeMode() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Column(
       children: [
         Stack(
