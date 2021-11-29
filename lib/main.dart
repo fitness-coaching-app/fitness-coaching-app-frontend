@@ -31,6 +31,7 @@ import 'workoutLandscapeFinish_view.dart';
 import 'workoutLandscapeStepBegin_view.dart';
 import 'workoutLandscapeStepCounting_view.dart';
 import 'workoutLandscapeStepPause_view.dart';
+import 'workoutLandscapeWarnning_view.dart';
 import 'workoutPortraitStepBegin_view.dart';
 import 'workoutPortraitStepCounting_view.dart';
 import 'workoutPortraitStepFinish_view.dart';
@@ -118,7 +119,8 @@ class MyApp extends StatelessWidget {
       // home: WorkoutLandscapeStepBegin(),
       // home: WorkoutLandscapeStepCounting(),
       // home: WorkoutLandscapeStepFinish(),
-      home: WorkoutLandscapeStepPause(),
+      // home: WorkoutLandscapeStepPause(),
+      home: WorkoutLandscapeWarnning(),
       // home: Loading(),
     );
   }
