@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
+import 'package:flutter_application_2/pose_detector_view.dart';
 import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
 import 'package:flutter_application_2/workoutPortraitStepPause_view.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,7 +40,16 @@ import 'workoutPortraitWarnning_view.dart';
 import 'workoutPortraitAlignCamera_view.dart';
 import 'workoutPortraitStepPause_view.dart';
 
-void main() {
+import 'dart:io';
+
+import 'package:camera/camera.dart';
+
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  cameras = await availableCameras();
   runApp(MyApp());
 }
 
@@ -109,7 +119,7 @@ class MyApp extends StatelessWidget {
       // home: ExerciseSummary(),
       // home: ExerciseSumFinished(),
       // home: WorkoutDetail(),
-      home: WorkoutPortraitWarnning(),
+      // home: WorkoutPortraitWarnning(),
       // home: WorkoutPortraitStepCounting(),
       // home: WorkoutPortraitStepBegin(),
       // home: WorkoutPortraitStepFinish(),
@@ -122,6 +132,7 @@ class MyApp extends StatelessWidget {
       // home: WorkoutLandscapeStepPause(),
       // home: WorkoutLandscapeWarnning(),
       // home: Loading(),
+      home: PoseDetectorView(),
     );
   }
 }
