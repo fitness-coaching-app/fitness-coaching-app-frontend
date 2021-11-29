@@ -27,6 +27,7 @@ import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'workoutDetail_view.dart';
 import 'workoutLandscapeAlignCamera_view.dart';
+import 'workoutLandscapeStepBegin_view.dart';
 import 'workoutPortraitStepBegin_view.dart';
 import 'workoutPortraitStepCounting_view.dart';
 import 'workoutPortraitStepFinish_view.dart';
@@ -110,7 +111,8 @@ class MyApp extends StatelessWidget {
       // home: WorkoutPortraitStepFinish(),
       // home: WorkoutPortraitAlignCamera(),
       // home: WorkoutPortraitStepPause(),
-      home: WorkoutLandscapeAlignCamera(),
+      // home: WorkoutLandscapeAlignCamera(),
+      home: WorkoutLandscapeStepBegin(),
       // home: Loading(),
     );
   }
