@@ -17,7 +17,6 @@ import 'newUserSetup3_weight_view.dart';
 import 'newUserSetup4_comp_view.dart';
 import 'newUserSetup5_exPref2_view.dart';
 import 'loading_view.dart';
-import 'testview.dart';
 import 'forgotPassword0_view.dart';
 import 'forgotPassword1_view.dart';
 import 'register0_view.dart';
