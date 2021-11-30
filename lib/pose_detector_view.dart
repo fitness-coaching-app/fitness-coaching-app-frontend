@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
-import 'camera_view.dart';
+import 'WorkoutPortraitWarnningCamera_view.dart';
+import 'workoutPortraitStepBeginCamera_view.dart';
 import 'pose_painter.dart';
+import 'workoutPortraitStepCountingCamera_view.dart';
+import 'workoutPortraitStepFinishCamera_view.dart';
+import 'workoutPortraitStepPauseCamera_view.dart';
 
 class PoseDetectorView extends StatefulWidget {
   @override
@@ -23,7 +27,7 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
 
   @override
   Widget build(BuildContext context) {
-    return CameraView(
+    return WorkoutPortraitStepPauseCamera(
       title: 'Pose Detector',
       customPaint: customPaint,
       onImage: (inputImage) {
