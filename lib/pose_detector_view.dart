@@ -1,8 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/workoutLandscapeStepFinishCamera_view.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
+import 'WorkoutLandscapeStepBeginCamera_view.dart';
+import 'WorkoutLandscapeWarnningCamera_view.dart';
 import 'WorkoutPortraitWarnningCamera_view.dart';
+import 'workoutLandscapeStepCountingCamera_view.dart';
+import 'workoutLandscapeStepFinish_view.dart';
+import 'workoutLandscapeStepPauseCamera_view.dart';
 import 'workoutPortraitStepBeginCamera_view.dart';
 import 'pose_painter.dart';
 import 'workoutPortraitStepCountingCamera_view.dart';
@@ -27,7 +33,7 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
 
   @override
   Widget build(BuildContext context) {
-    return WorkoutPortraitStepPauseCamera(
+    return WorkoutLandscapeWarnningCamera(
       title: 'Pose Detector',
       customPaint: customPaint,
       onImage: (inputImage) {
