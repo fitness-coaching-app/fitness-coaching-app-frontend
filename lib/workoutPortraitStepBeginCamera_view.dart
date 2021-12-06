@@ -3,9 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_2/color.dart';
+import 'package:flutter_application_2/exerciseSummary_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
+import 'exerciseSumFinished_view.dart';
 import 'main.dart';
 
 class WorkoutPortraitStepBeginCamera extends StatefulWidget {
@@ -23,10 +25,12 @@ class WorkoutPortraitStepBeginCamera extends StatefulWidget {
   final CameraLensDirection initialDirection;
 
   @override
-  _WorkoutPortraitStepBeginCameraState createState() => _WorkoutPortraitStepBeginCameraState();
+  _WorkoutPortraitStepBeginCameraState createState() =>
+      _WorkoutPortraitStepBeginCameraState();
 }
 
-class _WorkoutPortraitStepBeginCameraState extends State<WorkoutPortraitStepBeginCamera> {
+class _WorkoutPortraitStepBeginCameraState
+    extends State<WorkoutPortraitStepBeginCamera> {
   CameraController? _controller;
 
   @override
@@ -61,23 +65,32 @@ class _WorkoutPortraitStepBeginCameraState extends State<WorkoutPortraitStepBegi
             Positioned(
                 top: (MediaQuery.of(context).size.height * 0.14) / 4,
                 left: 25,
-                child: Container(
-                    width: 62,
-                    height: 62,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Colors.white),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Text("1",
-                          style: const TextStyle(
-                              color: color_dark,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 36.0),
-                          textAlign: TextAlign.center),
-                    ))),
+                child: new GestureDetector(
+                    onTap: () {
+                      _stopLiveFeed();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ExerciseSumFinished()),
+                      );
+                    },
+                    child: Container(
+                        width: 62,
+                        height: 62,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: Colors.white),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 5),
+                          child: Text("1",
+                              style: const TextStyle(
+                                  color: color_dark,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 36.0),
+                              textAlign: TextAlign.center),
+                        )))),
             Positioned(
                 top: (MediaQuery.of(context).size.height * 0.14) / 10,
                 left: (MediaQuery.of(context).size.height * 0.105) + 40,
@@ -158,17 +171,15 @@ class _WorkoutPortraitStepBeginCameraState extends State<WorkoutPortraitStepBegi
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          if (orientation == Orientation.portrait) {
-            return _portraitMode();
-          } else {
-            return _landscapeMode();
-          }
-        },
-      )
-    );
+    return Scaffold(body: OrientationBuilder(
+      builder: (context, orientation) {
+        if (orientation == Orientation.portrait) {
+          return _portraitMode();
+        } else {
+          return _landscapeMode();
+        }
+      },
+    ));
   }
 
   Future _startLiveFeed() async {

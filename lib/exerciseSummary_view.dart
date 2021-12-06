@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/home_view.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -210,6 +211,13 @@ class ExerciseSummary extends StatelessWidget {
                 Expanded(child: Container()),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Expanded(
+                      child: new GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                    },
                     child: Container(
                         height: 60,
                         child: Padding(
@@ -226,7 +234,7 @@ class ExerciseSummary extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                             color: color_teal)),
-                  )
+                  ))
                 ]),
                 Expanded(child: Container()),
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/main.dart';
+import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -235,7 +236,7 @@ class Home extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyHomePage()),
+                                        builder: (context) => WorkoutDetail()),
                                   );
                                 },
                                 child: Container(
@@ -272,9 +273,10 @@ class Home extends StatelessWidget {
                                         fontStyle: FontStyle.normal,
                                         fontSize: 22),
                                     textAlign: TextAlign.left),
-                                Container(
-                                  height: 5,
-                                ),
+                                Expanded(
+                                        child: Container(
+                                      height: 5,
+                                    )),
                                 //time and rated row
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -404,9 +406,10 @@ class Home extends StatelessWidget {
                                         fontStyle: FontStyle.normal,
                                         fontSize: 22),
                                     textAlign: TextAlign.left),
-                                Container(
-                                  height: 5,
-                                ),
+                                Expanded(
+                                        child: Container(
+                                      height: 5,
+                                    )),
                                 //time and rated row
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -557,9 +560,10 @@ class Home extends StatelessWidget {
                                         fontStyle: FontStyle.normal,
                                         fontSize: 22),
                                     textAlign: TextAlign.left),
-                                Container(
-                                  height: 5,
-                                ),
+                                Expanded(
+                                        child: Container(
+                                      height: 5,
+                                    )),
                                 //time and rated row
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -689,9 +693,10 @@ class Home extends StatelessWidget {
                                         fontStyle: FontStyle.normal,
                                         fontSize: 22),
                                     textAlign: TextAlign.left),
-                                Container(
-                                  height: 5,
-                                ),
+                                Expanded(
+                                        child: Container(
+                                      height: 5,
+                                    )),
                                 //time and rated row
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.start,

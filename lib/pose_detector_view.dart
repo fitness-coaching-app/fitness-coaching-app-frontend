@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/workoutLandscapeStepFinishCamera_view.dart';
@@ -14,6 +16,8 @@ import 'pose_painter.dart';
 import 'workoutPortraitStepCountingCamera_view.dart';
 import 'workoutPortraitStepFinishCamera_view.dart';
 import 'workoutPortraitStepPauseCamera_view.dart';
+
+import 'pose_validator.dart';
 
 class PoseDetectorView extends StatefulWidget {
   @override
@@ -33,7 +37,7 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
 
   @override
   Widget build(BuildContext context) {
-    return WorkoutLandscapeWarnningCamera(
+    return WorkoutPortraitStepBeginCamera(
       title: 'Pose Detector',
       customPaint: customPaint,
       onImage: (inputImage) {
@@ -47,6 +51,23 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     isBusy = true;
     final poses = await poseDetector.processImage(inputImage);
     print('Found ${poses.length} poses');
+    for (Pose pose in poses) {
+      PoseValidator poseValidator = PoseValidator(pose);
+      print(poseValidator.getAngle(PoseLandmarkType.leftShoulder,
+          PoseLandmarkType.leftHip, PoseLandmarkType.leftElbow));
+
+
+      pose.landmarks.forEach((_, landmark) {
+        final type = landmark.type;
+        final x = landmark.x;
+        final y = landmark.y;
+        final z = landmark.z;
+        final likelihood = landmark.likelihood;
+        // print('$type: PoseLandmark($type, $x, $y, $z, $likelihood)');
+        // print('$type: PoseLandmark($type, likelihood: $likelihood)');
+      });
+    }
+    // print('Found ${poses.length} poses');
     if (inputImage.inputImageData?.size != null &&
         inputImage.inputImageData?.imageRotation != null) {
       final painter = PosePainter(poses, inputImage.inputImageData!.size,
