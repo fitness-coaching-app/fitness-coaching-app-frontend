@@ -6,6 +6,7 @@ import 'package:flutter_application_2/color.dart';
 import 'package:flutter_application_2/exerciseSummary_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'pose_detector_view.dart';
 
 import 'exerciseSumFinished_view.dart';
 import 'main.dart';
