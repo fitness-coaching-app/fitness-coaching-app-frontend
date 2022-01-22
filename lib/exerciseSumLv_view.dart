@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/exerciseSummary_view.dart';
 import 'color.dart';
+import 'exerciseSumFinished_view.dart';
 
 class ExerciseSumLv extends StatelessWidget {
   const ExerciseSumLv({Key? key}) : super(key: key);
@@ -66,6 +68,14 @@ class ExerciseSumLv extends StatelessWidget {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Expanded(
+                      child: new GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ExerciseSummary()),
+                      );
+                    },
                     child: Container(
                         height: 60,
                         child: Padding(
@@ -82,7 +92,7 @@ class ExerciseSumLv extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                             color: color_teal)),
-                  )
+                  ))
                 ]),
               ), // Next Button
             ),

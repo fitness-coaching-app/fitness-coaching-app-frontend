@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
+import 'package:flutter_application_2/pose_detector_view.dart';
 import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
 import 'package:flutter_application_2/workoutPortraitStepPause_view.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +17,6 @@ import 'newUserSetup3_weight_view.dart';
 import 'newUserSetup4_comp_view.dart';
 import 'newUserSetup5_exPref2_view.dart';
 import 'loading_view.dart';
-import 'testview.dart';
 import 'forgotPassword0_view.dart';
 import 'forgotPassword1_view.dart';
 import 'register0_view.dart';
@@ -27,7 +27,7 @@ import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'workoutDetail_view.dart';
 import 'workoutLandscapeAlignCamera_view.dart';
-import 'workoutLandscapeFinish_view.dart';
+import 'workoutLandscapeStepFinish_view.dart';
 import 'workoutLandscapeStepBegin_view.dart';
 import 'workoutLandscapeStepCounting_view.dart';
 import 'workoutLandscapeStepPause_view.dart';
@@ -39,7 +39,16 @@ import 'workoutPortraitWarnning_view.dart';
 import 'workoutPortraitAlignCamera_view.dart';
 import 'workoutPortraitStepPause_view.dart';
 
-void main() {
+import 'dart:io';
+
+import 'package:camera/camera.dart';
+
+List<CameraDescription> cameras = [];
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  cameras = await availableCameras();
   runApp(MyApp());
 }
 
@@ -88,7 +97,6 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      // home: TestView(),
       // home: MyHomePage(),
       // home: SignIn(),
       // home: Home(),
@@ -109,7 +117,7 @@ class MyApp extends StatelessWidget {
       // home: ExerciseSummary(),
       // home: ExerciseSumFinished(),
       // home: WorkoutDetail(),
-      home: WorkoutPortraitWarnning(),
+      // home: WorkoutPortraitWarnning(),
       // home: WorkoutPortraitStepCounting(),
       // home: WorkoutPortraitStepBegin(),
       // home: WorkoutPortraitStepFinish(),
@@ -122,6 +130,7 @@ class MyApp extends StatelessWidget {
       // home: WorkoutLandscapeStepPause(),
       // home: WorkoutLandscapeWarnning(),
       // home: Loading(),
+      home: PoseDetectorView(),
     );
   }
 }

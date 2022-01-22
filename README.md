@@ -1,5 +1,5 @@
 # fitness-coaching-app-frontend
 
--welcome screen 
+In development
 
--new user setup first screen
+-ML Kit Detection
