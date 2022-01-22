@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      // home: MyHomePage(),
+      home: MyHomePage(),
       // home: SignIn(),
       // home: Home(),
       // home: ForgotPassword0(),
@@ -130,7 +130,7 @@ class MyApp extends StatelessWidget {
       // home: WorkoutLandscapeStepPause(),
       // home: WorkoutLandscapeWarnning(),
       // home: Loading(),
-      home: PoseDetectorView(),
+      // home: PoseDetectorView(),
     );
   }
 }

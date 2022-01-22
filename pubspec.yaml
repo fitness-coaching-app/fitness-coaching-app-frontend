@@ -29,11 +29,16 @@ dependencies:
   google_ml_kit: ^0.7.3
   image_picker: ^0.7.2
   camera: ^0.8.1
+  fca_pose_validation:
+    git:
+      url: git://github.com/fitness-coaching-app/fca_pose_validation.git
+      ref: 723eb7d
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  vector_math: ^2.1.1
 
 dev_dependencies:
   flutter_test:

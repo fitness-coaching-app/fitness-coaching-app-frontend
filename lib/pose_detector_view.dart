@@ -17,7 +17,7 @@ import 'workoutPortraitStepCountingCamera_view.dart';
 import 'workoutPortraitStepFinishCamera_view.dart';
 import 'workoutPortraitStepPauseCamera_view.dart';
 
-import 'pose_validator.dart';
+import 'package:fca_pose_validation/src/pose_validator.dart';
 
 var armAngle;
 var elbowAngle;
