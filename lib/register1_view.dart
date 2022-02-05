@@ -3,9 +3,27 @@ import 'package:flutter_application_2/register2_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 class Register1 extends StatelessWidget {
   const Register1({Key? key}) : super(key: key);
+  Future<void> registerUser(
+      String displayName, String email, String password) async {
+    var url = Uri.parse(
+        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/auth/register");
+    var response = await http.post(url, body: {
+      "displayName": displayName,
+      "email": email,
+      "password": password
+    });
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print("register failed");
+      print(response.body);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,6 +136,8 @@ class Register1 extends StatelessWidget {
                             Expanded(
                               child: new GestureDetector(
                                   onTap: () {
+                                    registerUser("displayName",
+                                        "test@email.com", "password");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

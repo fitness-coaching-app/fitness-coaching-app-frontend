@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/register3_view.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'register4_view.dart';
 
 class Register2 extends StatelessWidget {
   const Register2({Key? key}) : super(key: key);
@@ -21,17 +22,17 @@ class Register2 extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.4),
                     child: new GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Register3()),
-                                  );
-                                },
-                                child: SvgPicture.asset(
-                      'assets/Icon/Cartoon Illustration_email1.svg',
-                      height: 100,
-                    )),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Register4()),
+                          );
+                        },
+                        child: SvgPicture.asset(
+                          'assets/Icon/Cartoon Illustration_email1.svg',
+                          height: 100,
+                        )),
                   ),
                 ),
                 Container(

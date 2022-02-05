@@ -4,6 +4,8 @@ import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'register0_view.dart';
+
 class Register3 extends StatelessWidget {
   const Register3({Key? key}) : super(key: key);
   @override
@@ -99,7 +101,7 @@ class Register3 extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Register4()),
+                                          builder: (context) => Register0()),
                                     );
                                   },
                                   child: Container(

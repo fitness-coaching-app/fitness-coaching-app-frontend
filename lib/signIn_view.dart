@@ -2,12 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/forgotPassword0_view.dart';
 import 'package:flutter_application_2/loading_view.dart';
 import 'package:flutter_application_2/register0_view.dart';
+import 'package:http/http.dart' as http;
+import 'register3_view.dart';
+import 'userInfo.dart';
 import 'color.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => SignInState();
+}
+
+class SignInState extends State<SignIn> {
+  UserInfo? _dataFromAPI;
+  Future<void> getUserInfo(String user) async {
+    // var user = "poramee";
+    var url = Uri.parse(
+        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/user/getUserInfo/" +
+            user);
+    var response = await http.get(url);
+    _dataFromAPI = userInfoFromJson(response.body);
+    print(response.body);
+  }
+
+  Future<void> logIn(String email, String password) async {
+    var url = Uri.parse(
+        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/auth/signIn");
+    var response =
+        await http.post(url, body: {"email": email, "password": password});
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print("login failed");
+      print(response.body);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // getUserInfo("poramee");
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -48,6 +82,8 @@ class SignIn extends StatelessWidget {
                                   fontStyle: FontStyle.normal,
                                   fontSize: 16.0),
                               textAlign: TextAlign.left),
+                          Text(_dataFromAPI?.results?.email.toString() ??
+                              "Loading"),
                           Container(
                             //color: Colors.red,
                             height: 25,
@@ -110,6 +146,8 @@ class SignIn extends StatelessWidget {
                                 Expanded(
                                   child: new GestureDetector(
                                       onTap: () {
+                                        logIn("poramee.chansuksett@gmail.com",
+                                            "poramee");
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -166,7 +204,7 @@ class SignIn extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Register0()),
+                                          builder: (context) => Register3()),
                                     );
                                   },
                                   child: RichText(
