@@ -3,12 +3,39 @@ import 'package:flutter_application_2/forgotPassword1_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 class ForgotPassword0 extends StatelessWidget {
   const ForgotPassword0({Key? key}) : super(key: key);
+  Future<void> forgotPassword(String email) async {
+    var url = Uri.parse(
+        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/auth/forgetPassword");
+    var response = await http.post(url, body: {"email": email});
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print("register failed");
+      print(response.body);
+    }
+  }
+
+  String? validateEmail(String? value) {
+    String pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+    if (value == null || value.isEmpty || !regex.hasMatch(value))
+      return 'Please enter a valid email address';
+    else
+      return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = new TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
@@ -71,17 +98,25 @@ class ForgotPassword0 extends StatelessWidget {
                       Container(
                         height: 63,
                         child: TextFormField(
-                            decoration: InputDecoration(
-                          hintText: "Enter your email",
-                          hintStyle: const TextStyle(
-                              color: color_subtitle,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16.0),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(20),
-                        )),
+                          decoration: InputDecoration(
+                            hintText: "Enter your email",
+                            hintStyle: const TextStyle(
+                                color: color_subtitle,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16.0),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(20),
+                          ),
+                          controller: emailController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (String? value) => validateEmail(value),
+                          onSaved: (String? value) {
+                            // This optional block of code can be used to run
+                            // code when the user saves the form.
+                          },
+                        ),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                             color: color_lightGrey),
@@ -97,10 +132,13 @@ class ForgotPassword0 extends StatelessWidget {
                             Expanded(
                               child: new GestureDetector(
                                   onTap: () {
+                                    // forgotPassword("test@gmail.com");
+                                    forgotPassword(emailController.text);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ForgotPassword1()),
+                                          builder: (context) =>
+                                              ForgotPassword1()),
                                     );
                                   },
                                   child: Container(
