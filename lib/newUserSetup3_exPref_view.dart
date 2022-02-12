@@ -3,8 +3,24 @@ import 'package:flutter_application_2/newUserSetup5_exPref2_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 
-class NewUserSetupExPref extends StatelessWidget {
-  const NewUserSetupExPref({Key? key}) : super(key: key);
+class NewUserSetupExPref extends StatefulWidget {
+  final String gender;
+  final String year;
+  final String weight;
+  final String height;
+  const NewUserSetupExPref(
+      {Key? key,
+      required this.gender,
+      required this.year,
+      required this.weight,
+      required this.height})
+      : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => NewUserSetupExPrefState();
+}
+
+class NewUserSetupExPrefState extends State<NewUserSetupExPref> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
