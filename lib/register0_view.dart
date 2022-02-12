@@ -4,11 +4,33 @@ import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Register0 extends StatelessWidget {
-  const Register0({Key? key}) : super(key: key);
+class Register0 extends StatefulWidget {
+  final String displayName;
+  const Register0({Key? key, required this.displayName}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => Register0State();
+}
+
+class Register0State extends State<Register0> {
+  TextEditingController emailController = new TextEditingController();
+
+  String? validateEmail(String? value) {
+    String pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+    if (value == null || value.isEmpty || !regex.hasMatch(value))
+      return 'Please enter a valid email address';
+    else
+      return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
@@ -70,17 +92,25 @@ class Register0 extends StatelessWidget {
                       Container(
                         height: 60,
                         child: TextFormField(
-                            decoration: InputDecoration(
-                          hintText: "Enter your email",
-                          hintStyle: const TextStyle(
-                              color: color_subtitle,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16.0),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(20),
-                        )),
+                          decoration: InputDecoration(
+                            hintText: "Enter your email",
+                            hintStyle: const TextStyle(
+                                color: color_subtitle,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16.0),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(20),
+                          ),
+                          controller: emailController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (String? value) => validateEmail(value),
+                          onSaved: (String? value) {
+                            // This optional block of code can be used to run
+                            // code when the user saves the form.
+                          },
+                        ),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                             color: color_lightGrey),
@@ -96,10 +126,14 @@ class Register0 extends StatelessWidget {
                             Expanded(
                               child: new GestureDetector(
                                   onTap: () {
+                                    //emailController.text
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Register1()),
+                                          builder: (context) => Register1(
+                                                displayName: widget.displayName,
+                                                email: emailController.text,
+                                              )),
                                     );
                                   },
                                   child: Container(

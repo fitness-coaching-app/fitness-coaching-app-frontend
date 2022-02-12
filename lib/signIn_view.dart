@@ -55,7 +55,6 @@ class SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    // getUserInfo("poramee");
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(

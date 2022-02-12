@@ -6,8 +6,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'register0_view.dart';
 
-class Register3 extends StatelessWidget {
+class Register3 extends StatefulWidget {
   const Register3({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => Register3State();
+}
+
+class Register3State extends State<Register3> {
   @override
   Widget build(BuildContext context) {
     TextEditingController displayNameController = new TextEditingController();
@@ -115,7 +121,10 @@ class Register3 extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Register0()),
+                                          builder: (context) => Register0(
+                                                displayName:
+                                                    displayNameController.text,
+                                              )),
                                     );
                                   },
                                   child: Container(
