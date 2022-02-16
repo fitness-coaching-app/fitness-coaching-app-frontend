@@ -21,6 +21,16 @@ class NewUserSetupExPref extends StatefulWidget {
 }
 
 class NewUserSetupExPrefState extends State<NewUserSetupExPref> {
+  Color _colorBorderDefault = color_lightGrey;
+  Color _colorBgDefault = color_lightGrey;
+  Color _colorBorderColor = color_dimmedTeal;
+  Color _colorBgColor = Color(0xffdcffea);
+  Color _colorBorderYoga = color_lightGrey;
+  Color _colorBgYoga = color_lightGrey;
+  Color _colorBorderCardio = color_lightGrey;
+  Color _colorBgCardio = color_lightGrey;
+  bool selectYoga = false;
+  bool selectCardio = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,57 +85,97 @@ class NewUserSetupExPrefState extends State<NewUserSetupExPref> {
             Container(
               height: 40,
             ),
-            Container(
-                height: 80,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Text("Yoga",
-                            style: const TextStyle(
-                                color: color_dark,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 20.0),
-                            textAlign: TextAlign.left),
-                      ),
-                    ],
-                  ),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: color_lightGrey)),
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Expanded(
+                  child: new GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (selectYoga == false) {
+                            _colorBorderYoga = _colorBorderColor;
+                            _colorBgYoga = _colorBgColor;
+                            selectYoga = true;
+                          } else {
+                            _colorBorderYoga = _colorBorderDefault;
+                            _colorBgYoga = _colorBgDefault;
+                            selectYoga = false;
+                          }
+                        });
+                      },
+                      child: Container(
+                          height: 80,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Text("Yoga",
+                                      style: const TextStyle(
+                                          color: color_dark,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "Poppins",
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 20.0),
+                                      textAlign: TextAlign.left),
+                                ),
+                              ],
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                              border:
+                                  Border.all(color: _colorBorderYoga, width: 3),
+                              color: _colorBgYoga))))
+            ]),
             Container(
               height: 15,
             ),
-            Container(
-                height: 80,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Text("Cardio",
-                            style: const TextStyle(
-                                color: color_dark,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 20.0),
-                            textAlign: TextAlign.left),
-                      ),
-                    ],
-                  ),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: color_lightGrey)),
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Expanded(
+                  child: new GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (selectCardio == false) {
+                            _colorBorderCardio = _colorBorderColor;
+                            _colorBgCardio = _colorBgColor;
+                            selectCardio = true;
+                          } else {
+                            _colorBorderCardio = _colorBorderDefault;
+                            _colorBgCardio = _colorBgDefault;
+                            selectCardio = false;
+                          }
+                        });
+                      },
+                      child: Container(
+                          height: 80,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Text("Cardio",
+                                      style: const TextStyle(
+                                          color: color_dark,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "Poppins",
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 20.0),
+                                      textAlign: TextAlign.left),
+                                ),
+                              ],
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                              border: Border.all(
+                                  color: _colorBorderCardio, width: 3),
+                              color: _colorBgCardio))))
+            ]),
             Container(
               height: 40,
             ),
@@ -137,7 +187,13 @@ class NewUserSetupExPrefState extends State<NewUserSetupExPref> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NewUserSetupExPref2()),
+                            builder: (context) => NewUserSetupExPref2(
+                                gender: widget.gender,
+                                year: widget.year,
+                                weight: widget.weight,
+                                height: widget.height,
+                                exercisePreference: checkSelectPreference(
+                                    selectYoga, selectCardio))),
                       );
                     },
                     child: Container(
@@ -163,5 +219,16 @@ class NewUserSetupExPrefState extends State<NewUserSetupExPref> {
         Expanded(child: Container()),
       ]),
     )));
+  }
+
+  List<String>? checkSelectPreference(bool selectYoga, bool selectCardio) {
+    if (selectYoga == true && selectCardio == true)
+      return ['yoga', 'cardio'];
+    else if (selectYoga == true && selectCardio == false)
+      return ['yoga'];
+    else if (selectYoga == false && selectCardio == true)
+      return ['cardio'];
+    else
+      return [];
   }
 }
