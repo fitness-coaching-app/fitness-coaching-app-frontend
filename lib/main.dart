@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      home: MyHomePage(),
+      // home: MyHomePage(),
 
       // home: SignIn(),
       // home: Home(),
@@ -108,7 +108,7 @@ class MyApp extends StatelessWidget {
       // home: Register2(),
       // home: Register3(),
       // home: Register4(),
-      // home: NewUserSetup0(),
+      home: NewUserSetup0(),
       // home: NewUserSetupGender(),
       // home: NewUserSetupBd(),
       // home: NewUserSetupExPref(),

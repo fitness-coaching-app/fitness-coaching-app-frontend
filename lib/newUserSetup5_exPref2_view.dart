@@ -28,28 +28,34 @@ class NewUserSetupExPref2 extends StatefulWidget {
 
 class NewUserSetupExPref2State extends State<NewUserSetupExPref2> {
   UserPreference? _dataToAPI;
-  Future<void> newUserSetup(String birthYear, String gender,
+  Future<void> newUserSetup(int birthYear, String gender,
       List<String>? exercisePreference, List<String>? partToAvoid) async {
     var url = Uri.parse(
-        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/auth/newUserSetup");
-    String bodyPost = '{"birthYear": ' +
-        birthYear +
-        ',"gender": ' +
-        gender +
-        ',"exercisePreference": ' +
-        exercisePreference.toString() +
-        ',"partToAvoid": ' +
-        partToAvoid.toString() +
-        '}';
-    const JsonEncoder encoder = JsonEncoder();
-    final String jsonString = encoder.convert(bodyPost);
+        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/user/newUserSetup");
+    // String bodyPost = '{"birthYear": ' +
+    //     birthYear +
+    //     ',"gender": ' +
+    //     gender +
+    //     ',"exercisePreference": ' +
+    //     exercisePreference.toString() +
+    //     ',"partToAvoid": ' +
+    //     partToAvoid.toString() +
+    //     '}';
+    _dataToAPI = UserPreference(
+        birthYear: birthYear,
+        gender: gender,
+        exercisePreference: exercisePreference,
+        partToAvoid: partToAvoid);
+    // const JsonEncoder encoder = JsonEncoder();
+    // final String jsonString = encoder.convert();
     // var response = await http.post(url, body: {
     //   "birthYear": birthYear,
     //   "gender": gender,
     //   "exercisePreference": exercisePreference,
     //   "partToAvoid": partToAvoid
     // });
-    var response = await http.post(url, body: jsonString);
+    var response =
+        await http.post(url, body: userPreferenceToJson(_dataToAPI!));
     if (response.statusCode == 200) {
       print(response.body);
     } else {
@@ -375,10 +381,19 @@ class NewUserSetupExPref2State extends State<NewUserSetupExPref2> {
                 Expanded(
                   child: new GestureDetector(
                       onTap: () {
-                        checkSelectBodyPart(selectNeck, selectShoulder,
-                            selectHand, selectLeg, selectFoot);
+                        print('***\n' +
+                            'year : ' +
+                            widget.year +
+                            '\ngender : ' +
+                            widget.gender +
+                            '\nexercise : ' +
+                            widget.exercisePreference.toString() +
+                            '\nbody : ' +
+                            checkSelectBodyPart(selectNeck, selectShoulder,
+                                    selectHand, selectLeg, selectFoot)
+                                .toString());
                         newUserSetup(
-                            widget.year,
+                            int.parse(widget.year),
                             widget.gender,
                             widget.exercisePreference,
                             checkSelectBodyPart(selectNeck, selectShoulder,

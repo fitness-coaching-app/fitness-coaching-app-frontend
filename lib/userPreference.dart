@@ -7,9 +7,7 @@ import 'dart:convert';
 UserPreference userPreferenceFromJson(String str) =>
     UserPreference.fromJson(json.decode(str));
 
-String userPreferenceToJson(UserPreference data, String gender,
-        List<String> exercisePreference, List<String> partToAvoid) =>
-    json.encode(data.toJson());
+String userPreferenceToJson(UserPreference data) => json.encode(data.toJson());
 
 class UserPreference {
   UserPreference({
