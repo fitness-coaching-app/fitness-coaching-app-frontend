@@ -7,7 +7,7 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 
 import 'WorkoutLandscapeStepBeginCamera_view.dart';
 import 'WorkoutLandscapeWarnningCamera_view.dart';
-import 'WorkoutPortraitWarnningCamera_view.dart';
+import 'workoutPortraitWarnningCamera_view.dart';
 import 'workoutLandscapeStepCountingCamera_view.dart';
 import 'workoutLandscapeStepFinish_view.dart';
 import 'workoutLandscapeStepPauseCamera_view.dart';

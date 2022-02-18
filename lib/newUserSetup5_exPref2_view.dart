@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/temp.dart';
+import 'package:flutter_application_2/environment.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:http/http.dart' as http;
 import 'color.dart';
@@ -30,8 +30,7 @@ class NewUserSetupExPref2State extends State<NewUserSetupExPref2> {
   UserPreference? _dataToAPI;
   Future<void> newUserSetup(int birthYear, String gender,
       List<String>? exercisePreference, List<String>? partToAvoid) async {
-    var url = Uri.parse(
-        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/user/newUserSetup");
+    var url = Uri.parse(Environment.newUserSetupUrl);
     // String bodyPost = '{"birthYear": ' +
     //     birthYear +
     //     ',"gender": ' +

@@ -5,8 +5,10 @@ import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/pose_detector_view.dart';
 import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
 import 'package:flutter_application_2/workoutPortraitStepPause_view.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
+import 'environment.dart';
 import 'signIn_view.dart';
 import 'home_view.dart';
 import 'newUserSetup0_view.dart';
@@ -48,6 +50,7 @@ List<CameraDescription> cameras = [];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await dotenv.load(fileName: Environment.fileName);
   cameras = await availableCameras();
   runApp(MyApp());
 }
@@ -97,7 +100,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      // home: MyHomePage(),
+      home: MyHomePage(),
 
       // home: SignIn(),
       // home: Home(),
@@ -108,7 +111,7 @@ class MyApp extends StatelessWidget {
       // home: Register2(),
       // home: Register3(),
       // home: Register4(),
-      home: NewUserSetup0(),
+      // home: NewUserSetup0(),
       // home: NewUserSetupGender(),
       // home: NewUserSetupBd(),
       // home: NewUserSetupExPref(),

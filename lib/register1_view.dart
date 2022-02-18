@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/register2_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
@@ -18,8 +19,7 @@ class Register1 extends StatefulWidget {
 class Register1State extends State<Register1> {
   Future<void> registerUser(
       String displayName, String email, String password) async {
-    var url = Uri.parse(
-        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/auth/register");
+    var url = Uri.parse(Environment.registerUrl);
     var response = await http.post(url, body: {
       "displayName": displayName,
       "email": email,

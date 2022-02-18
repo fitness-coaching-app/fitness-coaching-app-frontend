@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/forgotPassword1_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
@@ -8,8 +9,7 @@ import 'package:http/http.dart' as http;
 class ForgotPassword0 extends StatelessWidget {
   const ForgotPassword0({Key? key}) : super(key: key);
   Future<void> forgotPassword(String email) async {
-    var url = Uri.parse(
-        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/auth/forgetPassword");
+    var url = Uri.parse(Environment.forgetPasswordUrl);
     var response = await http.post(url, body: {"email": email});
     if (response.statusCode == 200) {
       print(response.body);

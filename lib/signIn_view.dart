@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/forgotPassword0_view.dart';
 import 'package:flutter_application_2/loading_view.dart';
 import 'package:flutter_application_2/register0_view.dart';
@@ -20,17 +21,14 @@ class SignInState extends State<SignIn> {
   TextEditingController pwController = new TextEditingController();
   Future<void> getUserInfo(String user) async {
     // var user = "poramee";
-    var url = Uri.parse(
-        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/user/getUserInfo/" +
-            user);
+    var url = Uri.parse(Environment.getUserInfoUrl + user);
     var response = await http.get(url);
     _dataFromAPI = userInfoFromJson(response.body);
     print(response.body);
   }
 
   Future<void> logIn(String email, String password) async {
-    var url = Uri.parse(
-        "https://asia-southeast1-fitness-coaching-app.cloudfunctions.net/dev-api/auth/signIn");
+    var url = Uri.parse(Environment.signInUrl);
     var response =
         await http.post(url, body: {"email": email, "password": password});
     if (response.statusCode == 200) {

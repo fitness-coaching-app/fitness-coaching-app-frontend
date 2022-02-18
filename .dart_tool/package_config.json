@@ -98,6 +98,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_dotenv",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_dotenv-5.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.5",
       "packageUri": "lib/",
@@ -356,7 +362,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-02-05T15:31:12.592371Z",
+  "generated": "2022-02-18T15:53:25.895946Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }
