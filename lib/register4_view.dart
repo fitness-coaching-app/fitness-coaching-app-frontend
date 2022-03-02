@@ -1,10 +1,34 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_2/newUserSetup0_view.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 
-class Register4 extends StatelessWidget {
+class Register4 extends StatefulWidget {
   const Register4({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => Register4State();
+}
+
+class Register4State extends State<Register4> {
+  File? image;
+  ImagePicker imagePicker = ImagePicker();
+  Future pickImage() async {
+    try {
+      final image = await imagePicker.getImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +80,23 @@ class Register4 extends StatelessWidget {
                         height: 40,
                       ),
                       Center(
-                          child: Container(
-                              width: 170,
-                              height: 170,
-                              decoration: BoxDecoration(
-                                  color: const Color(0xffc4c4c4)))),
+                          child: GestureDetector(
+                              onTap: () {
+                                pickImage();
+                              },
+                              child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.25,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(360),
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: image == null
+                                              ? AssetImage(
+                                                  'assets/Icon/camera.png')
+                                              : FileImage(image!)))))),
                       Container(
                         height: 40,
                       ),
