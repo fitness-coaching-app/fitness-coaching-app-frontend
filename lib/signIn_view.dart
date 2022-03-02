@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/forgotPassword0_view.dart';
 import 'package:flutter_application_2/loading_view.dart';
-import 'package:flutter_application_2/register0_view.dart';
 import 'package:http/http.dart' as http;
 import 'register3_view.dart';
 import 'userInfo.dart';
 import 'color.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -19,6 +19,9 @@ class SignInState extends State<SignIn> {
   UserInfo? _dataFromAPI;
   TextEditingController emailController = new TextEditingController();
   TextEditingController pwController = new TextEditingController();
+
+  FlutterTts flutterTts = FlutterTts();
+
   Future<void> getUserInfo(String user) async {
     // var user = "poramee";
     var url = Uri.parse(Environment.getUserInfoUrl + user);
@@ -53,6 +56,14 @@ class SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    Future _speak() async {
+      await flutterTts.setLanguage("th - TH");
+      await flutterTts.setPitch(1);
+      await flutterTts.setSpeechRate(0.6);
+      await flutterTts.speak(
+          "ยินดีต้อนรับเข้าสู่ Application ออกกำลังกาย\nกรุณาเข้าสู่ระบบค่ะ");
+    }
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -73,15 +84,16 @@ class SignInState extends State<SignIn> {
                             //color: Colors.red,
                             height: 25,
                           ),
-                          // Let’s sign you in
-                          Text("Sign In",
-                              style: const TextStyle(
-                                  color: color_dark,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 26.0),
-                              textAlign: TextAlign.left),
+                          GestureDetector(
+                              onTap: () => _speak(),
+                              child: Text("Sign In",
+                                  style: const TextStyle(
+                                      color: color_dark,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: "Poppins",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 26.0),
+                                  textAlign: TextAlign.left)),
                           Container(
                             //color: Colors.red,
                             height: 5,
@@ -173,7 +185,7 @@ class SignInState extends State<SignIn> {
                           Container(
                             height: 25,
                           ),
-                          // Next Button
+                          // Sign In Button
                           Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
