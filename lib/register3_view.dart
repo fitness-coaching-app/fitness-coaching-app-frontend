@@ -4,11 +4,21 @@ import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Register3 extends StatelessWidget {
+import 'register0_view.dart';
+
+class Register3 extends StatefulWidget {
   const Register3({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => Register3State();
+}
+
+class Register3State extends State<Register3> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController displayNameController = new TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
@@ -70,17 +80,29 @@ class Register3 extends StatelessWidget {
                       Container(
                         height: 60,
                         child: TextFormField(
-                            decoration: InputDecoration(
-                          hintText: "Enter your display name",
-                          hintStyle: const TextStyle(
-                              color: color_subtitle,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16.0),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(20),
-                        )),
+                          decoration: InputDecoration(
+                            hintText: "Enter your display name",
+                            hintStyle: const TextStyle(
+                                color: color_subtitle,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16.0),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(20),
+                          ),
+                          controller: displayNameController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (String? value) {
+                            return (value!.isEmpty)
+                                ? 'Please enter a display name.'
+                                : null;
+                          },
+                          onSaved: (String? value) {
+                            // This optional block of code can be used to run
+                            // code when the user saves the form.
+                          },
+                        ),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                             color: color_lightGrey),
@@ -99,7 +121,10 @@ class Register3 extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Register4()),
+                                          builder: (context) => Register0(
+                                                displayName:
+                                                    displayNameController.text,
+                                              )),
                                     );
                                   },
                                   child: Container(

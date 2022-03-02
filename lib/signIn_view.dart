@@ -1,14 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/forgotPassword0_view.dart';
 import 'package:flutter_application_2/loading_view.dart';
 import 'package:flutter_application_2/register0_view.dart';
+import 'package:http/http.dart' as http;
+import 'register3_view.dart';
+import 'userInfo.dart';
 import 'color.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => SignInState();
+}
+
+class SignInState extends State<SignIn> {
+  UserInfo? _dataFromAPI;
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController pwController = new TextEditingController();
+  Future<void> getUserInfo(String user) async {
+    // var user = "poramee";
+    var url = Uri.parse(Environment.getUserInfoUrl + user);
+    var response = await http.get(url);
+    _dataFromAPI = userInfoFromJson(response.body);
+    print(response.body);
+  }
+
+  Future<void> logIn(String email, String password) async {
+    var url = Uri.parse(Environment.signInUrl);
+    var response =
+        await http.post(url, body: {"email": email, "password": password});
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print("login failed");
+      print(response.body);
+    }
+  }
+
+  String? validateEmail(String? value) {
+    String pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+    if (value == null || value.isEmpty || !regex.hasMatch(value))
+      return 'Please enter a valid email address';
+    else
+      return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
             child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -57,17 +103,27 @@ class SignIn extends StatelessWidget {
                             //width: 325,
                             height: 63,
                             child: TextFormField(
-                                decoration: InputDecoration(
-                              hintText: "Email",
-                              hintStyle: const TextStyle(
-                                  color: color_subtitle,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 16.0),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.all(20),
-                            )),
+                              decoration: InputDecoration(
+                                hintText: "Email",
+                                hintStyle: const TextStyle(
+                                    color: color_subtitle,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 16.0),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.all(20),
+                              ),
+                              controller: emailController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (String? value) =>
+                                  validateEmail(value),
+                              onSaved: (String? value) {
+                                // This optional block of code can be used to run
+                                // code when the user saves the form.
+                              },
+                            ),
                             decoration: BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
@@ -83,17 +139,31 @@ class SignIn extends StatelessWidget {
                             //width: 325,
                             height: 63,
                             child: TextFormField(
-                                decoration: InputDecoration(
-                              hintText: "Password",
-                              hintStyle: const TextStyle(
-                                  color: color_subtitle,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 16.0),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.all(20),
-                            )),
+                              decoration: InputDecoration(
+                                hintText: "Password",
+                                hintStyle: const TextStyle(
+                                    color: color_subtitle,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 16.0),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.all(20),
+                              ),
+                              controller: pwController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              obscureText: true,
+                              validator: (String? value) {
+                                return (value!.isEmpty)
+                                    ? 'Please enter a password.'
+                                    : null;
+                              },
+                              onSaved: (String? value) {
+                                // This optional block of code can be used to run
+                                // code when the user saves the form.
+                              },
+                            ),
                             decoration: BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
@@ -110,6 +180,9 @@ class SignIn extends StatelessWidget {
                                 Expanded(
                                   child: new GestureDetector(
                                       onTap: () {
+                                        // logIn("poramee.chansuksett@gmail.com", "poramee");
+                                        logIn(emailController.text,
+                                            pwController.text);
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -166,7 +239,7 @@ class SignIn extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Register0()),
+                                          builder: (context) => Register3()),
                                     );
                                   },
                                   child: RichText(

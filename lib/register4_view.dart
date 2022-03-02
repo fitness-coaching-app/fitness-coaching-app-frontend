@@ -8,6 +8,7 @@ class Register4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),

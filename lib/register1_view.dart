@@ -1,14 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/register2_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
-class Register1 extends StatelessWidget {
-  const Register1({Key? key}) : super(key: key);
+class Register1 extends StatefulWidget {
+  final String displayName;
+  final String email;
+  const Register1({Key? key, required this.displayName, required this.email})
+      : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => Register1State();
+}
+
+class Register1State extends State<Register1> {
+  Future<void> registerUser(
+      String displayName, String email, String password) async {
+    var url = Uri.parse(Environment.registerUrl);
+    var response = await http.post(url, body: {
+      "displayName": displayName,
+      "email": email,
+      "password": password
+    });
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print("register failed");
+      print(response.body);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController pwController = new TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
@@ -70,17 +99,30 @@ class Register1 extends StatelessWidget {
                       Container(
                         height: 60,
                         child: TextFormField(
-                            decoration: InputDecoration(
-                          hintText: "Password",
-                          hintStyle: const TextStyle(
-                              color: color_subtitle,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16.0),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(20),
-                        )),
+                          decoration: InputDecoration(
+                            hintText: "Password",
+                            hintStyle: const TextStyle(
+                                color: color_subtitle,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16.0),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(20),
+                          ),
+                          controller: pwController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          obscureText: true,
+                          validator: (String? value) {
+                            return (value!.isEmpty)
+                                ? 'Please enter a password.'
+                                : null;
+                          },
+                          onSaved: (String? value) {
+                            // This optional block of code can be used to run
+                            // code when the user saves the form.
+                          },
+                        ),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                             color: color_lightGrey),
@@ -92,17 +134,29 @@ class Register1 extends StatelessWidget {
                       Container(
                         height: 60,
                         child: TextFormField(
-                            decoration: InputDecoration(
-                          hintText: "Confirm Password",
-                          hintStyle: const TextStyle(
-                              color: color_subtitle,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16.0),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(20),
-                        )),
+                          decoration: InputDecoration(
+                            hintText: "Confirm Password",
+                            hintStyle: const TextStyle(
+                                color: color_subtitle,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16.0),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(20),
+                          ),
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          obscureText: true,
+                          validator: (String? value) {
+                            return (value != null && value != pwController.text)
+                                ? 'Password did not match.'
+                                : null;
+                          },
+                          onSaved: (String? value) {
+                            // This optional block of code can be used to run
+                            // code when the user saves the form.
+                          },
+                        ),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                             color: color_lightGrey),
@@ -111,17 +165,25 @@ class Register1 extends StatelessWidget {
                       Container(
                         height: 40,
                       ),
-                      // Send Instructions Button
+                      // create acc Button
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
                               child: new GestureDetector(
                                   onTap: () {
+                                    // registerUser("displayName", "test@email.com", "password");
+                                    registerUser(
+                                      widget.displayName,
+                                      widget.email,
+                                      pwController.text,
+                                    );
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Register2()),
+                                          builder: (context) => Register2(
+                                                email: widget.email,
+                                              )),
                                     );
                                   },
                                   child: Container(
