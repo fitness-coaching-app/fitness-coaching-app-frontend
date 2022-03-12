@@ -1,12 +1,46 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/environment.dart';
+import 'package:flutter_application_2/homeSection.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
+import 'package:http/http.dart' as http;
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => HomeState();
+}
+
+class HomeState extends State<Home> {
+  Future<void> getUserInfo(String accessToken) async {
+    var url = Uri.parse(Environment.getSectionsUrl);
+    var response = await http
+        .get(url, headers: {"Authorization": "Bearer " + accessToken});
+    // var _dataFromAPI = json.decode(response.body);
+    List<HomeSection> _homeData = [];
+    print(response.body);
+    // for (var i in _dataFromAPI) {
+    //   HomeSection homeSection = HomeSection(
+    //       code: i["code"],
+    //       message: i["message"],
+    //       error: i["error"],
+    //       results: i["results"]);
+    //   //Adding user to the list.
+    //   _homeData.add(homeSection);
+    // }
+    // print(response.body);
+    // print("*********");
+    // print(_homeData);
+  }
+
   @override
   Widget build(BuildContext context) {
+    getUserInfo(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NDcwOTA4MzIsImV4cCI6MTY0NzA5MTQzMn0.SOp4edUaiWYsYbnlYEhIS7Tj25o3VgQl1eK3uYYnrkA");
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(

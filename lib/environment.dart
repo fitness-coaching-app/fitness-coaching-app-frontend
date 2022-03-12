@@ -50,4 +50,8 @@ class Environment {
     return dotenv.env['CHECK_VERIFICATION_STATUS_URL'] ??
         'CHECK VERIFICATION STATUS API NOT FOUND';
   }
+
+  static String get getSectionsUrl {
+    return dotenv.env['GET_SECTIONS_URL'] ?? 'GET SECTIONS API NOT FOUND';
+  }
 }
