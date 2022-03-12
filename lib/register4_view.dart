@@ -1,10 +1,79 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/newUserSetup0_view.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 
-class Register4 extends StatelessWidget {
+class Register4 extends StatefulWidget {
   const Register4({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => Register4State();
+}
+
+class Register4State extends State<Register4> {
+  File? _image;
+  File? _imageTemp;
+  String? imageBase64;
+
+  String bearer =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NDcwOTA4MzIsImV4cCI6MTY0NzA5MTQzMn0.SOp4edUaiWYsYbnlYEhIS7Tj25o3VgQl1eK3uYYnrkA";
+
+  ImagePicker imagePicker = ImagePicker();
+  Future pickImage() async {
+    try {
+      final _image = await imagePicker.pickImage(source: ImageSource.gallery);
+      if (_image == null) return;
+
+      setState(() => this._image = File(_image.path));
+      _imageTemp = File(_image.path);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+    compressFile(_image!);
+  }
+
+  Future<String> compressFile(File file) async {
+    final filePath = file.absolute.path;
+    final lastIndex = filePath.lastIndexOf(new RegExp(r'.jp'));
+    final splitted = filePath.substring(0, (lastIndex));
+    // final outPath = "${splitted}_out${filePath.substring(lastIndex)}.webp";
+    final outPath = "${splitted}_out.webp";
+    File? result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      outPath,
+      quality: 95,
+      format: CompressFormat.webp,
+    );
+    final bytes = File(result!.path).readAsBytesSync();
+    String base64Image = base64Encode(bytes) + ";type=image/webp;base64";
+    print("img_pan : $base64Image");
+    // imageBytes = result?.readAsBytesSync().toString();
+    imageBase64 = base64Image;
+    return base64Image;
+  }
+
+  Future<void> editProfilePicture(String imageBytes) async {
+    var url = Uri.parse(Environment.editProfilePictureUrl);
+    var response = await http.post(url,
+        headers: {"Authorization": ("Bearer" + bearer)},
+        body: {"profilePicture": imageBytes});
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print("edit profile picture failed");
+      print(response.body);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +125,25 @@ class Register4 extends StatelessWidget {
                         height: 40,
                       ),
                       Center(
-                          child: Container(
-                              width: 170,
-                              height: 170,
-                              decoration: BoxDecoration(
-                                  color: const Color(0xffc4c4c4)))),
+                          child: GestureDetector(
+                              onTap: () {
+                                pickImage();
+                              },
+                              child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.25,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(360),
+                                      image: DecorationImage(
+                                        image: _image == null
+                                            ? AssetImage(
+                                                    'assets/Icon/camera.png')
+                                                as ImageProvider
+                                            : FileImage(_image!),
+                                        fit: BoxFit.cover,
+                                      ))))),
                       Container(
                         height: 40,
                       ),
@@ -71,6 +154,9 @@ class Register4 extends StatelessWidget {
                             Expanded(
                               child: new GestureDetector(
                                   onTap: () {
+                                    if (imageBase64 != null) {
+                                      editProfilePicture(imageBase64!);
+                                    }
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
