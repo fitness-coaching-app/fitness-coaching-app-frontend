@@ -35,8 +35,8 @@ dependencies:
   flutter_image_compress: ^1.0.0-nullsafety
   fca_pose_validation:
     git:
-      url: git://github.com/fitness-coaching-app/fca_pose_validation.git
-      ref: 723eb7d
+      url: https://github.com/fitness-coaching-app/fca_pose_validation.git
+      ref: 83f0257
 
 
   # The following adds the Cupertino Icons font to your application.

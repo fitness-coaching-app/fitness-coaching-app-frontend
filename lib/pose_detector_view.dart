@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/test_touchChecker.dart';
 import 'package:flutter_application_2/workoutLandscapeStepFinishCamera_view.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
@@ -17,7 +18,8 @@ import 'workoutPortraitStepCountingCamera_view.dart';
 import 'workoutPortraitStepFinishCamera_view.dart';
 import 'workoutPortraitStepPauseCamera_view.dart';
 
-import 'package:fca_pose_validation/src/pose_validator.dart';
+import 'test_touchChecker.dart';
+// import 'package:fca_pose_validation/src/touch_checker.dart';
 
 var armAngle;
 var elbowAngle;
@@ -55,13 +57,22 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     final poses = await poseDetector.processImage(inputImage);
     print('Found ${poses.length} poses');
     for (Pose pose in poses) {
-      PoseValidator poseValidator = PoseValidator(pose);
-      armAngle = poseValidator.getAngle(PoseLandmarkType.leftShoulder,
-          PoseLandmarkType.leftHip, PoseLandmarkType.leftElbow);
-      elbowAngle = poseValidator.getAngle(PoseLandmarkType.leftElbow,
-          PoseLandmarkType.leftShoulder, PoseLandmarkType.leftWrist);
-      print('arm = ' + armAngle.toString());
-      print('elbow = ' + elbowAngle.toString());
+      // angle
+      // PoseValidator poseValidator = PoseValidator(pose);
+      // armAngle = poseValidator.getAngle(PoseLandmarkType.leftShoulder,
+      //     PoseLandmarkType.leftHip, PoseLandmarkType.leftElbow);
+      // elbowAngle = poseValidator.getAngle(PoseLandmarkType.leftElbow,
+      //     PoseLandmarkType.leftShoulder, PoseLandmarkType.leftWrist);
+      // print('arm = ' + armAngle.toString());
+      // print('elbow = ' + elbowAngle.toString());
+
+      //touch checker
+      TouchChecker touchChecker = TouchChecker();
+      touchChecker.setPose(pose);
+      var checkLeftRightHand = touchChecker.touchChecker(
+          PoseLandmarkType.leftWrist, PoseLandmarkType.rightWrist);
+      print(
+          'check left and right wrist touch: ' + checkLeftRightHand.toString());
 
       pose.landmarks.forEach((_, landmark) {
         final type = landmark.type;
@@ -73,8 +84,10 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
         // print('$type: PoseLandmark($type, likelihood: $likelihood)');
         if (inputImage.inputImageData?.size != null &&
             inputImage.inputImageData?.imageRotation != null) {
+          // final painter = PosePainter(poses, inputImage.inputImageData!.size,
+          //     inputImage.inputImageData!.imageRotation, armAngle, elbowAngle);
           final painter = PosePainter(poses, inputImage.inputImageData!.size,
-              inputImage.inputImageData!.imageRotation, armAngle, elbowAngle);
+              inputImage.inputImageData!.imageRotation);
           customPaint = CustomPaint(painter: painter);
         } else {
           customPaint = null;
