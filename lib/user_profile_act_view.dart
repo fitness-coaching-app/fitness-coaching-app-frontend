@@ -11,6 +11,8 @@ import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'user_profile_achieve_view.dart';
+import 'user_profile_follower_view.dart';
+import 'user_profile_following_view.dart';
 
 class UserProfileAct extends StatefulWidget {
   const UserProfileAct({Key? key}) : super(key: key);
@@ -102,47 +104,65 @@ class UserProfileActState extends State<UserProfileAct> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                    style: const TextStyle(
-                                        color: color_subtitle,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 14.0),
-                                    text: "20 "),
-                                TextSpan(
-                                    style: const TextStyle(
-                                        color: color_subtitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 14.0),
-                                    text: " Follower"),
-                              ])),
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              UserProfileFollower()),
+                                    );
+                                  },
+                                  child: RichText(
+                                      text: TextSpan(children: [
+                                    TextSpan(
+                                        style: const TextStyle(
+                                            color: color_subtitle,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 14.0),
+                                        text: "20 "),
+                                    TextSpan(
+                                        style: const TextStyle(
+                                            color: color_subtitle,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 14.0),
+                                        text: " Follower"),
+                                  ]))),
                               Container(
                                 width: 42,
                               ),
-                              RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                    style: const TextStyle(
-                                        color: color_subtitle,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 14.0),
-                                    text: "40 "),
-                                TextSpan(
-                                    style: const TextStyle(
-                                        color: color_subtitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 14.0),
-                                    text: " Following")
-                              ]))
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              UserProfileFollowing()),
+                                    );
+                                  },
+                                  child: RichText(
+                                      text: TextSpan(children: [
+                                    TextSpan(
+                                        style: const TextStyle(
+                                            color: color_subtitle,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 14.0),
+                                        text: "40 "),
+                                    TextSpan(
+                                        style: const TextStyle(
+                                            color: color_subtitle,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 14.0),
+                                        text: " Following")
+                                  ])))
                             ]),
                       ],
                     )),
