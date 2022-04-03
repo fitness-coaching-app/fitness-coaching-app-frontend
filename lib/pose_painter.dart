@@ -6,13 +6,14 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 import 'coordinates_translator.dart';
 
 class PosePainter extends CustomPainter {
-  PosePainter(this.poses, this.absoluteImageSize, this.rotation, this.armAngle, this.elbowAngle);
+  // PosePainter(this.poses, this.absoluteImageSize, this.rotation, this.armAngle, this.elbowAngle);
+  PosePainter(this.poses, this.absoluteImageSize, this.rotation);
 
   final List<Pose> poses;
   final Size absoluteImageSize;
   final InputImageRotation rotation;
-  final double armAngle;
-  final double elbowAngle;
+  // final double armAngle;
+  // final double elbowAngle;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -35,22 +36,26 @@ class PosePainter extends CustomPainter {
       color: Colors.amber,
       fontSize: 16,
     );
-    final textSpan = TextSpan(
-      text: 'Left Arm = ' + armAngle.toString() + '\n' + 'Left Elbow = ' + elbowAngle.toString(),
-      style: textStyle,
-    );
-    final textPainter = TextPainter(
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
-    final xCenter = (size.width - textPainter.width) - 25;
-    final yCenter = (size.height - textPainter.height) - 25;
-    final offset = Offset(xCenter, yCenter);
-    textPainter.paint(canvas, offset);
+    // final textSpan = TextSpan(
+    //   text: 'Left Arm = ' +
+    //       armAngle.toString() +
+    //       '\n' +
+    //       'Left Elbow = ' +
+    //       elbowAngle.toString(),
+    //   style: textStyle,
+    // );
+    // final textPainter = TextPainter(
+    //   text: textSpan,
+    //   textDirection: TextDirection.ltr,
+    // );
+    // textPainter.layout(
+    //   minWidth: 0,
+    //   maxWidth: size.width,
+    // );
+    // final xCenter = (size.width - textPainter.width) - 25;
+    // final yCenter = (size.height - textPainter.height) - 25;
+    // final offset = Offset(xCenter, yCenter);
+    // textPainter.paint(canvas, offset);
 
     poses.forEach((pose) {
       pose.landmarks.forEach((_, landmark) {

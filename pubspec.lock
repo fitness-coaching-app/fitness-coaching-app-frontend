@@ -89,9 +89,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "723eb7d"
-      resolved-ref: "723eb7d0041c1cf11e89b6ae053bb375f97abcc5"
-      url: "git://github.com/fitness-coaching-app/fca_pose_validation.git"
+      ref: "5cc7a7c2b079afd4783c3f86add4af0503000fb2"
+      resolved-ref: "5cc7a7c2b079afd4783c3f86add4af0503000fb2"
+      url: "https://github.com/fitness-coaching-app/fca_pose_validation.git"
     source: git
     version: "0.0.1"
   ffi:
@@ -422,6 +422,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.2"
+  yaml:
+    dependency: transitive
+    description:
+      name: yaml
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
 sdks:
   dart: ">=2.14.0 <3.0.0"
   flutter: ">=2.5.0"

@@ -24,7 +24,7 @@ class Register4State extends State<Register4> {
   File? _imageTemp;
   String? imageBase64;
 
-  String bearer =
+  String accessToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NDcwOTA4MzIsImV4cCI6MTY0NzA5MTQzMn0.SOp4edUaiWYsYbnlYEhIS7Tj25o3VgQl1eK3uYYnrkA";
 
   ImagePicker imagePicker = ImagePicker();
@@ -64,7 +64,7 @@ class Register4State extends State<Register4> {
   Future<void> editProfilePicture(String imageBytes) async {
     var url = Uri.parse(Environment.editProfilePictureUrl);
     var response = await http.post(url,
-        headers: {"Authorization": ("Bearer" + bearer)},
+        headers: {"Authorization": ("Bearer" + accessToken)},
         body: {"profilePicture": imageBytes});
     if (response.statusCode == 200) {
       print(response.body);
