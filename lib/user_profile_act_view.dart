@@ -596,28 +596,55 @@ class UserProfileActState extends State<UserProfileAct> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Expanded(child: Container()),
-                          IconButton(
-                            tooltip: 'Home',
-                            icon: const Icon(
-                              Ionicons.home_outline,
-                              color: color_dark,
-                            ),
-                            onPressed: () {},
-                          ),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  tooltip: 'Home',
+                                  icon: const Icon(
+                                    Ionicons.home_outline,
+                                    color: color_dark,
+                                  ),
+                                  onPressed: () {},
+                                ),
+                                Container(
+                                  height: 3,
+                                  width: 20,
+                                  color: color_white,
+                                )
+                              ]),
                           Expanded(child: Container()),
-                          IconButton(
-                            tooltip: 'Search',
-                            icon: const Icon(Ionicons.globe_outline,
-                                color: color_dark),
-                            onPressed: () {},
-                          ),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  tooltip: 'Search',
+                                  icon: const Icon(Ionicons.globe_outline,
+                                      color: color_dark),
+                                  onPressed: () {},
+                                ),
+                                Container(
+                                  height: 3,
+                                  width: 20,
+                                  color: color_white,
+                                )
+                              ]),
                           Expanded(child: Container()),
-                          IconButton(
-                            tooltip: 'Community',
-                            icon: const Icon(Ionicons.people_outline,
-                                color: color_dark),
-                            onPressed: () {},
-                          ),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  tooltip: 'Community',
+                                  icon: const Icon(Ionicons.people_outline,
+                                      color: color_dark),
+                                  onPressed: () {},
+                                ),
+                                Container(
+                                  height: 3,
+                                  width: 20,
+                                  color: color_white,
+                                )
+                              ]),
                           Expanded(child: Container()),
                           Column(
                               mainAxisAlignment: MainAxisAlignment.center,
