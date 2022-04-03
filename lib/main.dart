@@ -3,6 +3,7 @@ import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/pose_detector_view.dart';
+import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
 import 'package:flutter_application_2/workoutPortraitStepPause_view.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -135,6 +136,7 @@ class MyApp extends StatelessWidget {
       // home: WorkoutLandscapeWarnning(),
       // home: Loading(),
       // home: PoseDetectorView(),
+      // home: UserProfileAct(),
     );
   }
 }
