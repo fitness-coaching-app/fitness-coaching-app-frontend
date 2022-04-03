@@ -89,8 +89,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "83f0257"
-      resolved-ref: "83f025770267e6778d2587bb3c3cda5a6a3a604f"
+      ref: "5cc7a7c2b079afd4783c3f86add4af0503000fb2"
+      resolved-ref: "5cc7a7c2b079afd4783c3f86add4af0503000fb2"
       url: "https://github.com/fitness-coaching-app/fca_pose_validation.git"
     source: git
     version: "0.0.1"
