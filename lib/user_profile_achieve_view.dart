@@ -10,16 +10,16 @@ import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'user_profile_achieve_view.dart';
+import 'user_profile_act_view.dart';
 
-class UserProfileAct extends StatefulWidget {
-  const UserProfileAct({Key? key}) : super(key: key);
+class UserProfileAchieve extends StatefulWidget {
+  const UserProfileAchieve({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => UserProfileActState();
+  State<StatefulWidget> createState() => UserProfileAchieveState();
 }
 
-class UserProfileActState extends State<UserProfileAct> {
+class UserProfileAchieveState extends State<UserProfileAchieve> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -336,250 +336,210 @@ class UserProfileActState extends State<UserProfileAct> {
                   child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 40,
-                          width: (MediaQuery.of(context).size.width / 2) - 25,
-                          decoration: BoxDecoration(
-                              color: Color(0xFFC0FFD9),
-                              borderRadius: BorderRadius.circular(40)),
+                        Expanded(child: Container()),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserProfileAct()),
+                            );
+                          },
                           child: Icon(
                             Ionicons.newspaper,
-                            color: Color(0xFF00A682),
+                            color: Color(0xffc9c9c9),
                           ),
                         ),
                         Expanded(child: Container()),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UserProfileAchieve()),
-                              );
-                            },
+                        Container(
+                            height: 40,
+                            width: (MediaQuery.of(context).size.width / 2) - 25,
+                            decoration: BoxDecoration(
+                                color: Color(0xFFC0FFD9),
+                                borderRadius: BorderRadius.circular(40)),
                             child: Icon(
                               Ionicons.ribbon,
-                              color: Color(0xffc9c9c9),
+                              color: Color(0xff00a682),
                             )),
-                        Expanded(child: Container()),
                       ]),
                 ),
 
-                //post section
+                //achievement section
                 Container(
                   height: 10,
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 10,
-                        ),
-                        Row(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      decoration: BoxDecoration(
+                          color: color_lightGrey,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                  child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.05,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(360),
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/Icon/camera.png'),
-                                            fit: BoxFit.cover,
-                                          )))),
-                              Container(
-                                width: 15,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(365),
+                                    color: Color(0xff35aacf)),
                               ),
-                              Text("mariosnyder",
+                              Expanded(child: Container()),
+                              Text("Move Goal Achieved",
                                   style: const TextStyle(
                                       color: color_dark,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "Poppins",
                                       fontStyle: FontStyle.normal,
                                       fontSize: 14.0),
-                                  textAlign: TextAlign.left),
-                            ]),
-                        Container(
-                          height: 10,
-                        ),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color(0xFFC0FFD9)),
-                        ),
-                        Container(
-                          height: 10,
-                        ),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                  child: Icon(
-                                Ionicons.happy_outline,
-                                size: 20,
-                                color: color_subtitle,
-                              )),
-                              Container(
-                                width: 5,
-                              ),
-                              Text("123",
+                                  textAlign: TextAlign.center),
+                              Expanded(child: Container()),
+                              Text("Imperdiet odio integer.",
                                   style: const TextStyle(
-                                      color: color_subtitle,
+                                      color: color_dark,
                                       fontWeight: FontWeight.w400,
                                       fontFamily: "Poppins",
                                       fontStyle: FontStyle.normal,
                                       fontSize: 12.0),
-                                  textAlign: TextAlign.left),
-                              Container(
-                                width: 22,
-                              ),
-                              Container(
-                                  child: Icon(
-                                Ionicons.chatbubble_outline,
-                                size: 20,
-                                color: color_subtitle,
-                              )),
-                              Container(
-                                width: 5,
-                              ),
-                              Text("123",
-                                  style: const TextStyle(
-                                      color: color_subtitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: "Poppins",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 12.0),
-                                  textAlign: TextAlign.left),
-                            ]),
-                        Container(
-                          height: 5,
-                        ),
-                        Text("13 hours ago",
-                            style: const TextStyle(
-                                color: color_subtitle,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 11.0),
-                            textAlign: TextAlign.left)
-                      ]),
-                ),
-
-                //post section
-                Container(
-                  height: 10,
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 10,
-                        ),
-                        Row(
+                                  textAlign: TextAlign.center),
+                            ],
+                          )),
+                    ),
+                    Expanded(child: Container()),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      decoration: BoxDecoration(
+                          color: color_lightGrey,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                  child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.05,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(360),
-                                          image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/Icon/camera.png'),
-                                            fit: BoxFit.cover,
-                                          )))),
-                              Container(
-                                width: 15,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(365),
+                                    color: Color(0xff35aacf)),
                               ),
-                              Text("mariosnyder",
+                              Expanded(child: Container()),
+                              Text("Move Goal Achieved",
                                   style: const TextStyle(
                                       color: color_dark,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "Poppins",
                                       fontStyle: FontStyle.normal,
                                       fontSize: 14.0),
-                                  textAlign: TextAlign.left),
-                            ]),
-                        Container(
-                          height: 10,
-                        ),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color(0xFFC0FFD9)),
-                        ),
-                        Container(
-                          height: 10,
-                        ),
-                        Row(
+                                  textAlign: TextAlign.center),
+                              Expanded(child: Container()),
+                              Text("Imperdiet odio integer.",
+                                  style: const TextStyle(
+                                      color: color_dark,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: "Poppins",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 12.0),
+                                  textAlign: TextAlign.center),
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
+
+                //achievement section
+                Container(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      decoration: BoxDecoration(
+                          color: color_lightGrey,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                  child: Icon(
-                                Ionicons.happy_outline,
-                                size: 20,
-                                color: color_subtitle,
-                              )),
-                              Container(
-                                width: 5,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(365),
+                                    color: Color(0xff35aacf)),
                               ),
-                              Text("123",
+                              Expanded(child: Container()),
+                              Text("Move Goal Achieved",
                                   style: const TextStyle(
-                                      color: color_subtitle,
+                                      color: color_dark,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "Poppins",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 14.0),
+                                  textAlign: TextAlign.center),
+                              Expanded(child: Container()),
+                              Text("Imperdiet odio integer.",
+                                  style: const TextStyle(
+                                      color: color_dark,
                                       fontWeight: FontWeight.w400,
                                       fontFamily: "Poppins",
                                       fontStyle: FontStyle.normal,
                                       fontSize: 12.0),
-                                  textAlign: TextAlign.left),
+                                  textAlign: TextAlign.center),
+                            ],
+                          )),
+                    ),
+                    Expanded(child: Container()),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      decoration: BoxDecoration(
+                          color: color_lightGrey,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
                               Container(
-                                width: 22,
+                                height: MediaQuery.of(context).size.width * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(365),
+                                    color: Color(0xff35aacf)),
                               ),
-                              Container(
-                                  child: Icon(
-                                Ionicons.chatbubble_outline,
-                                size: 20,
-                                color: color_subtitle,
-                              )),
-                              Container(
-                                width: 5,
-                              ),
-                              Text("123",
+                              Expanded(child: Container()),
+                              Text("Move Goal Achieved",
                                   style: const TextStyle(
-                                      color: color_subtitle,
+                                      color: color_dark,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "Poppins",
+                                      fontStyle: FontStyle.normal,
+                                      fontSize: 14.0),
+                                  textAlign: TextAlign.center),
+                              Expanded(child: Container()),
+                              Text("Imperdiet odio integer.",
+                                  style: const TextStyle(
+                                      color: color_dark,
                                       fontWeight: FontWeight.w400,
                                       fontFamily: "Poppins",
                                       fontStyle: FontStyle.normal,
                                       fontSize: 12.0),
-                                  textAlign: TextAlign.left),
-                            ]),
-                        Container(
-                          height: 5,
-                        ),
-                        Text("13 hours ago",
-                            style: const TextStyle(
-                                color: color_subtitle,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 11.0),
-                            textAlign: TextAlign.left)
-                      ]),
+                                  textAlign: TextAlign.center),
+                            ],
+                          )),
+                    ),
+                  ],
                 ),
 
                 //bottom section

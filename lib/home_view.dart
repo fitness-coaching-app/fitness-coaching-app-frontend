@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/homeSection.dart';
+import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
@@ -983,7 +984,14 @@ class HomeState extends State<Home> {
                                   icon: const Icon(
                                       Ionicons.person_circle_outline,
                                       color: color_dark),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              UserProfileAct()),
+                                    );
+                                  },
                                 ),
                                 Container(
                                   height: 3,
