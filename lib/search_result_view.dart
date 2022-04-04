@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/homeSection.dart';
 import 'package:flutter_application_2/home_view.dart';
+import 'package:flutter_application_2/search_see_all_course_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
@@ -141,14 +142,26 @@ class SearchResultState extends State<SearchResult> {
                                             fontSize: 20.0),
                                         textAlign: TextAlign.left),
                                     Expanded(child: Container()),
-                                    Text("See All",
-                                        style: const TextStyle(
-                                            color: color_dimmedTeal,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: "Poppins",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 16.0),
-                                        textAlign: TextAlign.right)
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SearchAllCourse(
+                                                        searchText:
+                                                            searchController
+                                                                .text)),
+                                          );
+                                        },
+                                        child: Text("See All",
+                                            style: const TextStyle(
+                                                color: color_dimmedTeal,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily: "Poppins",
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 16.0),
+                                            textAlign: TextAlign.right))
                                   ])),
                           Container(
                             margin: const EdgeInsets.only(bottom: 15),
