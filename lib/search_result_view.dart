@@ -81,7 +81,7 @@ class SearchResultState extends State<SearchResult> {
                             margin: EdgeInsets.symmetric(vertical: 20),
                             height: 60,
                             child: TextFormField(
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                   hintText: "Search for Course or People",
                                   hintStyle: const TextStyle(

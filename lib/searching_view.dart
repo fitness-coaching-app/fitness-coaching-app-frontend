@@ -81,7 +81,7 @@ class SearchingState extends State<Searching> {
                             margin: EdgeInsets.symmetric(vertical: 20),
                             height: 60,
                             child: TextFormField(
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                   hintText: "Search for Course or People",
                                   hintStyle: const TextStyle(
@@ -170,17 +170,7 @@ class SearchingState extends State<Searching> {
                                     ),
                                     Expanded(child: Container()),
                                     GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SearchAllCourse(
-                                                        searchText:
-                                                            searchController
-                                                                .text)),
-                                          );
-                                        },
+                                        onTap: () {},
                                         child: Icon(
                                           Ionicons.close_outline,
                                           color: color_subtitle,
