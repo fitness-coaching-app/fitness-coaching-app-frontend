@@ -83,13 +83,13 @@ class SearchResultState extends State<SearchResult> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                  hintText: "",
+                                  hintText: "Search for Course or People",
                                   hintStyle: const TextStyle(
                                       color: color_subtitle,
                                       fontWeight: FontWeight.w400,
                                       fontFamily: "Poppins",
                                       fontStyle: FontStyle.normal,
-                                      fontSize: 16.0),
+                                      fontSize: 14.0),
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.all(20),
                                   prefixIcon: Padding(
