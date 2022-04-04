@@ -3,6 +3,7 @@ import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/pose_detector_view.dart';
+import 'package:flutter_application_2/search_result_page.dart';
 import 'package:flutter_application_2/user_profile_achieve_view.dart';
 import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/user_profile_follower_view.dart';
@@ -104,7 +105,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      home: MyHomePage(),
+      // home: MyHomePage(),
 
       // home: SignIn(),
       // home: Home(),
@@ -141,6 +142,7 @@ class MyApp extends StatelessWidget {
       // home: PoseDetectorView(),
       // home: UserProfileAct(),
       // home: UserProfileAchieve(),
+      home: SearchResult(),
     );
   }
 }
