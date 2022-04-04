@@ -5,6 +5,7 @@ import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/pose_detector_view.dart';
 import 'package:flutter_application_2/search_result_view.dart';
 import 'package:flutter_application_2/search_see_all_course_view.dart';
+import 'package:flutter_application_2/search_see_all_people_view.dart';
 import 'package:flutter_application_2/user_profile_achieve_view.dart';
 import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/user_profile_follower_view.dart';
@@ -67,86 +68,86 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // Define the default brightness and colors.
-        //brightness: Brightness.dark,
-        //primaryColor: Colors.lightBlue[800],
-        //accentColor: Colors.cyan[600],
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          // Define the default brightness and colors.
+          //brightness: Brightness.dark,
+          //primaryColor: Colors.lightBlue[800],
+          //accentColor: Colors.cyan[600],
 
-        // Define the default font family.
-        fontFamily: 'Poppins',
+          // Define the default font family.
+          fontFamily: 'Poppins',
 
-        // Define the default TextTheme. Use this to specify the default
-        // text styling for headlines, titles, bodies of text, and more.
-        textTheme: TextTheme(
-          headline1: GoogleFonts.poppins(
-            fontSize: 48.0,
-            fontWeight: FontWeight.w800,
-            fontStyle: FontStyle.italic,
-            color: Colors.white,
-          ), //Title Highlight
-          subtitle2: GoogleFonts.poppins(fontSize: 16.0), //Normal
-          button: GoogleFonts.poppins(
-              fontSize: 22.0, fontWeight: FontWeight.w600), //main button text
-          overline: GoogleFonts.poppins(
-              fontSize: 16.0, fontWeight: FontWeight.w600), //Tappable Text
-          headline2: GoogleFonts.poppins(
-              fontSize: 28.0, fontWeight: FontWeight.bold), //title1
-          headline4: GoogleFonts.poppins(
-              fontSize: 20.0, fontWeight: FontWeight.w600), //title2
-          bodyText1: GoogleFonts.poppins(
-              fontSize: 14.0, fontWeight: FontWeight.w600), // Text Heading
-          bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text Heading
-          caption: GoogleFonts.poppins(fontSize: 12.0), //tiny text
-          subtitle1: GoogleFonts.poppins(
-              fontSize: 12.0, fontWeight: FontWeight.w600), //title heading
-          headline3: GoogleFonts.poppins(
-              fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
+          // Define the default TextTheme. Use this to specify the default
+          // text styling for headlines, titles, bodies of text, and more.
+          textTheme: TextTheme(
+            headline1: GoogleFonts.poppins(
+              fontSize: 48.0,
+              fontWeight: FontWeight.w800,
+              fontStyle: FontStyle.italic,
+              color: Colors.white,
+            ), //Title Highlight
+            subtitle2: GoogleFonts.poppins(fontSize: 16.0), //Normal
+            button: GoogleFonts.poppins(
+                fontSize: 22.0, fontWeight: FontWeight.w600), //main button text
+            overline: GoogleFonts.poppins(
+                fontSize: 16.0, fontWeight: FontWeight.w600), //Tappable Text
+            headline2: GoogleFonts.poppins(
+                fontSize: 28.0, fontWeight: FontWeight.bold), //title1
+            headline4: GoogleFonts.poppins(
+                fontSize: 20.0, fontWeight: FontWeight.w600), //title2
+            bodyText1: GoogleFonts.poppins(
+                fontSize: 14.0, fontWeight: FontWeight.w600), // Text Heading
+            bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text Heading
+            caption: GoogleFonts.poppins(fontSize: 12.0), //tiny text
+            subtitle1: GoogleFonts.poppins(
+                fontSize: 12.0, fontWeight: FontWeight.w600), //title heading
+            headline3: GoogleFonts.poppins(
+                fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
+          ),
         ),
-      ),
-      // home: MyHomePage(),
+        // home: MyHomePage(),
 
-      // home: SignIn(),
-      // home: Home(),
-      // home: ForgotPassword0(),
-      // home: ForgotPassword1(),
-      // home: Register0(),
-      // home: Register1(),
-      // home: Register2(),
-      // home: Register3(),
-      // home: Register4(),
-      // home: NewUserSetup0(),
-      // home: NewUserSetupGender(),
-      // home: NewUserSetupBd(),
-      // home: NewUserSetupExPref(),
-      // home: NewUserSetupComp(),
-      // home: NewUserSetupWeight(),
-      // home: NewUserSetupExPref2(),
-      // home: ExerciseSummary(),
-      // home: ExerciseSumFinished(),
-      // home: WorkoutDetail(),
-      // home: WorkoutPortraitWarnning(),
-      // home: WorkoutPortraitStepCounting(),
-      // home: WorkoutPortraitStepBegin(),
-      // home: WorkoutPortraitStepFinish(),
-      // home: WorkoutPortraitAlignCamera(),
-      // home: WorkoutPortraitStepPause(),
-      // home: WorkoutLandscapeAlignCamera(),
-      // home: WorkoutLandscapeStepBegin(),
-      // home: WorkoutLandscapeStepCounting(),
-      // home: WorkoutLandscapeStepFinish(),
-      // home: WorkoutLandscapeStepPause(),
-      // home: WorkoutLandscapeWarnning(),
-      // home: Loading(),
-      // home: PoseDetectorView(),
-      // home: UserProfileAct(),
-      // home: UserProfileAchieve(),
-      home: SearchAllCourse(
-        searchText: 'exercise',
-      ),
-    );
+        // home: SignIn(),
+        // home: Home(),
+        // home: ForgotPassword0(),
+        // home: ForgotPassword1(),
+        // home: Register0(),
+        // home: Register1(),
+        // home: Register2(),
+        // home: Register3(),
+        // home: Register4(),
+        // home: NewUserSetup0(),
+        // home: NewUserSetupGender(),
+        // home: NewUserSetupBd(),
+        // home: NewUserSetupExPref(),
+        // home: NewUserSetupComp(),
+        // home: NewUserSetupWeight(),
+        // home: NewUserSetupExPref2(),
+        // home: ExerciseSummary(),
+        // home: ExerciseSumFinished(),
+        // home: WorkoutDetail(),
+        // home: WorkoutPortraitWarnning(),
+        // home: WorkoutPortraitStepCounting(),
+        // home: WorkoutPortraitStepBegin(),
+        // home: WorkoutPortraitStepFinish(),
+        // home: WorkoutPortraitAlignCamera(),
+        // home: WorkoutPortraitStepPause(),
+        // home: WorkoutLandscapeAlignCamera(),
+        // home: WorkoutLandscapeStepBegin(),
+        // home: WorkoutLandscapeStepCounting(),
+        // home: WorkoutLandscapeStepFinish(),
+        // home: WorkoutLandscapeStepPause(),
+        // home: WorkoutLandscapeWarnning(),
+        // home: Loading(),
+        // home: PoseDetectorView(),
+        // home: UserProfileAct(),
+        // home: UserProfileAchieve(),
+        // home: SearchAllCourse(
+        //   searchText: 'exercise',
+        // ),
+        home: SearchAllPeople(searchText: "searchText"));
   }
 }
 
