@@ -5,7 +5,7 @@ import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/homeSection.dart';
 import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/leaderboard.dart';
-import 'package:flutter_application_2/leaderboard_global_view.dart';
+import 'package:flutter_application_2/leaderboard_following_view.dart';
 import 'package:flutter_application_2/search_see_all_course_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
@@ -17,14 +17,14 @@ import 'user_profile_achieve_view.dart';
 import 'user_profile_follower_view.dart';
 import 'user_profile_following_view.dart';
 
-class LeaderboardFollowing extends StatefulWidget {
-  const LeaderboardFollowing({Key? key}) : super(key: key);
+class LeaderboardGlobal extends StatefulWidget {
+  const LeaderboardGlobal({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => LeaderboardFollowingState();
+  State<StatefulWidget> createState() => LeaderboardGlobalState();
 }
 
-class LeaderboardFollowingState extends State<LeaderboardFollowing> {
+class LeaderboardGlobalState extends State<LeaderboardGlobal> {
   TextEditingController searchController = new TextEditingController();
   List<String> rank = [];
   List<String> username = [];
@@ -107,6 +107,40 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LeaderboardFollowing()),
+                                          );
+                                        },
+                                        child: Container(
+                                            height: 40,
+                                            width: (MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2) -
+                                                25,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xFFEFEFEF),
+                                                borderRadius:
+                                                    BorderRadius.circular(40)),
+                                            child: Center(
+                                              child: Text("Following",
+                                                  style: const TextStyle(
+                                                      color: const Color(
+                                                          0xffc9c9c9),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily: "Poppins",
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 16.0),
+                                                  textAlign: TextAlign.center),
+                                            ))),
+                                    Expanded(child: Container()),
                                     Container(
                                         height: 40,
                                         width:
@@ -118,50 +152,15 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                             borderRadius:
                                                 BorderRadius.circular(40)),
                                         child: Center(
-                                          child: Text("Following",
-                                              style: const TextStyle(
-                                                  color:
-                                                      const Color(0xff00a682),
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: "Poppins",
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 16.0),
-                                              textAlign: TextAlign.center),
-                                        )),
-                                    Expanded(child: Container()),
-                                    GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LeaderboardGlobal()),
-                                          );
-                                        },
-                                        child: Container(
-                                            height: 40,
-                                            width: (MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2) -
-                                                25,
-                                            decoration: BoxDecoration(
-                                                color: Color(0xFFefefef),
-                                                borderRadius:
-                                                    BorderRadius.circular(40)),
-                                            child: Center(
-                                                child: Text("Global",
-                                                    style: const TextStyle(
-                                                        color: const Color(
-                                                            0xffc9c9c9),
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontFamily: "Poppins",
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 16.0),
-                                                    textAlign:
-                                                        TextAlign.center))))
+                                            child: Text("Global",
+                                                style: const TextStyle(
+                                                    color:
+                                                        const Color(0xff00a682),
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: "Poppins",
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 16.0),
+                                                textAlign: TextAlign.center)))
                                   ])),
 
                           //Top 3 Users

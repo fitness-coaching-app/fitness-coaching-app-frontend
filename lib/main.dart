@@ -3,6 +3,7 @@ import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/leaderboard_following_view.dart';
+import 'package:flutter_application_2/leaderboard_global_view.dart';
 import 'package:flutter_application_2/pose_detector_view.dart';
 import 'package:flutter_application_2/search_result_view.dart';
 import 'package:flutter_application_2/search_see_all_course_view.dart';
@@ -153,7 +154,7 @@ class MyApp extends StatelessWidget {
       // home: SearchAllPeople(searchText: "searchText"),
       // home: SearchResult(),
       // home: Searching(),
-      home: LeaderboardFollowing(),
+      home: LeaderboardGlobal(),
     );
   }
 }
