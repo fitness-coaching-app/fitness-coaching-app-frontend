@@ -5,6 +5,7 @@ import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/homeSection.dart';
 import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/newsFeed.dart';
+import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
@@ -214,15 +215,15 @@ class NewsFeedState extends State<NewsFeed> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  tooltip: 'Search',
-                                  icon: const Icon(Ionicons.globe_outline,
+                                  tooltip: 'News',
+                                  icon: const Icon(Ionicons.globe,
                                       color: color_dark),
                                   onPressed: () {},
                                 ),
                                 Container(
                                   height: 3,
                                   width: 20,
-                                  color: color_white,
+                                  color: color_teal,
                                 )
                               ]),
                           Expanded(child: Container()),
@@ -247,14 +248,21 @@ class NewsFeedState extends State<NewsFeed> {
                               children: [
                                 IconButton(
                                   tooltip: 'Profile',
-                                  icon: const Icon(Ionicons.person_circle,
+                                  icon: const Icon(
+                                      Ionicons.person_circle_outline,
                                       color: color_dark),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserProfileAct()));
+                                  },
                                 ),
                                 Container(
                                   height: 3,
                                   width: 20,
-                                  color: color_teal,
+                                  color: color_white,
                                 )
                               ]),
                           Expanded(child: Container()),
