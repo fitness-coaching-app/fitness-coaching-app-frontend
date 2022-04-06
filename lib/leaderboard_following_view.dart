@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/homeSection.dart';
 import 'package:flutter_application_2/home_view.dart';
+import 'package:flutter_application_2/leaderboard.dart';
 import 'package:flutter_application_2/search_see_all_course_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
@@ -24,8 +25,25 @@ class LeaderboardFollowing extends StatefulWidget {
 
 class LeaderboardFollowingState extends State<LeaderboardFollowing> {
   TextEditingController searchController = new TextEditingController();
+  List<String> rank = [];
+  List<String> username = [];
+  List<String> score = [];
+  List<String> urls = [];
+  int rankCnt = 0;
+  final leaderboard = leaderboardFromJson(
+      "\{\"results\": \[\{\"rank\": 1,\"username\": \"test1\",\"score\": 25330,\"url\": \"https://i.pinimg.com/474x/7c/4d/15/7c4d1533480bb4c5911d95699fef5186.jpg\"\},\{\"rank\": 2,\"username\": \"test2\",\"score\": 25000,\"url\": \"https://news.artnet.com/app/news-upload/2019/01/Cat-Photog-Feat-256x256.jpg\"\},\{\"rank\": 3,\"username\": \"test3\",\"score\": 12345,\"url\": \"https://miro.medium.com/max/512/1*pIpmkYQndBoUfa8Uxs1Tjw.jpeg\"\},\{\"rank\": 4,\"username\": \"test4\",\"score\": 5432,\"url\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC4q5-ZpLXcl_Cd8j_PONvAQC1l7pVX35u6w&usqp=CAU\"\},\{\"rank\": 5,\"username\": \"test5\",\"score\": 1234,\"url\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-5YkEJmFjWNPbIANu5itMzRPLZabNlPIkoQ&usqp=CAU\"\}\]\}");
   @override
   Widget build(BuildContext context) {
+    for (var i in leaderboard.results) {
+      rank.add(i.rank.toString());
+      username.add(i.username.toString());
+      score.add(i.score.toString());
+      urls.add(i.url.toString());
+    }
+    print(rank);
+    print(username);
+    print(score);
+    print(urls);
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(
@@ -163,7 +181,7 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Expanded(child: Container()),
-                                        Text("1",
+                                        Text(rank[0],
                                             style: const TextStyle(
                                                 color: const Color(0xff000000),
                                                 fontWeight: FontWeight.w400,
@@ -207,13 +225,18 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                                                             360),
                                                                 image:
                                                                     DecorationImage(
-                                                                  image: AssetImage(
-                                                                      'assets/Icon/camera.png'),
+                                                                  image:
+                                                                      NetworkImage(
+                                                                          urls[
+                                                                              0]),
                                                                   fit: BoxFit
                                                                       .cover,
                                                                 )))))),
                                         Expanded(child: Container()),
-                                        Text("antowatasi",
+                                        Text(
+                                            username[0] != null
+                                                ? username[0]
+                                                : "username",
                                             style: const TextStyle(
                                                 color: const Color(0xff000000),
                                                 fontWeight: FontWeight.w500,
@@ -222,7 +245,7 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                                 fontSize: 14.0),
                                             textAlign: TextAlign.center),
                                         Expanded(child: Container()),
-                                        Text("25330",
+                                        Text(score[0] != null ? score[0] : "0",
                                             style: const TextStyle(
                                                 color: color_dimmedTeal,
                                                 fontWeight: FontWeight.w600,
@@ -246,7 +269,7 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Expanded(child: Container()),
-                                          Text("2",
+                                          Text(rank[1] != null ? rank[1] : "2",
                                               style: const TextStyle(
                                                   color:
                                                       const Color(0xff000000),
@@ -284,13 +307,17 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                                                               360),
                                                                   image:
                                                                       DecorationImage(
-                                                                    image: AssetImage(
-                                                                        'assets/Icon/camera.png'),
+                                                                    image: NetworkImage(
+                                                                        urls[
+                                                                            1]),
                                                                     fit: BoxFit
                                                                         .cover,
                                                                   )))))),
                                           Expanded(child: Container()),
-                                          Text("antowatasi",
+                                          Text(
+                                              username[1] != null
+                                                  ? username[1]
+                                                  : "username",
                                               style: const TextStyle(
                                                   color:
                                                       const Color(0xff000000),
@@ -300,7 +327,8 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.center),
                                           Expanded(child: Container()),
-                                          Text("25330",
+                                          Text(
+                                              score[1] != null ? score[1] : "0",
                                               style: const TextStyle(
                                                   color: color_dimmedTeal,
                                                   fontWeight: FontWeight.w600,
@@ -324,7 +352,7 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Expanded(child: Container()),
-                                          Text("3",
+                                          Text(rank[2] != null ? rank[2] : "3",
                                               style: const TextStyle(
                                                   color:
                                                       const Color(0xff000000),
@@ -362,13 +390,19 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                                                               360),
                                                                   image:
                                                                       DecorationImage(
-                                                                    image: AssetImage(
-                                                                        'assets/Icon/camera.png'),
+                                                                    image: NetworkImage(urls[2] !=
+                                                                            null
+                                                                        ? urls[
+                                                                            2]
+                                                                        : ""),
                                                                     fit: BoxFit
                                                                         .cover,
                                                                   )))))),
                                           Expanded(child: Container()),
-                                          Text("antowatasi",
+                                          Text(
+                                              username[2] != null
+                                                  ? username[2]
+                                                  : "username",
                                               style: const TextStyle(
                                                   color:
                                                       const Color(0xff000000),
@@ -378,7 +412,8 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                                                   fontSize: 14.0),
                                               textAlign: TextAlign.center),
                                           Expanded(child: Container()),
-                                          Text("25330",
+                                          Text(
+                                              score[2] != null ? score[2] : "0",
                                               style: const TextStyle(
                                                   color: color_dimmedTeal,
                                                   fontWeight: FontWeight.w600,
@@ -392,44 +427,45 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                           ),
 
                           //4th section
-                          Container(
-                              child: Column(children: [
-                            Padding(
-                                padding: EdgeInsets.only(bottom: 10),
-                                child: Row(children: [
-                                  Text("4",
-                                      style: const TextStyle(
-                                          color: const Color(0xff000000),
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Poppins",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.center),
-                                  Container(
-                                      margin: EdgeInsets.fromLTRB(40, 0, 15, 0),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.06,
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.06,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(365),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg')))),
-                                  Text("sixtyfoldviolator",
-                                      style: const TextStyle(
-                                          color: const Color(0xff000000),
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "Poppins",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14.0),
-                                      textAlign: TextAlign.left)
-                                ])),
-                          ]))
+                          for (var i = 3; i < rank.length; i++)
+                            Container(
+                                child: Column(children: [
+                              Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Row(children: [
+                                    Text(rank[i],
+                                        style: const TextStyle(
+                                            color: const Color(0xff000000),
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 14.0),
+                                        textAlign: TextAlign.center),
+                                    Container(
+                                        margin:
+                                            EdgeInsets.fromLTRB(40, 0, 15, 0),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.06,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.06,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(365),
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(urls[i])))),
+                                    Text(username[i],
+                                        style: const TextStyle(
+                                            color: const Color(0xff000000),
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "Poppins",
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 14.0),
+                                        textAlign: TextAlign.left)
+                                  ])),
+                            ]))
                         ])))));
   }
 }
