@@ -30,7 +30,6 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
   List<String> username = [];
   List<String> score = [];
   List<String> urls = [];
-  int rankCnt = 0;
   final leaderboard = leaderboardFromJson(
       "\{\"results\": \[\{\"rank\": 1,\"username\": \"test1\",\"score\": 25330,\"url\": \"https://i.pinimg.com/474x/7c/4d/15/7c4d1533480bb4c5911d95699fef5186.jpg\"\},\{\"rank\": 2,\"username\": \"test2\",\"score\": 25000,\"url\": \"https://news.artnet.com/app/news-upload/2019/01/Cat-Photog-Feat-256x256.jpg\"\},\{\"rank\": 3,\"username\": \"test3\",\"score\": 12345,\"url\": \"https://miro.medium.com/max/512/1*pIpmkYQndBoUfa8Uxs1Tjw.jpeg\"\},\{\"rank\": 4,\"username\": \"test4\",\"score\": 5432,\"url\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC4q5-ZpLXcl_Cd8j_PONvAQC1l7pVX35u6w&usqp=CAU\"\},\{\"rank\": 5,\"username\": \"test5\",\"score\": 1234,\"url\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-5YkEJmFjWNPbIANu5itMzRPLZabNlPIkoQ&usqp=CAU\"\}\]\}");
   @override

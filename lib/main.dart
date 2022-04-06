@@ -4,6 +4,8 @@ import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/leaderboard_following_view.dart';
 import 'package:flutter_application_2/leaderboard_global_view.dart';
+import 'package:flutter_application_2/news_article_view.dart';
+import 'package:flutter_application_2/news_feed_view.dart';
 import 'package:flutter_application_2/pose_detector_view.dart';
 import 'package:flutter_application_2/search_result_view.dart';
 import 'package:flutter_application_2/search_see_all_course_view.dart';
@@ -154,7 +156,15 @@ class MyApp extends StatelessWidget {
       // home: SearchAllPeople(searchText: "searchText"),
       // home: SearchResult(),
       // home: Searching(),
-      home: LeaderboardGlobal(),
+      // home: LeaderboardGlobal(),
+      home: NewsFeed(),
+      // home: NewsArticle(
+      //   newsHeader: "header",
+      //   newsDetails: "details1",
+      //   likes: "10",
+      //   picture:
+      //       "https://www.helpguide.org/wp-content/uploads/resistance-band-woman-doing-leg-workout-768.jpg",
+      // ),
     );
   }
 }
