@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/environment.dart';
 import 'package:flutter_application_2/homeSection.dart';
 import 'package:flutter_application_2/news_feed_view.dart';
+import 'package:flutter_application_2/social_activity_view.dart';
 import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
@@ -954,10 +955,9 @@ class HomeState extends State<Home> {
                                       color: color_dark),
                                   onPressed: () {
                                     Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NewsFeed()),
-                                    );
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NewsFeed()));
                                   },
                                 ),
                                 Container(
@@ -974,7 +974,12 @@ class HomeState extends State<Home> {
                                   tooltip: 'Community',
                                   icon: const Icon(Ionicons.people_outline,
                                       color: color_dark),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Activity()));
+                                  },
                                 ),
                                 Container(
                                   height: 3,
