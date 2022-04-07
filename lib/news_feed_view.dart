@@ -6,6 +6,7 @@ import 'package:flutter_application_2/homeSection.dart';
 import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/newsFeed.dart';
 import 'package:flutter_application_2/news_article_view.dart';
+import 'package:flutter_application_2/social_activity_view.dart';
 import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
@@ -73,9 +74,13 @@ class NewsFeedState extends State<NewsFeed> {
                         child: Icon(
                           Ionicons.filter_circle,
                           color: color_dark,
-                          size: 25,
+                          size: 30,
                         )),
                   ],
+                ),
+
+                Container(
+                  height: 10,
                 ),
 
                 //news section
@@ -164,6 +169,7 @@ class NewsFeedState extends State<NewsFeed> {
                                                 fontFamily: "Poppins",
                                                 fontStyle: FontStyle.normal,
                                                 fontSize: 14.0),
+                                            overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left)
                                       ]))))),
 
@@ -239,7 +245,12 @@ class NewsFeedState extends State<NewsFeed> {
                                   tooltip: 'Community',
                                   icon: const Icon(Ionicons.people_outline,
                                       color: color_dark),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Activity()));
+                                  },
                                 ),
                                 Container(
                                   height: 3,
