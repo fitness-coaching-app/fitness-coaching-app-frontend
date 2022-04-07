@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/exerciseSumFinished_view.dart';
 import 'package:flutter_application_2/exerciseSumLv_view.dart';
 import 'package:flutter_application_2/home_view.dart';
+import 'package:flutter_application_2/social_activity_detail_view.dart';
 import 'package:flutter_application_2/social_activity_view.dart';
 import 'package:flutter_application_2/social_leaderboard_following_view.dart';
 import 'package:flutter_application_2/social_leaderboard_global_view.dart';
@@ -167,6 +168,21 @@ class MyApp extends StatelessWidget {
       //       "https://www.helpguide.org/wp-content/uploads/resistance-band-woman-doing-leg-workout-768.jpg",
       // ),
       home: Activity(),
+      // home: ActivityDetail(
+      //   picture:
+      //       'https://miro.medium.com/max/512/1*pIpmkYQndBoUfa8Uxs1Tjw.jpeg',
+      //   urls: "https://miro.medium.com/max/512/1*pIpmkYQndBoUfa8Uxs1Tjw.jpeg",
+      //   username: "username",
+      //   comments: [
+      //     ["username1", "username2", "username2"],
+      //     ["comments1", "comments2", "comments2"],
+      //   ],
+      //   likesUsername: [
+      //     ["username1", "username2", "username1", "username2"],
+      //     ["like", "haha", "like", "haha"]
+      //   ],
+      //   time: DateTime.parse("2022-04-03 20:18:04Z"),
+      // ),
     );
   }
 }

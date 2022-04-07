@@ -42,10 +42,6 @@ class LeaderboardGlobalState extends State<LeaderboardGlobal> {
       score.add(i.score.toString());
       urls.add(i.url.toString());
     }
-    print(rank);
-    print(username);
-    print(score);
-    print(urls);
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(

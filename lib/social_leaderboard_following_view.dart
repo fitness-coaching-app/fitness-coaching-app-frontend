@@ -41,10 +41,6 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
       score.add(i.score.toString());
       urls.add(i.url.toString());
     }
-    print(rank);
-    print(username);
-    print(score);
-    print(urls);
     return Scaffold(
         body: SafeArea(
             child: SingleChildScrollView(

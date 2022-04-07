@@ -7,6 +7,7 @@ import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/news_article_view.dart';
 import 'package:flutter_application_2/news_feed_view.dart';
 import 'package:flutter_application_2/social_activity.dart';
+import 'package:flutter_application_2/social_activity_detail_view.dart';
 import 'package:flutter_application_2/social_leaderboard_following_view.dart';
 import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
@@ -32,22 +33,53 @@ class ActivityState extends State<Activity> {
   List<String> username = [];
   List<String> iconUrl = [];
   List<String> urls = [];
-  List<String> likes = [];
-  List<String> comments = [];
+  List<List<List<String>>> likes = [
+    [
+      ["username1", "username2", "username1", "username2"],
+      ["like", "haha", "like", "haha"]
+    ],
+    [],
+    [],
+    [],
+    []
+  ];
+  List<int> likeCnt = [2, 2, 2, 2, 2];
+  List<List<List<String>>> comments = [
+    [
+      ["username1", "username2"],
+      ["comments1", "comments2"],
+      ["username1", "username2"],
+    ],
+    [],
+    [],
+    [],
+    []
+  ];
+  List<int> commentCnt = [2, 2, 2, 2, 2];
   List<String> picture = [];
   List<String> onClickAction = [];
   List<String> updateOn = [
-    "2022-04-07 20:18:04Z",
-    "2021-07-20 20:18:04Z",
-    "2020-07-20 20:18:04Z",
-    "2019-07-20 20:18:04Z",
-    "2018-07-20 20:18:04Z"
+    "2022-04-06 20:18:04Z",
+    "2022-04-05 20:18:04Z",
+    "2022-04-04 20:18:04Z",
+    "2022-04-03 20:18:04Z",
+    "2022-04-02 20:18:04Z"
   ];
+  List<String> updateToNow = [];
   final activityFeed = activityFeedFromJson(
       "\{\"results\": \[\{\"actHeader\": \"Course Completed\",\"actDetail\": \"Weight Loss Training\",\"username\": \"username1\",\"iconUrl\" : \"https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg\",\"urls\": \"https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg\",\"likes\": \[\{\"username\": \"username1\"\},\{\"username\" : \"username2\"\}\],\"comments\" : \[\{\"commentData\" : \"comment1\"\},\{\"commentData\" : \"comment2\"\}\],\"picture\" : \"https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg\",\"onClickAction\" : \"open -ABCDE\"\},\{\"actHeader\": \"Course Completed\",\"actDetail\": \"Body Combat Training\",\"username\": \"username2\",\"iconUrl\" : \"https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg\",\"urls\": \"https://i.pinimg.com/474x/7c/4d/15/7c4d1533480bb4c5911d95699fef5186.jpg\",\"likes\": \[\{\"username\": \"username1\"\},\{\"username\" : \"username2\"\}\],\"comments\" : \[\{\"commentData\" : \"comment1\"\},\{\"commentData\" : \"comment2\"\}\],\"picture\" : \"https://i.pinimg.com/474x/7c/4d/15/7c4d1533480bb4c5911d95699fef5186.jpg\",\"onClickAction\" : \"open -ABCDE\"\},\{\"actHeader\": \"Level Up\",\"actDetail\": \"Level up to Level 3\",\"username\": \"username3\",\"iconUrl\" : \"https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg\",\"urls\": \"https://news.artnet.com/app/news-upload/2019/01/Cat-Photog-Feat-256x256.jpg\",\"likes\": \[\{\"username\": \"username1\"\},\{\"username\" : \"username2\"\}\],\"comments\" : \[\{\"commentData\" : \"comment1\"\},\{\"commentData\" : \"comment2\"\}\],\"picture\" : \"https://news.artnet.com/app/news-upload/2019/01/Cat-Photog-Feat-256x256.jpg\",\"onClickAction\" : \"open -ABCDE\"\},\{\"actHeader\": \"Course Completed\",\"actDetail\": \"Cardio Training\",\"username\": \"username4\",\"iconUrl\" : \"https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg\",\"urls\": \"https://miro.medium.com/max/512/1*pIpmkYQndBoUfa8Uxs1Tjw.jpeg\",\"likes\": \[\{\"username\": \"username1\"\},\{\"username\" : \"username2\"\}\],\"comments\" : \[\{\"commentData\" : \"comment1\"\},\{\"commentData\" : \"comment2\"\}\],\"picture\" : \"https://miro.medium.com/max/512/1*pIpmkYQndBoUfa8Uxs1Tjw.jpeg\",\"onClickAction\" : \"open -ABCDE\"\},\{\"actHeader\": \"Course Completed\",\"actDetail\": \"Basic Training\",\"username\": \"username5\",\"iconUrl\" : \"https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg\",\"urls\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-5YkEJmFjWNPbIANu5itMzRPLZabNlPIkoQ&usqp=CAU\",\"likes\": \[\{\"username\": \"username1\"\},\{\"username\" : \"username2\"\}\],\"comments\" : \[\{\"commentData\" : \"comment1\"\},\{\"commentData\" : \"comment2\"\}\],\"picture\" : \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-5YkEJmFjWNPbIANu5itMzRPLZabNlPIkoQ&usqp=CAU\",\"onClickAction\" : \"open -ABCDE\"\}\]\}");
+
   @override
   Widget build(BuildContext context) {
+    //datetime difference from now
     DateTime dateNow = DateTime.now();
+    for (var i in updateOn) {
+      DateTime a = DateTime.parse(i);
+      String b = dateNow.difference(a).inHours.toString();
+      updateToNow.add(b);
+    }
+
+    //from json add to list of string for display
     for (var i in activityFeed.results) {
       actHeader.add(i.actHeader);
       actDetail.add(i.actDetail);
@@ -133,7 +165,23 @@ class ActivityState extends State<Activity> {
                     Padding(
                         padding: EdgeInsets.symmetric(vertical: 10),
                         child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActivityDetail(
+                                            username: username[i],
+                                            urls: urls[i],
+                                            picture: picture[i],
+                                            comments: comments[i].length > 0
+                                                ? comments[i]
+                                                : null,
+                                            likesUsername: likes[i].length > 0
+                                                ? likes[i]
+                                                : null,
+                                            time: DateTime.parse(updateOn[i]),
+                                          )));
+                            },
                             child: Container(
                                 height:
                                     MediaQuery.of(context).size.height * 0.2,
@@ -211,7 +259,7 @@ class ActivityState extends State<Activity> {
                             Container(
                               width: 5,
                             ),
-                            Text("123",
+                            Text(likeCnt[i].toString(),
                                 style: const TextStyle(
                                     color: color_subtitle,
                                     fontWeight: FontWeight.w400,
@@ -233,7 +281,7 @@ class ActivityState extends State<Activity> {
                             Container(
                               width: 5,
                             ),
-                            Text("123",
+                            Text(commentCnt[i].toString(),
                                 style: const TextStyle(
                                     color: color_subtitle,
                                     fontWeight: FontWeight.w400,
@@ -247,7 +295,7 @@ class ActivityState extends State<Activity> {
                         alignment: Alignment.topLeft,
                         child: Padding(
                             padding: EdgeInsets.fromLTRB(5, 0, 0, 20),
-                            child: Text(updateOn[i] + " hours ago",
+                            child: Text(updateToNow[i] + " hours ago",
                                 style: const TextStyle(
                                     color: color_subtitle,
                                     fontWeight: FontWeight.w300,
