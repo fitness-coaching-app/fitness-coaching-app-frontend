@@ -13,6 +13,7 @@ import 'package:flutter_application_2/search_result_view.dart';
 import 'package:flutter_application_2/search_see_all_course_view.dart';
 import 'package:flutter_application_2/search_see_all_people_view.dart';
 import 'package:flutter_application_2/searching_view.dart';
+import 'package:flutter_application_2/user_people_view.dart';
 import 'package:flutter_application_2/user_profile_achieve_view.dart';
 import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/user_profile_follower_view.dart';
@@ -167,7 +168,7 @@ class MyApp extends StatelessWidget {
       //   picture:
       //       "https://www.helpguide.org/wp-content/uploads/resistance-band-woman-doing-leg-workout-768.jpg",
       // ),
-      home: Activity(),
+      // home: Activity(),
       // home: ActivityDetail(
       //   picture:
       //       'https://miro.medium.com/max/512/1*pIpmkYQndBoUfa8Uxs1Tjw.jpeg',
@@ -183,6 +184,7 @@ class MyApp extends StatelessWidget {
       //   ],
       //   time: DateTime.parse("2022-04-03 20:18:04Z"),
       // ),
+      home: UserPeople(),
     );
   }
 }
