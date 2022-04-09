@@ -21,6 +21,7 @@ import 'package:flutter_application_2/user_profile_following_view.dart';
 import 'package:flutter_application_2/user_qr_view.dart';
 import 'package:flutter_application_2/user_settings_editProfile_view.dart';
 import 'package:flutter_application_2/user_settings_notifications_view.dart';
+import 'package:flutter_application_2/user_settings_password_view.dart';
 import 'package:flutter_application_2/user_settings_privacy_view.dart';
 import 'package:flutter_application_2/user_settings_view.dart';
 import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
@@ -189,7 +190,7 @@ class MyApp extends StatelessWidget {
       //   ],
       //   time: DateTime.parse("2022-04-03 20:18:04Z"),
       // ),
-      home: UserQrcode(),
+      home: UserSettingsPassword(),
     );
   }
 }
