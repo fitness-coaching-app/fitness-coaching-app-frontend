@@ -13,6 +13,7 @@ import 'package:flutter_application_2/search_result_view.dart';
 import 'package:flutter_application_2/search_see_all_course_view.dart';
 import 'package:flutter_application_2/search_see_all_people_view.dart';
 import 'package:flutter_application_2/searching_view.dart';
+import 'package:flutter_application_2/user_health_view.dart';
 import 'package:flutter_application_2/user_people_view.dart';
 import 'package:flutter_application_2/user_profile_achieve_view.dart';
 import 'package:flutter_application_2/user_profile_act_view.dart';
@@ -184,7 +185,7 @@ class MyApp extends StatelessWidget {
       //   ],
       //   time: DateTime.parse("2022-04-03 20:18:04Z"),
       // ),
-      home: UserPeople(),
+      home: UserHealth(),
     );
   }
 }
