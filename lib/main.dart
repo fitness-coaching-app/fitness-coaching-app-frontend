@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
       // home: MyHomePage(),
 
       // home: SignIn(),
-      // home: Home(),
+      home: Home(),
       // home: ForgotPassword0(),
       // home: ForgotPassword1(),
       // home: Register0(),
@@ -167,7 +167,7 @@ class MyApp extends StatelessWidget {
       //   picture:
       //       "https://www.helpguide.org/wp-content/uploads/resistance-band-woman-doing-leg-workout-768.jpg",
       // ),
-      home: Activity(),
+      // home: Activity(),
       // home: ActivityDetail(
       //   picture:
       //       'https://miro.medium.com/max/512/1*pIpmkYQndBoUfa8Uxs1Tjw.jpeg',

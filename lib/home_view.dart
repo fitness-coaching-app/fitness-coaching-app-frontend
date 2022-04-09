@@ -20,31 +20,79 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  Future<void> getUserInfo(String accessToken) async {
+  Result? banner;
+  List<Result>? section = [];
+  HomeSection? test;
+
+  @override
+  void initState() {
+    super.initState();
+    a("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NDcwOTA4MzIsImV4cCI6MTY0NzA5MTQzMn0.SOp4edUaiWYsYbnlYEhIS7Tj25o3VgQl1eK3uYYnrkA");
+  }
+
+  Future<List<dynamic>> getUserInfo(String accessToken) async {
     var url = Uri.parse(Environment.getSectionsUrl);
     var response = await http
         .get(url, headers: {"Authorization": "Bearer " + accessToken});
-    // var _dataFromAPI = json.decode(response.body);
-    List<HomeSection> _homeData = [];
-    print(response.body);
-    // for (var i in _dataFromAPI) {
-    //   HomeSection homeSection = HomeSection(
-    //       code: i["code"],
-    //       message: i["message"],
-    //       error: i["error"],
-    //       results: i["results"]);
-    //   //Adding user to the list.
-    //   _homeData.add(homeSection);
-    // }
-    // print(response.body);
-    // print("*********");
-    // print(_homeData);
+    var ret = [];
+    final homeSection = homeSectionFromJson(response.body);
+    for (var i in homeSection.results) {
+      if (i.sectionType == 'BANNER') {
+        ret.add(i);
+      }
+    }
+    return ret;
+  }
+
+  Future<void> getBanner(String accessToken) async {
+    var url = Uri.parse(Environment.getSectionsUrl);
+    var response = await http
+        .get(url, headers: {"Authorization": "Bearer " + accessToken});
+    final homeSection = homeSectionFromJson(response.body);
+    for (var i in homeSection.results) {
+      if (i.sectionType == 'BANNER') {
+        banner = i;
+      }
+    }
+  }
+
+  Future<void> getSection(String accessToken) async {
+    var url = Uri.parse(Environment.getSectionsUrl);
+    var response = await http
+        .get(url, headers: {"Authorization": "Bearer " + accessToken});
+    final homeSection = homeSectionFromJson(response.body);
+    List<Result> ret = [];
+    for (var i in homeSection.results) {
+      if (i.sectionType == 'BANNER') {
+        ret.add(i);
+      }
+    }
+    section = ret;
+  }
+
+  Future<void> a(String accessToken) async {
+    var url = Uri.parse(Environment.getSectionsUrl);
+    var response = await http
+        .get(url, headers: {"Authorization": "Bearer " + accessToken});
+    test = homeSectionFromJson(response.body);
+    for (var i in test!.results) {
+      if (i.sectionType == "BANNER") {
+        banner = i;
+      }
+      if (i.sectionType == "COURSE") {
+        section!.add(i);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    getUserInfo(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NDcwOTA4MzIsImV4cCI6MTY0NzA5MTQzMn0.SOp4edUaiWYsYbnlYEhIS7Tj25o3VgQl1eK3uYYnrkA");
+    // String bannerName;
+    // List<String> bannerUrl = [];
+    // List<String> bannerOpen = [];
+    // Future<void> banner = getBanner(
+    //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NDcwOTA4MzIsImV4cCI6MTY0NzA5MTQzMn0.SOp4edUaiWYsYbnlYEhIS7Tj25o3VgQl1eK3uYYnrkA");
+    // print(test?.results);
     return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -88,6 +136,7 @@ class HomeState extends State<Home> {
                           fontSize: 16.0),
                       textAlign: TextAlign.left),
                 ),
+                // for (var i in banner.)
                 Container(
                     margin: const EdgeInsets.only(top: 20),
                     height: 200.0,
@@ -119,130 +168,6 @@ class HomeState extends State<Home> {
                                         padding:
                                             const EdgeInsets.only(top: 140),
                                         child: Text("Weight Loss Training 1",
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 20.0),
-                                            textAlign: TextAlign.left),
-                                      )),
-                                    ),
-                                  )),
-                              RotatedBox(
-                                  quarterTurns: 1,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
-                                      child: Center(
-                                          child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 140),
-                                        child: Text("Weight Loss Training 2",
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 20.0),
-                                            textAlign: TextAlign.left),
-                                      )),
-                                    ),
-                                  )),
-                              RotatedBox(
-                                  quarterTurns: 1,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
-                                      child: Center(
-                                          child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 140),
-                                        child: Text("Weight Loss Training 3",
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 20.0),
-                                            textAlign: TextAlign.left),
-                                      )),
-                                    ),
-                                  )),
-                              RotatedBox(
-                                  quarterTurns: 1,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
-                                      child: Center(
-                                          child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 140),
-                                        child: Text("Weight Loss Training 4",
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 20.0),
-                                            textAlign: TextAlign.left),
-                                      )),
-                                    ),
-                                  )),
-                              RotatedBox(
-                                  quarterTurns: 1,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
-                                      child: Center(
-                                          child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 140),
-                                        child: Text("Weight Loss Training 5",
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.w600,
