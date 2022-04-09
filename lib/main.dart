@@ -18,6 +18,7 @@ import 'package:flutter_application_2/user_profile_achieve_view.dart';
 import 'package:flutter_application_2/user_profile_act_view.dart';
 import 'package:flutter_application_2/user_profile_follower_view.dart';
 import 'package:flutter_application_2/user_profile_following_view.dart';
+import 'package:flutter_application_2/user_settings_view.dart';
 import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
 import 'package:flutter_application_2/workoutPortraitStepPause_view.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -184,7 +185,7 @@ class MyApp extends StatelessWidget {
       //   ],
       //   time: DateTime.parse("2022-04-03 20:18:04Z"),
       // ),
-      home: UserPeople(),
+      home: UserProfileSettings(),
     );
   }
 }
