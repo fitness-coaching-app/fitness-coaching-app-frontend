@@ -16,14 +16,14 @@ import 'user_profile_achieve_view.dart';
 import 'user_profile_follower_view.dart';
 import 'user_profile_following_view.dart';
 
-class UserHealthExercise extends StatefulWidget {
-  const UserHealthExercise({Key? key}) : super(key: key);
+class UserHealthWeight extends StatefulWidget {
+  const UserHealthWeight({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => UserHealthExerciseState();
+  State<StatefulWidget> createState() => UserHealthWeightState();
 }
 
-class UserHealthExerciseState extends State<UserHealthExercise> {
+class UserHealthWeightState extends State<UserHealthWeight> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +52,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                       )),
                   Padding(
                       padding: EdgeInsets.only(left: 20),
-                      child: Text("Health Stats",
+                      child: Text("Weight",
                           style: const TextStyle(
                               color: color_dark,
                               fontWeight: FontWeight.w700,

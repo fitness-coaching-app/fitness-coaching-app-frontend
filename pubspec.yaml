@@ -33,6 +33,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   flutter_tts: ^3.3.3
   flutter_image_compress: ^1.0.0-nullsafety
+  fl_chart: ^0.50.1
   fca_pose_validation:
     git:
       url: https://github.com/fitness-coaching-app/fca_pose_validation.git
