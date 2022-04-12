@@ -80,7 +80,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
 
               //toggle switch
               Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
+                  margin: EdgeInsets.symmetric(vertical: 15),
                   width: MediaQuery.of(context)
                       .size
                       .width, // hardcoded for testing purpose
@@ -138,6 +138,43 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                     );
                   })),
 
+              Container(
+                margin: EdgeInsets.only(bottom: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("1 - 31 July 2021",
+                        style: const TextStyle(
+                            color: color_subtitle,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Poppins",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14.0),
+                        textAlign: TextAlign.left),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("25",
+                              style: const TextStyle(
+                                  color: color_dark,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 24.0)),
+                          Text(" min",
+                              style: const TextStyle(
+                                  color: color_subtitle,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.0),
+                              textAlign: TextAlign.left)
+                        ]),
+                  ],
+                ),
+              ),
+
               //chart
               Stack(
                 children: <Widget>[
@@ -179,6 +216,59 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                   ),
                 ],
               ),
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("Recorded Data",
+                            style: const TextStyle(
+                                color: color_dark,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 24.0)),
+                        Expanded(child: Container()),
+                        Text("1 - 31 July 2021",
+                            style: const TextStyle(
+                                color: color_subtitle,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 14.0),
+                            textAlign: TextAlign.left)
+                      ])),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: color_lightGrey),
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("5 min",
+                                style: const TextStyle(
+                                    color: color_dark,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 14.0),
+                                textAlign: TextAlign.left),
+                            Expanded(child: Container()),
+                            Text("31 July 2021",
+                                style: const TextStyle(
+                                    color: color_subtitle,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 12.0),
+                                textAlign: TextAlign.right)
+                          ]))),
 
               //bottom section
               Container(
@@ -193,7 +283,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: Color(0xff68737d),
+      color: color_lightGrey,
       fontWeight: FontWeight.bold,
       fontSize: 16,
     );
@@ -212,7 +302,6 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
         text = const Text('', style: style);
         break;
     }
-
     return Padding(child: text, padding: const EdgeInsets.only(top: 8.0));
   }
 
