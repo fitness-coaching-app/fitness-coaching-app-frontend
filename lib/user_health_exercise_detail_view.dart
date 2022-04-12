@@ -15,6 +15,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'user_profile_achieve_view.dart';
 import 'user_profile_follower_view.dart';
 import 'user_profile_following_view.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class UserHealthExerciseDetail extends StatefulWidget {
   const UserHealthExerciseDetail({Key? key}) : super(key: key);
@@ -24,6 +25,8 @@ class UserHealthExerciseDetail extends StatefulWidget {
 }
 
 class UserHealthExerciseDetailState extends State<UserHealthExerciseDetail> {
+  DateTime time = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +55,10 @@ class UserHealthExerciseDetailState extends State<UserHealthExerciseDetail> {
                       )),
                   Padding(
                       padding: EdgeInsets.only(left: 20),
-                      child: Text("Health Stats",
+                      child: Text(
+                          time.day.toString() +
+                              time.month.toString() +
+                              time.year.toString(),
                           style: const TextStyle(
                               color: color_dark,
                               fontWeight: FontWeight.w700,

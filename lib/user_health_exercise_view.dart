@@ -7,6 +7,7 @@ import 'package:flutter_application_2/homeSection.dart';
 import 'package:flutter_application_2/home_view.dart';
 import 'package:flutter_application_2/news_feed_view.dart';
 import 'package:flutter_application_2/social_activity_view.dart';
+import 'package:flutter_application_2/user_health_exercise_detail_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
@@ -29,8 +30,8 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
 
   bool showAvg = false;
   List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
+    const Color(0xffee9b21),
+    const Color(0xffee9b21),
   ];
 
   @override
@@ -161,14 +162,14 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                                   fontWeight: FontWeight.w600,
                                   fontFamily: "Poppins",
                                   fontStyle: FontStyle.normal,
-                                  fontSize: 24.0)),
+                                  fontSize: 36.0)),
                           Text(" min",
                               style: const TextStyle(
                                   color: color_subtitle,
                                   fontWeight: FontWeight.w400,
                                   fontFamily: "Poppins",
                                   fontStyle: FontStyle.normal,
-                                  fontSize: 14.0),
+                                  fontSize: 24.0),
                               textAlign: TextAlign.left)
                         ]),
                   ],
@@ -185,7 +186,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(18),
                           ),
-                          color: Color(0xff232d37)),
+                          color: color_lightGrey),
                       child: Padding(
                         padding: const EdgeInsets.only(
                             right: 18.0, left: 12.0, top: 24, bottom: 12),
@@ -209,8 +210,8 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                         style: TextStyle(
                             fontSize: 12,
                             color: showAvg
-                                ? Colors.white.withOpacity(0.5)
-                                : Colors.white),
+                                ? Color(0xff67727d).withOpacity(0.5)
+                                : Color(0xff67727d)),
                       ),
                     ),
                   ),
@@ -228,7 +229,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                                 fontWeight: FontWeight.w600,
                                 fontFamily: "Poppins",
                                 fontStyle: FontStyle.normal,
-                                fontSize: 24.0)),
+                                fontSize: 20.0)),
                         Expanded(child: Container()),
                         Text("1 - 31 July 2021",
                             style: const TextStyle(
@@ -239,36 +240,43 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                                 fontSize: 14.0),
                             textAlign: TextAlign.left)
                       ])),
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      color: color_lightGrey),
-                  child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("5 min",
-                                style: const TextStyle(
-                                    color: color_dark,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14.0),
-                                textAlign: TextAlign.left),
-                            Expanded(child: Container()),
-                            Text("31 July 2021",
-                                style: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12.0),
-                                textAlign: TextAlign.right)
-                          ]))),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserHealthExerciseDetail()));
+                  },
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          color: color_lightGrey),
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text("5 min",
+                                    style: const TextStyle(
+                                        color: color_dark,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Poppins",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 14.0),
+                                    textAlign: TextAlign.left),
+                                Expanded(child: Container()),
+                                Text("31 July 2021",
+                                    style: const TextStyle(
+                                        color: color_subtitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Poppins",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12.0),
+                                    textAlign: TextAlign.right)
+                              ])))),
 
               //bottom section
               Container(
@@ -283,7 +291,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
-      color: color_lightGrey,
+      color: Color(0xff67727d),
       fontWeight: FontWeight.bold,
       fontSize: 16,
     );
@@ -338,13 +346,13 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
           return FlLine(
-            color: const Color(0xff37434d),
+            color: const Color(0xcc000000),
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
           return FlLine(
-            color: const Color(0xff37434d),
+            color: const Color(0xcc000000),
             strokeWidth: 1,
           );
         },
@@ -376,7 +384,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
       ),
       borderData: FlBorderData(
           show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
+          border: Border.all(color: const Color(0xcc000000), width: 1)),
       minX: 0,
       maxX: 11,
       minY: 0,
@@ -428,13 +436,13 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
         horizontalInterval: 1,
         getDrawingVerticalLine: (value) {
           return FlLine(
-            color: const Color(0xff37434d),
+            color: const Color(0xcc000000),
             strokeWidth: 1,
           );
         },
         getDrawingHorizontalLine: (value) {
           return FlLine(
-            color: const Color(0xff37434d),
+            color: const Color(0xcc000000),
             strokeWidth: 1,
           );
         },
@@ -466,7 +474,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
       ),
       borderData: FlBorderData(
           show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
+          border: Border.all(color: const Color(0xcc000000), width: 1)),
       minX: 0,
       maxX: 11,
       minY: 0,
