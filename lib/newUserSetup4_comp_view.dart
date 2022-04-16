@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/loading_view.dart';
+import 'package:fitness_coaching_application_test/loading_view.dart';
 import 'color.dart';
 
 //New User Setup

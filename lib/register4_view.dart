@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/environment.dart';
-import 'package:flutter_application_2/newUserSetup0_view.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:fitness_coaching_application_test/newUserSetup0_view.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;

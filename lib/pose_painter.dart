@@ -12,30 +12,106 @@ class PosePainter extends CustomPainter {
   final List<Pose> poses;
   final Size absoluteImageSize;
   final InputImageRotation rotation;
-  // final double armAngle;
-  // final double elbowAngle;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    final leftDot = Paint()
+      ..style = PaintingStyle.fill
+      ..color = const Color.fromRGBO(252, 119, 3, 1.0);
+    final rightDot = Paint()
+      ..style = PaintingStyle.fill
+      ..color = const Color.fromRGBO(3, 223, 252, 1);
+    final dot = Paint()
+      ..style = PaintingStyle.fill
+      ..color = Colors.purpleAccent;
+
+    final bodyLine = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4.0
-      ..color = Colors.green;
+      ..color = Colors.white;
 
-    final leftPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
-      ..color = Colors.yellow;
+    poses.forEach((pose) {
+      void paintLine(
+          PoseLandmarkType type1, PoseLandmarkType type2, Paint paintType) {
+        PoseLandmark joint1 = pose.landmarks[type1]!;
+        PoseLandmark joint2 = pose.landmarks[type2]!;
+        canvas.drawLine(
+            Offset(translateX(joint1.x, rotation, size, absoluteImageSize),
+                translateY(joint1.y, rotation, size, absoluteImageSize)),
+            Offset(translateX(joint2.x, rotation, size, absoluteImageSize),
+                translateY(joint2.y, rotation, size, absoluteImageSize)),
+            paintType);
+      }
 
-    final rightPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
-      ..color = Colors.blueAccent;
+      //Draw arms
+      paintLine(
+          PoseLandmarkType.leftShoulder, PoseLandmarkType.leftElbow, bodyLine);
+      paintLine(
+          PoseLandmarkType.leftElbow, PoseLandmarkType.leftWrist, bodyLine);
+      paintLine(PoseLandmarkType.rightShoulder, PoseLandmarkType.rightElbow,
+          bodyLine);
+      paintLine(
+          PoseLandmarkType.rightElbow, PoseLandmarkType.rightWrist, bodyLine);
 
-    final textStyle = TextStyle(
-      color: Colors.amber,
-      fontSize: 16,
-    );
+      //Draw Body
+      paintLine(
+          PoseLandmarkType.leftShoulder, PoseLandmarkType.leftHip, bodyLine);
+      paintLine(PoseLandmarkType.rightShoulder, PoseLandmarkType.rightHip,
+          bodyLine);
+      paintLine(PoseLandmarkType.rightHip, PoseLandmarkType.leftHip,
+          bodyLine);
+      paintLine(
+          PoseLandmarkType.leftShoulder, PoseLandmarkType.rightShoulder, bodyLine);
+
+      //Draw legs
+      paintLine(
+          PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, bodyLine);
+      paintLine(
+          PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, bodyLine);
+
+      paintLine(
+          PoseLandmarkType.leftKnee, PoseLandmarkType.leftAnkle, bodyLine);
+      paintLine(
+          PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle, bodyLine);
+
+      pose.landmarks.forEach((landmarkType, landmark) {
+        canvas.drawCircle(
+            Offset(
+              translateX(landmark.x, rotation, size, absoluteImageSize),
+              translateY(landmark.y, rotation, size, absoluteImageSize),
+            ),
+            6,
+            dot);
+        // canvas.drawCircle(
+        //     Offset(
+        //       translateX(landmark.x, rotation, size, absoluteImageSize),
+        //       translateY(landmark.y, rotation, size, absoluteImageSize),
+        //     ),
+        //     3,
+        //     landmarkType.toString().startsWith("PoseLandmarkType.left")? leftDot: rightDot);
+      });
+    });
+
+
+    // final paint = Paint()
+    //   ..style = PaintingStyle.stroke
+    //   ..strokeWidth = 4.0
+    //   ..color = Colors.green;
+
+    // final leftPaint = Paint()
+    //   ..style = PaintingStyle.stroke
+    //   ..strokeWidth = 3.0
+    //   ..color = Colors.yellow;
+
+    // final rightPaint = Paint()
+    //   ..style = PaintingStyle.stroke
+    //   ..strokeWidth = 3.0
+    //   ..color = Colors.blueAccent;
+
+    // final textStyle = TextStyle(
+    //   color: Colors.amber,
+    //   fontSize: 16,
+    // );
     // final textSpan = TextSpan(
     //   text: 'Left Arm = ' +
     //       armAngle.toString() +
@@ -57,51 +133,51 @@ class PosePainter extends CustomPainter {
     // final offset = Offset(xCenter, yCenter);
     // textPainter.paint(canvas, offset);
 
-    poses.forEach((pose) {
-      pose.landmarks.forEach((_, landmark) {
-        canvas.drawCircle(
-            Offset(
-              translateX(landmark.x, rotation, size, absoluteImageSize),
-              translateY(landmark.y, rotation, size, absoluteImageSize),
-            ),
-            1,
-            paint);
-      });
+    // poses.forEach((pose) {
+    //   pose.landmarks.forEach((_, landmark) {
+    //     canvas.drawCircle(
+    //         Offset(
+    //           translateX(landmark.x, rotation, size, absoluteImageSize),
+    //           translateY(landmark.y, rotation, size, absoluteImageSize),
+    //         ),
+    //         1,
+    //         paint);
+    //   });
 
-      void paintLine(
-          PoseLandmarkType type1, PoseLandmarkType type2, Paint paintType) {
-        PoseLandmark joint1 = pose.landmarks[type1]!;
-        PoseLandmark joint2 = pose.landmarks[type2]!;
-        canvas.drawLine(
-            Offset(translateX(joint1.x, rotation, size, absoluteImageSize),
-                translateY(joint1.y, rotation, size, absoluteImageSize)),
-            Offset(translateX(joint2.x, rotation, size, absoluteImageSize),
-                translateY(joint2.y, rotation, size, absoluteImageSize)),
-            paintType);
-      }
+    //   void paintLine(
+    //       PoseLandmarkType type1, PoseLandmarkType type2, Paint paintType) {
+    //     PoseLandmark joint1 = pose.landmarks[type1]!;
+    //     PoseLandmark joint2 = pose.landmarks[type2]!;
+    //     canvas.drawLine(
+    //         Offset(translateX(joint1.x, rotation, size, absoluteImageSize),
+    //             translateY(joint1.y, rotation, size, absoluteImageSize)),
+    //         Offset(translateX(joint2.x, rotation, size, absoluteImageSize),
+    //             translateY(joint2.y, rotation, size, absoluteImageSize)),
+    //         paintType);
+    //   }
 
-      //Draw arms
-      paintLine(
-          PoseLandmarkType.leftShoulder, PoseLandmarkType.leftElbow, leftPaint);
-      paintLine(
-          PoseLandmarkType.leftElbow, PoseLandmarkType.leftWrist, leftPaint);
-      paintLine(PoseLandmarkType.rightShoulder, PoseLandmarkType.rightElbow,
-          rightPaint);
-      paintLine(
-          PoseLandmarkType.rightElbow, PoseLandmarkType.rightWrist, rightPaint);
+    //   //Draw arms
+    //   paintLine(
+    //       PoseLandmarkType.leftShoulder, PoseLandmarkType.leftElbow, leftPaint);
+    //   paintLine(
+    //       PoseLandmarkType.leftElbow, PoseLandmarkType.leftWrist, leftPaint);
+    //   paintLine(PoseLandmarkType.rightShoulder, PoseLandmarkType.rightElbow,
+    //       rightPaint);
+    //   paintLine(
+    //       PoseLandmarkType.rightElbow, PoseLandmarkType.rightWrist, rightPaint);
 
-      //Draw Body
-      paintLine(
-          PoseLandmarkType.leftShoulder, PoseLandmarkType.leftHip, leftPaint);
-      paintLine(PoseLandmarkType.rightShoulder, PoseLandmarkType.rightHip,
-          rightPaint);
+    //   //Draw Body
+    //   paintLine(
+    //       PoseLandmarkType.leftShoulder, PoseLandmarkType.leftHip, leftPaint);
+    //   paintLine(PoseLandmarkType.rightShoulder, PoseLandmarkType.rightHip,
+    //       rightPaint);
 
-      //Draw legs
-      paintLine(
-          PoseLandmarkType.leftHip, PoseLandmarkType.leftAnkle, leftPaint);
-      paintLine(
-          PoseLandmarkType.rightHip, PoseLandmarkType.rightAnkle, rightPaint);
-    });
+    //   //Draw legs
+    //   paintLine(
+    //       PoseLandmarkType.leftHip, PoseLandmarkType.leftAnkle, leftPaint);
+    //   paintLine(
+    //       PoseLandmarkType.rightHip, PoseLandmarkType.rightAnkle, rightPaint);
+    // });
   }
 
   @override

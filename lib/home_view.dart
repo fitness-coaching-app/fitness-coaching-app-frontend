@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/environment.dart';
-import 'package:flutter_application_2/homeSection.dart';
-import 'package:flutter_application_2/news_feed_view.dart';
-import 'package:flutter_application_2/social_activity_view.dart';
-import 'package:flutter_application_2/user_profile_act_view.dart';
-import 'package:flutter_application_2/workoutDetail_view.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:fitness_coaching_application_test/homeSection.dart';
+import 'package:fitness_coaching_application_test/news_feed_view.dart';
+import 'package:fitness_coaching_application_test/social_activity_view.dart';
+import 'package:fitness_coaching_application_test/user_profile_act_view.dart';
+import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
@@ -113,7 +113,7 @@ class HomeState extends State<Home> {
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                                  'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                                       child: Center(
                                           child: Padding(
                                         padding:
@@ -144,7 +144,7 @@ class HomeState extends State<Home> {
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                                  'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                                       child: Center(
                                           child: Padding(
                                         padding:
@@ -175,7 +175,7 @@ class HomeState extends State<Home> {
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                                  'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                                       child: Center(
                                           child: Padding(
                                         padding:
@@ -206,7 +206,7 @@ class HomeState extends State<Home> {
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                                  'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                                       child: Center(
                                           child: Padding(
                                         padding:
@@ -237,7 +237,7 @@ class HomeState extends State<Home> {
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: NetworkImage(
-                                                  'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                                  'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                                       child: Center(
                                           child: Padding(
                                         padding:
@@ -293,7 +293,7 @@ class HomeState extends State<Home> {
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(
-                                            'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                            'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                                 child: Padding(
                                   padding: EdgeInsets.all(8),
                                   child: Column(
@@ -453,7 +453,7 @@ class HomeState extends State<Home> {
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: NetworkImage(
-                                        'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                        'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                             child: Padding(
                               padding: EdgeInsets.all(8),
                               child: Column(
@@ -621,7 +621,7 @@ class HomeState extends State<Home> {
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: NetworkImage(
-                                        'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                        'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                             child: Padding(
                               padding: EdgeInsets.all(8),
                               child: Column(
@@ -768,7 +768,7 @@ class HomeState extends State<Home> {
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: NetworkImage(
-                                        'https://www.techhub.in.th/wp-content/uploads/2021/05/577280151-1.jpg'))),
+                                        'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
                             child: Padding(
                               padding: EdgeInsets.all(8),
                               child: Column(

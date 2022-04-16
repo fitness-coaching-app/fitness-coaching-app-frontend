@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/environment.dart';
-import 'package:flutter_application_2/homeSection.dart';
-import 'package:flutter_application_2/home_view.dart';
-import 'package:flutter_application_2/user_profile_follower_view.dart';
-import 'package:flutter_application_2/workoutDetail_view.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:fitness_coaching_application_test/homeSection.dart';
+import 'package:fitness_coaching_application_test/home_view.dart';
+import 'package:fitness_coaching_application_test/user_profile_follower_view.dart';
+import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
