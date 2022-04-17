@@ -75,6 +75,15 @@ class UserHealthWeightState extends State<UserHealthWeight> {
                               fontStyle: FontStyle.normal,
                               fontSize: 26.0),
                           textAlign: TextAlign.left)),
+                  Expanded(child: Container()),
+                  GestureDetector(
+                      onTap: () {
+                      },
+                      child: Icon(
+                        Ionicons.add_circle,
+                        size: 30,
+                        color: color_dark,
+                      )),
                 ],
               ),
 

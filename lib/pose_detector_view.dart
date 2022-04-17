@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/test_touchChecker.dart';
 import 'package:flutter_application_2/workoutLandscapeStepFinishCamera_view.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
@@ -17,9 +16,7 @@ import 'pose_painter.dart';
 import 'workoutPortraitStepCountingCamera_view.dart';
 import 'workoutPortraitStepFinishCamera_view.dart';
 import 'workoutPortraitStepPauseCamera_view.dart';
-
-import 'test_touchChecker.dart';
-// import 'package:fca_pose_validation/src/touch_checker.dart';
+import 'package:fca_pose_validation/src/touch_checker.dart';
 
 var armAngle;
 var elbowAngle;

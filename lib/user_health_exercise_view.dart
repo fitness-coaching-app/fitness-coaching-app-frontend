@@ -10,6 +10,7 @@ import 'package:flutter_application_2/social_activity_view.dart';
 import 'package:flutter_application_2/user_health_exercise_detail_view.dart';
 import 'package:flutter_application_2/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,6 +28,7 @@ class UserHealthExercise extends StatefulWidget {
 
 class UserHealthExerciseState extends State<UserHealthExercise> {
   var isSelected;
+  String formatDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
 
   bool showAvg = false;
   List<Color> gradientColors = [
@@ -268,7 +270,7 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                                         fontSize: 14.0),
                                     textAlign: TextAlign.left),
                                 Expanded(child: Container()),
-                                Text("31 July 2021",
+                                Text(formatDate,
                                     style: const TextStyle(
                                         color: color_subtitle,
                                         fontWeight: FontWeight.w400,
