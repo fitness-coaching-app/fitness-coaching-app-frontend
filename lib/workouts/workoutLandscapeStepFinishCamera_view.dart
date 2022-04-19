@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:ionicons/ionicons.dart';
 
-import 'main.dart';
+import '../main.dart';
 
 class WorkoutLandscapeStepFinishCamera extends StatefulWidget {
   WorkoutLandscapeStepFinishCamera(

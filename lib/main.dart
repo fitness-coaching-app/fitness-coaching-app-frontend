@@ -8,7 +8,7 @@ import 'package:fitness_coaching_application_test/social_leaderboard_following_v
 import 'package:fitness_coaching_application_test/social_leaderboard_global_view.dart';
 import 'package:fitness_coaching_application_test/news_article_view.dart';
 import 'package:fitness_coaching_application_test/news_feed_view.dart';
-import 'package:fitness_coaching_application_test/pose_detector_view.dart';
+import 'package:fitness_coaching_application_test/workouts/pose_detector_view.dart';
 import 'package:fitness_coaching_application_test/search_result_view.dart';
 import 'package:fitness_coaching_application_test/search_see_all_course_view.dart';
 import 'package:fitness_coaching_application_test/search_see_all_people_view.dart';
@@ -24,8 +24,8 @@ import 'package:fitness_coaching_application_test/user_settings_notifications_vi
 import 'package:fitness_coaching_application_test/user_settings_password_view.dart';
 import 'package:fitness_coaching_application_test/user_settings_privacy_view.dart';
 import 'package:fitness_coaching_application_test/user_settings_view.dart';
-import 'package:fitness_coaching_application_test/workoutPortraitAlignCamera_view.dart';
-import 'package:fitness_coaching_application_test/workoutPortraitStepPause_view.dart';
+import 'package:fitness_coaching_application_test/workouts/workoutPortraitAlignCamera_view.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
@@ -49,18 +49,9 @@ import 'register3_view.dart';
 import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'workoutDetail_view.dart';
-import 'workoutLandscapeAlignCamera_view.dart';
-import 'workoutLandscapeStepFinish_view.dart';
-import 'workoutLandscapeStepBegin_view.dart';
-import 'workoutLandscapeStepCounting_view.dart';
-import 'workoutLandscapeStepPause_view.dart';
-import 'workoutLandscapeWarnning_view.dart';
-import 'workoutPortraitStepBegin_view.dart';
-import 'workoutPortraitStepCounting_view.dart';
-import 'workoutPortraitStepFinish_view.dart';
-import 'workoutPortraitWarnning_view.dart';
-import 'workoutPortraitAlignCamera_view.dart';
-import 'workoutPortraitStepPause_view.dart';
+import 'workouts/workoutLandscapeAlignCamera_view.dart';
+
+
 
 import 'dart:io';
 

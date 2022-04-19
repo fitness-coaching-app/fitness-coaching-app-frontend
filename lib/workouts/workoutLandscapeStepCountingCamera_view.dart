@@ -5,12 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-import 'package:ionicons/ionicons.dart';
 
-import 'main.dart';
+import '../main.dart';
 
-class WorkoutPortraitStepFinishCamera extends StatefulWidget {
-  WorkoutPortraitStepFinishCamera(
+class WorkoutLandscapeStepCountingCamera extends StatefulWidget {
+  WorkoutLandscapeStepCountingCamera(
       {Key? key,
       required this.title,
       required this.customPaint,
@@ -24,12 +23,12 @@ class WorkoutPortraitStepFinishCamera extends StatefulWidget {
   final CameraLensDirection initialDirection;
 
   @override
-  _WorkoutPortraitStepFinishCameraState createState() =>
-      _WorkoutPortraitStepFinishCameraState();
+  _WorkoutLandscapeStepCountingCameraState createState() =>
+      _WorkoutLandscapeStepCountingCameraState();
 }
 
-class _WorkoutPortraitStepFinishCameraState
-    extends State<WorkoutPortraitStepFinishCamera> {
+class _WorkoutLandscapeStepCountingCameraState
+    extends State<WorkoutLandscapeStepCountingCamera> {
   CameraController? _controller;
 
   @override
@@ -44,7 +43,7 @@ class _WorkoutPortraitStepFinishCameraState
     super.dispose();
   }
 
-  Widget _portraitMode() {
+  Widget _landscapeMode() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Column(
       children: [
@@ -52,33 +51,73 @@ class _WorkoutPortraitStepFinishCameraState
           children: <Widget>[
             Container(
                 decoration: new BoxDecoration(color: color_dark),
-                height: MediaQuery.of(context).size.height * 0.14,
+                height: MediaQuery.of(context).size.height * 0.25,
                 width: MediaQuery.of(context).size.width,
                 child: LinearProgressIndicator(
-                  value: 1,
+                  value: 0.3,
                   valueColor: AlwaysStoppedAnimation(color_dimmedTeal),
                   backgroundColor: color_dark,
                   semanticsLabel: 'Linear progress indicator',
                 )),
             Positioned(
-                top: (MediaQuery.of(context).size.height * 0.14) / 5,
-                left: (MediaQuery.of(context).size.width * 0.4),
-                child: Icon(
-                  Ionicons.checkmark_circle,
-                  size: 70,
-                  color: color_dark,
-                )),
+              top: (MediaQuery.of(context).size.height * 0.25) / 10,
+              right: 60,
+              child: Text("98",
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Poppins",
+                      fontStyle: FontStyle.normal,
+                      fontSize: 36.0),
+                  textAlign: TextAlign.center),
+            ),
+            Positioned(
+              bottom: (MediaQuery.of(context).size.height * 0.25) / 10,
+              right: 50,
+              child: Text("99",
+                  style: const TextStyle(
+                      color: color_subtitle,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Poppins",
+                      fontStyle: FontStyle.normal,
+                      fontSize: 14.0),
+                  textAlign: TextAlign.center),
+            ),
+            Positioned(
+                top: (MediaQuery.of(context).size.height * 0.25) / 4,
+                left: 25,
+                child: Container(
+                    height: MediaQuery.of(context).size.height / 8,
+                    child: Center(
+                      child: Text("Chest Stretch",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0),
+                          textAlign: TextAlign.center),
+                    ))),
+            Positioned(
+              bottom: 0,
+              left: MediaQuery.of(context).size.width * 0.5,
+              child: Center(
+                  child: SvgPicture.asset(
+                'assets/Icon/Detail Expand Icon.svg', // dot dot dot
+                height: 26,
+              )),
+            )
           ],
         ),
         Stack(children: <Widget>[
           Container(
             decoration: new BoxDecoration(color: color_white),
             height: MediaQuery.of(context).size.height -
-                (MediaQuery.of(context).size.height * 0.14),
+                (MediaQuery.of(context).size.height * 0.25),
             width: MediaQuery.of(context).size.width,
           ),
           Positioned(
-              bottom: 47,
+              bottom: 15,
               left: 25,
               child: Stack(children: <Widget>[
                 Container(
@@ -99,7 +138,7 @@ class _WorkoutPortraitStepFinishCameraState
     );
   }
 
-  Widget _landscapeMode() {
+  Widget _portraitMode() {
     return SafeArea(
         child: new Container(
             decoration: new BoxDecoration(color: color_white),
@@ -107,7 +146,7 @@ class _WorkoutPortraitStepFinishCameraState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  'assets/Icon/Miscellaneous-Outline_phone.svg', // dot dot dot
+                  'assets/Icon/Miscellaneous-Outline_phone_hor.svg', // dot dot dot
                   height: 100,
                 ),
                 Container(
@@ -115,8 +154,8 @@ class _WorkoutPortraitStepFinishCameraState
                 ),
                 Center(
                     child: Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  child: Text("Please rotate your device vertically",
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: Text("Please rotate your device horizontally",
                       style: const TextStyle(
                           color: color_dark,
                           fontWeight: FontWeight.w600,

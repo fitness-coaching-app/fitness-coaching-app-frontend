@@ -5,12 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-import 'package:ionicons/ionicons.dart';
 
-import 'main.dart';
+import '../main.dart';
 
-class WorkoutPortraitStepPauseCamera extends StatefulWidget {
-  WorkoutPortraitStepPauseCamera(
+class WorkoutPortraitWarningCamera extends StatefulWidget {
+  WorkoutPortraitWarningCamera(
       {Key? key,
       required this.title,
       required this.customPaint,
@@ -24,12 +23,12 @@ class WorkoutPortraitStepPauseCamera extends StatefulWidget {
   final CameraLensDirection initialDirection;
 
   @override
-  _WorkoutPortraitStepPauseCameraState createState() =>
-      _WorkoutPortraitStepPauseCameraState();
+  _WorkoutPortraitWarningCameraState createState() =>
+      _WorkoutPortraitWarningCameraState();
 }
 
-class _WorkoutPortraitStepPauseCameraState
-    extends State<WorkoutPortraitStepPauseCamera> {
+class _WorkoutPortraitWarningCameraState
+    extends State<WorkoutPortraitWarningCamera> {
   CameraController? _controller;
 
   @override
@@ -51,36 +50,16 @@ class _WorkoutPortraitStepPauseCameraState
         Stack(
           children: <Widget>[
             Container(
-              decoration: new BoxDecoration(color: color_dark),
-              height: MediaQuery.of(context).size.height * 0.14,
-              width: MediaQuery.of(context).size.width,
-            ),
-            LinearProgressIndicator(
-              value: 0.6,
-              valueColor: AlwaysStoppedAnimation(color_dimmedTeal),
-              backgroundColor: color_dark,
-              semanticsLabel: 'Linear progress indicator',
-            ),
+                decoration: new BoxDecoration(color: color_purple),
+                height: MediaQuery.of(context).size.height * 0.14,
+                width: MediaQuery.of(context).size.width),
             Positioned(
-                top: (MediaQuery.of(context).size.height * 0.14) / 4,
+                top: (MediaQuery.of(context).size.height * 0.14) / 10,
                 left: 25,
-                child: Container(
-                    width: 62,
-                    height: 62,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                        color: Colors.white),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Text("1",
-                          style: const TextStyle(
-                              color: color_dark,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 36.0),
-                          textAlign: TextAlign.center),
-                    ))),
+                child: SvgPicture.asset(
+                  'assets/Icon/Miscellaneous-Filled_warnned.svg',
+                  height: MediaQuery.of(context).size.height * 0.105,
+                )),
             Positioned(
                 top: (MediaQuery.of(context).size.height * 0.14) / 10,
                 left: (MediaQuery.of(context).size.height * 0.105) + 40,
@@ -90,7 +69,7 @@ class _WorkoutPortraitStepPauseCameraState
                         ((MediaQuery.of(context).size.height * 0.105) + 75)),
                     height: MediaQuery.of(context).size.height * 0.105,
                     child: Center(
-                      child: Text("Chess Stretch",
+                      child: Text("Pose Correction Info Info Here",
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -104,97 +83,35 @@ class _WorkoutPortraitStepPauseCameraState
               left: MediaQuery.of(context).size.width / 2 - 13,
               child: Center(
                   child: SvgPicture.asset(
-                'assets/Icon/Detail Expand Icon.svg', // dot dot dot
+                'assets/Icon/Detail Expand Icon.svg',
                 height: 26,
               )),
             )
           ],
         ),
         Stack(children: <Widget>[
-          Stack(children: <Widget>[
-            Container(
-              decoration: new BoxDecoration(color: color_white),
-              height: MediaQuery.of(context).size.height -
-                  (MediaQuery.of(context).size.height * 0.14),
-              width: MediaQuery.of(context).size.width,
-              child: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  CameraPreview(_controller!),
-                  if (widget.customPaint != null) widget.customPaint!,
-                ],
-              ),
-            ),
-          ]),
+          Container(
+            decoration: new BoxDecoration(color: color_dark),
+            height: MediaQuery.of(context).size.height -
+                (MediaQuery.of(context).size.height * 0.14),
+            width: MediaQuery.of(context).size.width,
+          ),
           Positioned(
-              child: Container(
-            height: MediaQuery.of(context).size.height * 0.14,
-            decoration: new BoxDecoration(
-                color: Color(0xb20c2b42),
-                borderRadius: new BorderRadius.only(
-                  bottomLeft: const Radius.circular(15),
-                  bottomRight: const Radius.circular(15),
-                )),
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  25,
-                  ((MediaQuery.of(context).size.height * 0.14) / 5),
-                  25,
-                  ((MediaQuery.of(context).size.height * 0.14) / 5)),
-              child: Row(
-                children: [
-                  Container(
-                      width: 80,
-                      height: 65,
-                      child: Column(children: [
-                        SvgPicture.asset(
-                          'assets/Icon/Miscellaneous-Filled_clock.svg', // dot dot dot
-                          height: 30,
-                        ),
-                        Container(
-                          height: 5,
-                        ),
-                        Text("9:45",
-                            style: const TextStyle(
-                                color: const Color(0xffffffff),
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16.0),
-                            textAlign: TextAlign.center),
-                      ])),
-                  Container(
-                      width: 80,
-                      height: 65,
-                      child: Column(children: [
-                        Icon(
-                          Ionicons.flame,
-                          size: 30,
-                          color: color_white,
-                        ),
-                        Container(
-                          height: 5,
-                        ),
-                        Text("500 KCAL",
-                            style: const TextStyle(
-                                color: const Color(0xffffffff),
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16.0),
-                            textAlign: TextAlign.center),
-                      ])),
-                  Expanded(child: Container()),
-                  Container(
-                    child: SvgPicture.asset(
-                      'assets/Icon/Button_pause.svg', // dot dot dot
-                      height: 40,
-                    ),
+            bottom: 47,
+            left: 25,
+            child: Stack(children: <Widget>[
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.24,
+                  width: MediaQuery.of(context).size.width * 0.31,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                ],
-              ),
-            ),
-          ))
+                  child: Stack(fit: StackFit.expand, children: <Widget>[
+                    CameraPreview(_controller!),
+                    if (widget.customPaint != null) widget.customPaint!,
+                  ]))
+            ]),
+          )
         ]),
       ],
     );

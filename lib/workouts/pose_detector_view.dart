@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fitness_coaching_application_test/workoutLandscapeStepFinishCamera_view.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
-import 'WorkoutLandscapeStepBeginCamera_view.dart';
-import 'WorkoutLandscapeWarnningCamera_view.dart';
-import 'loading_view.dart';
+import '../loading_view.dart';
 import 'pose_painter.dart';
-import 'workoutPortraitWarnningCamera_view.dart';
+import 'WorkoutPortraitWarningCamera_view.dart';
 import 'workoutLandscapeStepCountingCamera_view.dart';
-import 'workoutLandscapeStepFinish_view.dart';
 import 'workoutLandscapeStepPauseCamera_view.dart';
 import 'workoutPortraitStepBeginCamera_view.dart';
 
@@ -86,60 +82,12 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
           if (!snap.hasData) {
             return Loading();
           } else {
-            return Stack(children: <Widget>[
-              WorkoutPortraitStepBeginCamera(
+            return WorkoutPortraitStepBeginCamera(
                 title: 'Pose Detector',
                 customPaint: customPaint,
                 onImage: (inputImage) {
                   processImage(inputImage);
-                },
-              ),
-              Positioned(
-                  bottom: 30,
-                  left: 20,
-                  child: Row(children: <Widget>[
-                    TextButton(
-                        style: TextButton.styleFrom(
-                          primary: Colors.blue,
-                          backgroundColor: Colors.white,
-                        ),
-                        onPressed: () {
-                          controller.dumpLogToFile(
-                              "squats-10_${DateTime.now().toUtc().toString()}");
-                        },
-                        child: Text("Save to Log")),
-                    SizedBox(width: 25),
-                    TextButton(
-                        style: TextButton.styleFrom(
-                          primary: Colors.white,
-                          backgroundColor: Colors.red,
-                        ),
-                        onPressed: () {
-                          // controller.dumpLogToFile('test');
-                        },
-                        child: Text("Clear Log"))
-                  ])),
-              Positioned(
-                top: 100,
-                left: 20,
-                child: Column(children: <Widget>[
-                  Text(
-                      "$stepName\n$criteria: $criteriaValue\nSuggestion: $poseSuggestionString",
-                      style: TextStyle(
-                          backgroundColor: Colors.black,
-                          color: Colors.white,
-                          fontSize: 12))
-                ]),
-              ),
-              Positioned(
-                  top: 130,
-                  right: 20,
-                  child: Text("$fps fps",
-                      style: TextStyle(
-                          backgroundColor: Colors.black,
-                          color: Colors.white,
-                          fontSize: 12)))
-            ]);
+                });
           }
         });
   }

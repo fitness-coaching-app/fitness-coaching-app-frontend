@@ -6,7 +6,7 @@ import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
-import 'main.dart';
+import '../main.dart';
 
 class WorkoutLandscapeWarnningCamera extends StatefulWidget {
   WorkoutLandscapeWarnningCamera(
