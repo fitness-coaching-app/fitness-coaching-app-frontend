@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../exerciseSumFinished_view.dart';
 import '../main.dart';
@@ -16,13 +15,13 @@ enum ScreenMode { liveFeed, gallery }
 class WorkoutPortraitStepBeginCamera extends StatefulWidget {
   WorkoutPortraitStepBeginCamera(
       {Key? key,
-      required this.title,
-      required this.customPaint,
+      this.customPaint,
+        required this.stepName,
       required this.onImage,
       this.initialDirection = CameraLensDirection.front})
       : super(key: key);
 
-  final String title;
+  final String stepName;
   final CustomPaint? customPaint;
   final Function(InputImage inputImage) onImage;
   final CameraLensDirection initialDirection;
@@ -101,7 +100,7 @@ class _WorkoutPortraitStepBeginCameraState
                         ((MediaQuery.of(context).size.height * 0.105) + 75)),
                     height: MediaQuery.of(context).size.height * 0.105,
                     child: Center(
-                      child: Text("Chess Stretch",
+                      child: Text(widget.stepName,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,

@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts : ^2.1.0
+  google_fonts : 2.2.0
   ionicons: ^0.1.2
   flutter_svg: ^0.22.0
   google_ml_kit: ^0.7.3
@@ -37,7 +37,7 @@ dependencies:
   fca_pose_validation:
     git:
       url: https://github.com/fitness-coaching-app/fca_pose_validation.git
-      ref: 6283ce188e502f59acd6301bfed35a8d48d391c5
+      ref: master
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

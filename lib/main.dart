@@ -8,7 +8,7 @@ import 'package:fitness_coaching_application_test/social_leaderboard_following_v
 import 'package:fitness_coaching_application_test/social_leaderboard_global_view.dart';
 import 'package:fitness_coaching_application_test/news_article_view.dart';
 import 'package:fitness_coaching_application_test/news_feed_view.dart';
-import 'package:fitness_coaching_application_test/workouts/pose_detector_view.dart';
+import 'package:fitness_coaching_application_test/workouts/WorkoutMain_view.dart';
 import 'package:fitness_coaching_application_test/search_result_view.dart';
 import 'package:fitness_coaching_application_test/search_see_all_course_view.dart';
 import 'package:fitness_coaching_application_test/search_see_all_people_view.dart';

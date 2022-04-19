@@ -49,6 +49,7 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
   }
 
   Future<String> loadData() async {
+    // TODO: load course data from the API
     data = await rootBundle.loadString('assets/yaml/jumping-jacks.yaml');
     controller = ExerciseController(data);
     currentState = controller.getCurrentState();
@@ -79,8 +80,8 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
             return Loading();
           } else {
             return WorkoutPortraitStepBeginCamera(
-                title: 'Pose Detector',
                 customPaint: customPaint,
+                stepName: stepName,
                 onImage: (inputImage) {
                   processImage(inputImage);
                 });
