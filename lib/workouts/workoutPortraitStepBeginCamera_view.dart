@@ -34,10 +34,7 @@ class WorkoutPortraitStepBeginCamera extends StatefulWidget {
 
 class _WorkoutPortraitStepBeginCameraState
     extends State<WorkoutPortraitStepBeginCamera> {
-  ScreenMode _mode = ScreenMode.liveFeed;
   CameraController? _controller;
-  File? _image;
-  ImagePicker? _imagePicker;
   int _cameraIndex = 0;
   double zoomLevel = 0.0, minZoomLevel = 0.0, maxZoomLevel = 0.0;
 
@@ -45,7 +42,6 @@ class _WorkoutPortraitStepBeginCameraState
   void initState() {
     super.initState();
 
-    _imagePicker = ImagePicker();
     for (var i = 0; i < cameras.length; i++) {
       if (cameras[i].lensDirection == widget.initialDirection) {
         _cameraIndex = i;
@@ -80,37 +76,27 @@ class _WorkoutPortraitStepBeginCameraState
             Positioned(
                 top: (MediaQuery.of(context).size.height * 0.14) / 4,
                 left: 25,
-                child: new GestureDetector(
-                    onTap: () {
-                      _stopLiveFeed();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ExerciseSumFinished()),
-                      );
-                    },
-                    child: Container(
-                        width: 62,
-                        height: 62,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            color: Colors.white),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 5),
-                          child: Text("1",
-                              style: const TextStyle(
-                                  color: color_dark,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 36.0),
-                              textAlign: TextAlign.center),
-                        )))),
+                child: Container(
+                    width: 62,
+                    height: 62,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: Colors.white),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Text("1",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 36.0),
+                          textAlign: TextAlign.center),
+                    ))),
             Positioned(
                 top: (MediaQuery.of(context).size.height * 0.14) / 10,
                 left: (MediaQuery.of(context).size.height * 0.105) + 40,
                 child: Container(
-                    // color: Colors.red,
                     width: (MediaQuery.of(context).size.width -
                         ((MediaQuery.of(context).size.height * 0.105) + 75)),
                     height: MediaQuery.of(context).size.height * 0.105,
@@ -197,84 +183,11 @@ class _WorkoutPortraitStepBeginCameraState
     ));
   }
 
-  Widget? _floatingActionButton() {
-    if (_mode == ScreenMode.gallery) return null;
-    if (cameras.length == 1) return null;
-    return Container(
-        height: 70.0,
-        width: 70.0,
-        child: FloatingActionButton(
-          child: Icon(
-            Platform.isIOS
-                ? Icons.flip_camera_ios_outlined
-                : Icons.flip_camera_android_outlined,
-            size: 40,
-          ),
-          onPressed: _switchLiveCamera,
-        ));
-  }
-
-  Widget _galleryBody() {
-    return ListView(shrinkWrap: true, children: [
-      _image != null
-          ? Container(
-              height: 400,
-              width: 400,
-              child: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  Image.file(_image!),
-                  if (widget.customPaint != null) widget.customPaint!,
-                ],
-              ),
-            )
-          : Icon(
-              Icons.image,
-              size: 200,
-            ),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: ElevatedButton(
-          child: Text('From Gallery'),
-          onPressed: () => _getImage(ImageSource.gallery),
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: ElevatedButton(
-          child: Text('Take a picture'),
-          onPressed: () => _getImage(ImageSource.camera),
-        ),
-      ),
-    ]);
-  }
-
-  Future _getImage(ImageSource source) async {
-    final pickedFile = await _imagePicker?.getImage(source: source);
-    if (pickedFile != null) {
-      _processPickedFile(pickedFile);
-    } else {
-      print('No image selected.');
-    }
-    setState(() {});
-  }
-
-  void _switchScreenMode() async {
-    if (_mode == ScreenMode.liveFeed) {
-      _mode = ScreenMode.gallery;
-      await _stopLiveFeed();
-    } else {
-      _mode = ScreenMode.liveFeed;
-      await _startLiveFeed();
-    }
-    setState(() {});
-  }
-
   Future _startLiveFeed() async {
     final camera = cameras[_cameraIndex];
     _controller = CameraController(
       camera,
-      ResolutionPreset.medium,
+      ResolutionPreset.low,
       enableAudio: false,
     );
     _controller?.initialize().then((_) {
@@ -297,23 +210,6 @@ class _WorkoutPortraitStepBeginCameraState
     await _controller?.stopImageStream();
     await _controller?.dispose();
     _controller = null;
-  }
-
-  Future _switchLiveCamera() async {
-    if (_cameraIndex == 0)
-      _cameraIndex = 1;
-    else
-      _cameraIndex = 0;
-    await _stopLiveFeed();
-    await _startLiveFeed();
-  }
-
-  Future _processPickedFile(PickedFile pickedFile) async {
-    setState(() {
-      _image = File(pickedFile.path);
-    });
-    final inputImage = InputImage.fromFilePath(pickedFile.path);
-    widget.onImage(inputImage);
   }
 
   Future _processCameraImage(CameraImage image) async {
@@ -357,67 +253,4 @@ class _WorkoutPortraitStepBeginCameraState
 
     widget.onImage(inputImage);
   }
-  // Future _startLiveFeed() async {
-  //   final camera = cameras[1];
-  //   _controller = CameraController(
-  //     camera,
-  //     ResolutionPreset.low,
-  //     enableAudio: false,
-  //   );
-  //   _controller?.initialize().then((_) {
-  //     if (!mounted) {
-  //       return;
-  //     }
-  //     _controller?.startImageStream(_processCameraImage);
-  //     setState(() {});
-  //   });
-  // }
-
-  // Future _stopLiveFeed() async {
-  //   await _controller?.stopImageStream();
-  //   await _controller?.dispose();
-  //   _controller = null;
-  // }
-
-  // Future _processCameraImage(CameraImage image) async {
-  //   final WriteBuffer allBytes = WriteBuffer();
-  //   for (Plane plane in image.planes) {
-  //     allBytes.putUint8List(plane.bytes);
-  //   }
-  //   final bytes = allBytes.done().buffer.asUint8List();
-
-  //   final Size imageSize =
-  //       Size(image.width.toDouble(), image.height.toDouble());
-
-  //   final camera = cameras[1];
-  //   final imageRotation =
-  //       InputImageRotationMethods.fromRawValue(camera.sensorOrientation) ??
-  //           InputImageRotation.Rotation_0deg;
-
-  //   final inputImageFormat =
-  //       InputImageFormatMethods.fromRawValue(image.format.raw) ??
-  //           InputImageFormat.NV21;
-
-  //   final planeData = image.planes.map(
-  //     (Plane plane) {
-  //       return InputImagePlaneMetadata(
-  //         bytesPerRow: plane.bytesPerRow,
-  //         height: plane.height,
-  //         width: plane.width,
-  //       );
-  //     },
-  //   ).toList();
-
-  //   final inputImageData = InputImageData(
-  //     size: imageSize,
-  //     imageRotation: imageRotation,
-  //     inputImageFormat: inputImageFormat,
-  //     planeData: planeData,
-  //   );
-
-  //   final inputImage =
-  //       InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
-
-  //   widget.onImage(inputImage);
-  // }
 }

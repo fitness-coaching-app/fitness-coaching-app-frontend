@@ -17,16 +17,12 @@ import 'workoutPortraitStepPauseCamera_view.dart';
 import 'package:fca_pose_validation/fca_pose_processor.dart';
 // import 'package:fca_pose_validation/src/touch_checker.dart';
 
-class PoseDetectorView extends StatefulWidget {
+class WorkoutMainView extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _PoseDetectorViewState();
+  State<StatefulWidget> createState() => _WorkoutMainViewState();
 }
 
-class _PoseDetectorViewState extends State<PoseDetectorView> {
-  // PoseDetector poseDetector = GoogleMlKit.vision.poseDetector();
-  // bool isBusy = false;
-  // CustomPaint? customPaint;
-
+class _WorkoutMainViewState extends State<WorkoutMainView> {
   PoseDetector poseDetector = GoogleMlKit.vision.poseDetector(
       poseDetectorOptions: PoseDetectorOptions(
           model: PoseDetectionModel.base, mode: PoseDetectionMode.streamImage));
@@ -140,63 +136,3 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     });
   }
 }
-
-// Future<void> processImage(InputImage inputImage) async {
-//   if (isBusy) return;
-//   isBusy = true;
-//   final poses = await poseDetector.processImage(inputImage);
-//   print('Found ${poses.length} poses');
-//   for (Pose pose in poses) {
-// angle
-// PoseValidator poseValidator = PoseValidator(pose);
-// armAngle = poseValidator.getAngle(PoseLandmarkType.leftShoulder,
-//     PoseLandmarkType.leftHip, PoseLandmarkType.leftElbow);
-// elbowAngle = poseValidator.getAngle(PoseLandmarkType.leftElbow,
-//     PoseLandmarkType.leftShoulder, PoseLandmarkType.leftWrist);
-// print('arm = ' + armAngle.toString());
-// print('elbow = ' + elbowAngle.toString());
-
-//touch checker
-// TouchChecker touchChecker = TouchChecker();
-// touchChecker.setPose(pose);
-// var checkLeftRightHand = touchChecker.touchChecker(
-//     PoseLandmarkType.leftWrist, PoseLandmarkType.rightWrist);
-// print(
-//     'check left and right wrist touch: ' + checkLeftRightHand.toString());
-
-// pose.landmarks.forEach((_, landmark) {
-//   final type = landmark.type;
-//   final x = landmark.x;
-//   final y = landmark.y;
-//   final z = landmark.z;
-//   final likelihood = landmark.likelihood;
-// print('$type: PoseLandmark($type, $x, $y, $z, $likelihood)');
-// print('$type: PoseLandmark($type, likelihood: $likelihood)');
-// if (inputImage.inputImageData?.size != null &&
-//     inputImage.inputImageData?.imageRotation != null) {
-//   // final painter = PosePainter(poses, inputImage.inputImageData!.size,
-//   //     inputImage.inputImageData!.imageRotation, armAngle, elbowAngle);
-//   final painter = PosePainter(poses, inputImage.inputImageData!.size,
-//       inputImage.inputImageData!.imageRotation);
-//   customPaint = CustomPaint(painter: painter);
-// } else {
-//   customPaint = null;
-// }
-// });
-// }
-// print('Found ${poses.length} poses');
-// if (inputImage.inputImageData?.size != null &&
-//     inputImage.inputImageData?.imageRotation != null) {
-//   final painter = PosePainter(poses, inputImage.inputImageData!.size,
-//       inputImage.inputImageData!.imageRotation);
-//   customPaint = CustomPaint(painter: painter);
-
-// } else {
-//   customPaint = null;
-// }
-//     isBusy = false;
-//     if (mounted) {
-//       setState(() {});
-//     }
-//   }
-// }
