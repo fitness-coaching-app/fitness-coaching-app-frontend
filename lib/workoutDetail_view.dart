@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './workouts/WorkoutMain_view.dart';
+import 'workouts/screens/WorkoutPortraitMain_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
