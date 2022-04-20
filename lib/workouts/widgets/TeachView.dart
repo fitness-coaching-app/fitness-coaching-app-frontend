@@ -14,20 +14,22 @@ class TeachView extends StatefulWidget {
 }
 
 class _TeachViewState extends State<TeachView> {
-  Timer? timer;
-  Timer? updateTimer;
 
   @override
   void initState(){
     super.initState();
-    timer = Timer.periodic(Duration(seconds: 3), (timer) {
-      this.timer?.cancel();
+
+    // TODO: Remove this timer, mockup only
+    Timer.periodic(Duration(seconds: 3), (timer) {
+      timer.cancel();
       if(widget.onComplete != null) widget.onComplete!();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Display Teaching Video
+    // TODO: Call widget.onComplete!() when done teaching video
     return Expanded(
         child: Text("Teaching Video...")
     );

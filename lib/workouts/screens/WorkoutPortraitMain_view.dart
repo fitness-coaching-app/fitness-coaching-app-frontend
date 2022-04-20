@@ -52,7 +52,6 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
   }
 
   void onDisplayStateChange(DisplayState state) {
-    print("onDisplayStateChange CALLED");
     print(currentState.timer.elapsedMilliseconds);
     setState(() {
       currentDisplayState = state;
@@ -60,7 +59,7 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
   }
 
   void onStepComplete() {
-    print("Step Completed");
+    // Step completed, display correct tick for 5 seconds
     setState(() {
       isStepComplete = true;
     });
@@ -72,12 +71,19 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
     });
   }
 
+  void onExerciseComplete(){
+    // TODO: Change the page to exercise summary
+
+  }
+
   Future<String> loadData() async {
-    // TODO: load course data from the API
-    data = await rootBundle.loadString('assets/yaml/jumping-jacks.yaml');
+    // TODO: Load course data from the API
+    data = await rootBundle.loadString('assets/yaml/jumping-jacks.yaml'); // TODO: Load .yaml file here
     controller = ExerciseController(data,
         onDisplayStateChange: onDisplayStateChange,
-        onStepComplete: onStepComplete);
+        onStepComplete: onStepComplete,
+        onExerciseComplete: onExerciseComplete
+    );
     currentState = controller.getCurrentState();
     stepName = currentState.stepName;
 
@@ -86,7 +92,6 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
     } else {
       criteria = "Timer";
     }
-    print("OK...");
     controller.preExerciseCompleted();
 
     return "OK";
@@ -135,12 +140,9 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
   }
 
   Future<void> processImage(InputImage inputImage) async {
-    final DateTime time = DateTime.now();
     if (isBusy) return;
     isBusy = true;
     final poses = await poseDetector.processImage(inputImage);
-    final DateTime detectionTime = DateTime.now();
-    // print('Found ${poses.length} poses');
     if (poses.isNotEmpty) processPose(poses[0]);
     final DateTime poseProcessorTime = DateTime.now();
     if (inputImage.inputImageData?.size != null &&
@@ -155,13 +157,6 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
     if (mounted) {
       setState(() {});
     }
-    final DateTime stopTime = DateTime.now();
-    setState(() {
-      fps = ((1 / stopTime.difference(time).inMilliseconds) * 1000).toInt();
-      // print("FPS = $fps");
-    });
-    // print(
-    //     "Process time: ${stopTime.difference(time).inMilliseconds} ms | ${detectionTime.difference(time).inMicroseconds} us | ${poseProcessorTime.difference(detectionTime).inMicroseconds} us");
   }
 
   Future<void> processPose(Pose pose) async {
