@@ -53,16 +53,19 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
 
   void onDisplayStateChange(DisplayState state) {
     print("onDisplayStateChange CALLED");
+    print(currentState.timer.elapsedMilliseconds);
     setState(() {
       currentDisplayState = state;
     });
   }
 
   void onStepComplete() {
+    print("Step Completed");
     setState(() {
       isStepComplete = true;
     });
     dartAsync.Timer.periodic(Duration(seconds: 5), (timer) {
+      timer.cancel();
       setState(() {
         isStepComplete = false;
       });
@@ -71,7 +74,7 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
 
   Future<String> loadData() async {
     // TODO: load course data from the API
-    data = await rootBundle.loadString('assets/yaml/jumping-jacks-timer.yaml');
+    data = await rootBundle.loadString('assets/yaml/jumping-jacks.yaml');
     controller = ExerciseController(data,
         onDisplayStateChange: onDisplayStateChange,
         onStepComplete: onStepComplete);
@@ -110,11 +113,15 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
                     currentState: controller.getCurrentState(),
                     isComplete: isStepComplete),
                 (() {
-                  if (currentDisplayState == DisplayState.teach && !isStepComplete) {
+                  if(isStepComplete){
+                    return Text("Complete");
+                  }
+                  if (currentDisplayState == DisplayState.teach) {
                     return TeachView(onComplete: () {
                       controller.teachCompleted();
                     });
                   }
+
                   return CameraView(
                     customPaint: customPaint,
                     onImage: (InputImage inputImage) =>

@@ -5,6 +5,7 @@ import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math';
 import 'package:ionicons/ionicons.dart';
+import 'package:recase/recase.dart';
 
 class CurrentExerciseStateBar extends StatefulWidget {
   ExerciseState currentState;
@@ -48,7 +49,8 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
                       color: Colors.white),
                   child: Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Text("1",
+                      child: Text(
+                          (widget.currentState.currentStep + 1).toString(),
                           style: const TextStyle(
                               color: color_dark,
                               fontWeight: FontWeight.w600,
@@ -207,12 +209,11 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
             child: Row(
               children: [
                 Expanded(
-                  child: Icon(
-                    Ionicons.checkmark_circle,
-                    size: 70,
-                    color: color_dark,
-                  )
-                ),
+                    child: Icon(
+                  Ionicons.checkmark_circle,
+                  size: 70,
+                  color: color_dark,
+                )),
               ],
             ),
           ),
@@ -228,10 +229,65 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
     );
   }
 
+  Widget _warningStateBar() {
+    return Container(
+      decoration: new BoxDecoration(color: color_purple),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            height: 25 + 3,
+          ),
+          Container(
+            height: 80,
+            child: Row(children: [
+              SizedBox(
+                width: 25,
+              ),
+              Container(
+                  width: 62,
+                  child: SvgPicture.asset(
+                    'assets/Icon/Miscellaneous-Filled_warnned.svg',
+                  )),
+              SizedBox(
+                width: 25,
+              ),
+              Flexible(
+                child: Center(
+                  child: Text(widget.currentState.getWarning()["warningMessage"].toString().titleCase,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "Poppins",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20.0),
+                      textAlign: TextAlign.center),
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              )
+            ]),
+          ),
+          Center(
+              child: SvgPicture.asset(
+            'assets/Icon/Detail Expand Icon.svg', // dot dot dot
+          )),
+          SizedBox(
+            height: 10,
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    if(widget.isComplete){
+    if (widget.isComplete) {
       return _completeStateBar();
+    }
+    if(widget.currentState.isWarning()){
+      return _warningStateBar();
     }
     if (widget.currentState.getDisplayState() == DisplayState.exercise) {
       double widthFactor =
