@@ -3,19 +3,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math';
+import 'package:ionicons/ionicons.dart';
 
 class CurrentExerciseStateBar extends StatefulWidget {
   ExerciseState currentState;
-  CurrentExerciseStateBar({
-    Key? key,
-    required this.currentState,
-  }) : super(key: key);
+  bool isComplete;
+
+  CurrentExerciseStateBar(
+      {Key? key, required this.currentState, required this.isComplete})
+      : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _CurrentExerciseStateBarState();
 }
 
 class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
-
   Widget _introStateBar() {
     return Container(
       decoration: new BoxDecoration(color: color_dark),
@@ -75,8 +78,8 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
           ),
           Center(
               child: SvgPicture.asset(
-                'assets/Icon/Detail Expand Icon.svg', // dot dot dot
-              )),
+            'assets/Icon/Detail Expand Icon.svg', // dot dot dot
+          )),
           SizedBox(
             height: 10,
           )
@@ -91,35 +94,62 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            height: 25 + 3 // Padding + Indicator
-          ),
+          SizedBox(height: 25 + 3 // Padding + Indicator
+              ),
           Container(
             height: 80, // Normal Height + Padding + Indicator
-            child: Row(
-                children: [
-                  SizedBox(
-                    width: 25,
-                  ),
-                  Expanded(
-                    child: Text(widget.currentState.stepName,
-                        style: TextStyle(
-                            color: textColor,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 20.0)),
-                  ),
-                  _countingWidget(widget.currentState.repeatCount,widget.currentState.target, textColor),
-                  SizedBox(
-                    width: 25,
-                  )
-                ]),
+            child: Row(children: [
+              SizedBox(
+                width: 25,
+              ),
+              Expanded(
+                child: Text(widget.currentState.stepName,
+                    style: TextStyle(
+                        color: textColor,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20.0)),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                width: 120,
+                child: Row(
+                  children: [
+                    Spacer(),
+                    (() {
+                      if (widget.currentState.criteria ==
+                          ExerciseDisplayCriteria.timer) {
+                        int min = Duration(
+                                milliseconds: widget
+                                    .currentState.timer.elapsedMilliseconds)
+                            .inMinutes;
+                        int sec = Duration(
+                                milliseconds: widget
+                                    .currentState.timer.elapsedMilliseconds)
+                            .inSeconds
+                            .remainder(60);
+
+                        return _timerWidget(min, sec, textColor);
+                      } else {
+                        return _countingWidget(widget.currentState.repeatCount,
+                            widget.currentState.target, textColor);
+                      }
+                    }())
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: 25,
+              )
+            ]),
           ),
           Center(
               child: SvgPicture.asset(
-                'assets/Icon/Detail Expand Icon.svg', // dot dot dot
-              )),
+            'assets/Icon/Detail Expand Icon.svg', // dot dot dot
+          )),
           SizedBox(
             height: 10,
           )
@@ -139,24 +169,79 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
         textAlign: TextAlign.center);
   }
 
-  Widget _exercisingStateBar() {
+  Widget _timerWidget(int min, int sec, Color textColor) {
+    return Text(
+        "${min.toString().padLeft(2, '0')}:${sec.toString().padLeft(2, '0')}",
+        style: TextStyle(
+            color: textColor,
+            fontWeight: FontWeight.w600,
+            fontFamily: "Poppins",
+            fontStyle: FontStyle.normal,
+            fontSize: 36.0),
+        textAlign: TextAlign.center);
+  }
+
+  Widget _exercisingStateBar(double widthFactor) {
     return Stack(
       children: [
         _exercisingStateDetail(Colors.white, color_dark),
         ClipRect(
             child: Align(
                 alignment: Alignment.topLeft,
-                widthFactor: (widget.currentState.repeatCount / widget.currentState.target),
-                child: _exercisingStateDetail(color_dark, color_dimmedTeal)
-            )
-        )
+                widthFactor: widthFactor,
+                child: _exercisingStateDetail(color_dark, color_dimmedTeal)))
       ],
+    );
+  }
+
+  Widget _completeStateBar() {
+    return Container(
+      decoration: new BoxDecoration(color: color_dimmedTeal),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(height: 25 + 3 // Padding + Indicator
+              ),
+          Container(
+            height: 80, // Normal Height + Padding + Indicator
+            child: Row(
+              children: [
+                Expanded(
+                  child: Icon(
+                    Ionicons.checkmark_circle,
+                    size: 70,
+                    color: color_dark,
+                  )
+                ),
+              ],
+            ),
+          ),
+          Center(
+              child: SvgPicture.asset(
+            'assets/Icon/Detail Expand Icon.svg', // dot dot dot
+          )),
+          SizedBox(
+            height: 10,
+          )
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // return _introStateBar();
-    return _exercisingStateBar();
+    if(widget.isComplete){
+      return _completeStateBar();
+    }
+    if (widget.currentState.getDisplayState() == DisplayState.exercise) {
+      double widthFactor =
+          widget.currentState.repeatCount / widget.currentState.target;
+      if (widget.currentState.criteria == ExerciseDisplayCriteria.timer) {
+        widthFactor = widget.currentState.timer.elapsedMilliseconds /
+            widget.currentState.targetTimeMilliseconds;
+      }
+      return _exercisingStateBar(widthFactor);
+    }
+    return _introStateBar();
   }
 }

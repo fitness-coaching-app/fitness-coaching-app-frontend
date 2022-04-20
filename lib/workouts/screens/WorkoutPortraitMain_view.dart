@@ -8,11 +8,11 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 
 import '../../loading_view.dart';
 import '../pose_painter.dart';
-import '../workoutPortraitStepBeginCamera_view.dart';
+import '../widgets/TeachView.dart';
 
 import 'package:fca_pose_validation/fca_pose_processor.dart';
 
-import 'dart:isolate';
+import 'dart:async' as dartAsync;
 
 class WorkoutMainView extends StatefulWidget {
   @override
@@ -37,7 +37,13 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
   String poseSuggestionString = "";
   int fps = 0;
 
+  bool isStepComplete = false;
+  Timer? stepCompleteTimer;
+
   late final Future? futureLoadData;
+
+  Widget? bodyWidget;
+  DisplayState currentDisplayState = DisplayState.preExercise;
 
   @override
   void dispose() async {
@@ -47,16 +53,28 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
 
   void onDisplayStateChange(DisplayState state) {
     print("onDisplayStateChange CALLED");
-    if (state == DisplayState.teach) {
-      controller.teachCompleted();
-    }
+    setState(() {
+      currentDisplayState = state;
+    });
+  }
+
+  void onStepComplete() {
+    setState(() {
+      isStepComplete = true;
+    });
+    dartAsync.Timer.periodic(Duration(seconds: 5), (timer) {
+      setState(() {
+        isStepComplete = false;
+      });
+    });
   }
 
   Future<String> loadData() async {
     // TODO: load course data from the API
-    data = await rootBundle.loadString('assets/yaml/jumping-jacks.yaml');
-    controller =
-        ExerciseController(data, onDisplayStateChange: onDisplayStateChange);
+    data = await rootBundle.loadString('assets/yaml/jumping-jacks-timer.yaml');
+    controller = ExerciseController(data,
+        onDisplayStateChange: onDisplayStateChange,
+        onStepComplete: onStepComplete);
     currentState = controller.getCurrentState();
     stepName = currentState.stepName;
 
@@ -89,11 +107,20 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
             return Material(
               child: Column(children: <Widget>[
                 CurrentExerciseStateBar(
-                    currentState: controller.getCurrentState()),
-                CameraView(
-                  customPaint: customPaint,
-                  onImage: (InputImage inputImage) => processImage(inputImage),
-                )
+                    currentState: controller.getCurrentState(),
+                    isComplete: isStepComplete),
+                (() {
+                  if (currentDisplayState == DisplayState.teach && !isStepComplete) {
+                    return TeachView(onComplete: () {
+                      controller.teachCompleted();
+                    });
+                  }
+                  return CameraView(
+                    customPaint: customPaint,
+                    onImage: (InputImage inputImage) =>
+                        processImage(inputImage),
+                  );
+                }())
               ]),
             );
           }

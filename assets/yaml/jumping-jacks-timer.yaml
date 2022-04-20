@@ -6,7 +6,7 @@ steps:
     bounce: true
     criteria:
       timer:
-        duration: 20
+        duration: 5
     posturePosition: stand
     cameraAngle: front
     facing: up
@@ -17,10 +17,10 @@ steps:
                 - rightElbow
                 - rightHip
               vertex: rightShoulder
-              range: [0, 30]
+              range: [0, 180]
           - angle:
               landmarks:
                 - leftElbow
                 - leftHip
               vertex: leftShoulder
-              range: [0, 30]
+              range: [0, 180]
