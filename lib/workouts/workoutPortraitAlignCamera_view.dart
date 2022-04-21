@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'color.dart';
+import '../color.dart';
 import 'package:flutter/services.dart';
 
 class WorkoutPortraitAlignCamera extends StatefulWidget {

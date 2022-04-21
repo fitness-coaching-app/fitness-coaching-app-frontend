@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/environment.dart';
-import 'package:flutter_application_2/forgotPassword0_view.dart';
-import 'package:flutter_application_2/loading_view.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:fitness_coaching_application_test/forgotPassword0_view.dart';
+import 'package:fitness_coaching_application_test/loading_view.dart';
 import 'package:http/http.dart' as http;
 import 'register3_view.dart';
 import 'userInfo.dart';

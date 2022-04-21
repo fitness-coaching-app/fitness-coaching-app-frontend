@@ -1,5 +1,5 @@
-name: flutter_application_2
-description: A new Flutter project.
+name: fitness_coaching_application_test
+description: Fitness Coaching Application
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -23,12 +23,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts : ^2.1.0
+  google_fonts : 2.2.0
   ionicons: ^0.1.2
   flutter_svg: ^0.22.0
   google_ml_kit: ^0.7.3
   image_picker: ^0.8.4+10
   camera: ^0.8.1
+  yaml: ^3.1.0
   http: ^0.13.4
   flutter_dotenv: ^5.0.2
   flutter_tts: ^3.3.3
@@ -36,13 +37,12 @@ dependencies:
   fca_pose_validation:
     git:
       url: https://github.com/fitness-coaching-app/fca_pose_validation.git
-      ref: 5cc7a7c2b079afd4783c3f86add4af0503000fb2
-
+      ref: master
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  vector_math: ^2.1.1
+  # vector_math: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -61,9 +61,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/Icon/
-    - .env.development
-    - .env.production
+   - assets/yaml/
+   - assets/Icon/
+   - .env.development
+   - .env.production
     #- google_fonts/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

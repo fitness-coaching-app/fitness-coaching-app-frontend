@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/exerciseSummary_view.dart';
+import 'package:fitness_coaching_application_test/exerciseSummary_view.dart';
 import 'color.dart';
 import 'exerciseSumFinished_view.dart';
 

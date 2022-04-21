@@ -2,14 +2,14 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/color.dart';
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
-import 'main.dart';
+import '../main.dart';
 
-class WorkoutPortraitStepCountingCamera extends StatefulWidget {
-  WorkoutPortraitStepCountingCamera(
+class WorkoutLandscapeStepBeginCamera extends StatefulWidget {
+  WorkoutLandscapeStepBeginCamera(
       {Key? key,
       required this.title,
       required this.customPaint,
@@ -23,12 +23,12 @@ class WorkoutPortraitStepCountingCamera extends StatefulWidget {
   final CameraLensDirection initialDirection;
 
   @override
-  _WorkoutPortraitStepCountingCameraState createState() =>
-      _WorkoutPortraitStepCountingCameraState();
+  _WorkoutLandscapeStepBeginCameraState createState() =>
+      _WorkoutLandscapeStepBeginCameraState();
 }
 
-class _WorkoutPortraitStepCountingCameraState
-    extends State<WorkoutPortraitStepCountingCamera> {
+class _WorkoutLandscapeStepBeginCameraState
+    extends State<WorkoutLandscapeStepBeginCamera> {
   CameraController? _controller;
 
   @override
@@ -43,42 +43,53 @@ class _WorkoutPortraitStepCountingCameraState
     super.dispose();
   }
 
-  Widget _portraitMode() {
+  Widget _landscapeMode() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Column(
       children: [
         Stack(
           children: <Widget>[
             Container(
-                decoration: new BoxDecoration(color: color_dark),
-                height: MediaQuery.of(context).size.height * 0.14,
-                width: MediaQuery.of(context).size.width,
-                child: LinearProgressIndicator(
-                  value: 0.6,
-                  valueColor: AlwaysStoppedAnimation(color_dimmedTeal),
-                  backgroundColor: color_dark,
-                  semanticsLabel: 'Linear progress indicator',
-                )),
+              decoration: new BoxDecoration(color: color_dark),
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width,
+            ),
+            LinearProgressIndicator(
+              value: 0.6,
+              valueColor: AlwaysStoppedAnimation(color_dimmedTeal),
+              backgroundColor: color_dark,
+              semanticsLabel: 'Linear progress indicator',
+            ),
             Positioned(
-                top: (MediaQuery.of(context).size.height * 0.14) / 4,
-                right: 25,
-                child: Text("00:00",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: "Poppins",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 36.0),
-                    textAlign: TextAlign.center)),
-            Positioned(
-                top: (MediaQuery.of(context).size.height * 0.14) / 10,
-                right: (MediaQuery.of(context).size.height * 0.105) * 2,
+                top: (MediaQuery.of(context).size.height * 0.25) / 5,
+                left: 25,
                 child: Container(
+                    width: 62,
+                    height: 62,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        color: Colors.white),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: Text("1",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 36.0),
+                          textAlign: TextAlign.center),
+                    ))),
+            Positioned(
+                top: (MediaQuery.of(context).size.height * 0.25) / 5,
+                left: (MediaQuery.of(context).size.height * 0.105) + 30,
+                child: Container(
+                    // color: Colors.red,
                     width: (MediaQuery.of(context).size.width -
                         ((MediaQuery.of(context).size.height * 0.105) + 75)),
                     height: MediaQuery.of(context).size.height * 0.105,
                     child: Center(
-                      child: Text("Chest Stretch",
+                      child: Text("Chess Stretch",
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -100,34 +111,20 @@ class _WorkoutPortraitStepCountingCameraState
         ),
         Stack(children: <Widget>[
           Container(
-            decoration: new BoxDecoration(color: color_white),
-            height: MediaQuery.of(context).size.height -
-                (MediaQuery.of(context).size.height * 0.14),
-            width: MediaQuery.of(context).size.width,
-          ),
-          Positioned(
-              bottom: 47,
-              left: 25,
-              child: Stack(children: <Widget>[
-                Container(
-                  decoration: new BoxDecoration(color: color_white),
-                  height: MediaQuery.of(context).size.height * 0.24,
-                  width: MediaQuery.of(context).size.width * 0.31,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      CameraPreview(_controller!),
-                      if (widget.customPaint != null) widget.customPaint!,
-                    ],
-                  ),
-                ),
+              decoration: new BoxDecoration(color: color_white),
+              height: MediaQuery.of(context).size.height -
+                  (MediaQuery.of(context).size.height * 0.25),
+              width: MediaQuery.of(context).size.width,
+              child: Stack(fit: StackFit.expand, children: <Widget>[
+                CameraPreview(_controller!),
+                if (widget.customPaint != null) widget.customPaint!,
               ]))
         ]),
       ],
     );
   }
 
-  Widget _landscapeMode() {
+  Widget _portraitMode() {
     return SafeArea(
         child: new Container(
             decoration: new BoxDecoration(color: color_white),
@@ -135,7 +132,7 @@ class _WorkoutPortraitStepCountingCameraState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  'assets/Icon/Miscellaneous-Outline_phone.svg', // dot dot dot
+                  'assets/Icon/Miscellaneous-Outline_phone_hor.svg', // dot dot dot
                   height: 100,
                 ),
                 Container(
@@ -143,8 +140,8 @@ class _WorkoutPortraitStepCountingCameraState
                 ),
                 Center(
                     child: Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  child: Text("Please rotate your device vertically",
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: Text("Please rotate your device horizontally",
                       style: const TextStyle(
                           color: color_dark,
                           fontWeight: FontWeight.w600,

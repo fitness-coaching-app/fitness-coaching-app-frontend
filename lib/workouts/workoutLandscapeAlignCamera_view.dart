@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'color.dart';
+import '../color.dart';
 
 class WorkoutLandscapeAlignCamera extends StatefulWidget {
   const WorkoutLandscapeAlignCamera({Key? key}) : super(key: key);

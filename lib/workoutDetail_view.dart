@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/pose_detector_view.dart';
+import 'workouts/screens/WorkoutPortraitMain_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
@@ -197,7 +197,7 @@ class WorkoutDetail extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    PoseDetectorView()),
+                                                    WorkoutMainView()),
                                           );
                                         },
                                         child: Container(
