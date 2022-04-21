@@ -80,9 +80,9 @@ class Datum {
     required this.courseId,
   });
 
-  String picture;
-  String onClickAction;
-  String courseId;
+  String? picture;
+  String? onClickAction;
+  String? courseId;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         picture: json["picture"] == null ? null : json["picture"],

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/homeSection.dart';
+import 'package:fitness_coaching_application_test/home/homeSection.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/news_feed_view.dart';
 import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
