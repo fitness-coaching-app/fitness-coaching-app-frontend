@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/homeSection.dart';
-import 'package:fitness_coaching_application_test/home_view.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/social_activity_view.dart';
 import 'package:fitness_coaching_application_test/social_leaderboard.dart';
 import 'package:fitness_coaching_application_test/social_leaderboard_global_view.dart';

@@ -9,7 +9,7 @@ import 'package:fitness_coaching_application_test/user_profile_act_view.dart';
 import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
+import '../../color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget {
@@ -27,24 +27,12 @@ class HomeState extends State<Home> {
     // var _dataFromAPI = json.decode(response.body);
     List<HomeSection> _homeData = [];
     print(response.body);
-    // for (var i in _dataFromAPI) {
-    //   HomeSection homeSection = HomeSection(
-    //       code: i["code"],
-    //       message: i["message"],
-    //       error: i["error"],
-    //       results: i["results"]);
-    //   //Adding user to the list.
-    //   _homeData.add(homeSection);
-    // }
-    // print(response.body);
-    // print("*********");
-    // print(_homeData);
   }
 
   @override
   Widget build(BuildContext context) {
     getUserInfo(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NDcwOTA4MzIsImV4cCI6MTY0NzA5MTQzMn0.SOp4edUaiWYsYbnlYEhIS7Tj25o3VgQl1eK3uYYnrkA");
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NTA1MzQ0NzcsImV4cCI6MTY1MDUzNTA3N30.feCr2C4-uynxRieiZPdKWbMtwEUsn8xL7d8q1_ygIsc");
     return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
