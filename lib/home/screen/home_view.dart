@@ -12,6 +12,8 @@ import 'package:ionicons/ionicons.dart';
 import '../../color.dart';
 import '../widget/BannerSection.dart';
 import '../widget/BannerCard.dart';
+import '../widget/CourseSection.dart';
+import '../widget/CourseCard.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../loading_view.dart';
 
@@ -44,9 +46,32 @@ class HomeState extends State<Home> {
         ));
       }
       else if(i.sectionType == "COURSE"){
-        
+        List<CourseCard> cards = [];
+        // TODO:
+        // for(var a in i.data!){
+        //
+        // }
+        cards.add(CourseCard(
+          title: "TEST",
+          coverPictureUrl: "https://www.memecreator.org/static/images/memes/5217108.jpg",
+          rating: 4.3
+        ));
+        cards.add(CourseCard(
+          title: "TEST",
+          coverPictureUrl: "https://www.memecreator.org/static/images/memes/5217108.jpg",
+          rating: 4.3
+        ));
+        cards.add(CourseCard(
+          title: "TEST",
+          coverPictureUrl: "https://www.memecreator.org/static/images/memes/5217108.jpg",
+          rating: 4.3
+        ));
+        sections.add(CourseSection(
+          cards: cards,
+        ));
       }
     }
+
     return sections;
   }
 
@@ -209,8 +234,7 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getSections(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NTA1NDAwODksImV4cCI6MTY1MDU0MDY4OX0.LXVDyj2kbQIHfokxOA2lOFqhkXwmzq5kjSMw3CF1uiY"),
+        future: getSections("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NTA1NDM5NDcsImV4cCI6MTY1MDU0NDU0N30._yZJiK1VkoMu9-nCi8ENBCl2uis8dl8BnDB9YwfYYjg"),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return buildHome(snapshot.data);

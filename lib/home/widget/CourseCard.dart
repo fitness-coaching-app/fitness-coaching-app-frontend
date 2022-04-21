@@ -4,13 +4,13 @@ import 'package:flutter_svg/svg.dart';
 
 class CourseCard extends StatefulWidget {
   final String title;
-  final String coverPicture;
+  final String coverPictureUrl;
   final double rating;
 
   CourseCard({
     Key? key,
     required this.title,
-    required this.coverPicture,
+    required this.coverPictureUrl,
     required this.rating}) : super(key: key);
 
 
@@ -66,39 +66,39 @@ class CourseCardState extends State<CourseCard> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             //times tag
-                            Container(
-                                height: 24,
-                                width: 77,
-                                decoration: new BoxDecoration(
-                                  color: Color.fromARGB(220, 189, 133, 233),
-                                  borderRadius:
-                                      new BorderRadius.all(Radius.circular(15)),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/Icon/Miscellaneous-Filled_clock.svg',
-                                        height: 13,
-                                      ),
-                                      Expanded(child: Container()),
-                                      // Container(
-                                      //   child: Text("45 min",
-                                      //       style: const TextStyle(
-                                      //           color: Colors.white,
-                                      //           fontWeight: FontWeight.w400,
-                                      //           fontFamily: "Poppins",
-                                      //           fontStyle: FontStyle.normal,
-                                      //           fontSize: 12.0),
-                                      //       textAlign: TextAlign.left),
-                                      // ),
-                                    ],
-                                  ),
-                                )),
+                            // Container(
+                            //     height: 24,
+                            //     width: 77,
+                            //     decoration: new BoxDecoration(
+                            //       color: Color.fromARGB(220, 189, 133, 233),
+                            //       borderRadius:
+                            //           new BorderRadius.all(Radius.circular(15)),
+                            //     ),
+                            //     child: Padding(
+                            //       padding: EdgeInsets.symmetric(horizontal: 10),
+                            //       child: Row(
+                            //         mainAxisAlignment: MainAxisAlignment.start,
+                            //         crossAxisAlignment:
+                            //             CrossAxisAlignment.center,
+                            //         children: [
+                            //           SvgPicture.asset(
+                            //             'assets/Icon/Miscellaneous-Filled_clock.svg',
+                            //             height: 13,
+                            //           ),
+                            //           Expanded(child: Container()),
+                            //           Container(
+                            //             child: Text("45 min",
+                            //                 style: const TextStyle(
+                            //                     color: Colors.white,
+                            //                     fontWeight: FontWeight.w400,
+                            //                     fontFamily: "Poppins",
+                            //                     fontStyle: FontStyle.normal,
+                            //                     fontSize: 12.0),
+                            //                 textAlign: TextAlign.left),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     )),
                             Container(width: 10),
                             //rated tag
                             Container(
