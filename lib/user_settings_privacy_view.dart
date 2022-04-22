@@ -117,7 +117,7 @@ class UserSettingsPrivacyState extends State<UserSettingsPrivacy> {
               value: _publishFollowers,
               onChanged: (bool value) {
                 setState(() {
-                  _publishScore = value;
+                  _publishFollowers = value;
                 });
               },
             ),
@@ -133,7 +133,7 @@ class UserSettingsPrivacyState extends State<UserSettingsPrivacy> {
               value: _allowReactions,
               onChanged: (bool value) {
                 setState(() {
-                  _publishScore = value;
+                  _allowReactions = value;
                 });
               },
             ),
