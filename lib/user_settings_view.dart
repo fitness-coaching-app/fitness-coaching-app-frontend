@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+import 'package:fitness_coaching_application_test/user_qr_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_editProfile_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_notifications_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_password_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/home/homeSection.dart';
@@ -100,7 +105,12 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
 
               //options section
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserSettingsProfile()));
+                  },
                   child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(children: [
@@ -117,7 +127,12 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                             size: 22, color: Color(0xb2517086))
                       ]))),
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserSettingsPrivacy()));
+                  },
                   child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(children: [
@@ -134,7 +149,12 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                             size: 22, color: Color(0xb2517086))
                       ]))),
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserSettingsNotifications()));
+                  },
                   child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(children: [
@@ -151,7 +171,10 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                             size: 22, color: Color(0xb2517086))
                       ]))),
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UserQrcode()));
+                  },
                   child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(children: [
@@ -168,7 +191,12 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                             size: 22, color: Color(0xb2517086))
                       ]))),
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserSettingsPassword()));
+                  },
                   child: Padding(
                       padding: EdgeInsets.all(10),
                       child: Row(children: [

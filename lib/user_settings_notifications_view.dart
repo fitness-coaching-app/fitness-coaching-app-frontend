@@ -24,9 +24,9 @@ class UserSettingsNotifications extends StatefulWidget {
 }
 
 class UserSettingsNotificationsState extends State<UserSettingsNotifications> {
-  bool _publishScore = false;
-  bool _publishFollowers = false;
-  bool _allowReactions = false;
+  bool _exerciseReminder = false;
+  final _formKey = GlobalKey<FormState>();
+  TimeOfDay selectedTime = TimeOfDay.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,17 +79,19 @@ class UserSettingsNotificationsState extends State<UserSettingsNotifications> {
                       fontStyle: FontStyle.normal,
                       fontSize: 16.0),
                   textAlign: TextAlign.left),
-              value: _publishScore,
+              value: _exerciseReminder,
               onChanged: (bool value) {
                 setState(() {
-                  _publishScore = value;
+                  _exerciseReminder = value;
                 });
               },
             ),
             GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _selectTime(context);
+                },
                 child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Row(children: [
                       Text("Reminder Time",
                           style: const TextStyle(
@@ -101,13 +103,13 @@ class UserSettingsNotificationsState extends State<UserSettingsNotifications> {
                           textAlign: TextAlign.left),
                       Expanded(child: Container()),
                       // Text
-                      Text("9:00 AM",
+                      Text("${selectedTime.hour}:${selectedTime.minute}",
                           style: const TextStyle(
                               color: color_subtitle,
                               fontWeight: FontWeight.w400,
                               fontFamily: "Poppins",
                               fontStyle: FontStyle.normal,
-                              fontSize: 14.0),
+                              fontSize: 15.0),
                           textAlign: TextAlign.right),
                       Icon(Ionicons.chevron_forward,
                           size: 22, color: Color(0xb2517086))
@@ -121,5 +123,20 @@ class UserSettingsNotificationsState extends State<UserSettingsNotifications> {
         ),
       )),
     ));
+  }
+
+  _selectTime(BuildContext context) async {
+    final TimeOfDay? timeOfDay = await showTimePicker(
+        context: context,
+        initialTime: selectedTime,
+        initialEntryMode: TimePickerEntryMode.dial,
+        confirmText: "CONFIRM",
+        cancelText: "NOT NOW",
+        helpText: "Reminder Time");
+    if (timeOfDay != null && timeOfDay != selectedTime) {
+      setState(() {
+        selectedTime = timeOfDay;
+      });
+    }
   }
 }
