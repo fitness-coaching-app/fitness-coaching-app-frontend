@@ -38,8 +38,7 @@ class CourseCardState extends State<CourseCard> {
                   borderRadius: BorderRadius.circular(15.0),
                   image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(
-                          'https://i.pinimg.com/736x/8c/d7/74/8cd7741ce1311c12243bb8b88b253228.jpg'))),
+                      image: NetworkImage(widget.coverPictureUrl))),
               child: Padding(
                 padding: EdgeInsets.all(8),
                 child: Column(
@@ -48,7 +47,7 @@ class CourseCardState extends State<CourseCard> {
                       Container(
                           height:
                               ((MediaQuery.of(context).size.width * 0.6) / 3)),
-                      Text("Weight Loss Training",
+                      Text(widget.title,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,

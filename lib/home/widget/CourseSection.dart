@@ -3,9 +3,10 @@ import '../../color.dart';
 import 'CourseCard.dart';
 
 class CourseSection extends StatefulWidget {
+  final String title;
   final List<CourseCard> cards;
 
-  CourseSection({Key? key, required this.cards}) : super(key: key);
+  CourseSection({Key? key,required this.title, required this.cards}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => CourseSectionState();
@@ -20,7 +21,7 @@ class CourseSectionState extends State<CourseSection> {
         Row(
           children: [
             SizedBox(width: 25),
-            Text("TITLE",
+            Text(widget.title,
                 style: const TextStyle(
                     color: color_dark,
                     fontWeight: FontWeight.w600,

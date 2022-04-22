@@ -30,48 +30,38 @@ class HomeState extends State<Home> {
     var response = await http
         .get(url, headers: {"Authorization": "Bearer " + accessToken});
 
-    print(response.body);
+    // print(response.body);
     var _dataFromAPI = json.decode(response.body);
-    HomeSection _homeData = HomeSection.fromJson(_dataFromAPI);
+    // HomeSection _homeData = HomeSection.fromJson(_dataFromAPI);
     List<Widget> sections = [];
-    for (var i in _homeData.results!) {
-      if (i.sectionType == "BANNER") {
+    print(_dataFromAPI);
+    for (var i in _dataFromAPI["results"]!) {
+      // print(i);
+      if (i["sectionType"] == "BANNER") {
         List<BannerCard> banners = [];
-        for (var a in i.data!) {
+        for (var a in i["data"]!) {
           banners
-              .add(BannerCard(imageUrl: a.picture!, action: a.onClickAction!));
+              .add(BannerCard(imageUrl: a["picture"]!, action: a["onClickAction"]!));
         }
         sections.add(BannerSection(
           banners: banners,
         ));
       }
-      else if(i.sectionType == "COURSE"){
+      if(i["sectionType"] == "COURSE"){
         List<CourseCard> cards = [];
-        // TODO:
-        // for(var a in i.data!){
-        //
-        // }
-        cards.add(CourseCard(
-          title: "TEST",
-          coverPictureUrl: "https://www.memecreator.org/static/images/memes/5217108.jpg",
-          rating: 4.3
-        ));
-        cards.add(CourseCard(
-          title: "TEST",
-          coverPictureUrl: "https://www.memecreator.org/static/images/memes/5217108.jpg",
-          rating: 4.3
-        ));
-        cards.add(CourseCard(
-          title: "TEST",
-          coverPictureUrl: "https://www.memecreator.org/static/images/memes/5217108.jpg",
-          rating: 4.3
-        ));
+        for(var a in i["data"]!){
+          cards.add(CourseCard(
+              title: a["name"],
+              coverPictureUrl: a["coverPicture"],
+              rating: a["overallRating"] * 1.0
+          ));
+        }
         sections.add(CourseSection(
+          title: i["name"],
           cards: cards,
         ));
       }
     }
-
     return sections;
   }
 
@@ -234,7 +224,7 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getSections("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NTA1NDM5NDcsImV4cCI6MTY1MDU0NDU0N30._yZJiK1VkoMu9-nCi8ENBCl2uis8dl8BnDB9YwfYYjg"),
+        future: getSections("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NTA2MDA1OTIsImV4cCI6MTY1MDYwMTE5Mn0.HANHiB9vl--BYMRyAXMF7COevxTNoBOhO8w-E13bayI"),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return buildHome(snapshot.data);
