@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/homeSection.dart';
-import 'package:fitness_coaching_application_test/home_view.dart';
+import 'package:fitness_coaching_application_test/home/homeSection.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/user_profile_follower_view.dart';
 import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;

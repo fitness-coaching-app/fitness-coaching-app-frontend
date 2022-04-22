@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/exerciseSumFinished_view.dart';
 import 'package:fitness_coaching_application_test/exerciseSumLv_view.dart';
-import 'package:fitness_coaching_application_test/home_view.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/social_activity_detail_view.dart';
 import 'package:fitness_coaching_application_test/social_activity_view.dart';
 import 'package:fitness_coaching_application_test/social_leaderboard_following_view.dart';
@@ -31,7 +31,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
 import 'environment.dart';
 import 'signIn_view.dart';
-import 'home_view.dart';
+import 'home/screen/home_view.dart';
 import 'newUserSetup0_view.dart';
 import 'newUserSetup1_gender_view.dart';
 import 'newUserSetup2_bd_view.dart';

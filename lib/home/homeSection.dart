@@ -78,22 +78,41 @@ class Datum {
     required this.picture,
     required this.onClickAction,
     required this.courseId,
+    required this.name,
+    required this.difficulty,
+    required this.coverPicture,
+    required this.overallRating,
   });
 
-  String picture;
-  String onClickAction;
-  String courseId;
+  String? picture;
+  String? onClickAction;
+
+  String? courseId;
+  String? name;
+  String? difficulty;
+  String? coverPicture;
+  double? overallRating;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         picture: json["picture"] == null ? null : json["picture"],
         onClickAction:
             json["onClickAction"] == null ? null : json["onClickAction"],
         courseId: json["courseId"] == null ? null : json["courseId"],
+        name: json["name"] == null ? null : json["name"],
+        difficulty: json["difficulty"] == null ? null : json["difficulty"],
+        coverPicture:
+            json["coverPicture"] == null ? null : json["coverPicture"],
+        overallRating:
+            json["overallRating"] == null ? null : json["overallRating"],
       );
 
   Map<String, dynamic> toJson() => {
         "picture": picture == null ? null : picture,
         "onClickAction": onClickAction == null ? null : onClickAction,
         "courseId": courseId == null ? null : courseId,
+        "name": name == null ? null : name,
+        "difficulty": difficulty == null ? null : difficulty,
+        "coverPicture": coverPicture == null ? null : coverPicture,
+        "overallRating": overallRating == null ? null : overallRating,
       };
 }
