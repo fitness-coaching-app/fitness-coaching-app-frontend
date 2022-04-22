@@ -181,7 +181,7 @@ class MyApp extends StatelessWidget {
       //   time: DateTime.parse("2022-04-03 20:18:04Z"),
       // ),
       // home: UserSettingsPassword(),
-      home: UserProfileSettings(),
+      home: SearchResult(),
     );
   }
 }
