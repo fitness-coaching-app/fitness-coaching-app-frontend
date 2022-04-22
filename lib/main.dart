@@ -1,3 +1,4 @@
+import 'package:fitness_coaching_application_test/user_health_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/exerciseSumFinished_view.dart';
 import 'package:fitness_coaching_application_test/exerciseSumLv_view.dart';
@@ -50,8 +51,6 @@ import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'workoutDetail_view.dart';
 import 'workouts/workoutLandscapeAlignCamera_view.dart';
-
-
 
 import 'dart:io';
 
@@ -115,7 +114,7 @@ class MyApp extends StatelessWidget {
       // home: MyHomePage(),
 
       // home: SignIn(),
-      home: Home(),
+      // home: Home(),
       // home: ForgotPassword0(),
       // home: ForgotPassword1(),
       // home: Register0(),
@@ -182,6 +181,7 @@ class MyApp extends StatelessWidget {
       //   time: DateTime.parse("2022-04-03 20:18:04Z"),
       // ),
       // home: UserSettingsPassword(),
+      home: UserHealth(),
     );
   }
 }
