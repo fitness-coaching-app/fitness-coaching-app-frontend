@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/home_view.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

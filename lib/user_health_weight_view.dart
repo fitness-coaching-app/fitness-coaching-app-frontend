@@ -2,12 +2,10 @@ import 'dart:convert';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/environment.dart';
-import 'package:flutter_application_2/homeSection.dart';
-import 'package:flutter_application_2/home_view.dart';
-import 'package:flutter_application_2/news_feed_view.dart';
-import 'package:flutter_application_2/social_activity_view.dart';
-import 'package:flutter_application_2/workoutDetail_view.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:fitness_coaching_application_test/news_feed_view.dart';
+import 'package:fitness_coaching_application_test/social_activity_view.dart';
+import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
@@ -41,6 +39,8 @@ class UserHealthWeightState extends State<UserHealthWeight> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+    TextEditingController weightController = new TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -78,6 +78,110 @@ class UserHealthWeightState extends State<UserHealthWeight> {
                   Expanded(child: Container()),
                   GestureDetector(
                       onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: <Widget>[
+                                    Positioned(
+                                      right: -35.0,
+                                      top: -35.0,
+                                      child: InkResponse(
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Icon(
+                                          Ionicons.close_circle,
+                                          size: 50,
+                                          color: color_red,
+                                        ),
+                                      ),
+                                    ),
+                                    Form(
+                                      key: _formKey,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Center(
+                                            child: Text("Weight",
+                                                style: const TextStyle(
+                                                    color: color_dark,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: "Poppins",
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 18.0),
+                                                textAlign: TextAlign.left),
+                                          ),
+                                          Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(15)),
+                                                  color: color_lightGrey,
+                                                ),
+                                                child: TextFormField(
+                                                  style:
+                                                      TextStyle(fontSize: 25),
+                                                  textAlign: TextAlign.center,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  decoration: InputDecoration(
+                                                    hintText: "Weight",
+                                                    hintStyle: const TextStyle(
+                                                        color: color_subtitle,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontFamily: "Poppins",
+                                                        fontStyle:
+                                                            FontStyle.normal,
+                                                        fontSize: 16.0),
+                                                    border: InputBorder.none,
+                                                    contentPadding:
+                                                        EdgeInsets.all(20),
+                                                  ),
+                                                  controller: weightController,
+                                                  autovalidateMode:
+                                                      AutovalidateMode
+                                                          .onUserInteraction,
+                                                  // validator: (String? value) => validateEmail(value),
+                                                  onSaved: (String? value) {
+                                                    // This optional block of code can be used to run
+                                                    // code when the user saves the form.
+                                                  },
+                                                ),
+                                              )),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: GestureDetector(
+                                              child: Text("Add",
+                                                  style: const TextStyle(
+                                                      color: Color(0xff00a682),
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontFamily: "Poppins",
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 20.0),
+                                                  textAlign: TextAlign.left),
+                                              onTap: () {
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  _formKey.currentState!.save();
+                                                }
+                                              },
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            });
                       },
                       child: Icon(
                         Ionicons.add_circle,
@@ -93,6 +197,10 @@ class UserHealthWeightState extends State<UserHealthWeight> {
                   width: MediaQuery.of(context)
                       .size
                       .width, // hardcoded for testing purpose
+                  decoration: BoxDecoration(
+                    color: Color(0x44c9c9c9),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   child: LayoutBuilder(builder: (context, constraints) {
                     return ToggleButtons(
                       fillColor: Color(0xffc0ffd9),

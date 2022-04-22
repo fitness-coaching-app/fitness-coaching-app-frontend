@@ -3,7 +3,7 @@
   "packages": [
     {
       "name": "async",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.1",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -27,7 +27,7 @@
     },
     {
       "name": "characters",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.1.0",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -81,7 +81,7 @@
     },
     {
       "name": "fca_pose_validation",
-      "rootUri": "file:///C:/flutter/.pub-cache/git/fca_pose_validation-5cc7a7c2b079afd4783c3f86add4af0503000fb2/",
+      "rootUri": "file:///C:/flutter/.pub-cache/git/fca_pose_validation-04438cb66c1abb7c6d8f6f280b9e212c2daafb09/",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -153,7 +153,7 @@
     },
     {
       "name": "google_fonts",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-2.1.0",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -213,7 +213,7 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.10",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -243,9 +243,21 @@
     },
     {
       "name": "path_provider",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.4",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-2.0.9",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "path_provider_android",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.12",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "path_provider_ios",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_ios-2.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "path_provider_linux",
@@ -308,6 +320,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "recase",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/recase-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///C:/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -351,7 +369,7 @@
     },
     {
       "name": "test_api",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.2",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -363,9 +381,9 @@
     },
     {
       "name": "vector_math",
-      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.0",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "win32",
@@ -392,13 +410,13 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "flutter_application_2",
+      "name": "fitness_coaching_application_test",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-04-17T13:23:44.897527Z",
+  "generated": "2022-04-22T08:07:27.024272Z",
   "generator": "pub",
-  "generatorVersion": "2.14.2"
+  "generatorVersion": "2.15.1"
 }

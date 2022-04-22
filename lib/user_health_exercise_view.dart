@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/environment.dart';
-import 'package:flutter_application_2/homeSection.dart';
-import 'package:flutter_application_2/home_view.dart';
-import 'package:flutter_application_2/news_feed_view.dart';
-import 'package:flutter_application_2/social_activity_view.dart';
-import 'package:flutter_application_2/user_health_exercise_detail_view.dart';
-import 'package:flutter_application_2/workoutDetail_view.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:fitness_coaching_application_test/news_feed_view.dart';
+import 'package:fitness_coaching_application_test/social_activity_view.dart';
+import 'package:fitness_coaching_application_test/user_health_exercise_detail_view.dart';
+import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
@@ -87,6 +85,10 @@ class UserHealthExerciseState extends State<UserHealthExercise> {
                   width: MediaQuery.of(context)
                       .size
                       .width, // hardcoded for testing purpose
+                  decoration: BoxDecoration(
+                    color: Color(0x44c9c9c9),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                   child: LayoutBuilder(builder: (context, constraints) {
                     return ToggleButtons(
                       fillColor: Color(0xffc0ffd9),

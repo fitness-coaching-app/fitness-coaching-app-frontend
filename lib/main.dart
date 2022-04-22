@@ -1,32 +1,38 @@
+import 'package:fitness_coaching_application_test/user_health_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/exerciseSumFinished_view.dart';
-import 'package:flutter_application_2/exerciseSumLv_view.dart';
-import 'package:flutter_application_2/home_view.dart';
-import 'package:flutter_application_2/social_activity_detail_view.dart';
-import 'package:flutter_application_2/social_activity_view.dart';
-import 'package:flutter_application_2/social_leaderboard_following_view.dart';
-import 'package:flutter_application_2/social_leaderboard_global_view.dart';
-import 'package:flutter_application_2/news_article_view.dart';
-import 'package:flutter_application_2/news_feed_view.dart';
-import 'package:flutter_application_2/pose_detector_view.dart';
-import 'package:flutter_application_2/search_result_view.dart';
-import 'package:flutter_application_2/search_see_all_course_view.dart';
-import 'package:flutter_application_2/search_see_all_people_view.dart';
-import 'package:flutter_application_2/searching_view.dart';
-import 'package:flutter_application_2/user_health_view.dart';
-import 'package:flutter_application_2/user_people_view.dart';
-import 'package:flutter_application_2/user_profile_achieve_view.dart';
-import 'package:flutter_application_2/user_profile_act_view.dart';
-import 'package:flutter_application_2/user_profile_follower_view.dart';
-import 'package:flutter_application_2/user_profile_following_view.dart';
-import 'package:flutter_application_2/workoutPortraitAlignCamera_view.dart';
-import 'package:flutter_application_2/workoutPortraitStepPause_view.dart';
+import 'package:fitness_coaching_application_test/exerciseSumFinished_view.dart';
+import 'package:fitness_coaching_application_test/exerciseSumLv_view.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
+import 'package:fitness_coaching_application_test/social_activity_detail_view.dart';
+import 'package:fitness_coaching_application_test/social_activity_view.dart';
+import 'package:fitness_coaching_application_test/social_leaderboard_following_view.dart';
+import 'package:fitness_coaching_application_test/social_leaderboard_global_view.dart';
+import 'package:fitness_coaching_application_test/news_article_view.dart';
+import 'package:fitness_coaching_application_test/news_feed_view.dart';
+import 'package:fitness_coaching_application_test/workouts/screens/WorkoutPortraitMain_view.dart';
+import 'package:fitness_coaching_application_test/search_result_view.dart';
+import 'package:fitness_coaching_application_test/search_see_all_course_view.dart';
+import 'package:fitness_coaching_application_test/search_see_all_people_view.dart';
+import 'package:fitness_coaching_application_test/searching_view.dart';
+import 'package:fitness_coaching_application_test/user_people_view.dart';
+import 'package:fitness_coaching_application_test/user_profile_achieve_view.dart';
+import 'package:fitness_coaching_application_test/user_profile_act_view.dart';
+import 'package:fitness_coaching_application_test/user_profile_follower_view.dart';
+import 'package:fitness_coaching_application_test/user_profile_following_view.dart';
+import 'package:fitness_coaching_application_test/user_qr_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_editProfile_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_notifications_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_password_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_privacy_view.dart';
+import 'package:fitness_coaching_application_test/user_settings_view.dart';
+import 'package:fitness_coaching_application_test/workouts/workoutPortraitAlignCamera_view.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'color.dart';
 import 'environment.dart';
 import 'signIn_view.dart';
-import 'home_view.dart';
+import 'home/screen/home_view.dart';
 import 'newUserSetup0_view.dart';
 import 'newUserSetup1_gender_view.dart';
 import 'newUserSetup2_bd_view.dart';
@@ -44,18 +50,7 @@ import 'register3_view.dart';
 import 'register4_view.dart';
 import 'exerciseSummary_view.dart';
 import 'workoutDetail_view.dart';
-import 'workoutLandscapeAlignCamera_view.dart';
-import 'workoutLandscapeStepFinish_view.dart';
-import 'workoutLandscapeStepBegin_view.dart';
-import 'workoutLandscapeStepCounting_view.dart';
-import 'workoutLandscapeStepPause_view.dart';
-import 'workoutLandscapeWarnning_view.dart';
-import 'workoutPortraitStepBegin_view.dart';
-import 'workoutPortraitStepCounting_view.dart';
-import 'workoutPortraitStepFinish_view.dart';
-import 'workoutPortraitWarnning_view.dart';
-import 'workoutPortraitAlignCamera_view.dart';
-import 'workoutPortraitStepPause_view.dart';
+import 'workouts/workoutLandscapeAlignCamera_view.dart';
 
 import 'dart:io';
 
@@ -185,6 +180,7 @@ class MyApp extends StatelessWidget {
       //   ],
       //   time: DateTime.parse("2022-04-03 20:18:04Z"),
       // ),
+      // home: UserSettingsPassword(),
       home: UserHealth(),
     );
   }

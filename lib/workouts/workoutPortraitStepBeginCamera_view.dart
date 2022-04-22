@@ -1,39 +1,51 @@
+import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/color.dart';
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
-import 'main.dart';
+import '../exerciseSumFinished_view.dart';
+import '../main.dart';
 
-class WorkoutLandscapeStepBeginCamera extends StatefulWidget {
-  WorkoutLandscapeStepBeginCamera(
+enum ScreenMode { liveFeed, gallery }
+
+class WorkoutPortraitStepBeginCamera extends StatefulWidget {
+  WorkoutPortraitStepBeginCamera(
       {Key? key,
-      required this.title,
-      required this.customPaint,
+      this.customPaint,
+        required this.stepName,
       required this.onImage,
-      this.initialDirection = CameraLensDirection.back})
+      this.initialDirection = CameraLensDirection.front})
       : super(key: key);
 
-  final String title;
+  final String stepName;
   final CustomPaint? customPaint;
   final Function(InputImage inputImage) onImage;
   final CameraLensDirection initialDirection;
 
   @override
-  _WorkoutLandscapeStepBeginCameraState createState() =>
-      _WorkoutLandscapeStepBeginCameraState();
+  _WorkoutPortraitStepBeginCameraState createState() =>
+      _WorkoutPortraitStepBeginCameraState();
 }
 
-class _WorkoutLandscapeStepBeginCameraState
-    extends State<WorkoutLandscapeStepBeginCamera> {
+class _WorkoutPortraitStepBeginCameraState
+    extends State<WorkoutPortraitStepBeginCamera> {
   CameraController? _controller;
+  int _cameraIndex = 0;
+  double zoomLevel = 0.0, minZoomLevel = 0.0, maxZoomLevel = 0.0;
 
   @override
   void initState() {
     super.initState();
+
+    for (var i = 0; i < cameras.length; i++) {
+      if (cameras[i].lensDirection == widget.initialDirection) {
+        _cameraIndex = i;
+      }
+    }
     _startLiveFeed();
   }
 
@@ -43,7 +55,7 @@ class _WorkoutLandscapeStepBeginCameraState
     super.dispose();
   }
 
-  Widget _landscapeMode() {
+  Widget _portraitMode() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Column(
       children: [
@@ -51,7 +63,7 @@ class _WorkoutLandscapeStepBeginCameraState
           children: <Widget>[
             Container(
               decoration: new BoxDecoration(color: color_dark),
-              height: MediaQuery.of(context).size.height * 0.25,
+              height: MediaQuery.of(context).size.height * 0.14,
               width: MediaQuery.of(context).size.width,
             ),
             LinearProgressIndicator(
@@ -61,7 +73,7 @@ class _WorkoutLandscapeStepBeginCameraState
               semanticsLabel: 'Linear progress indicator',
             ),
             Positioned(
-                top: (MediaQuery.of(context).size.height * 0.25) / 5,
+                top: (MediaQuery.of(context).size.height * 0.14) / 4,
                 left: 25,
                 child: Container(
                     width: 62,
@@ -81,15 +93,14 @@ class _WorkoutLandscapeStepBeginCameraState
                           textAlign: TextAlign.center),
                     ))),
             Positioned(
-                top: (MediaQuery.of(context).size.height * 0.25) / 5,
-                left: (MediaQuery.of(context).size.height * 0.105) + 30,
+                top: (MediaQuery.of(context).size.height * 0.14) / 10,
+                left: (MediaQuery.of(context).size.height * 0.105) + 40,
                 child: Container(
-                    // color: Colors.red,
                     width: (MediaQuery.of(context).size.width -
                         ((MediaQuery.of(context).size.height * 0.105) + 75)),
                     height: MediaQuery.of(context).size.height * 0.105,
                     child: Center(
-                      child: Text("Chess Stretch",
+                      child: Text(widget.stepName,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -111,20 +122,24 @@ class _WorkoutLandscapeStepBeginCameraState
         ),
         Stack(children: <Widget>[
           Container(
-              decoration: new BoxDecoration(color: color_white),
-              height: MediaQuery.of(context).size.height -
-                  (MediaQuery.of(context).size.height * 0.25),
-              width: MediaQuery.of(context).size.width,
-              child: Stack(fit: StackFit.expand, children: <Widget>[
+            decoration: new BoxDecoration(color: color_white),
+            height: MediaQuery.of(context).size.height -
+                (MediaQuery.of(context).size.height * 0.14),
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
                 CameraPreview(_controller!),
                 if (widget.customPaint != null) widget.customPaint!,
-              ]))
+              ],
+            ),
+          ),
         ]),
       ],
     );
   }
 
-  Widget _portraitMode() {
+  Widget _landscapeMode() {
     return SafeArea(
         child: new Container(
             decoration: new BoxDecoration(color: color_white),
@@ -132,7 +147,7 @@ class _WorkoutLandscapeStepBeginCameraState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  'assets/Icon/Miscellaneous-Outline_phone_hor.svg', // dot dot dot
+                  'assets/Icon/Miscellaneous-Outline_phone.svg', // dot dot dot
                   height: 100,
                 ),
                 Container(
@@ -140,8 +155,8 @@ class _WorkoutLandscapeStepBeginCameraState
                 ),
                 Center(
                     child: Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: Text("Please rotate your device horizontally",
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Text("Please rotate your device vertically",
                       style: const TextStyle(
                           color: color_dark,
                           fontWeight: FontWeight.w600,
@@ -168,7 +183,7 @@ class _WorkoutLandscapeStepBeginCameraState
   }
 
   Future _startLiveFeed() async {
-    final camera = cameras[1];
+    final camera = cameras[_cameraIndex];
     _controller = CameraController(
       camera,
       ResolutionPreset.low,
@@ -178,6 +193,13 @@ class _WorkoutLandscapeStepBeginCameraState
       if (!mounted) {
         return;
       }
+      _controller?.getMinZoomLevel().then((value) {
+        zoomLevel = value;
+        minZoomLevel = value;
+      });
+      _controller?.getMaxZoomLevel().then((value) {
+        maxZoomLevel = value;
+      });
       _controller?.startImageStream(_processCameraImage);
       setState(() {});
     });
@@ -199,7 +221,7 @@ class _WorkoutLandscapeStepBeginCameraState
     final Size imageSize =
         Size(image.width.toDouble(), image.height.toDouble());
 
-    final camera = cameras[1];
+    final camera = cameras[_cameraIndex];
     final imageRotation =
         InputImageRotationMethods.fromRawValue(camera.sensorOrientation) ??
             InputImageRotation.Rotation_0deg;

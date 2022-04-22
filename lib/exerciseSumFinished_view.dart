@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/exerciseSumLv_view.dart';
-import 'package:flutter_application_2/exerciseSummary_view.dart';
+import 'package:fitness_coaching_application_test/exerciseSumLv_view.dart';
+import 'package:fitness_coaching_application_test/exerciseSummary_view.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

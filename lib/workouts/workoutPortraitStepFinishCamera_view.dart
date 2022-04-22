@@ -2,14 +2,15 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_2/color.dart';
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:ionicons/ionicons.dart';
 
-import 'main.dart';
+import '../main.dart';
 
-class WorkoutLandscapeWarnningCamera extends StatefulWidget {
-  WorkoutLandscapeWarnningCamera(
+class WorkoutPortraitStepFinishCamera extends StatefulWidget {
+  WorkoutPortraitStepFinishCamera(
       {Key? key,
       required this.title,
       required this.customPaint,
@@ -23,12 +24,12 @@ class WorkoutLandscapeWarnningCamera extends StatefulWidget {
   final CameraLensDirection initialDirection;
 
   @override
-  _WorkoutLandscapeWarnningCameraState createState() =>
-      _WorkoutLandscapeWarnningCameraState();
+  _WorkoutPortraitStepFinishCameraState createState() =>
+      _WorkoutPortraitStepFinishCameraState();
 }
 
-class _WorkoutLandscapeWarnningCameraState
-    extends State<WorkoutLandscapeWarnningCamera> {
+class _WorkoutPortraitStepFinishCameraState
+    extends State<WorkoutPortraitStepFinishCamera> {
   CameraController? _controller;
 
   @override
@@ -43,68 +44,62 @@ class _WorkoutLandscapeWarnningCameraState
     super.dispose();
   }
 
-  Widget _landscapeMode() {
+  Widget _portraitMode() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Column(
       children: [
         Stack(
           children: <Widget>[
             Container(
-                decoration: new BoxDecoration(color: color_purple),
-                height: MediaQuery.of(context).size.height * 0.25,
-                width: MediaQuery.of(context).size.width),
+                decoration: new BoxDecoration(color: color_dark),
+                height: MediaQuery.of(context).size.height * 0.14,
+                width: MediaQuery.of(context).size.width,
+                child: LinearProgressIndicator(
+                  value: 1,
+                  valueColor: AlwaysStoppedAnimation(color_dimmedTeal),
+                  backgroundColor: color_dark,
+                  semanticsLabel: 'Linear progress indicator',
+                )),
             Positioned(
-                top: (MediaQuery.of(context).size.height * 0.25) / 5,
-                left: 25,
-                child: SvgPicture.asset(
-                    'assets/Icon/Miscellaneous-Filled_warnned.svg',
-                    height: MediaQuery.of(context).size.height * 0.15)),
-            Positioned(
-                top: (MediaQuery.of(context).size.height * 0.25) / 5,
-                left: (MediaQuery.of(context).size.height * 0.105) + 40,
-                child: Container(
-                    width: (MediaQuery.of(context).size.width -
-                        ((MediaQuery.of(context).size.height * 0.105) + 75)),
-                    height: MediaQuery.of(context).size.height * 0.105,
-                    child: Center(
-                      child: Text("Pose Correction Info Info Here",
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 20.0),
-                          textAlign: TextAlign.center),
-                    ))),
-            Positioned(
-              bottom: 0,
-              left: MediaQuery.of(context).size.width / 2 - 13,
-              child: Center(
-                  child: SvgPicture.asset(
-                'assets/Icon/Detail Expand Icon.svg',
-                height: 26,
-              )),
-            )
+                top: (MediaQuery.of(context).size.height * 0.14) / 5,
+                left: (MediaQuery.of(context).size.width * 0.4),
+                child: Icon(
+                  Ionicons.checkmark_circle,
+                  size: 70,
+                  color: color_dark,
+                )),
           ],
         ),
         Stack(children: <Widget>[
-          Stack(children: <Widget>[
-            Container(
-                decoration: new BoxDecoration(color: color_white),
-                height: MediaQuery.of(context).size.height -
-                    (MediaQuery.of(context).size.height * 0.25),
-                width: MediaQuery.of(context).size.width,
-                child: Stack(fit: StackFit.expand, children: <Widget>[
-                  CameraPreview(_controller!),
-                  if (widget.customPaint != null) widget.customPaint!,
-                ]))
-          ]),
+          Container(
+            decoration: new BoxDecoration(color: color_white),
+            height: MediaQuery.of(context).size.height -
+                (MediaQuery.of(context).size.height * 0.14),
+            width: MediaQuery.of(context).size.width,
+          ),
+          Positioned(
+              bottom: 47,
+              left: 25,
+              child: Stack(children: <Widget>[
+                Container(
+                  decoration: new BoxDecoration(color: color_white),
+                  height: MediaQuery.of(context).size.height * 0.24,
+                  width: MediaQuery.of(context).size.width * 0.31,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      CameraPreview(_controller!),
+                      if (widget.customPaint != null) widget.customPaint!,
+                    ],
+                  ),
+                ),
+              ]))
         ]),
       ],
     );
   }
 
-  Widget _portraitMode() {
+  Widget _landscapeMode() {
     return SafeArea(
         child: new Container(
             decoration: new BoxDecoration(color: color_white),
@@ -112,7 +107,7 @@ class _WorkoutLandscapeWarnningCameraState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  'assets/Icon/Miscellaneous-Outline_phone_hor.svg', // dot dot dot
+                  'assets/Icon/Miscellaneous-Outline_phone.svg', // dot dot dot
                   height: 100,
                 ),
                 Container(
@@ -120,8 +115,8 @@ class _WorkoutLandscapeWarnningCameraState
                 ),
                 Center(
                     child: Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: Text("Please rotate your device horizontally",
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Text("Please rotate your device vertically",
                       style: const TextStyle(
                           color: color_dark,
                           fontWeight: FontWeight.w600,
