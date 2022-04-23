@@ -248,9 +248,10 @@ class ActivityState extends State<Activity> {
                                                 ))
                                           ])
                                         ]))))),
-                    Container(
-                      child: FbReaction(),
-                    ),
+                    // Container(
+                    //   child: FbReaction(),
+                    // ),
+                    // FbReaction(),
                     Container(
                         margin: EdgeInsets.fromLTRB(5, 0, 0, 5),
                         child: Row(

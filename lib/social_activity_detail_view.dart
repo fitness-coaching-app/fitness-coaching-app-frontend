@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fitness_coaching_application_test/fb_reaction_box.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/home/homeSection.dart';
@@ -55,6 +56,8 @@ class ActivityDetailState extends State<ActivityDetail> {
   //   ["comments1", "comments2", "comments3"]
   // ];
   // DateTime time = DateTime.parse("2022-04-06 20:18:04Z");
+
+  TextEditingController commentController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,6 +199,7 @@ class ActivityDetailState extends State<ActivityDetail> {
                                   fontSize: 12.0),
                               textAlign: TextAlign.left)
                         ]))),
+                FbReaction(),
                 Container(
                     margin: EdgeInsets.fromLTRB(5, 10, 0, 20),
                     child: Row(
@@ -237,6 +241,44 @@ class ActivityDetailState extends State<ActivityDetail> {
                             textAlign: TextAlign.left)
                       ],
                     )),
+
+                //comment tab
+                Container(
+                  height: 50,
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        hintText: "Write a comment...",
+                        hintStyle: const TextStyle(
+                            color: color_subtitle,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Poppins",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16.0),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.all(20),
+                        suffixIcon: GestureDetector(
+                            onTap: () {},
+                            child: Icon(
+                              Ionicons.send,
+                              size: 25,
+                              color: color_dark,
+                            ))),
+                    controller: commentController,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // validator: (String? value) => validateEmail(value),
+                    onSaved: (String? value) {
+                      // This optional block of code can be used to run
+                      // code when the user saves the form.
+                    },
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    color: color_lightGrey,
+                  ),
+                  padding: EdgeInsets.zero,
+                  margin: EdgeInsets.only(bottom: 20),
+                ),
 
                 //comments section
                 if (widget.comments != null)
