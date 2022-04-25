@@ -1,8 +1,5 @@
 import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/userProfile/screen/user_profile_follower_view.dart';
-import 'package:fitness_coaching_application_test/userProfile/screen/user_profile_following_view.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 
 class AchievementCard extends StatefulWidget {
   final String header;

@@ -1,7 +1,7 @@
+import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup5_exPref2_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/newUserSetup5_exPref2_view.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 
 class NewUserSetupExPref extends StatefulWidget {
   final String gender;

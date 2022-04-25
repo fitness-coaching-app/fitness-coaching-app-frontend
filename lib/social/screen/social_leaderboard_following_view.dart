@@ -7,7 +7,6 @@ import 'package:fitness_coaching_application_test/social/widget/RenderTopThree.d
 import 'package:fitness_coaching_application_test/social/widget/TwoToggleSwitch.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class LeaderboardFollowing extends StatefulWidget {
   const LeaderboardFollowing({Key? key}) : super(key: key);

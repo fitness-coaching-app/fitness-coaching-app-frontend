@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 import 'user_profile_achieve_view.dart';
-import 'user_profile_follower_view.dart';
-import 'user_profile_following_view.dart';
 
 class UserProfileAct extends StatefulWidget {
   const UserProfileAct({Key? key}) : super(key: key);

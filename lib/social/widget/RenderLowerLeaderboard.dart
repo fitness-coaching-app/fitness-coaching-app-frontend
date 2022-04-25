@@ -1,4 +1,3 @@
-import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter/material.dart';
 
 class RenderLowerLeaderboard extends StatefulWidget {

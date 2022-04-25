@@ -1,6 +1,6 @@
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/loading_view.dart';
-import 'color.dart';
 
 //New User Setup
 class NewUserSetupComp extends StatelessWidget {
@@ -47,8 +47,7 @@ class NewUserSetupComp extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => Loading()),
+                            MaterialPageRoute(builder: (context) => Loading()),
                           );
                         },
                         child: Container(

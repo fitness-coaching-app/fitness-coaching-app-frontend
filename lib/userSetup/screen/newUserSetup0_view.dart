@@ -1,5 +1,5 @@
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter/material.dart';
-import 'color.dart';
 import 'newUserSetup1_gender_view.dart';
 
 //New User Setup

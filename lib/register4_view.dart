@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup0_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/newUserSetup0_view.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
