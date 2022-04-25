@@ -603,6 +603,8 @@ class UserProfileActState extends State<UserProfileAct> {
             ),
           )),
         ),
-        bottomNavigationBar: RenderBottomNav());
+        bottomNavigationBar: RenderBottomNav(
+          page: 'profile',
+        ));
   }
 }

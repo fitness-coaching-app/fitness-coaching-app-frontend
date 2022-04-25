@@ -563,6 +563,8 @@ class UserProfileAchieveState extends State<UserProfileAchieve> {
             ),
           )),
         ),
-        bottomNavigationBar: RenderBottomNav());
+        bottomNavigationBar: RenderBottomNav(
+          page: 'profile',
+        ));
   }
 }

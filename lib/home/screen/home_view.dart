@@ -110,7 +110,9 @@ class HomeState extends State<Home> {
             ),
           ),
         ),
-        bottomNavigationBar: RenderBottomNav());
+        bottomNavigationBar: RenderBottomNav(
+          page: 'home',
+        ));
   }
 
   @override

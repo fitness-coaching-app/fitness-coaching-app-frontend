@@ -1,13 +1,16 @@
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
+import 'package:fitness_coaching_application_test/news/screen/news_feed_view.dart';
 import 'package:fitness_coaching_application_test/social/screen/social_activity_view.dart';
 import 'package:fitness_coaching_application_test/user_profile_act_view.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class RenderBottomNav extends StatefulWidget {
+  final String page;
   RenderBottomNav({
     Key? key,
+    required this.page,
   }) : super(key: key);
 
   @override
@@ -15,8 +18,20 @@ class RenderBottomNav extends StatefulWidget {
 }
 
 class RenderBottomNavState extends State<RenderBottomNav> {
+  Color homeColor = color_white;
+  Color newsColor = color_white;
+  Color socialColor = color_white;
+  Color profileColor = color_white;
   @override
   Widget build(BuildContext context) {
+    if (widget.page == 'home') {
+      homeColor = color_teal;
+    } else if (widget.page == 'news') {
+      newsColor = color_teal;
+    } else if (widget.page == 'social') {
+      socialColor = color_teal;
+    } else
+      profileColor = color_teal;
     return Padding(
         padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
         child: ClipRRect(
@@ -54,7 +69,7 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                             Container(
                               height: 3,
                               width: 20,
-                              color: color_white,
+                              color: homeColor,
                             )
                           ]),
                       Expanded(child: Container()),
@@ -65,12 +80,17 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                               tooltip: 'News',
                               icon:
                                   const Icon(Ionicons.globe, color: color_dark),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => NewsFeed()));
+                              },
                             ),
                             Container(
                               height: 3,
                               width: 20,
-                              color: color_teal,
+                              color: newsColor,
                             )
                           ]),
                       Expanded(child: Container()),
@@ -78,7 +98,7 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              tooltip: 'Community',
+                              tooltip: 'Social',
                               icon: const Icon(Ionicons.people_outline,
                                   color: color_dark),
                               onPressed: () {
@@ -91,7 +111,7 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                             Container(
                               height: 3,
                               width: 20,
-                              color: color_white,
+                              color: socialColor,
                             )
                           ]),
                       Expanded(child: Container()),
@@ -113,7 +133,7 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                             Container(
                               height: 3,
                               width: 20,
-                              color: color_white,
+                              color: profileColor,
                             )
                           ]),
                       Expanded(child: Container()),

@@ -86,6 +86,8 @@ class NewsFeedState extends State<NewsFeed> {
             ),
           )),
         ),
-        bottomNavigationBar: RenderBottomNav());
+        bottomNavigationBar: RenderBottomNav(
+          page: 'news',
+        ));
   }
 }

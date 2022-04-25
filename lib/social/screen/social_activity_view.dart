@@ -1,8 +1,8 @@
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/social/screen/social_activity_detail_view.dart';
 import 'package:fitness_coaching_application_test/social/screen/social_leaderboard_following_view.dart';
 import 'package:fitness_coaching_application_test/social/social_activity.dart';
+import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -127,173 +127,21 @@ class ActivityState extends State<Activity> {
 
                 //activity feed
                 for (var i = 0; i < activityFeed.results.length; i++)
-                  Container(
-                      child: Column(children: [
-                    Row(children: [
-                      Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          width: MediaQuery.of(context).size.height * 0.05,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(365),
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(urls[i])))),
-                      Text(username[i],
-                          style: const TextStyle(
-                              color: const Color(0xff000000),
-                              fontWeight: FontWeight.w500,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 14.0),
-                          textAlign: TextAlign.left)
-                    ]),
-                    Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ActivityDetail(
-                                            username: username[i],
-                                            urls: urls[i],
-                                            picture: picture[i],
-                                            comments: comments[i].length > 0
-                                                ? comments[i]
-                                                : null,
-                                            likesUsername: likes[i].length > 0
-                                                ? likes[i]
-                                                : null,
-                                            time: DateTime.parse(updateOn[i]),
-                                          )));
-                            },
-                            child: Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.2,
-                                margin: EdgeInsets.only(bottom: 0),
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(picture[i]),
-                                        colorFilter: ColorFilter.mode(
-                                            Colors.black.withOpacity(0.5),
-                                            BlendMode.darken),
-                                        fit: BoxFit.fill),
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(20, 20, 20, 15),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(child: Container()),
-                                          Text(actHeader[i],
-                                              style: const TextStyle(
-                                                  color:
-                                                      const Color(0xffffffff),
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: "Poppins",
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 16.0),
-                                              textAlign: TextAlign.left),
-                                          Row(children: [
-                                            Text(actDetail[i],
-                                                style: const TextStyle(
-                                                    color:
-                                                        const Color(0xffffffff),
-                                                    fontWeight: FontWeight.w400,
-                                                    fontFamily: "Poppins",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 14.0),
-                                                textAlign: TextAlign.left),
-                                            Expanded(child: Container()),
-                                            Container(
-                                                height: 30,
-                                                width: 30,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
-                                                  color: Color(0xccee9715),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(5),
-                                                  child: Icon(
-                                                    Ionicons.dice,
-                                                    color: color_white,
-                                                    size: 18,
-                                                  ),
-
-                                                  //change icon to difficulty icon (dot icon)
-                                                  // child: Image(
-                                                  //   image: NetworkImage(
-                                                  //       picture[i]),
-                                                  // ),
-                                                ))
-                                          ])
-                                        ]))))),
-                    // Container(
-                    //   child: FbReaction(),
-                    // ),
-                    // FbReaction(),
-                    Container(
-                        margin: EdgeInsets.fromLTRB(5, 0, 0, 5),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Ionicons.happy_outline,
-                              color: color_subtitle,
-                              size: 22,
-                            ),
-                            Container(
-                              width: 5,
-                            ),
-                            Text(likeCnt[i].toString(),
-                                style: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12.0),
-                                textAlign: TextAlign.left),
-                            Container(
-                              width: 5,
-                            ),
-                            Container(
-                              width: 30,
-                            ),
-                            Icon(
-                              Ionicons.chatbox_outline,
-                              color: color_subtitle,
-                              size: 22,
-                            ),
-                            Container(
-                              width: 5,
-                            ),
-                            Text(commentCnt[i].toString(),
-                                style: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12.0),
-                                textAlign: TextAlign.left)
-                          ],
-                        )),
-                    Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                            padding: EdgeInsets.fromLTRB(5, 0, 0, 20),
-                            child: Text(updateToNow[i] + " hours ago",
-                                style: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w300,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 10.0),
-                                textAlign: TextAlign.left)))
-                  ])),
+                  ActivityCard(
+                    actDetail: actDetail[i],
+                    actHeader: actHeader[i],
+                    commentCnt: commentCnt[i],
+                    comments: comments[i],
+                    iconUrl: iconUrl[i],
+                    likeCnt: likeCnt[i],
+                    likes: likes[i],
+                    onClickAction: onClickAction[i],
+                    picture: picture[i],
+                    updateOn: updateOn[i],
+                    updateToNow: updateToNow[i],
+                    urls: urls[i],
+                    username: username[i],
+                  ),
 
                 //bottom section
                 Container(
@@ -303,7 +151,9 @@ class ActivityState extends State<Activity> {
             ),
           )),
         ),
-        bottomNavigationBar: RenderBottomNav());
+        bottomNavigationBar: RenderBottomNav(
+          page: 'social',
+        ));
   }
 
   Widget buildButton(
