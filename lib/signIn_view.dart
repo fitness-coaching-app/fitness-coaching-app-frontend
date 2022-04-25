@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:fitness_coaching_application_test/forgotPw/screen/forgotPassword0_view.dart';
+import 'package:fitness_coaching_application_test/register/screen/register3_view.dart';
+import 'package:fitness_coaching_application_test/userProfile/userInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/forgotPassword0_view.dart';
 import 'package:fitness_coaching_application_test/loading_view.dart';
 import 'package:http/http.dart' as http;
-import 'register3_view.dart';
-import 'userInfo.dart';
 import 'color.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
@@ -34,10 +34,9 @@ class SignInState extends State<SignIn> {
 
   Future<void> logIn(String email, String password) async {
     var url = Uri.parse(Environment.signInUrl);
-    var response =
-        await http.post(url,
-            headers: {"Content-Type": "application/json"},
-            body: json.encode({"email": email, "password": password}));
+    var response = await http.post(url,
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({"email": email, "password": password}));
     if (response.statusCode == 200) {
       print(response.body);
     } else {

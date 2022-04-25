@@ -1,8 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-import 'dart:math';
-import 'package:vector_math/vector_math.dart';
-import 'dart:developer' as dev;
 
 class TouchChecker {
   late Pose _pose;

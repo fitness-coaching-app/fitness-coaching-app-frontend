@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/exerciseSummary_view.dart';
 import 'color.dart';
-import 'exerciseSumFinished_view.dart';
 
 class ExerciseSumLv extends StatelessWidget {
   const ExerciseSumLv({Key? key}) : super(key: key);

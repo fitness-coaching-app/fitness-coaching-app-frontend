@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
+import 'package:fitness_coaching_application_test/workouts/screens/workoutDetail_view.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CourseCard extends StatefulWidget {
@@ -7,12 +7,12 @@ class CourseCard extends StatefulWidget {
   final String coverPictureUrl;
   final double rating;
 
-  CourseCard({
-    Key? key,
-    required this.title,
-    required this.coverPictureUrl,
-    required this.rating}) : super(key: key);
-
+  CourseCard(
+      {Key? key,
+      required this.title,
+      required this.coverPictureUrl,
+      required this.rating})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => CourseCardState();

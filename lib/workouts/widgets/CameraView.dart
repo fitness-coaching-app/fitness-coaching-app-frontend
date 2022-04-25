@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/color.dart';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import '../../main.dart';
@@ -47,13 +46,10 @@ class _CameraViewState extends State<CameraView> {
   Widget build(BuildContext context) {
     return Flexible(
       child: ClipRect(
-        child: Stack(
-          fit: StackFit.expand,
-            children: <Widget>[
-              CameraPreview(_controller!),
-              if(widget.customPaint != null) widget.customPaint!
-            ]
-        ),
+        child: Stack(fit: StackFit.expand, children: <Widget>[
+          CameraPreview(_controller!),
+          if (widget.customPaint != null) widget.customPaint!
+        ]),
       ),
     );
   }
