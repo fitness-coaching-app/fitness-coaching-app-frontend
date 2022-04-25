@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup0_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 
 class Register4 extends StatefulWidget {
   const Register4({Key? key}) : super(key: key);

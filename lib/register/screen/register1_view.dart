@@ -1,8 +1,8 @@
+import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/register/screen/register2_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/register2_view.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 

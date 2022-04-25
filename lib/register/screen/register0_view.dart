@@ -1,18 +1,32 @@
+import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/register/screen/register1_view.dart';
 import 'package:flutter/material.dart';
-import 'color.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'register4_view.dart';
-
-class Register2 extends StatefulWidget {
-  final String email;
-  const Register2({Key? key, required this.email}) : super(key: key);
+class Register0 extends StatefulWidget {
+  final String displayName;
+  const Register0({Key? key, required this.displayName}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => Register2State();
+  State<StatefulWidget> createState() => Register0State();
 }
 
-class Register2State extends State<Register2> {
+class Register0State extends State<Register0> {
+  TextEditingController emailController = new TextEditingController();
+
+  String? validateEmail(String? value) {
+    String pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+    if (value == null || value.isEmpty || !regex.hasMatch(value))
+      return 'Please enter a valid email address';
+    else
+      return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +37,23 @@ class Register2State extends State<Register2> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                new GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Ionicons.arrow_back,
+                      size: 30,
+                      color: color_dark,
+                    )),
                 Container(
                   height: 45,
                 ),
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.4),
-                    child: SvgPicture.asset(
-                      'assets/Icon/Cartoon Illustration_email1.svg',
+                    child: new SvgPicture.asset(
+                      'assets/Icon/Cartoon Illustration_at1.svg',
                       height: 100,
                     ),
                   ),
@@ -44,7 +67,7 @@ class Register2State extends State<Register2> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Verify your email",
+                      Text("Enter Your Email",
                           style: const TextStyle(
                               color: color_dark,
                               fontWeight: FontWeight.w700,
@@ -55,9 +78,7 @@ class Register2State extends State<Register2> {
                       Container(
                         height: 5,
                       ),
-                      Text(
-                          "Account verification link has been sent to your email address:\n" +
-                              widget.email,
+                      Text("Please enter your email",
                           style: const TextStyle(
                               color: color_subtitle,
                               fontWeight: FontWeight.w400,
@@ -68,45 +89,51 @@ class Register2State extends State<Register2> {
                       Container(
                         height: 40,
                       ),
-                      // Didn’t get the mail?
-                      Center(
-                          child: new GestureDetector(
-                              onTap: () {
-                                print('Tap Didn’t get the mail');
-                              },
-                              child: RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                    style: const TextStyle(
-                                        color: color_dark,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 16.0),
-                                    text: "Didn’t get the mail?"),
-                                TextSpan(
-                                    style: const TextStyle(
-                                        color: color_dimmedTeal,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 16.0),
-                                    text: " Resend")
-                              ])))),
+                      Container(
+                        height: 60,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: "Enter your email",
+                            hintStyle: const TextStyle(
+                                color: color_subtitle,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16.0),
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.all(20),
+                          ),
+                          controller: emailController,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (String? value) => validateEmail(value),
+                          onSaved: (String? value) {
+                            // This optional block of code can be used to run
+                            // code when the user saves the form.
+                          },
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: color_lightGrey),
+                        padding: EdgeInsets.zero,
+                      ),
                       Container(
                         height: 40,
                       ),
-                      // verified Button
+                      // Send Instructions Button
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Expanded(
                               child: new GestureDetector(
                                   onTap: () {
+                                    //emailController.text
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Register4()),
+                                          builder: (context) => Register1(
+                                                displayName: widget.displayName,
+                                                email: emailController.text,
+                                              )),
                                     );
                                   },
                                   child: Container(
@@ -114,7 +141,7 @@ class Register2State extends State<Register2> {
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             vertical: 16.5),
-                                        child: new Text("I’m Verified",
+                                        child: new Text("Next",
                                             style: const TextStyle(
                                                 color: color_dark,
                                                 fontWeight: FontWeight.w600,

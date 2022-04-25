@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'workouts/screens/WorkoutPortraitMain_view.dart';
+import 'WorkoutPortraitMain_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
+import '../../color.dart';
 
 class WorkoutDetail extends StatelessWidget {
   const WorkoutDetail({Key? key}) : super(key: key);

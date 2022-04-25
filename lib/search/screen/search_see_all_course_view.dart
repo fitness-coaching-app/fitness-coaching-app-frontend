@@ -1,7 +1,7 @@
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
+import 'package:fitness_coaching_application_test/workouts/screens/workoutDetail_view.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchAllCourse extends StatefulWidget {

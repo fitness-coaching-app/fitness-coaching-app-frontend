@@ -1,7 +1,7 @@
+import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/signIn_view.dart';
 import 'package:flutter/material.dart';
-import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'signIn_view.dart';
 
 class ForgotPassword1 extends StatelessWidget {
   const ForgotPassword1({Key? key}) : super(key: key);

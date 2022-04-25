@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:fitness_coaching_application_test/forgotPw/screen/forgotPassword0_view.dart';
+import 'package:fitness_coaching_application_test/register/screen/register3_view.dart';
 import 'package:fitness_coaching_application_test/userProfile/userInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/forgotPassword0_view.dart';
 import 'package:fitness_coaching_application_test/loading_view.dart';
 import 'package:http/http.dart' as http;
-import 'register3_view.dart';
 import 'color.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
