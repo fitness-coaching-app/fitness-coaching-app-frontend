@@ -1,24 +1,16 @@
 import 'dart:convert';
 
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/fb_reaction_box.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/home/homeSection.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
-import 'package:fitness_coaching_application_test/news_article_view.dart';
-import 'package:fitness_coaching_application_test/news_feed_view.dart';
-import 'package:fitness_coaching_application_test/social_activity.dart';
-import 'package:fitness_coaching_application_test/social_leaderboard_following_view.dart';
 import 'package:fitness_coaching_application_test/user_profile_act_view.dart';
 import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'user_profile_achieve_view.dart';
-import 'user_profile_follower_view.dart';
-import 'user_profile_following_view.dart';
 
 class ActivityDetail extends StatefulWidget {
   final String username;

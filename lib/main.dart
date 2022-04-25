@@ -7,8 +7,8 @@ import 'package:fitness_coaching_application_test/social_activity_detail_view.da
 import 'package:fitness_coaching_application_test/social_activity_view.dart';
 import 'package:fitness_coaching_application_test/social_leaderboard_following_view.dart';
 import 'package:fitness_coaching_application_test/social_leaderboard_global_view.dart';
-import 'package:fitness_coaching_application_test/news_article_view.dart';
-import 'package:fitness_coaching_application_test/news_feed_view.dart';
+import 'package:fitness_coaching_application_test/news/screen/news_article_view.dart';
+import 'package:fitness_coaching_application_test/news/screen/news_feed_view.dart';
 import 'package:fitness_coaching_application_test/workouts/screens/WorkoutPortraitMain_view.dart';
 import 'package:fitness_coaching_application_test/search_result_view.dart';
 import 'package:fitness_coaching_application_test/search_see_all_course_view.dart';
@@ -111,7 +111,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      // home: MyHomePage(),
+      home: MyHomePage(),
 
       // home: SignIn(),
       // home: Home(),
@@ -182,7 +182,7 @@ class MyApp extends StatelessWidget {
       // ),
       // home: UserSettingsPassword(),
       // home: SearchResult(),
-      home: Activity(),
+      // home: Activity(),
     );
   }
 }

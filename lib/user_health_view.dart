@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/news_feed_view.dart';
 import 'package:fitness_coaching_application_test/social_activity_view.dart';
 import 'package:fitness_coaching_application_test/user_health_exercise_view.dart';
 import 'package:fitness_coaching_application_test/user_health_weight_view.dart';
