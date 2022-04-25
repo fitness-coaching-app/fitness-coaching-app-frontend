@@ -1,15 +1,9 @@
 import 'dart:convert';
 
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
-import 'package:fitness_coaching_application_test/news/screen/news_feed_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/home/homeSection.dart';
-import 'package:fitness_coaching_application_test/social_activity_view.dart';
-import 'package:fitness_coaching_application_test/user_profile_act_view.dart';
-import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
 import 'package:http/http.dart' as http;
-import 'package:ionicons/ionicons.dart';
 import '../../color.dart';
 import '../widget/BannerSection.dart';
 import '../widget/BannerCard.dart';

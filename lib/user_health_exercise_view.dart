@@ -1,20 +1,9 @@
-import 'dart:convert';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/social_activity_view.dart';
 import 'package:fitness_coaching_application_test/user_health_exercise_detail_view.dart';
-import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'user_profile_achieve_view.dart';
-import 'user_profile_follower_view.dart';
-import 'user_profile_following_view.dart';
 
 class UserHealthExercise extends StatefulWidget {
   const UserHealthExercise({Key? key}) : super(key: key);

@@ -1,9 +1,7 @@
 import 'package:fca_pose_validation/fca_pose_processor.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:math';
 import 'package:ionicons/ionicons.dart';
 import 'package:recase/recase.dart';
 
@@ -254,7 +252,11 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
               ),
               Flexible(
                 child: Center(
-                  child: Text(widget.currentState.getWarning()["warningMessage"].toString().titleCase,
+                  child: Text(
+                      widget.currentState
+                          .getWarning()["warningMessage"]
+                          .toString()
+                          .titleCase,
                       style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -286,7 +288,7 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
     if (widget.isComplete) {
       return _completeStateBar();
     }
-    if(widget.currentState.isWarning()){
+    if (widget.currentState.isWarning()) {
       return _warningStateBar();
     }
     if (widget.currentState.getDisplayState() == DisplayState.exercise) {

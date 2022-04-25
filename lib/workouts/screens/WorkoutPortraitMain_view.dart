@@ -1,7 +1,6 @@
 import 'package:fitness_coaching_application_test/workouts/widgets/CameraView.dart';
 
 import '../widgets/CurrentExerciseStateBar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -71,19 +70,18 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
     });
   }
 
-  void onExerciseComplete(){
+  void onExerciseComplete() {
     // TODO: Change the page to exercise summary
-
   }
 
   Future<String> loadData() async {
     // TODO: Load course data from the API
-    data = await rootBundle.loadString('assets/yaml/jumping-jacks.yaml'); // TODO: Load .yaml file here
+    data = await rootBundle.loadString(
+        'assets/yaml/jumping-jacks.yaml'); // TODO: Load .yaml file here
     controller = ExerciseController(data,
         onDisplayStateChange: onDisplayStateChange,
         onStepComplete: onStepComplete,
-        onExerciseComplete: onExerciseComplete
-    );
+        onExerciseComplete: onExerciseComplete);
     currentState = controller.getCurrentState();
     stepName = currentState.stepName;
 
@@ -118,7 +116,7 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
                     currentState: controller.getCurrentState(),
                     isComplete: isStepComplete),
                 (() {
-                  if(isStepComplete){
+                  if (isStepComplete) {
                     return Text("Complete");
                   }
                   if (currentDisplayState == DisplayState.teach) {

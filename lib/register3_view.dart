@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/register4_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';

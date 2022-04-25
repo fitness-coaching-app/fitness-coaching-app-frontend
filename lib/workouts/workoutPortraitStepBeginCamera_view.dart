@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-
-import '../exerciseSumFinished_view.dart';
 import '../main.dart';
 
 enum ScreenMode { liveFeed, gallery }
@@ -16,7 +13,7 @@ class WorkoutPortraitStepBeginCamera extends StatefulWidget {
   WorkoutPortraitStepBeginCamera(
       {Key? key,
       this.customPaint,
-        required this.stepName,
+      required this.stepName,
       required this.onImage,
       this.initialDirection = CameraLensDirection.front})
       : super(key: key);

@@ -1,18 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/home/homeSection.dart';
-import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/workoutDetail_view.dart';
-import 'package:http/http.dart' as http;
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'user_profile_achieve_view.dart';
-import 'user_profile_follower_view.dart';
-import 'user_profile_following_view.dart';
 
 class SearchAllCourse extends StatefulWidget {
   final String searchText;

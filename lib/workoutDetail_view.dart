@@ -3,7 +3,6 @@ import 'workouts/screens/WorkoutPortraitMain_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'color.dart';
-import 'loading_view.dart';
 
 class WorkoutDetail extends StatelessWidget {
   const WorkoutDetail({Key? key}) : super(key: key);

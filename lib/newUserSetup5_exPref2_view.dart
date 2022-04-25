@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'color.dart';
 import 'newUserSetup4_comp_view.dart';
 import 'userPreference.dart';
-import 'dart:convert';
 
 class NewUserSetupExPref2 extends StatefulWidget {
   final String gender;
@@ -15,11 +14,11 @@ class NewUserSetupExPref2 extends StatefulWidget {
   final List<String>? exercisePreference;
   const NewUserSetupExPref2({
     Key? key,
-    required String this.gender,
-    required String this.year,
-    required String this.weight,
-    required String this.height,
-    required List<String>? this.exercisePreference,
+    required this.gender,
+    required this.year,
+    required this.weight,
+    required this.height,
+    required this.exercisePreference,
   }) : super(key: key);
 
   @override

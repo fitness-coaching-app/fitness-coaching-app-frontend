@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
@@ -56,16 +54,14 @@ class PosePainter extends CustomPainter {
       //Draw Body
       paintLine(
           PoseLandmarkType.leftShoulder, PoseLandmarkType.leftHip, bodyLine);
-      paintLine(PoseLandmarkType.rightShoulder, PoseLandmarkType.rightHip,
-          bodyLine);
-      paintLine(PoseLandmarkType.rightHip, PoseLandmarkType.leftHip,
-          bodyLine);
       paintLine(
-          PoseLandmarkType.leftShoulder, PoseLandmarkType.rightShoulder, bodyLine);
+          PoseLandmarkType.rightShoulder, PoseLandmarkType.rightHip, bodyLine);
+      paintLine(PoseLandmarkType.rightHip, PoseLandmarkType.leftHip, bodyLine);
+      paintLine(PoseLandmarkType.leftShoulder, PoseLandmarkType.rightShoulder,
+          bodyLine);
 
       //Draw legs
-      paintLine(
-          PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, bodyLine);
+      paintLine(PoseLandmarkType.leftHip, PoseLandmarkType.leftKnee, bodyLine);
       paintLine(
           PoseLandmarkType.rightHip, PoseLandmarkType.rightKnee, bodyLine);
 
