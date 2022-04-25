@@ -2,7 +2,7 @@ import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/news/screen/news_feed_view.dart';
 import 'package:fitness_coaching_application_test/social/screen/social_activity_view.dart';
-import 'package:fitness_coaching_application_test/user_profile_act_view.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_profile_act_view.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -18,20 +18,8 @@ class RenderBottomNav extends StatefulWidget {
 }
 
 class RenderBottomNavState extends State<RenderBottomNav> {
-  Color homeColor = color_white;
-  Color newsColor = color_white;
-  Color socialColor = color_white;
-  Color profileColor = color_white;
   @override
   Widget build(BuildContext context) {
-    if (widget.page == 'home') {
-      homeColor = color_teal;
-    } else if (widget.page == 'news') {
-      newsColor = color_teal;
-    } else if (widget.page == 'social') {
-      socialColor = color_teal;
-    } else
-      profileColor = color_teal;
     return Padding(
         padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
         child: ClipRRect(
@@ -59,17 +47,21 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                                 color: color_dark,
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()),
-                                );
+                                if (widget.page != 'home') {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()),
+                                  );
+                                }
                               },
                             ),
                             Container(
                               height: 3,
                               width: 20,
-                              color: homeColor,
+                              color: widget.page == 'home'
+                                  ? color_teal
+                                  : color_white,
                             )
                           ]),
                       Expanded(child: Container()),
@@ -81,16 +73,20 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                               icon:
                                   const Icon(Ionicons.globe, color: color_dark),
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => NewsFeed()));
+                                if (widget.page != 'news') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => NewsFeed()));
+                                }
                               },
                             ),
                             Container(
                               height: 3,
                               width: 20,
-                              color: newsColor,
+                              color: widget.page == 'news'
+                                  ? color_teal
+                                  : color_white,
                             )
                           ]),
                       Expanded(child: Container()),
@@ -102,16 +98,20 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                               icon: const Icon(Ionicons.people_outline,
                                   color: color_dark),
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Activity()));
+                                if (widget.page != 'social') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Activity()));
+                                }
                               },
                             ),
                             Container(
                               height: 3,
                               width: 20,
-                              color: socialColor,
+                              color: widget.page == 'social'
+                                  ? color_teal
+                                  : color_white,
                             )
                           ]),
                       Expanded(child: Container()),
@@ -123,17 +123,21 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                               icon: const Icon(Ionicons.person_circle_outline,
                                   color: color_dark),
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UserProfileAct()));
+                                if (widget.page != 'profile') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              UserProfileAct()));
+                                }
                               },
                             ),
                             Container(
                               height: 3,
                               width: 20,
-                              color: profileColor,
+                              color: widget.page == 'profile'
+                                  ? color_teal
+                                  : color_white,
                             )
                           ]),
                       Expanded(child: Container()),

@@ -24,7 +24,7 @@ class ReactionsBarState extends State<ReactionsBar> {
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.fromLTRB(5, 0, 0, 5),
+            margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
             child: Row(
               children: [
                 Icon(

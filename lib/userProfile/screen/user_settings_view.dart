@@ -1,11 +1,11 @@
-import 'package:fitness_coaching_application_test/user_qr_view.dart';
-import 'package:fitness_coaching_application_test/user_settings_editProfile_view.dart';
-import 'package:fitness_coaching_application_test/user_settings_notifications_view.dart';
-import 'package:fitness_coaching_application_test/user_settings_password_view.dart';
-import 'package:fitness_coaching_application_test/user_settings_privacy_view.dart';
+import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_qr_view.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_editProfile_view.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_notifications_view.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_password_view.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_privacy_view.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 
 class UserProfileSettings extends StatefulWidget {
   const UserProfileSettings({Key? key}) : super(key: key);

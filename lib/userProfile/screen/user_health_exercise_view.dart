@@ -1,9 +1,9 @@
+import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_health_exercise_detail_view.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/user_health_exercise_detail_view.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 
 class UserHealthExercise extends StatefulWidget {
   const UserHealthExercise({Key? key}) : super(key: key);

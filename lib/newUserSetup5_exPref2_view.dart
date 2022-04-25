@@ -1,10 +1,10 @@
+import 'package:fitness_coaching_application_test/userProfile/userPreference.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:http/http.dart' as http;
 import 'color.dart';
 import 'newUserSetup4_comp_view.dart';
-import 'userPreference.dart';
 
 class NewUserSetupExPref2 extends StatefulWidget {
   final String gender;

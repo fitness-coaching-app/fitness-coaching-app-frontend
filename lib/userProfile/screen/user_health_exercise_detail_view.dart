@@ -1,7 +1,7 @@
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 // import 'package:intl/date_symbol_data_local.dart';
 
 class UserHealthExerciseDetail extends StatefulWidget {

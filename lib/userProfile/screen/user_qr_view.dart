@@ -1,6 +1,6 @@
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 
 class UserQrcode extends StatefulWidget {
   const UserQrcode({Key? key}) : super(key: key);

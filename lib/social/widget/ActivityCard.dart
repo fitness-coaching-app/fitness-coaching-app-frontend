@@ -46,25 +46,26 @@ class ActivityCardState extends State<ActivityCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        margin: EdgeInsets.only(top: 20),
         child: Column(children: [
-      UsernameBar(imageUrl: widget.urls, username: widget.username),
-      ActivityFeedPicture(
-          actHeader: widget.actHeader,
-          actDetail: widget.actDetail,
-          username: widget.username,
-          urls: widget.urls,
-          likes: widget.likes,
-          comments: widget.comments,
-          picture: widget.picture,
-          updateOn: widget.updateOn),
-      // Container(
-      //   child: FbReaction(),
-      // ),
-      // FbReaction(),
-      ReactionsBar(
-          likeCnt: widget.likeCnt,
-          commentCnt: widget.commentCnt,
-          updateToNow: widget.updateToNow)
-    ]));
+          UsernameBar(imageUrl: widget.urls, username: widget.username),
+          ActivityFeedPicture(
+              actHeader: widget.actHeader,
+              actDetail: widget.actDetail,
+              username: widget.username,
+              urls: widget.urls,
+              likes: widget.likes,
+              comments: widget.comments,
+              picture: widget.picture,
+              updateOn: widget.updateOn),
+          // Container(
+          //   child: FbReaction(),
+          // ),
+          // FbReaction(),
+          ReactionsBar(
+              likeCnt: widget.likeCnt,
+              commentCnt: widget.commentCnt,
+              updateToNow: widget.updateToNow)
+        ]));
   }
 }

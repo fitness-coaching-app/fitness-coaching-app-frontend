@@ -1,7 +1,7 @@
+import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'color.dart';
 
 class UserHealthWeight extends StatefulWidget {
   const UserHealthWeight({Key? key}) : super(key: key);
