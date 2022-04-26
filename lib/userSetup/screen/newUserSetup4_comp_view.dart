@@ -2,7 +2,6 @@ import 'package:fitness_coaching_application_test/buildButton.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/loading_view.dart';
 
 //New User Setup
 class NewUserSetupComp extends StatelessWidget {

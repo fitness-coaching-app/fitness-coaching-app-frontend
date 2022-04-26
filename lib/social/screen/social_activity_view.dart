@@ -1,6 +1,5 @@
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/social/screen/social_leaderboard_following_view.dart';
 import 'package:fitness_coaching_application_test/social/social_activity.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';

@@ -5,7 +5,6 @@ import 'package:fitness_coaching_application_test/forgotPw/widget/renderCircular
 import 'package:fitness_coaching_application_test/forgotPw/widget/renderSummaryBar.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ExerciseSummary extends StatefulWidget {
   const ExerciseSummary({Key? key}) : super(key: key);

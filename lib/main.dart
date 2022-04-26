@@ -1,7 +1,4 @@
 import 'package:fitness_coaching_application_test/buildButton.dart';
-import 'package:fitness_coaching_application_test/exerciseSummary/screen/exerciseSumFinished_view.dart';
-import 'package:fitness_coaching_application_test/exerciseSummary/screen/exerciseSummary_view.dart';
-import 'package:fitness_coaching_application_test/workouts/screens/workoutDetail_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
