@@ -1,3 +1,7 @@
+import 'package:fitness_coaching_application_test/buildButton.dart';
+import 'package:fitness_coaching_application_test/exerciseSummary/screen/exerciseSumFinished_view.dart';
+import 'package:fitness_coaching_application_test/exerciseSummary/screen/exerciseSummary_view.dart';
+import 'package:fitness_coaching_application_test/workouts/screens/workoutDetail_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -64,6 +68,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: MyHomePage(),
+      // home: ExerciseSumFinished()
 
       // home: SignIn(),
       // home: Home(),
@@ -163,35 +168,8 @@ class MyHomePage extends StatelessWidget {
             Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Expanded(
-                    child: new GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignIn()),
-                          );
-                        },
-                        child: Container(
-                            height: 60,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 16.5),
-                              child: new Text("Get Started",
-                                  style: const TextStyle(
-                                      color: color_dark,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "Poppins",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 18.0),
-                                  textAlign: TextAlign.center),
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                                color: color_teal))),
-                  )
-                ]),
+                child: BuildButton(
+                    context: context, name: "Get Started", screenTo: SignIn()),
               ),
             ),
             Container(

@@ -421,6 +421,9 @@ class NewUserSetupExPref2State extends State<NewUserSetupExPref2> {
                               color: color_teal))),
                 )
               ]),
+              Container(
+                height: 40,
+              )
             ]),
           )),
         ]))));

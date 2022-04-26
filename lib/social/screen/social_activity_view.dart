@@ -1,5 +1,6 @@
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/social/screen/social_leaderboard_following_view.dart';
 import 'package:fitness_coaching_application_test/social/social_activity.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
@@ -154,34 +155,5 @@ class ActivityState extends State<Activity> {
         bottomNavigationBar: RenderBottomNav(
           page: 'social',
         ));
-  }
-
-  Widget buildButton(
-      BuildContext context, String name, StatelessWidget screenTo) {
-    return TextButton(
-      onPressed: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => screenTo)),
-      child: Container(
-        child: Text(
-          name,
-          style: TextStyle(color: Colors.white, fontSize: 16.0),
-          textAlign: TextAlign.center,
-        ),
-        width: 270.0,
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed))
-              return Color(0xff3b5998).withOpacity(0.8);
-            return Color(0xff3b5998);
-          },
-        ),
-        splashFactory: NoSplash.splashFactory,
-        padding: MaterialStateProperty.all<EdgeInsets>(
-          EdgeInsets.fromLTRB(30, 15, 30, 15),
-        ),
-      ),
-    );
   }
 }

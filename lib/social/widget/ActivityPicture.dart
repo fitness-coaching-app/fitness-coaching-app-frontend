@@ -21,11 +21,7 @@ class ActivityPictureState extends State<ActivityPicture> {
               margin: EdgeInsets.only(bottom: 0),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(widget.picture),
-                      // colorFilter: ColorFilter.mode(
-                      //     Colors.black.withOpacity(0.5),
-                      //     BlendMode.darken),
-                      fit: BoxFit.fill),
+                      image: NetworkImage(widget.picture), fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(10)),
             )));
   }

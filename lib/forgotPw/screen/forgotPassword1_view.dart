@@ -1,10 +1,17 @@
+import 'package:fitness_coaching_application_test/buildButton.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/signIn_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ForgotPassword1 extends StatelessWidget {
+class ForgotPassword1 extends StatefulWidget {
   const ForgotPassword1({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => ForgotPassword1State();
+}
+
+class ForgotPassword1State extends State<ForgotPassword1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,38 +69,10 @@ class ForgotPassword1 extends StatelessWidget {
                         height: 40,
                       ),
                       // Next Button
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                child: new GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignIn()),
-                                );
-                              },
-                              child: Container(
-                                  height: 60,
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 16.5),
-                                    child: new Text("Sign In Again",
-                                        style: const TextStyle(
-                                            color: color_dark,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: "Poppins",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 18.0),
-                                        textAlign: TextAlign.center),
-                                  ),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15)),
-                                      color: color_teal)),
-                            ))
-                          ]),
+                      BuildButton(
+                          context: context,
+                          name: "Sign In Again",
+                          screenTo: SignIn())
                     ],
                   ),
                 )),

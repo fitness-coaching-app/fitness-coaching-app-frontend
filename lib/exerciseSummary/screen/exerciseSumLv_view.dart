@@ -1,9 +1,16 @@
+import 'package:fitness_coaching_application_test/buildButton.dart';
+import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/exerciseSummary/screen/exerciseSummary_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/exerciseSummary_view.dart';
-import 'color.dart';
 
-class ExerciseSumLv extends StatelessWidget {
+class ExerciseSumLv extends StatefulWidget {
   const ExerciseSumLv({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => ExerciseSumLvState();
+}
+
+class ExerciseSumLvState extends State<ExerciseSumLv> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,37 +70,11 @@ class ExerciseSumLv extends StatelessWidget {
             ),
             Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Expanded(
-                      child: new GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ExerciseSummary()),
-                      );
-                    },
-                    child: Container(
-                        height: 60,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.5),
-                          child: new Text("Continue",
-                              style: const TextStyle(
-                                  color: color_dark,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 18.0),
-                              textAlign: TextAlign.center),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            color: color_teal)),
-                  ))
-                ]),
-              ), // Next Button
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: BuildButton(
+                      context: context,
+                      name: "Continue",
+                      screenTo: ExerciseSummary())), // Next Button
             ),
             Container(
               //color: Colors.red,

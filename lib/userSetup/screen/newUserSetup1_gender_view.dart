@@ -1,3 +1,4 @@
+import 'package:fitness_coaching_application_test/buildButton.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup2_bd_view.dart';
 import 'package:flutter/material.dart';
@@ -266,41 +267,12 @@ class NewUserSetupGenderState extends State<NewUserSetupGender> {
                         height: 40,
                       ),
                       // Next Button
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: new GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NewUserSetupBd(
-                                                gender: genderSelect(_selectM,
-                                                    _selectF, _selectO),
-                                              )),
-                                    );
-                                  },
-                                  child: Container(
-                                      height: 60,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 16.5),
-                                        child: new Text("Next",
-                                            style: const TextStyle(
-                                                color: color_dark,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 18.0),
-                                            textAlign: TextAlign.center),
-                                      ),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: color_teal))),
-                            )
-                          ]),
+                      BuildButton(
+                          context: context,
+                          name: "Next",
+                          screenTo: NewUserSetupBd(
+                            gender: genderSelect(_selectM, _selectF, _selectO),
+                          ))
                     ],
                   ),
                 )),
@@ -313,16 +285,16 @@ class NewUserSetupGenderState extends State<NewUserSetupGender> {
 
   String genderSelect(bool male, bool female, bool other) {
     if (male == true && female == false && other == false) {
-      print("select MALE");
+      // print("select MALE");
       return "MALE";
     } else if (male == false && female == true && other == false) {
-      print("select FEMALE");
+      // print("select FEMALE");
       return "FEMALE";
     } else if (male == false && female == false && other == true) {
-      print("select OTHER");
+      // print("select OTHER");
       return "OTHER";
     } else {
-      print("not select");
+      // print("not select");
       return "not select";
     }
   }

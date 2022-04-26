@@ -1,3 +1,4 @@
+import 'package:fitness_coaching_application_test/buildButton.dart';
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/register/screen/register2_view.dart';
 import 'package:flutter/material.dart';
@@ -59,11 +60,18 @@ class Register1State extends State<Register1> {
                 Container(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.4),
-                    child: new SvgPicture.asset(
-                      'assets/Icon/Cartoon Illustration_lock1.svg',
-                      height: 100,
-                    ),
+                    // child: new SvgPicture.asset(
+                    //   'assets/Icon/Cartoon Illustration_lock1.svg',
+                    //   height: 100,
+                    // ),
                   ),
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                              "assets/Icon/Cartoon Illustration_lock.png"),
+                          fit: BoxFit.fill)),
                 ),
                 Container(
                   height: 40,
@@ -166,46 +174,12 @@ class Register1State extends State<Register1> {
                         height: 40,
                       ),
                       // create acc Button
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: new GestureDetector(
-                                  onTap: () {
-                                    // registerUser("displayName", "test@email.com", "password");
-                                    registerUser(
-                                      widget.displayName,
-                                      widget.email,
-                                      pwController.text,
-                                    );
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Register2(
-                                                email: widget.email,
-                                              )),
-                                    );
-                                  },
-                                  child: Container(
-                                      height: 60,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 16.5),
-                                        child: new Text("Create Account",
-                                            style: const TextStyle(
-                                                color: color_dark,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 18.0),
-                                            textAlign: TextAlign.center),
-                                      ),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: color_teal))),
-                            )
-                          ]),
+                      BuildButton(
+                          context: context,
+                          name: "Create Account",
+                          screenTo: Register2(
+                            email: widget.email,
+                          ))
                     ],
                   ),
                 )),

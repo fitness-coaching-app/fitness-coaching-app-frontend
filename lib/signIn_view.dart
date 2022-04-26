@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:fitness_coaching_application_test/buildButton.dart';
 import 'package:fitness_coaching_application_test/forgotPw/screen/forgotPassword0_view.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/register/screen/register3_view.dart';
+import 'package:fitness_coaching_application_test/social/widget/ActivityPicture.dart';
 import 'package:fitness_coaching_application_test/userProfile/userInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
@@ -77,12 +80,9 @@ class SignInState extends State<SignIn> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  color: const Color(0xffc4c4c4))),
+                          ActivityPicture(
+                              picture:
+                                  "https://img.freepik.com/free-vector/people-exercising-gym-flat-vector-illustration-happy-men-women-lifting-dumbbells-jumping-rope-running-racetrack-having-strength-cardio-workout-sport-fitness-concept_74855-23128.jpg?w=1800"),
                           Container(
                             //color: Colors.red,
                             height: 25,
@@ -189,41 +189,16 @@ class SignInState extends State<SignIn> {
                             height: 25,
                           ),
                           // Sign In Button
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: new GestureDetector(
-                                      onTap: () {
-                                        // logIn("poramee.chansuksett@gmail.com", "poramee");
-                                        logIn(emailController.text,
-                                            pwController.text);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Loading()),
-                                        );
-                                      },
-                                      child: Container(
-                                          height: 60,
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 16.5),
-                                            child: new Text("Sign In",
-                                                style: const TextStyle(
-                                                    color: color_dark,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: "Poppins",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 18.0),
-                                                textAlign: TextAlign.center),
-                                          ),
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15)),
-                                              color: color_teal))),
-                                )
-                              ]),
+                          GestureDetector(
+                              onTap: () {
+                                // logIn("poramee.chansuksett@gmail.com", "poramee");
+                                logIn(emailController.text, pwController.text);
+                              },
+                              child: BuildButton(
+                                  context: context,
+                                  name: "Sign In",
+                                  screenTo: Home())),
+
                           Container(
                             height: 20,
                           ),
