@@ -4,6 +4,7 @@ import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:http/http.dart' as http;
+import '../../api_util.dart';
 import '../../color.dart';
 import '../widget/BannerSection.dart';
 import '../widget/BannerCard.dart';
@@ -20,14 +21,12 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  Future<List<Widget>> getSections(String accessToken) async {
-    var url = Uri.parse(Environment.getSectionsUrl);
-    var response = await http
-        .get(url, headers: {"Authorization": "Bearer " + accessToken});
-
-    // print(response.body);
+  Future<List<Widget>> getSections() async {
+    var response = await API.get(Environment.getSectionsUrl, withToken: true);
+    if (response == null || response.statusCode != 200) {
+      return [Container(child: Text("Error!"))];
+    }
     var _dataFromAPI = json.decode(response.body);
-    // HomeSection _homeData = HomeSection.fromJson(_dataFromAPI);
     List<Widget> sections = [];
     print(_dataFromAPI);
     if (_dataFromAPI["results"] != null)
@@ -118,8 +117,7 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getSections(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NTA4OTYzNzAsImV4cCI6MTY1MDg5Njk3MH0.htCZs0bGDyu6B3Rem_RMM9Roldlh7pXBQ2s8RmfZ65k"),
+        future: getSections(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return buildHome(snapshot.data);

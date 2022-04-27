@@ -10,10 +10,11 @@ import 'package:fitness_coaching_application_test/loading_view.dart';
 import 'package:http/http.dart' as http;
 import 'api_util.dart';
 import 'color.dart';
-import 'states.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 import 'components/main_button_highlight.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -23,19 +24,10 @@ class SignIn extends StatefulWidget {
 }
 
 class SignInState extends State<SignIn> {
-  UserInfo? _dataFromAPI;
   TextEditingController emailController = new TextEditingController();
   TextEditingController pwController = new TextEditingController();
 
   FlutterTts flutterTts = FlutterTts();
-
-  Future<void> getUserInfo(String user) async {
-    // var user = "poramee";
-    var url = Uri.parse(Environment.getUserInfoUrl + user);
-    var response = await http.get(url);
-    _dataFromAPI = userInfoFromJson(response.body);
-    print(response.body);
-  }
 
   Future<Map<String, dynamic>?> logIn(String email, String password) async {
     var response = await API.post(
@@ -44,8 +36,11 @@ class SignInState extends State<SignIn> {
       Map<String, dynamic> body = jsonDecode(response.body);
       if (response.statusCode == 200) {
         print(body);
-        ApplicationStates.accessToken = body["accessToken"];
-        ApplicationStates.refreshToken = body["accessToken"];
+        var token = Hive.box('token');
+        token.put('accessToken', body["results"]["accessToken"]);
+        token.put('refreshToken', body["results"]["refreshToken"]);
+        print("TOKEN: ");
+        print(token.get('accessToken'));
       } else {
         print("Login Failed");
         print(response.body);

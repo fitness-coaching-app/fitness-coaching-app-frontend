@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'color.dart';
 import 'environment.dart';
 import 'signIn_view.dart';
@@ -15,6 +17,9 @@ Future<void> main() async {
 
   await dotenv.load(fileName: Environment.fileName);
   cameras = await availableCameras();
+
+  await Hive.initFlutter();
+  await Hive.openBox('token');
   runApp(MyApp());
 }
 
