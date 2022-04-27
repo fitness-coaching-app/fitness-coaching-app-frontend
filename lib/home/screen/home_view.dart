@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import '../../api_util.dart';
 import '../../color.dart';
@@ -28,10 +29,8 @@ class HomeState extends State<Home> {
     }
     var _dataFromAPI = json.decode(response.body);
     List<Widget> sections = [];
-    print(_dataFromAPI);
     if (_dataFromAPI["results"] != null)
       for (var i in _dataFromAPI["results"]!) {
-        // print(i);
         if (i["sectionType"] == "BANNER") {
           List<BannerCard> banners = [];
           for (var a in i["data"]!) {
@@ -71,7 +70,7 @@ class HomeState extends State<Home> {
                   children: [
                     Padding(
                       padding: EdgeInsets.fromLTRB(25, 21, 25, 0),
-                      child: Text("Hello, Robert!",
+                      child: Text("Hello, ${Hive.box('user').get('data')["displayName"]}!",
                           style: const TextStyle(
                               color: color_dark,
                               fontWeight: FontWeight.w700,

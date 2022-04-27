@@ -16,8 +16,6 @@ class API {
     }
     var response = await http.get(Uri.parse(url), headers: headers);
     var body = jsonDecode(response.body);
-    print(token.get('accessToken'));
-    print(body);
     if (body["error"] == true && body["message"] == "jwt expired") {
       var accessToken = await _fetchAccessToken();
       if (accessToken == null) {
@@ -50,7 +48,6 @@ class API {
             headers: headers, body: json.encode(body));
       }
     }
-    print("return");
     return response;
   }
 

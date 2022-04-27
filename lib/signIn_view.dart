@@ -37,10 +37,10 @@ class SignInState extends State<SignIn> {
       if (response.statusCode == 200) {
         print(body);
         var token = Hive.box('token');
+        var user = Hive.box('user');
         token.put('accessToken', body["results"]["accessToken"]);
         token.put('refreshToken', body["results"]["refreshToken"]);
-        print("TOKEN: ");
-        print(token.get('accessToken'));
+        user.put('data', body["results"]["user"]);
       } else {
         print("Login Failed");
         print(response.body);
