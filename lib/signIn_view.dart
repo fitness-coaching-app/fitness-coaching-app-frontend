@@ -1,14 +1,19 @@
 import 'dart:convert';
 
 import 'package:fitness_coaching_application_test/forgotPw/screen/forgotPassword0_view.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/register/screen/register3_view.dart';
 import 'package:fitness_coaching_application_test/userProfile/userInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/loading_view.dart';
 import 'package:http/http.dart' as http;
+import 'api_util.dart';
 import 'color.dart';
+import 'states.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+
+import 'components/main_button_highlight.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -32,16 +37,20 @@ class SignInState extends State<SignIn> {
     print(response.body);
   }
 
-  Future<void> logIn(String email, String password) async {
-    var url = Uri.parse(Environment.signInUrl);
-    var response = await http.post(url,
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({"email": email, "password": password}));
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else {
-      print("login failed");
-      print(response.body);
+  Future<Map<String, dynamic>?> logIn(String email, String password) async {
+    var response = await API.post(
+        Environment.signInUrl, {"email": email, "password": password});
+    if (response != null) {
+      Map<String, dynamic> body = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(body);
+        ApplicationStates.accessToken = body["accessToken"];
+        ApplicationStates.refreshToken = body["accessToken"];
+      } else {
+        print("Login Failed");
+        print(response.body);
+      }
+      return body;
     }
   }
 
@@ -59,14 +68,6 @@ class SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    Future _speak() async {
-      await flutterTts.setLanguage("th - TH");
-      await flutterTts.setPitch(1);
-      await flutterTts.setSpeechRate(0.6);
-      await flutterTts.speak(
-          "ยินดีต้อนรับเข้าสู่ Application ออกกำลังกาย\nกรุณาเข้าสู่ระบบค่ะ");
-    }
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -77,26 +78,14 @@ class SignInState extends State<SignIn> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  color: const Color(0xffc4c4c4))),
-                          Container(
-                            //color: Colors.red,
-                            height: 25,
-                          ),
-                          GestureDetector(
-                              onTap: () => _speak(),
-                              child: Text("Sign In",
-                                  style: const TextStyle(
-                                      color: color_dark,
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: "Poppins",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 26.0),
-                                  textAlign: TextAlign.left)),
+                          Text("Sign In",
+                              style: const TextStyle(
+                                  color: color_dark,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 26.0),
+                              textAlign: TextAlign.left),
                           Container(
                             //color: Colors.red,
                             height: 5,
@@ -131,7 +120,7 @@ class SignInState extends State<SignIn> {
                               ),
                               controller: emailController,
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                              AutovalidateMode.onUserInteraction,
                               validator: (String? value) =>
                                   validateEmail(value),
                               onSaved: (String? value) {
@@ -141,7 +130,7 @@ class SignInState extends State<SignIn> {
                             ),
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
+                                BorderRadius.all(Radius.circular(15)),
                                 color: color_lightGrey),
                             padding: EdgeInsets.zero,
                           ),
@@ -167,7 +156,7 @@ class SignInState extends State<SignIn> {
                               ),
                               controller: pwController,
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                              AutovalidateMode.onUserInteraction,
                               obscureText: true,
                               validator: (String? value) {
                                 return (value!.isEmpty)
@@ -181,7 +170,7 @@ class SignInState extends State<SignIn> {
                             ),
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
+                                BorderRadius.all(Radius.circular(15)),
                                 color: color_lightGrey),
                             padding: EdgeInsets.zero,
                           ),
@@ -192,36 +181,22 @@ class SignInState extends State<SignIn> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Expanded(
-                                  child: new GestureDetector(
-                                      onTap: () {
-                                        // logIn("poramee.chansuksett@gmail.com", "poramee");
-                                        logIn(emailController.text,
-                                            pwController.text);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Loading()),
-                                        );
-                                      },
-                                      child: Container(
-                                          height: 60,
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 16.5),
-                                            child: new Text("Sign In",
-                                                style: const TextStyle(
-                                                    color: color_dark,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: "Poppins",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 18.0),
-                                                textAlign: TextAlign.center),
-                                          ),
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15)),
-                                              color: color_teal))),
+                                MainButtonHighlight(
+                                    text: "Sign In",
+                                    onTap: () async {
+                                      logIn(emailController.text,
+                                          pwController.text).then((value) {
+                                            print(value);
+                                        if(value != null && value["code"] == 200){
+                                          print("OK");
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Home()),
+                                          );
+                                        }
+                                      });
+                                    }
                                 )
                               ]),
                           Container(
@@ -259,23 +234,23 @@ class SignInState extends State<SignIn> {
                                   },
                                   child: RichText(
                                       text: TextSpan(children: [
-                                    TextSpan(
-                                        style: const TextStyle(
-                                            color: color_dark,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "Poppins",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 16.0),
-                                        text: "Didn’t have account?"),
-                                    TextSpan(
-                                        style: const TextStyle(
-                                            color: color_dimmedTeal,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: "Poppins",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 16.0),
-                                        text: " Register")
-                                  ])))),
+                                        TextSpan(
+                                            style: const TextStyle(
+                                                color: color_dark,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: "Poppins",
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 16.0),
+                                            text: "Didn’t have account?"),
+                                        TextSpan(
+                                            style: const TextStyle(
+                                                color: color_dimmedTeal,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily: "Poppins",
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 16.0),
+                                            text: " Register")
+                                      ])))),
                           Expanded(child: Container()),
                         ])))));
   }
