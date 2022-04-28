@@ -1,18 +1,66 @@
+import 'dart:convert';
+
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
+import 'package:fitness_coaching_application_test/components/touchable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../api_util.dart';
+import '../../environment.dart';
 import 'register4_view.dart';
 
 class Register2 extends StatefulWidget {
   final String email;
-  const Register2({Key? key, required this.email}) : super(key: key);
+  final String password;
+
+  const Register2({Key? key, required this.email, required this.password})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => Register2State();
 }
 
 class Register2State extends State<Register2> {
+  ButtonStatus verifiedButtonStatus = ButtonStatus.active;
+  Future<Map<String, dynamic>?> resendEmail() async {
+    var response = await API
+        .post(Environment.resendVerificationEmailUrl, {"email": widget.email});
+    if (response != null) {
+      var body = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return {"error": false};
+      } else {
+        return {"error": true, "body": body};
+      }
+    }
+  }
+
+  Future<Map<String, dynamic>?> verificationCheck() async {
+    setState(() {
+      verifiedButtonStatus = ButtonStatus.loading;
+    });
+    var response = await API.post(Environment.signInUrl,
+        {"email": widget.email, "password": widget.password});
+    setState(() {
+      verifiedButtonStatus = ButtonStatus.active;
+    });
+    if (response != null) {
+      var body = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        if (body["results"]["user"]["status"] == "SETTING_UP") {
+          print("PASS");
+          return {"error": false};
+        } else {
+          print("FAIL");
+          return {"error": true, "body": body};
+        }
+      } else {
+        return {"error": true, "body": body};
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,66 +117,52 @@ class Register2State extends State<Register2> {
                         height: 40,
                       ),
                       // Didn’t get the mail?
-                      Center(
-                          child: new GestureDetector(
-                              onTap: () {
-                                print('Tap Didn’t get the mail');
-                              },
-                              child: RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                    style: const TextStyle(
-                                        color: color_dark,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 16.0),
-                                    text: "Didn’t get the mail?"),
-                                TextSpan(
-                                    style: const TextStyle(
-                                        color: color_dimmedTeal,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 16.0),
-                                    text: " Resend")
-                              ])))),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Didn’t get the mail?",
+                                style: const TextStyle(
+                                    color: color_dark,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 16.0)),
+                            SizedBox(width: 5),
+                            TouchableText(
+                                text: "Resend",
+                                onTap: () {
+                                  resendEmail().then((value) {
+                                    if (value != null) {
+                                      print(value);
+                                    }
+                                  });
+                                })
+                          ]),
                       Container(
                         height: 40,
                       ),
                       // verified Button
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: new GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Register4()),
-                                    );
-                                  },
-                                  child: Container(
-                                      height: 60,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 16.5),
-                                        child: new Text("I’m Verified",
-                                            style: const TextStyle(
-                                                color: color_dark,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 18.0),
-                                            textAlign: TextAlign.center),
-                                      ),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: color_teal))),
-                            )
-                          ]),
+                      MainButtonHighlight(
+                          text: "I'm Verified",
+                          status: verifiedButtonStatus,
+                          onPressed: () {
+                            verificationCheck().then((value) {
+                              if (value != null) {
+                                if (!value["error"]) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Register4()),
+                                  );
+                                }
+                              }
+                            });
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => Register4()),
+                            // );
+                          })
                     ],
                   ),
                 )),
