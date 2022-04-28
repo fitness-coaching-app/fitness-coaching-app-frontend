@@ -5,6 +5,7 @@ import 'package:fitness_coaching_application_test/components/main_button_highlig
 import 'package:fitness_coaching_application_test/components/touchable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
 
 import '../../api_util.dart';
 import '../../environment.dart';
@@ -42,11 +43,14 @@ class Register2State extends State<Register2> {
     });
     var response = await API.post(Environment.signInUrl,
         {"email": widget.email, "password": widget.password});
+    var token = Hive.box('token');
     setState(() {
       verifiedButtonStatus = ButtonStatus.active;
     });
     if (response != null) {
       var body = jsonDecode(response.body);
+      token.put('accessToken', body["results"]["accessToken"]);
+      token.put('refreshToken', body["results"]["refreshToken"]);
       if (response.statusCode == 200) {
         if (body["results"]["user"]["status"] == "SETTING_UP") {
           print("PASS");
@@ -157,11 +161,6 @@ class Register2State extends State<Register2> {
                                 }
                               }
                             });
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => Register4()),
-                            // );
                           })
                     ],
                   ),

@@ -1,6 +1,10 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/back_button.dart';
+import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
+import 'package:fitness_coaching_application_test/components/touchable_text.dart';
 import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup0_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +14,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ionicons/ionicons.dart';
+import 'package:http_parser/http_parser.dart';
+
+import '../../api_util.dart';
 
 class Register4 extends StatefulWidget {
   const Register4({Key? key}) : super(key: key);
@@ -20,27 +27,25 @@ class Register4 extends StatefulWidget {
 
 class Register4State extends State<Register4> {
   File? _image;
-  File? _imageTemp;
   String? imageBase64;
-
-  String accessToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NDcwOTA4MzIsImV4cCI6MTY0NzA5MTQzMn0.SOp4edUaiWYsYbnlYEhIS7Tj25o3VgQl1eK3uYYnrkA";
+  String? imagePath;
 
   ImagePicker imagePicker = ImagePicker();
+
+  ButtonStatus status = ButtonStatus.active;
+
   Future pickImage() async {
     try {
       final _image = await imagePicker.pickImage(source: ImageSource.gallery);
       if (_image == null) return;
 
       setState(() => this._image = File(_image.path));
-      _imageTemp = File(_image.path);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
-    compressFile(_image!);
   }
 
-  Future<String> compressFile(File file) async {
+  Future<void> compressFile(File file) async {
     final filePath = file.absolute.path;
     final lastIndex = filePath.lastIndexOf(new RegExp(r'.jp'));
     final splitted = filePath.substring(0, (lastIndex));
@@ -52,24 +57,31 @@ class Register4State extends State<Register4> {
       quality: 95,
       format: CompressFormat.webp,
     );
-    final bytes = File(result!.path).readAsBytesSync();
-    String base64Image = base64Encode(bytes) + ";type=image/webp;base64";
-    print("img_pan : $base64Image");
-    // imageBytes = result?.readAsBytesSync().toString();
-    imageBase64 = base64Image;
-    return base64Image;
+    print("Image Selected");
+    imagePath = result!.path;
   }
 
-  Future<void> editProfilePicture(String imageBytes) async {
-    var url = Uri.parse(Environment.editProfilePictureUrl);
-    var response = await http.post(url,
-        headers: {"Authorization": ("Bearer" + accessToken)},
-        body: {"profilePicture": imageBytes});
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else {
-      print("edit profile picture failed");
-      print(response.body);
+  Future<Map<String, dynamic>?> editProfilePicture() async {
+    setState(() {
+      status = ButtonStatus.loading;
+    });
+    print("compress...");
+    await compressFile(_image!);
+    var response = await API.formData(Environment.editProfilePictureUrl,
+        {"profilePicture": imagePath}, MediaType('image', 'webp'),
+        withToken: true);
+    setState(() {
+      status = ButtonStatus.active;
+    });
+    if (response != null) {
+      if (response.statusCode == 200) {
+        print(response.body);
+        return {"error": false};
+      } else {
+        print("edit profile picture failed");
+        print(response.body);
+        return {"error": true, "body": jsonDecode(response.body)};
+      }
     }
   }
 
@@ -79,134 +91,85 @@ class Register4State extends State<Register4> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-            padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
+            padding: const EdgeInsets.fromLTRB(25, 21, 25, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                new GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Ionicons.arrow_back,
-                      size: 30,
-                      color: color_dark,
-                    )),
+                FCABackButton(),
                 Container(
                   height: 45,
                 ),
+                Text("Add your Profile Picture",
+                    style: const TextStyle(
+                        color: color_dark,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 26.0),
+                    textAlign: TextAlign.left),
                 Container(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.4),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Add your Profile Picture",
-                          style: const TextStyle(
-                              color: color_dark,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 26.0),
-                          textAlign: TextAlign.left),
-                      Container(
-                        height: 5,
-                      ),
-                      Text("Pick a profile picture for your account",
-                          style: const TextStyle(
-                              color: color_subtitle,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16.0),
-                          textAlign: TextAlign.left),
-                      Container(
-                        height: 40,
-                      ),
-                      Center(
-                          child: GestureDetector(
-                              onTap: () {
-                                pickImage();
-                              },
-                              child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.25,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(360),
-                                      image: DecorationImage(
-                                        image: _image == null
-                                            ? AssetImage(
-                                                    'assets/Icon/camera.png')
-                                                as ImageProvider
-                                            : FileImage(_image!),
-                                        fit: BoxFit.cover,
-                                      ))))),
-                      Container(
-                        height: 40,
-                      ),
-                      // Button
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: new GestureDetector(
-                                  onTap: () {
-                                    if (imageBase64 != null) {
-                                      editProfilePicture(imageBase64!);
-                                    }
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              NewUserSetup0()),
-                                    );
-                                  },
-                                  child: Container(
-                                      height: 60,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 16.5),
-                                        child: new Text("Next",
-                                            style: const TextStyle(
-                                                color: color_dark,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 18.0),
-                                            textAlign: TextAlign.center),
-                                      ),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15)),
-                                          color: color_teal))),
-                            )
-                          ]),
-                      Container(
-                        height: 20,
-                      ),
-                      Center(
-                          child: new GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NewUserSetup0()),
-                                );
-                              },
-                              child: Text("Skip for Now",
-                                  style: const TextStyle(
-                                      color: color_dimmedTeal,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "Poppins",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 16.0),
-                                  textAlign: TextAlign.center)))
-                    ],
-                  ),
-                )),
-                Expanded(child: Container()),
+                  height: 5,
+                ),
+                Text("Pick a profile picture for your account",
+                    style: const TextStyle(
+                        color: color_subtitle,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16.0),
+                    textAlign: TextAlign.left),
+                Container(
+                  height: 40,
+                ),
+                Center(
+                    child: GestureDetector(
+                        onTap: () {
+                          pickImage();
+                        },
+                        child: Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: MediaQuery.of(context).size.height * 0.25,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: _image == null
+                                      ? AssetImage('assets/Icon/camera.png')
+                                          as ImageProvider
+                                      : FileImage(_image!),
+                                  fit: BoxFit.cover,
+                                ))))),
+                Container(
+                  height: 40,
+                ),
+                MainButtonHighlight(
+                    text: "Next",
+                    status: status,
+                    onPressed: () {
+                      editProfilePicture().then((value) {
+                        if (value != null && !value["error"]) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewUserSetup0()));
+                        }
+                      });
+                    }),
+                // Button
+                Container(
+                  height: 20,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: TouchableText(
+                      text: "Skip for Now",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NewUserSetup0()),
+                        );
+                      }),
+                )
               ],
             )),
       ),

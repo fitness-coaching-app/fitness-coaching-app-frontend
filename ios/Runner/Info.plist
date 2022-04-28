@@ -6,6 +6,8 @@
 	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>For pose detection</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>For selecting the profile picture</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -45,5 +47,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key></key>
+	<string></string>
 </dict>
 </plist>
