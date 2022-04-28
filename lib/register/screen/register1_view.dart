@@ -3,9 +3,11 @@ import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
 import 'package:fitness_coaching_application_test/components/text_box.dart';
 import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/register/screen/register2_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -25,37 +27,32 @@ class Register1 extends StatefulWidget {
 
 class Register1State extends State<Register1> {
   ButtonStatus status = ButtonStatus.active;
+  TextEditingController pwController = new TextEditingController();
 
-  Future<Map<String, dynamic>?> registerUser(
+  Future<void> registerUserPressed(
       String displayName, String email, String password) async {
     setState(() {
       status = ButtonStatus.loading;
     });
-    var response = await API.post(Environment.registerUrl, {
-      "displayName": displayName,
-      "email": email,
-      "password": password
-    });
+    var response = await API.post(Environment.registerUrl,
+        {"displayName": displayName, "email": email, "password": password});
     setState(() {
       status = ButtonStatus.active;
     });
-    if(response != null){
-      if (response.statusCode == 200) {
-        return {
-          "error": false
-        };
-      } else {
-        return {
-          "error": true,
-          "body": response.body
-        };
-      }
-    }
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Register2(email: widget.email, password: pwController.text)));
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController pwController = new TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: KeyboardAwareView(
@@ -126,31 +123,8 @@ class Register1State extends State<Register1> {
                   MainButtonHighlight(
                       text: "Create Account",
                       status: status,
-                      onPressed: () {
-                        registerUser(
-                          widget.displayName,
-                          widget.email,
-                          pwController.text,
-                        ).then((value){
-                          print(value);
-                          if(value == null){
-
-                          }
-                          else{
-                            if(!value["error"]){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Register2(
-                                      email: widget.email,
-                                      password: pwController.text
-                                    )),
-                              );
-                            }
-                          }
-                        });
-
-                      }),
+                      onPressed: () async => await registerUserPressed(
+                          widget.displayName, widget.email, pwController.text)),
                 ],
               )),
         ),

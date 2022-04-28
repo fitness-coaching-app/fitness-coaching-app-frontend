@@ -1,4 +1,5 @@
 import 'package:fitness_coaching_application_test/register/screen/register4_view.dart';
+import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup0_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -82,8 +83,9 @@ class MyApp extends StatelessWidget {
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
       ),
-      // home: MyHomePage(),
-      home: Register4(),
+      home: MyHomePage(),
+      // home: Register4(),
+      // home: NewUserSetup0(),
     );
   }
 }

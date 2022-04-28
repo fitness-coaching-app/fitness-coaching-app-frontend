@@ -22,16 +22,16 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  Future<List<Widget>> getSections() async {
+  List<Widget> sections = [];
+  Future<void> getSections() async {
     var response = await API.get(Environment.getSectionsUrl, withToken: true);
-    if (response == null || response.statusCode != 200) {
-      return [Container(child: Text("Error!"))];
-    }
-    var _dataFromAPI = json.decode(response.body);
-    List<Widget> sections = [];
-    if (_dataFromAPI["results"] != null)
-      for (var i in _dataFromAPI["results"]!) {
-        if (i["sectionType"] == "BANNER") {
+    API.responseAlertWhenError(
+      context: context,
+      response: response,
+      whenSuccess: (r) {
+      List<Widget> sections = [];
+      for (var i in r.results!) {
+        if (i.sectionType == "BANNER") {
           List<BannerCard> banners = [];
           for (var a in i["data"]!) {
             banners.add(BannerCard(
@@ -55,7 +55,9 @@ class HomeState extends State<Home> {
           ));
         }
       }
-    return sections;
+      return sections;
+    }
+    );
   }
 
   Widget buildHome(List<Widget> sections) {
@@ -119,9 +121,11 @@ class HomeState extends State<Home> {
         future: getSections(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return buildHome(snapshot.data);
+            return buildHome(sections);
           } else {
-            return Loading();
+            return buildHome([
+              Text("Loading...")
+            ]);
           }
         });
   }

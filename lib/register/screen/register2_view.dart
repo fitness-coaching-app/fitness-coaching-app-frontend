@@ -24,51 +24,63 @@ class Register2 extends StatefulWidget {
 
 class Register2State extends State<Register2> {
   ButtonStatus verifiedButtonStatus = ButtonStatus.active;
-  Future<Map<String, dynamic>?> resendEmail() async {
+
+  Future<void> resendEmail() async {
     var response = await API
         .post(Environment.resendVerificationEmailUrl, {"email": widget.email});
-    if (response != null) {
-      var body = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        return {"error": false};
-      } else {
-        return {"error": true, "body": body};
-      }
-    }
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+
+        });
   }
 
-  Future<Map<String, dynamic>?> verificationCheck() async {
+  Future<void> verificationCheck() async {
     setState(() {
       verifiedButtonStatus = ButtonStatus.loading;
     });
     var response = await API.post(Environment.signInUrl,
         {"email": widget.email, "password": widget.password});
-    var token = Hive.box('token');
     setState(() {
       verifiedButtonStatus = ButtonStatus.active;
     });
-    if (response != null) {
-      var body = jsonDecode(response.body);
-      token.put('accessToken', body["results"]["accessToken"]);
-      token.put('refreshToken', body["results"]["refreshToken"]);
-      if (response.statusCode == 200) {
-        if (body["results"]["user"]["status"] == "SETTING_UP") {
-          print("PASS");
-          return {"error": false};
-        } else {
-          print("FAIL");
-          return {"error": true, "body": body};
-        }
-      } else {
-        return {"error": true, "body": body};
-      }
-    }
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          var token = Hive.box('token');
+          token.put('accessToken', r.results["accessToken"]);
+          token.put('refreshToken', r.results["refreshToken"]);
+          if (r.results["user"]["status"] != "SETTING_UP") {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: Text("Error!"),
+                      content: Text(
+                          "Sorry, but you haven't verified your email.\nPlease try again later"),
+                      actions: [
+                        TextButton(
+                          child: Text("OK"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      ]);
+                });
+          }
+          else{
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => Register4()));
+          }
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
@@ -134,13 +146,7 @@ class Register2State extends State<Register2> {
                             SizedBox(width: 5),
                             TouchableText(
                                 text: "Resend",
-                                onTap: () {
-                                  resendEmail().then((value) {
-                                    if (value != null) {
-                                      print(value);
-                                    }
-                                  });
-                                })
+                                onTap: () async => await resendEmail())
                           ]),
                       Container(
                         height: 40,
@@ -149,19 +155,7 @@ class Register2State extends State<Register2> {
                       MainButtonHighlight(
                           text: "I'm Verified",
                           status: verifiedButtonStatus,
-                          onPressed: () {
-                            verificationCheck().then((value) {
-                              if (value != null) {
-                                if (!value["error"]) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Register4()),
-                                  );
-                                }
-                              }
-                            });
-                          })
+                          onPressed: verificationCheck)
                     ],
                   ),
                 )),

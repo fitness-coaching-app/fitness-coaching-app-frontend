@@ -1,4 +1,5 @@
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,15 +24,7 @@ class NewUserSetupBdState extends State<NewUserSetupBd> {
           padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            new GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Ionicons.arrow_back,
-                  size: 30,
-                  color: color_dark,
-                )),
+            FCABackButton(),
             Container(
               height: 45,
             ),
@@ -105,10 +98,6 @@ class NewUserSetupBdState extends State<NewUserSetupBd> {
                         controller: yearController,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         // validator: (String? value) => validateEmail(value),
-                        onSaved: (String? value) {
-                          // This optional block of code can be used to run
-                          // code when the user saves the form.
-                        },
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),

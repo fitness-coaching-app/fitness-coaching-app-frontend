@@ -61,7 +61,7 @@ class Register4State extends State<Register4> {
     imagePath = result!.path;
   }
 
-  Future<Map<String, dynamic>?> editProfilePicture() async {
+  Future<void> editProfilePicture() async {
     setState(() {
       status = ButtonStatus.loading;
     });
@@ -73,16 +73,14 @@ class Register4State extends State<Register4> {
     setState(() {
       status = ButtonStatus.active;
     });
-    if (response != null) {
-      if (response.statusCode == 200) {
-        print(response.body);
-        return {"error": false};
-      } else {
-        print("edit profile picture failed");
-        print(response.body);
-        return {"error": true, "body": jsonDecode(response.body)};
-      }
-    }
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NewUserSetup0()));
+        });
   }
 
   @override
@@ -144,16 +142,7 @@ class Register4State extends State<Register4> {
                 MainButtonHighlight(
                     text: "Next",
                     status: status,
-                    onPressed: () {
-                      editProfilePicture().then((value) {
-                        if (value != null && !value["error"]) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => NewUserSetup0()));
-                        }
-                      });
-                    }),
+                    onPressed: editProfilePicture),
                 // Button
                 Container(
                   height: 20,

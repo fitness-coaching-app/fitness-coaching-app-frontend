@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:dartz/dartz.dart' as dartz;
 
 import '../../api_util.dart';
 
@@ -21,15 +22,26 @@ class ForgotPassword0 extends StatefulWidget {
 class _ForgotPassword0State extends State<ForgotPassword0> {
   bool loading = false;
 
-  Future<void> forgotPassword(String email) async {
-    var response = await API.post(Environment.forgetPasswordUrl, {"email": email});
-    if(response != null){
-      if (response.statusCode == 200) {
-        print("success");
-      } else {
-        print("register failed");
-      }
-    }
+  Future<void> forgotPasswordPressed(
+      String email) async {
+    setState(() {
+      loading = true;
+    });
+    var response =
+        await API.post(Environment.forgetPasswordUrl, {"email": email});
+    setState(() {
+      loading = false;
+    });
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ForgotPassword1()),
+          );
+        });
   }
 
   String? validateEmail(String? value) {
@@ -99,20 +111,10 @@ class _ForgotPassword0State extends State<ForgotPassword0> {
                   ),
                   MainButtonHighlight(
                       text: "Send Instruction",
-                      status: loading? ButtonStatus.loading: ButtonStatus.active,
-                      onPressed: () {
-                        setState(() {
-                          print("loading");
-                          loading = true;
-                        });
-                        forgotPassword(emailController.text).then((value){
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPassword1()),
-                          );
-                        });
-                      }),
+                      status:
+                          loading ? ButtonStatus.loading : ButtonStatus.active,
+                      onPressed: () async =>
+                          await forgotPasswordPressed(emailController.text)),
                 ],
               )),
         ),
