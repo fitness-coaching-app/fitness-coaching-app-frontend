@@ -111,16 +111,16 @@ class MyHomePage extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child:
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  MainButtonHighlight(
-                      text: "Get Started",
-                      onTap: () async {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignIn())
-                        );
-                      })
-                ]),
+                    MainButtonHighlight(
+                        text: "Get Started",
+                        onPressed: () async {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                settings: RouteSettings(name: "/SignIn"),
+                                  builder: (context) => SignIn())
+                          );
+                        }),
               ),
             ),
             Container(

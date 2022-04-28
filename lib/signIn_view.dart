@@ -18,6 +18,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:fitness_coaching_application_test/components/text_box.dart';
+import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
 
 import 'components/touchable_text.dart';
 
@@ -69,134 +70,126 @@ class SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height - MediaQuery.of(context).viewInsets.bottom),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: <Widget>[
-                      Flexible(
-                        flex: 223,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/Icon/Cartoon Illustration_wavinghand.svg',
-                              height: 100,
-                            ),
-                            SizedBox(height: 25),
-                            Text("Sign In",
-                                style: const TextStyle(
-                                    color: color_dark,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 26.0),
-                                textAlign: TextAlign.left),
-                            Container(
-                              //color: Colors.red,
-                              height: 5,
-                            ), // Welcome back !
-                            Text("Welcome back !",
-                                style: const TextStyle(
-                                    color: const Color(0xb210334b),
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 16.0),
-                                textAlign: TextAlign.left),
-                            Container(
-                              //color: Colors.red,
-                              height: 25,
-                            ),
-                            TextBox(
-                              hintText: "Email",
-                              controller: emailController,
-                              validator: (String? value) => validateEmail(value),
-                            ),
-                            Container(
-                              //color: Colors.red,
-                              height: 15,
-                            ),
-                            TextBox(
-                                hintText: "Password",
-                                controller: pwController,
-                                validator: (String? value) {
-                                  return (value!.isEmpty)
-                                      ? 'Please enter a password.'
-                                      : null;
-                                },
-                                obscureText: true),
-                            Container(
-                              height: 25,
-                            ),
-                            // Sign In Button
-                            Row(children: [
-                              MainButtonHighlight(
-                                  text: "Sign In",
-                                  onTap: () async {
-                                    logIn(emailController.text, pwController.text)
-                                        .then((value) {
-                                      print(value);
-                                      if (value != null && value["code"] == 200) {
-                                        print("OK");
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Home()),
-                                        );
-                                      }
-                                    });
-                                  })
-                            ]),
-                            Container(
-                              height: 20,
-                            ),
-                            Center(
-                                child: TouchableText(
-                                    text: "Forget Password?",
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ForgotPassword0()),
-                                      );
-                                    })),
-                          ],
+          child: KeyboardAwareView(
+            child: Column(
+              children: <Widget>[
+                  Flexible(
+                    flex: 223,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/Icon/Cartoon Illustration_wavinghand.svg',
+                          height: 100,
                         ),
-                    ),
-
-                    // Didn’t have account? Register
-                    Flexible(
-                      flex: 33,
-                      child:
-                          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        Text("Didn’t have account?",
+                        SizedBox(height: 25),
+                        Text("Sign In",
                             style: const TextStyle(
                                 color: color_dark,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 26.0),
+                            textAlign: TextAlign.left),
+                        Container(
+                          //color: Colors.red,
+                          height: 5,
+                        ), // Welcome back !
+                        Text("Welcome back !",
+                            style: const TextStyle(
+                                color: const Color(0xb210334b),
                                 fontWeight: FontWeight.w400,
                                 fontFamily: "Poppins",
                                 fontStyle: FontStyle.normal,
-                                fontSize: 16.0)),
-                        SizedBox(width: 5),
-                        TouchableText(
-                            text: "Register",
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => Register3()),
-                              );
-                            })
-                      ]),
+                                fontSize: 16.0),
+                            textAlign: TextAlign.left),
+                        Container(
+                          //color: Colors.red,
+                          height: 25,
+                        ),
+                        TextBox(
+                          hintText: "Email",
+                          controller: emailController,
+                          validator: (String? value) => validateEmail(value),
+                        ),
+                        Container(
+                          //color: Colors.red,
+                          height: 15,
+                        ),
+                        TextBox(
+                            hintText: "Password",
+                            controller: pwController,
+                            validator: (String? value) {
+                              return (value!.isEmpty)
+                                  ? 'Please enter a password.'
+                                  : null;
+                            },
+                            obscureText: true),
+                        Container(
+                          height: 25,
+                        ),
+                        // Sign In Button
+                        MainButtonHighlight(
+                            text: "Sign In",
+                            onPressed: () async {
+                              logIn(emailController.text, pwController.text)
+                                  .then((value) {
+                                print(value);
+                                if (value != null && value["code"] == 200) {
+                                  print("OK");
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()),
+                                  );
+                                }
+                              });
+                            }),
+                        Container(
+                          height: 20,
+                        ),
+                        Center(
+                            child: TouchableText(
+                                text: "Forget Password?",
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ForgotPassword0()),
+                                  );
+                                })),
+                      ],
                     ),
-                  ],
                 ),
-              ),
+
+                // Didn’t have account? Register
+                Flexible(
+                  flex: 33,
+                  child:
+                      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Text("Didn’t have account?",
+                        style: const TextStyle(
+                            color: color_dark,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Poppins",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16.0)),
+                    SizedBox(width: 5),
+                    TouchableText(
+                        text: "Register",
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Register3()),
+                          );
+                        })
+                  ]),
+                ),
+              ],
             ),
           ),
         ),
