@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'color.dart';
+import 'components/main_button_highlight.dart';
 import 'environment.dart';
 import 'signIn_view.dart';
 
@@ -26,6 +27,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -49,22 +51,32 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w800,
             fontStyle: FontStyle.italic,
             color: Colors.white,
-          ), //Title Highlight
-          subtitle2: GoogleFonts.poppins(fontSize: 16.0), //Normal
-          button: GoogleFonts.poppins(
-              fontSize: 22.0, fontWeight: FontWeight.w600), //main button text
-          overline: GoogleFonts.poppins(
-              fontSize: 16.0, fontWeight: FontWeight.w600), //Tappable Text
-          headline2: GoogleFonts.poppins(
-              fontSize: 28.0, fontWeight: FontWeight.bold), //title1
-          headline4: GoogleFonts.poppins(
-              fontSize: 20.0, fontWeight: FontWeight.w600), //title2
-          bodyText1: GoogleFonts.poppins(
-              fontSize: 14.0, fontWeight: FontWeight.w600), // Text Heading
-          bodyText2: GoogleFonts.poppins(fontSize: 14.0), // Text Heading
-          caption: GoogleFonts.poppins(fontSize: 12.0), //tiny text
-          subtitle1: GoogleFonts.poppins(
-              fontSize: 12.0, fontWeight: FontWeight.w600), //title heading
+          ),
+          //Title Highlight
+          subtitle2: GoogleFonts.poppins(fontSize: 16.0),
+          //Normal
+          button:
+              GoogleFonts.poppins(fontSize: 22.0, fontWeight: FontWeight.w600),
+          //main button text
+          overline:
+              GoogleFonts.poppins(fontSize: 16.0, fontWeight: FontWeight.w600),
+          //Tappable Text
+          headline2:
+              GoogleFonts.poppins(fontSize: 28.0, fontWeight: FontWeight.bold),
+          //title1
+          headline4:
+              GoogleFonts.poppins(fontSize: 20.0, fontWeight: FontWeight.w600),
+          //title2
+          bodyText1:
+              GoogleFonts.poppins(fontSize: 14.0, fontWeight: FontWeight.w600),
+          // Text Heading
+          bodyText2: GoogleFonts.poppins(fontSize: 14.0),
+          // Text Heading
+          caption: GoogleFonts.poppins(fontSize: 12.0),
+          //tiny text
+          subtitle1:
+              GoogleFonts.poppins(fontSize: 12.0, fontWeight: FontWeight.w600),
+          //title heading
           headline3: GoogleFonts.poppins(
               fontSize: 28.0, fontWeight: FontWeight.w600), //title 1.5
         ),
@@ -100,32 +112,14 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Expanded(
-                    child: new GestureDetector(
-                        onTap: () {
-                          Navigator.push(
+                  MainButtonHighlight(
+                      text: "Get Started",
+                      onTap: () async {
+                        Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => SignIn()),
-                          );
-                        },
-                        child: Container(
-                            height: 60,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 16.5),
-                              child: new Text("Get Started",
-                                  style: const TextStyle(
-                                      color: color_dark,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "Poppins",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 18.0),
-                                  textAlign: TextAlign.center),
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                                color: color_teal))),
-                  )
+                            MaterialPageRoute(builder: (context) => SignIn())
+                        );
+                      })
                 ]),
               ),
             ),
