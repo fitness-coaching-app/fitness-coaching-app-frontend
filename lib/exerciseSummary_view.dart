@@ -4,7 +4,18 @@ import 'color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ExerciseSummary extends StatelessWidget {
-  const ExerciseSummary({Key? key}) : super(key: key);
+  final int score;
+  final int xpEarned;
+  final int duration;
+  final String activityId;
+
+
+  const ExerciseSummary({Key? key,
+    required this.score,
+    required this.xpEarned,
+    required this.duration,
+    required this.activityId
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,13 +68,13 @@ class ExerciseSummary extends StatelessWidget {
                                       valueColor: AlwaysStoppedAnimation<Color>(
                                           color_purple),
                                       backgroundColor: color_lightGrey,
-                                      value: 0.95,
+                                      value: (score / 100),
                                       strokeWidth: 7,
                                     ),
                                   ),
                                 ),
                                 Center(
-                                    child: Text("99 %",
+                                    child: Text("$score %",
                                         style: const TextStyle(
                                             color: color_purple,
                                             fontWeight: FontWeight.w600,
@@ -92,7 +103,7 @@ class ExerciseSummary extends StatelessWidget {
                                     fontSize: 20.0),
                                 textAlign: TextAlign.left),
                             Expanded(child: Container()),
-                            Text("45",
+                            Text("$xpEarned",
                                 style: const TextStyle(
                                     color: color_dark,
                                     fontWeight: FontWeight.w600,
@@ -114,7 +125,7 @@ class ExerciseSummary extends StatelessWidget {
                                     fontSize: 20.0),
                                 textAlign: TextAlign.left),
                             Expanded(child: Container()),
-                            Text("05:32",
+                            Text("${Duration(seconds: duration).inMinutes.toString().padLeft(2, "0")}:${Duration(seconds: duration).inSeconds.remainder(60).toString().padLeft(2, "0")}",
                                 style: const TextStyle(
                                     color: color_dark,
                                     fontWeight: FontWeight.w600,
@@ -123,28 +134,28 @@ class ExerciseSummary extends StatelessWidget {
                                     fontSize: 32.0),
                                 textAlign: TextAlign.right),
                           ]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Calories",
-                                style: const TextStyle(
-                                    color: color_dark,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 20.0),
-                                textAlign: TextAlign.left),
-                            Expanded(child: Container()),
-                            Text("300",
-                                style: const TextStyle(
-                                    color: color_dark,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 32.0),
-                                textAlign: TextAlign.right),
-                          ]),
+                      // Row(
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     children: [
+                      //       Text("Calories",
+                      //           style: const TextStyle(
+                      //               color: color_dark,
+                      //               fontWeight: FontWeight.w600,
+                      //               fontFamily: "Poppins",
+                      //               fontStyle: FontStyle.normal,
+                      //               fontSize: 20.0),
+                      //           textAlign: TextAlign.left),
+                      //       Expanded(child: Container()),
+                      //       Text("300",
+                      //           style: const TextStyle(
+                      //               color: color_dark,
+                      //               fontWeight: FontWeight.w600,
+                      //               fontFamily: "Poppins",
+                      //               fontStyle: FontStyle.normal,
+                      //               fontSize: 32.0),
+                      //           textAlign: TextAlign.right),
+                      //     ]),
                       Container(
                         height: 20,
                       ),

@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:fitness_coaching_application_test/workouts/widgets/CameraView.dart';
 
+import '../../exerciseSumFinished_view.dart';
 import '../widgets/CurrentExerciseStateBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +14,15 @@ import '../widgets/TeachView.dart';
 import 'package:fca_pose_validation/fca_pose_processor.dart';
 
 import 'dart:async' as dartAsync;
+import 'package:path_provider/path_provider.dart';
+import 'package:dio/dio.dart';
 
 class WorkoutMainView extends StatefulWidget {
+  String courseId;
+  String courseDataUrl;
+
+  WorkoutMainView({required this.courseId, required this.courseDataUrl});
+
   @override
   State<StatefulWidget> createState() => _WorkoutMainViewState();
 }
@@ -28,6 +37,8 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
   late String data;
   late ExerciseController controller;
   late ExerciseState currentState;
+
+  double teachingVideoProgress = 0.0;
 
   String stepName = "";
   String criteria = "";
@@ -51,37 +62,56 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
   }
 
   void onDisplayStateChange(DisplayState state) {
-    print(currentState.timer.elapsedMilliseconds);
     setState(() {
       currentDisplayState = state;
     });
   }
 
   void onStepComplete() {
-    // Step completed, display correct tick for 5 seconds
-    setState(() {
-      isStepComplete = true;
-    });
-    dartAsync.Timer.periodic(Duration(seconds: 5), (timer) {
-      timer.cancel();
+    if (!controller.getCurrentState().exerciseCompleted()) {
+      // Step completed, display correct tick for 5 seconds
       setState(() {
-        isStepComplete = false;
+        isStepComplete = true;
       });
-    });
+      dartAsync.Timer.periodic(Duration(seconds: 5), (timer) {
+        timer.cancel();
+        setState(() {
+          isStepComplete = false;
+        });
+      });
+    }
   }
 
   void onExerciseComplete() {
-    // TODO: Change the page to exercise summary
+    var summary = controller.getExerciseSummary();
+    var exerciseData = {
+      'courseId': widget.courseId,
+      'duration': summary.exerciseDuration,
+      'score': summary.score
+    };
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ExerciseSumFinished(
+                courseId: widget.courseId,
+                duration: summary.exerciseDuration,
+                score: summary.score)),
+        (route) => false);
   }
 
   Future<String> loadData() async {
-    // TODO: Load course data from the API
-    data = await rootBundle.loadString(
-        'assets/yaml/jumping-jacks.yaml'); // TODO: Load .yaml file here
+    final directory = await getApplicationDocumentsDirectory();
+    final downloadPath = '${directory.path}/courses/course.yaml';
+    await Dio().download(widget.courseDataUrl, downloadPath);
+
+    var file = File(downloadPath);
+    data = await file.readAsString();
+    print(data);
     controller = ExerciseController(data,
         onDisplayStateChange: onDisplayStateChange,
         onStepComplete: onStepComplete,
         onExerciseComplete: onExerciseComplete);
+
     currentState = controller.getCurrentState();
     stepName = currentState.stepName;
 
@@ -111,27 +141,41 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
           } else {
             SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
             return Material(
-              child: Column(children: <Widget>[
-                CurrentExerciseStateBar(
-                    currentState: controller.getCurrentState(),
-                    isComplete: isStepComplete),
-                (() {
-                  if (isStepComplete) {
-                    return Text("Complete");
-                  }
-                  if (currentDisplayState == DisplayState.teach) {
-                    return TeachView(onComplete: () {
-                      controller.teachCompleted();
-                    });
-                  }
-
-                  return CameraView(
-                    customPaint: customPaint,
-                    onImage: (InputImage inputImage) =>
-                        processImage(inputImage),
-                  );
-                }())
-              ]),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    CurrentExerciseStateBar(
+                      currentState: controller.getCurrentState(),
+                      isComplete: isStepComplete,
+                      teachingVideoProgress: teachingVideoProgress,
+                    ),
+                    (() {
+                      if (isStepComplete) {
+                        return Text("Complete");
+                      }
+                      if (currentDisplayState == DisplayState.teach) {
+                        return TeachView(
+                          mediaUrl: controller
+                              .definition
+                              .steps[controller.getCurrentState().currentStep]
+                              .mediaDir,
+                          onComplete: () {
+                            controller.teachCompleted();
+                          },
+                          updateMediaProgress: (progress) {
+                            setState(() {
+                              teachingVideoProgress = progress;
+                            });
+                          },
+                        );
+                      }
+                      return CameraView(
+                        customPaint: customPaint,
+                        onImage: (InputImage inputImage) =>
+                            processImage(inputImage),
+                      );
+                    }())
+                  ]),
             );
           }
         });

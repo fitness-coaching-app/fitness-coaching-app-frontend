@@ -21,6 +21,7 @@ class WorkoutDetail extends StatefulWidget {
 
 class _WorkoutDetailState extends State<WorkoutDetail> {
   Map<String, dynamic> courseData = {
+    'courseId': "",
     'name': "",
     'description': "",
     'overallRating': "",
@@ -44,6 +45,7 @@ class _WorkoutDetailState extends State<WorkoutDetail> {
         response: response,
         whenSuccess: (r) {
           setState(() {
+            courseData["courseId"] = r.results!["_id"];
             courseData["name"] = r.results!["name"];
             courseData["description"] = r.results!["description"];
             courseData["overallRating"] = r.results!["overallRating"] == null
@@ -105,7 +107,12 @@ class _WorkoutDetailState extends State<WorkoutDetail> {
                               fontSize: 14.0),
                           textAlign: TextAlign.left),
                       SizedBox(height: 40),
-                      LetsGoButton()
+                      LetsGoButton(
+                        onPressed: (){
+                          // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => WorkoutMainView(courseDataUrl: courseData['courseData'])), (route) => false);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WorkoutMainView(courseId: courseData['courseId'],courseDataUrl: courseData['courseData'])));
+                        }
+                      )
                     ]),
               ),
             ),

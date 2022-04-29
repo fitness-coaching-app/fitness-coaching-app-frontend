@@ -8,9 +8,10 @@ import 'package:recase/recase.dart';
 class CurrentExerciseStateBar extends StatefulWidget {
   ExerciseState currentState;
   bool isComplete;
+  double teachingVideoProgress;
 
   CurrentExerciseStateBar(
-      {Key? key, required this.currentState, required this.isComplete})
+      {Key? key, required this.currentState, required this.isComplete, required this.teachingVideoProgress})
       : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
         children: [
           LinearProgressIndicator(
             minHeight: 3,
-            value: 0.6,
+            value: widget.teachingVideoProgress,
             valueColor: AlwaysStoppedAnimation(color_dimmedTeal),
             backgroundColor: color_dark,
             semanticsLabel: 'Linear progress indicator',
