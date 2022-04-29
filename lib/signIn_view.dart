@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:fitness_coaching_application_test/forgotPw/screen/forgotPassword0_view.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
+import 'package:fitness_coaching_application_test/register/screen/register2_view.dart';
 import 'package:fitness_coaching_application_test/register/screen/register3_view.dart';
+import 'package:fitness_coaching_application_test/register/screen/register4_view.dart';
 import 'package:fitness_coaching_application_test/userProfile/userInfo.dart';
+import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup0_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/loading_view.dart';
@@ -57,10 +60,33 @@ class SignInState extends State<SignIn> {
           token.put('refreshToken', r.results["refreshToken"]);
           user.put('data', r.results["user"]);
 
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Home()),
-          );
+          if(r.results["user"]["status"] == "VERIFICATION"){
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Register2(email: email, password: password)),
+            );
+          }
+          else if(r.results["user"]["status"] == "SETTING_UP"){
+            if(r.results["user"]["profilePicture"] == null){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Register4()),
+              );
+            }
+            else{
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => NewUserSetup0()),
+              );
+            }
+
+          }
+          else if(r.results["user"]["status"] == "ACTIVE"){
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Home()),
+            );
+          }
         });
     return response;
   }

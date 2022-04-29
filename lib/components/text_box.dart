@@ -7,8 +7,11 @@ class TextBox extends StatefulWidget {
   final void Function(String?)? onSaved;
   final String? Function(String?)? validator;
   final bool obscureText;
+  final Icon? suffixIcon;
+  final bool readOnly;
+  final bool? enable;
 
-  TextBox({this.hintText, this.controller, this.onSaved, this.validator, this.obscureText = false});
+  TextBox({this.hintText, this.controller, this.onSaved, this.validator, this.obscureText = false, this.suffixIcon, this.readOnly = false, this.enable});
 
   @override
   State<StatefulWidget> createState() => _TextBoxState();
@@ -50,6 +53,7 @@ class _TextBoxState extends State<TextBox> {
             borderRadius: BorderRadius.all(Radius.circular(15))
         ),
         contentPadding: EdgeInsets.all(20),
+        suffixIcon: widget.suffixIcon
       ),
       style: const TextStyle(
         color: color_dark,
@@ -62,7 +66,9 @@ class _TextBoxState extends State<TextBox> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: widget.validator,
       onSaved: widget.onSaved,
-      obscureText: widget.obscureText
+      obscureText: widget.obscureText,
+      readOnly: widget.readOnly,
+      enabled: widget.enable,
     );
   }
 }

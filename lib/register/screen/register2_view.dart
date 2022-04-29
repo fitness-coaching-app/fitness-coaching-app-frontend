@@ -60,7 +60,7 @@ class Register2State extends State<Register2> {
                   return AlertDialog(
                       title: Text("Error!"),
                       content: Text(
-                          "Sorry, but you haven't verified your email.\nPlease try again later"),
+                          "Sorry, but you haven't verified your email.\nPlease try again later."),
                       actions: [
                         TextButton(
                           child: Text("OK"),
