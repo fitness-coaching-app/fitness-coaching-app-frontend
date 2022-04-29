@@ -23,15 +23,16 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   List<Widget> sections = [];
-  Future<void> getSections() async {
+  Future<List<Widget>> getSections() async {
     var response = await API.get(Environment.getSectionsUrl, withToken: true);
-    API.responseAlertWhenError(
+
+    sections = API.responseAlertWhenError(
       context: context,
       response: response,
       whenSuccess: (r) {
       List<Widget> sections = [];
       for (var i in r.results!) {
-        if (i.sectionType == "BANNER") {
+        if (i["sectionType"] == "BANNER") {
           List<BannerCard> banners = [];
           for (var a in i["data"]!) {
             banners.add(BannerCard(
@@ -41,13 +42,15 @@ class HomeState extends State<Home> {
             banners: banners,
           ));
         }
-        if (i["sectionType"] == "COURSE") {
+        else if (i["sectionType"] == "COURSE") {
           List<CourseCard> cards = [];
           for (var a in i["data"]!) {
             cards.add(CourseCard(
+                courseId: a["courseId"],
                 title: a["name"],
                 coverPictureUrl: a["coverPicture"],
-                rating: a["overallRating"] * 1.0));
+                rating: a["overallRating"] * 1.0
+            ));
           }
           sections.add(CourseSection(
             title: i["name"],
@@ -55,9 +58,11 @@ class HomeState extends State<Home> {
           ));
         }
       }
+      this.sections = sections;
       return sections;
     }
     );
+    return sections;
   }
 
   Widget buildHome(List<Widget> sections) {
@@ -123,9 +128,7 @@ class HomeState extends State<Home> {
           if (snapshot.hasData) {
             return buildHome(sections);
           } else {
-            return buildHome([
-              Text("Loading...")
-            ]);
+            return Loading();
           }
         });
   }

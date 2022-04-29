@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import '../color.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
-
-enum ButtonStatus {
-  inactive,
-  active,
-  loading
-}
+import 'button_status.dart';
+export 'button_status.dart';
 
 class MainButtonHighlight extends StatefulWidget {
   final String text;

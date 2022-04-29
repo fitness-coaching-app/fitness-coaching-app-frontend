@@ -657,7 +657,7 @@ class SearchResultState extends State<SearchResult> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  WorkoutDetail()),
+                                                  WorkoutDetail(courseId: "TEST")),
                                         );
                                       },
                                       child: Container(

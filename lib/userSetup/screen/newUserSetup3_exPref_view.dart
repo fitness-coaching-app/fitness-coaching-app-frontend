@@ -1,4 +1,5 @@
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup5_exPref2_view.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -38,15 +39,7 @@ class NewUserSetupExPrefState extends State<NewUserSetupExPref> {
             child: Padding(
       padding: const EdgeInsets.fromLTRB(20.6, 21, 20.6, 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        new GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Ionicons.arrow_back,
-              size: 30,
-              color: color_dark,
-            )),
+        FCABackButton(),
         Container(
           height: 45,
         ),
@@ -216,7 +209,9 @@ class NewUserSetupExPrefState extends State<NewUserSetupExPref> {
             ]),
           ]),
         )),
-        Expanded(child: Container()),
+        SizedBox(
+          height: 50
+        )
       ]),
     )));
   }

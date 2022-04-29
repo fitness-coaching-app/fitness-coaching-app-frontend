@@ -84,7 +84,7 @@ class SearchAllCourseState extends State<SearchAllCourse> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  WorkoutDetail()),
+                                                  WorkoutDetail(courseId: "TEST")),
                                         );
                                       },
                                       child: Container(

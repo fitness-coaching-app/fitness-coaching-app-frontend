@@ -6,12 +6,14 @@ class CourseCard extends StatefulWidget {
   final String title;
   final String coverPictureUrl;
   final double rating;
+  final String courseId;
 
   CourseCard(
       {Key? key,
       required this.title,
       required this.coverPictureUrl,
-      required this.rating})
+      required this.rating,
+      required this.courseId})
       : super(key: key);
 
   @override
@@ -29,113 +31,69 @@ class CourseCardState extends State<CourseCard> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => WorkoutDetail()),
+              MaterialPageRoute(builder: (context) => WorkoutDetail(courseId: widget.courseId)),
             );
           },
           child: Container(
-              width: MediaQuery.of(context).size.width * 0.6,
+              width: 220,
+              height: 220,
+              padding: new EdgeInsets.all(10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(widget.coverPictureUrl))),
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          height:
-                              ((MediaQuery.of(context).size.width * 0.6) / 3)),
-                      Text(widget.title,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 22),
-                          textAlign: TextAlign.left),
-                      Expanded(
-                          child: Container(
-                        height: 5,
-                      )),
-                      //time and rated row
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            //times tag
-                            // Container(
-                            //     height: 24,
-                            //     width: 77,
-                            //     decoration: new BoxDecoration(
-                            //       color: Color.fromARGB(220, 189, 133, 233),
-                            //       borderRadius:
-                            //           new BorderRadius.all(Radius.circular(15)),
-                            //     ),
-                            //     child: Padding(
-                            //       padding: EdgeInsets.symmetric(horizontal: 10),
-                            //       child: Row(
-                            //         mainAxisAlignment: MainAxisAlignment.start,
-                            //         crossAxisAlignment:
-                            //             CrossAxisAlignment.center,
-                            //         children: [
-                            //           SvgPicture.asset(
-                            //             'assets/Icon/Miscellaneous-Filled_clock.svg',
-                            //             height: 13,
-                            //           ),
-                            //           Expanded(child: Container()),
-                            //           Container(
-                            //             child: Text("45 min",
-                            //                 style: const TextStyle(
-                            //                     color: Colors.white,
-                            //                     fontWeight: FontWeight.w400,
-                            //                     fontFamily: "Poppins",
-                            //                     fontStyle: FontStyle.normal,
-                            //                     fontSize: 12.0),
-                            //                 textAlign: TextAlign.left),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     )),
-                            Container(width: 10),
-                            //rated tag
-                            Container(
-                                height: 24,
-                                width: 53,
-                                decoration: new BoxDecoration(
-                                  color: Color.fromARGB(220, 240, 192, 22),
-                                  borderRadius:
-                                      new BorderRadius.all(Radius.circular(15)),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        'assets/Icon/Miscellaneous-Filled_star.svg',
-                                        height: 13,
-                                      ),
-                                      Expanded(child: Container()),
-                                      Container(
-                                        child: Text(widget.rating.toString(),
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "Poppins",
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 12.0),
-                                            textAlign: TextAlign.left),
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ]),
-                    ]),
-              ))),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(widget.title,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Poppins",
+                            fontStyle: FontStyle.normal,
+                            fontSize: 22),
+                        textAlign: TextAlign.left),
+
+                    SizedBox(
+                      height: 10
+                    ),
+                    //rated tag
+                    Container(
+                        height: 24,
+                        width: 53,
+                        decoration: new BoxDecoration(
+                          color: Color.fromARGB(220, 240, 192, 22),
+                          borderRadius:
+                              new BorderRadius.all(Radius.circular(5)),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/Icon/Miscellaneous-Filled_star.svg',
+                                height: 13,
+                              ),
+                              Expanded(child: Container()),
+                              Container(
+                                child: Text(widget.rating.toString(),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Poppins",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 12.0),
+                                    textAlign: TextAlign.left),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ]))),
     );
   }
 }

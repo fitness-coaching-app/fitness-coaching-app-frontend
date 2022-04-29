@@ -7,11 +7,12 @@ class TextBox extends StatefulWidget {
   final void Function(String?)? onSaved;
   final String? Function(String?)? validator;
   final bool obscureText;
-  final Icon? suffixIcon;
+  final Widget? suffixIcon;
   final bool readOnly;
   final bool? enable;
+  final TextInputType? keyboardType;
 
-  TextBox({this.hintText, this.controller, this.onSaved, this.validator, this.obscureText = false, this.suffixIcon, this.readOnly = false, this.enable});
+  TextBox({this.hintText, this.controller, this.onSaved, this.validator, this.obscureText = false, this.suffixIcon, this.readOnly = false, this.enable, this.keyboardType});
 
   @override
   State<StatefulWidget> createState() => _TextBoxState();
@@ -21,6 +22,7 @@ class _TextBoxState extends State<TextBox> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.keyboardType,
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: const TextStyle(
