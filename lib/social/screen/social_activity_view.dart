@@ -12,6 +12,7 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../api_util.dart';
 import '../../loading_view.dart';
+import './social_leaderboard.dart';
 
 class Activity extends StatefulWidget {
   const Activity({Key? key}) : super(key: key);
@@ -56,7 +57,6 @@ class ActivityState extends State<Activity> {
               children: [
                 //activity feed
                 ...activityFeed,
-
                 //bottom section
                 Container(
                   height: 150,
@@ -85,7 +85,7 @@ class ActivityState extends State<Activity> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => LeaderboardFollowing()));
+                        builder: (context) => Leaderboard()));
               },
               child: Container(
                   height: 35,

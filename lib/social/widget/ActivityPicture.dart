@@ -28,7 +28,7 @@ class ActivityPictureState extends State<ActivityPicture> {
                       image: NetworkImage(widget.picture),
                       colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(0.3), BlendMode.darken),
-                      fit: BoxFit.fitWidth),
+                      fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(15)),
             child: Padding(
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 15),

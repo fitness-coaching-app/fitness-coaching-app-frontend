@@ -3,6 +3,8 @@ import 'package:fitness_coaching_application_test/userProfile/screen/user_profil
 import 'package:fitness_coaching_application_test/userProfile/screen/user_profile_following_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../environment.dart';
+
 class ProfileHead extends StatefulWidget {
   final String username;
   final String imageUrl;
@@ -33,7 +35,9 @@ class ProfileHeadState extends State<ProfileHead> {
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: NetworkImage(widget.imageUrl),
+                  image: NetworkImage(widget.imageUrl == ""
+                          ? Environment.noImageUrl
+                          : widget.imageUrl),
                   fit: BoxFit.cover,
                 ))),
         SizedBox(height: 12),

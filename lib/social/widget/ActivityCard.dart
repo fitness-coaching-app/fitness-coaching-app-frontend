@@ -29,8 +29,6 @@ class ActivityCardState extends State<ActivityCard> {
   String updateOn = "";
 
   void preBuild() {
-    print("PRE BUILD STAGE");
-    print(widget.userActivity);
     setState(() {
       if (widget.userActivity["activityType"] == "LEVEL_UP") {
         actHeader = "Level Up";
