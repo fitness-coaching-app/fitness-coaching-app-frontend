@@ -50,7 +50,7 @@ class ReactionsBarState extends State<ReactionsBar> {
                   width: 30,
                 ),
                 Icon(
-                  Ionicons.chatbox_outline,
+                  Ionicons.chatbubble_outline,
                   color: color_subtitle,
                   size: 22,
                 ),

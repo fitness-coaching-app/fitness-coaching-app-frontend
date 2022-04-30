@@ -1,68 +1,87 @@
+import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:fitness_coaching_application_test/social/screen/social_activity_detail_view.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityFeedPicture.dart';
 import 'package:fitness_coaching_application_test/social/widget/ReactionsBar.dart';
 import 'package:fitness_coaching_application_test/social/widget/UsernameBar.dart';
 import 'package:flutter/material.dart';
 
-class ActivityCard extends StatefulWidget {
-  final String actHeader;
-  final String actDetail;
-  final String username;
-  final String iconUrl;
-  final String urls;
-  final List<List<String>> likes;
-  final int likeCnt;
-  final List<List<String>> comments;
-  final int commentCnt;
-  final String picture;
-  final String onClickAction;
-  final String updateOn;
-  final String updateToNow;
+import '../../api_util.dart';
 
-  ActivityCard({
-    Key? key,
-    required this.actHeader,
-    required this.actDetail,
-    required this.username,
-    required this.iconUrl,
-    required this.urls,
-    required this.likes,
-    required this.likeCnt,
-    required this.comments,
-    required this.commentCnt,
-    required this.picture,
-    required this.onClickAction,
-    required this.updateOn,
-    required this.updateToNow,
-  }) : super(key: key);
+class ActivityCard extends StatefulWidget {
+  final userActivity;
+  final userData;
+
+  ActivityCard({Key? key, required this.userActivity, required this.userData})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ActivityCardState();
 }
 
 class ActivityCardState extends State<ActivityCard> {
+  String urls = "";
+  String username = "";
+  String actHeader = "";
+  String actDetail = "";
+  int likes = 0;
+  int comments = 0;
+  String picture = "";
+  String updateOn = "";
+
+  void preBuild() {
+    if (widget.userActivity["activityType"] == "LEVEL_UP") {
+      actHeader = "Level Up";
+      actDetail =
+          '${widget.userData['displayName']} is on level ${widget.userActivity["data"]["level"]}';
+      picture = widget.userData['profilePicture'];
+    } else if (widget.userActivity["activityType"] == "EXERCISE") {
+      actHeader = "Course Complete";
+      actDetail = widget.userActivity['course']['name'];
+      picture = widget.userActivity['course']['coverPicture'];
+    }
+    likes = (widget.userActivity["reactions"].length);
+    comments = (widget.userActivity["comments"].length);
+    var timestamp = DateTime.parse(widget.userActivity['timestamp']);
+    var difference = DateTime.now().difference(timestamp).inHours;
+    updateOn = '$difference';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.only(top: 20),
-        child: Column(children: [
-          UsernameBar(imageUrl: widget.urls, username: widget.username),
-          ActivityFeedPicture(
-              actHeader: widget.actHeader,
-              actDetail: widget.actDetail,
-              username: widget.username,
-              urls: widget.urls,
-              likes: widget.likes,
-              comments: widget.comments,
-              picture: widget.picture,
-              updateOn: widget.updateOn),
-          // Container(
-          //   child: FbReaction(),
-          // ),
-          // FbReaction(),
-          ReactionsBar(
-              likeCnt: widget.likeCnt,
-              commentCnt: widget.commentCnt,
-              updateToNow: widget.updateToNow)
-        ]));
+    preBuild();
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ActivityDetail(
+                      activityId: widget.userActivity['_id'],
+                      username: widget.userData["displayName"],
+                      urls: widget.userData['profilePicture'],
+                      picture: picture,
+                      header: actHeader,
+                      detail: actDetail,
+                      comments: widget.userActivity['comments'],
+                      reactions: widget.userActivity['reactions'],
+                      timestamp: DateTime.parse(widget.userActivity['timestamp']),
+                    )));
+      },
+      child: Container(
+          margin: EdgeInsets.only(top: 20),
+          child: Column(children: [
+            UsernameBar(
+                imageUrl: widget.userData["profilePicture"],
+                username: widget.userData["displayName"]),
+            ActivityFeedPicture(
+                actHeader: actHeader,
+                actDetail: actDetail,
+                reactions: widget.userActivity['reactions'],
+                comments: widget.userActivity['comments'],
+                picture: picture,
+                updateOn: updateOn),
+            ReactionsBar(
+                likeCnt: likes, commentCnt: comments, updateToNow: updateOn)
+          ])),
+    );
   }
 }

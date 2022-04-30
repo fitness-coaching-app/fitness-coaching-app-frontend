@@ -79,12 +79,12 @@ class UserProfileAchieveState extends State<UserProfileAchieve> {
                     isPrivate: isPrivate),
 
                 //news and achievement toggle
-                TwoToggleIcons(
-                  options1: Ionicons.newspaper,
-                  options2: Ionicons.ribbon,
-                  screenTo: UserProfileAct(),
-                  isSelectOptn1: false,
-                ),
+                // TwoToggleIcons(
+                //   options1: Ionicons.newspaper,
+                //   options2: Ionicons.ribbon,
+                //   screenTo: UserProfileAct(),
+                //   isSelectOptn1: false,
+                // ),
 
                 //achievement section
                 Container(

@@ -17,12 +17,12 @@ class UsernameBarState extends State<UsernameBar> {
     return Row(children: [
       Container(
           margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
-          height: MediaQuery.of(context).size.height * 0.05,
-          width: MediaQuery.of(context).size.height * 0.05,
+          height: 30,
+          width: 30,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(365),
+              shape: BoxShape.circle,
               image: DecorationImage(
-                  fit: BoxFit.cover, image: NetworkImage(widget.imageUrl)))),
+                  fit: BoxFit.fitWidth, image: NetworkImage(widget.imageUrl)))),
       Text(widget.username,
           style: const TextStyle(
               color: const Color(0xff000000),

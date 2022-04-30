@@ -1,4 +1,5 @@
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/fb_reaction_box.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityPicture.dart';
 import 'package:fitness_coaching_application_test/social/widget/LikeBar.dart';
@@ -10,21 +11,28 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ActivityDetail extends StatefulWidget {
+  final String activityId;
   final String username;
+  final String header;
+  final String detail;
   final String urls;
   final String picture;
-  final List<List<String>>? likesUsername;
-  final List<List<String>>? comments;
-  final DateTime time;
+  final List<dynamic> reactions;
+  final List<dynamic> comments;
+  final DateTime timestamp;
 
   const ActivityDetail(
       {Key? key,
+        required this.activityId,
       required this.username,
       required this.urls,
       required this.picture,
-      this.likesUsername,
-      this.comments,
-      required this.time})
+      required this.comments,
+      required this.timestamp,
+        required this.reactions,
+        required this.header,
+        required this.detail
+      })
       : super(key: key);
 
   @override
@@ -48,6 +56,10 @@ class ActivityDetailState extends State<ActivityDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: NormalAppBar(
+        title: 'Activity',
+        backButton: true
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
             child: Padding(
@@ -55,56 +67,28 @@ class ActivityDetailState extends State<ActivityDetail> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 21,
-              ),
-              //activity head section
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Ionicons.arrow_back,
-                        size: 30,
-                        color: color_dark,
-                      )),
-                  Container(
-                    width: 20,
-                  ),
-                  Text("Activity",
-                      style: const TextStyle(
-                          color: color_dark,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: "Poppins",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 26.0),
-                      textAlign: TextAlign.left),
-                ],
-              ),
-
-              Container(
-                height: 10,
-              ),
-
               //activity detail
               Container(
                   child: Column(children: [
                 UsernameBar(imageUrl: widget.urls, username: widget.username),
-                ActivityPicture(picture: widget.picture),
-                TimeBar(time: widget.time),
-                LikeBar(likesUsername: widget.likesUsername),
+                ActivityPicture(
+                    picture: widget.picture,
+                    header: widget.header,
+                    detail: widget.detail
+                ),
+                TimeBar(time: widget.timestamp),
+                // LikeBar(reactions: widget.reactions),
                 FbReaction(),
-                ReactionsBarV2(),
+                ReactionsBarV2(
+                  activityId: widget.activityId,
+                ),
 
                 //comments section
-                if (widget.comments != null)
-                  for (var i = 0; i < widget.comments![0].length; i++)
-                    RenderComments(
-                        username: widget.comments![0][i],
-                        comments: widget.comments![1][i]),
+                //   for (var i = 0; i < widget.comments.length; i++)
+                //     RenderComments(
+                //         username: 'TEST',
+                //         comments: 'TEST'
+                //     ),
               ])),
 
               //bottom section

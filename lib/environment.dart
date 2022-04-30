@@ -36,6 +36,10 @@ class Environment {
     return '${dotenv.env['API_BASE_URL']}/user/getUserInfo';
   }
 
+  static String get getUserInfoByIdUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/getUserInfo/id';
+  }
+
   static String get editUserInfoUrl {
     return '${dotenv.env['API_BASE_URL']}/user/editUserInfo';
   }

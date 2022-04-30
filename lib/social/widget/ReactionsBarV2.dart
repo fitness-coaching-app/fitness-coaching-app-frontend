@@ -1,10 +1,13 @@
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/text_box.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ReactionsBarV2 extends StatefulWidget {
+  final String activityId;
   ReactionsBarV2({
     Key? key,
+    required this.activityId
   }) : super(key: key);
 
   @override
@@ -13,6 +16,7 @@ class ReactionsBarV2 extends StatefulWidget {
 
 class ReactionsBarV2State extends State<ReactionsBarV2> {
   TextEditingController commentController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,7 +45,7 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
                   width: 35,
                 ),
                 Icon(
-                  Ionicons.chatbox_outline,
+                  Ionicons.chatbubble_outline,
                   color: color_subtitle,
                   size: 25,
                 ),
@@ -60,42 +64,17 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
             )),
 
         //comment tab
-        Container(
-          height: 50,
-          child: TextFormField(
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                hintText: "Write a comment...",
-                hintStyle: const TextStyle(
-                    color: color_subtitle,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "Poppins",
-                    fontStyle: FontStyle.normal,
-                    fontSize: 16.0),
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.all(20),
-                suffixIcon: GestureDetector(
-                    onTap: () {},
-                    child: Icon(
-                      Ionicons.send,
-                      size: 25,
-                      color: color_dark,
-                    ))),
-            controller: commentController,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            // validator: (String? value) => validateEmail(value),
-            onSaved: (String? value) {
-              // This optional block of code can be used to run
-              // code when the user saves the form.
-            },
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            color: color_lightGrey,
-          ),
-          padding: EdgeInsets.zero,
-          margin: EdgeInsets.only(bottom: 20),
-        )
+        TextBox(
+          hintText: "Write a comment...",
+          controller: commentController,
+          suffixIcon: GestureDetector(
+              onTap: () {},
+              child: Icon(
+                Ionicons.send,
+                size: 25,
+                color: color_dark,
+              )),
+        ),
       ],
     );
   }

@@ -24,93 +24,88 @@ class ProfileHead extends StatefulWidget {
 class ProfileHeadState extends State<ProfileHead> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.only(top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-                height: 155,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(widget.imageUrl),
-                      fit: BoxFit.cover,
-                    ))),
-            SizedBox(
-              height: 12
-            ),
-            Text(widget.username,
-                style: const TextStyle(
-                    color: color_dark,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: "Poppins",
-                    fontStyle: FontStyle.normal,
-                    fontSize: 20.0),
-                textAlign: TextAlign.center),
-            SizedBox(
-              height: 10
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserProfileFollower()),
-                    );
-                  },
-                  child: RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        style: const TextStyle(
-                            color: color_subtitle,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14.0),
-                        text: widget.numberOfFollower + " "),
-                    TextSpan(
-                        style: const TextStyle(
-                            color: color_subtitle,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14.0),
-                        text: " Follower"),
-                  ]))),
-              Container(
-                width: 42,
-              ),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UserProfileFollowing()),
-                    );
-                  },
-                  child: RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
-                        style: const TextStyle(
-                            color: color_subtitle,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14.0),
-                        text: widget.numberOfFollowing + " "),
-                    TextSpan(
-                        style: const TextStyle(
-                            color: color_subtitle,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14.0),
-                        text: " Following")
-                  ])))
-            ]),
-          ],
-        ));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+            width: 155,
+            height: 155,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage(widget.imageUrl),
+                  fit: BoxFit.fitWidth,
+                ))),
+        SizedBox(height: 12),
+        Text(widget.username,
+            style: const TextStyle(
+                color: color_dark,
+                fontWeight: FontWeight.w600,
+                fontFamily: "Poppins",
+                fontStyle: FontStyle.normal,
+                fontSize: 20.0),
+            textAlign: TextAlign.center),
+        SizedBox(height: 10),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserProfileFollower()),
+                );
+              },
+              child: RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                    style: const TextStyle(
+                        color: color_subtitle,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14.0),
+                    text: widget.numberOfFollower + " "),
+                TextSpan(
+                    style: const TextStyle(
+                        color: color_subtitle,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14.0),
+                    text: " Follower"),
+              ]))),
+          Container(
+            width: 42,
+          ),
+          GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserProfileFollowing()),
+                );
+              },
+              child: RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                    style: const TextStyle(
+                        color: color_subtitle,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14.0),
+                    text: widget.numberOfFollowing + " "),
+                TextSpan(
+                    style: const TextStyle(
+                        color: color_subtitle,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14.0),
+                    text: " Following")
+              ])))
+        ]),
+      ],
+    );
   }
 }

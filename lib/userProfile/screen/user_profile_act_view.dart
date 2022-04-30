@@ -130,30 +130,30 @@ class UserProfileActState extends State<UserProfileAct> {
                   isPrivate: isPrivate),
 
               //news and achievement toggle
-              TwoToggleIcons(
-                options1: Ionicons.newspaper,
-                options2: Ionicons.ribbon,
-                screenTo: UserProfileAchieve(),
-                isSelectOptn1: true,
-              ),
+              // TwoToggleIcons(
+              //   options1: Ionicons.newspaper,
+              //   options2: Ionicons.ribbon,
+              //   screenTo: UserProfileAchieve(),
+              //   isSelectOptn1: true,
+              // ),
 
               //post section
               for (var i = 0; i < activityFeed.results.length; i++)
-                ActivityCard(
-                  actDetail: actDetail[i],
-                  actHeader: actHeader[i],
-                  commentCnt: commentCnt[i],
-                  comments: comments[i],
-                  iconUrl: iconUrl[i],
-                  likeCnt: likeCnt[i],
-                  likes: likes[i],
-                  onClickAction: onClickAction[i],
-                  picture: picture[i],
-                  updateOn: updateOn[i],
-                  updateToNow: updateToNow[i],
-                  urls: urls[i],
-                  username: username[i],
-                ),
+                // ActivityCard(
+                //   actDetail: actDetail[i],
+                //   actHeader: actHeader[i],
+                //   commentCnt: commentCnt[i],
+                //   comments: comments[i],
+                //   iconUrl: iconUrl[i],
+                //   likeCnt: likeCnt[i],
+                //   likes: likes[i],
+                //   onClickAction: onClickAction[i],
+                //   picture: picture[i],
+                //   updateOn: updateOn[i],
+                //   updateToNow: updateToNow[i],
+                //   urls: urls[i],
+                //   username: username[i],
+                // ),
 
               //bottom section
               Container(

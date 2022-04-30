@@ -4,6 +4,7 @@ import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/news/screen/news_feed_view.dart';
 import 'package:fitness_coaching_application_test/social/screen/social_activity_view.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_profile.dart';
 import 'package:fitness_coaching_application_test/userProfile/screen/user_profile_act_view.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -171,7 +172,7 @@ class RenderBottomNavState extends State<RenderBottomNav> {
                                           PageRouteBuilder(
                                             pageBuilder: (context, animation1,
                                                     animation2) =>
-                                                UserProfileAct(),
+                                                UserProfile(),
                                             transitionDuration: Duration.zero,
                                             reverseTransitionDuration:
                                                 Duration.zero,
