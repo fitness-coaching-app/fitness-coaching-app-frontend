@@ -1,5 +1,6 @@
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
 import 'package:fitness_coaching_application_test/news/newsFeed.dart';
 import 'package:fitness_coaching_application_test/news/widget/NewsCard.dart';
 import 'package:flutter/material.dart';
@@ -29,65 +30,61 @@ class NewsFeedState extends State<NewsFeed> {
       picture.add(i.picture.toString());
       onClickAction.add(i.onClickAction.toString());
     }
-    return Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-              child: Padding(
-            padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 21,
-                ),
-                //profile head section
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("News",
-                        style: const TextStyle(
-                            color: color_dark,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 26.0),
-                        textAlign: TextAlign.left),
-                    Expanded(child: Container()),
-                    Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(365)),
-                        child: Icon(
-                          Ionicons.filter_circle,
+    return BuildTopBottomBar(
+        body: SingleChildScrollView(
+            child: Padding(
+          padding: EdgeInsets.fromLTRB(25, 0, 25, 150),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 21,
+              ),
+              //profile head section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("News",
+                      style: const TextStyle(
                           color: color_dark,
-                          size: 30,
-                        )),
-                  ],
-                ),
+                          fontWeight: FontWeight.w700,
+                          fontFamily: "Poppins",
+                          fontStyle: FontStyle.normal,
+                          fontSize: 26.0),
+                      textAlign: TextAlign.left),
+                  Expanded(child: Container()),
+                  Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(365)),
+                      child: Icon(
+                        Ionicons.filter_circle,
+                        color: color_dark,
+                        size: 30,
+                      )),
+                ],
+              ),
 
-                Container(
-                  height: 10,
-                ),
+              Container(
+                height: 10,
+              ),
 
-                //news section
-                for (var i = 0; i < news.results.length; i++)
-                  NewsCard(
-                      newsHeader: newsHeader[i],
-                      newsDetails: newsDetails[i],
-                      likes: likes[i],
-                      picture: picture[i]),
+              //news section
+              for (var i = 0; i < news.results.length; i++)
+                NewsCard(
+                    newsHeader: newsHeader[i],
+                    newsDetails: newsDetails[i],
+                    likes: likes[i],
+                    picture: picture[i]),
 
-                //bottom section
-                Container(
-                  height: 30,
-                ),
-              ],
-            ),
-          )),
-        ),
-        bottomNavigationBar: RenderBottomNav(
-          page: 'news',
-        ));
+              //bottom section
+              Container(
+                height: 30,
+              ),
+            ],
+          ),
+        )),
+      page: 'news');
   }
 }

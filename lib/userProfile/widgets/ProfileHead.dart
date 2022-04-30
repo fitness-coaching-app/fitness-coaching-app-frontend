@@ -26,26 +26,20 @@ class ProfileHeadState extends State<ProfileHead> {
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: 20),
-        height: MediaQuery.of(context).size.height * 0.28,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.20,
-              child: Center(
-                  child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                          width: MediaQuery.of(context).size.width * 0.40,
-                          height: MediaQuery.of(context).size.height * 0.20,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(360),
-                              image: DecorationImage(
-                                image: NetworkImage(widget.imageUrl),
-                                fit: BoxFit.cover,
-                              ))))),
+                height: 155,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(widget.imageUrl),
+                      fit: BoxFit.cover,
+                    ))),
+            SizedBox(
+              height: 12
             ),
-            Expanded(child: Container()),
             Text(widget.username,
                 style: const TextStyle(
                     color: color_dark,
@@ -54,7 +48,9 @@ class ProfileHeadState extends State<ProfileHead> {
                     fontStyle: FontStyle.normal,
                     fontSize: 20.0),
                 textAlign: TextAlign.center),
-            Expanded(child: Container()),
+            SizedBox(
+              height: 10
+            ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               GestureDetector(
                   onTap: () {

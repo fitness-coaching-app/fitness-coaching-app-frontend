@@ -1,5 +1,7 @@
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
+import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/social/social_activity.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/ProfileHead.dart';
@@ -86,95 +88,79 @@ class UserProfileActState extends State<UserProfileAct> {
       picture.add(i.picture);
       onClickAction.add(i.onClickAction);
     }
-    return Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-              child: Padding(
-            padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 21,
-                ),
-                //profile head section
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Profile",
-                        style: const TextStyle(
-                            color: color_dark,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 26.0),
-                        textAlign: TextAlign.left),
-                    Expanded(child: Container()),
-                    Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(365),
-                            color: color_dark),
-                        child: Icon(
-                          Ionicons.ellipsis_horizontal,
-                          color: color_white,
-                          size: 18,
-                        )),
-                  ],
-                ),
-
-                //profile picture details
-                ProfileHead(
-                    username: "mariosnyder",
-                    imageUrl:
-                        "https://images.theconversation.com/files/443350/original/file-20220131-15-1ndq1m6.jpg?ixlib=rb-1.1.0&rect=0%2C0%2C3354%2C2464&q=45&auto=format&w=926&fit=clip",
-                    numberOfFollower: numberOfFollower,
-                    numberOfFollowing: numberOfFollowing),
-
-                //stats section
-                StatsCard(
-                    height: height,
-                    weight: weight,
-                    bmi: bmi,
-                    isPrivate: isPrivate),
-
-                //news and achievement toggle
-                TwoToggleIcons(
-                  options1: Ionicons.newspaper,
-                  options2: Ionicons.ribbon,
-                  screenTo: UserProfileAchieve(),
-                  isSelectOptn1: true,
-                ),
-
-                //post section
-                for (var i = 0; i < activityFeed.results.length; i++)
-                  ActivityCard(
-                    actDetail: actDetail[i],
-                    actHeader: actHeader[i],
-                    commentCnt: commentCnt[i],
-                    comments: comments[i],
-                    iconUrl: iconUrl[i],
-                    likeCnt: likeCnt[i],
-                    likes: likes[i],
-                    onClickAction: onClickAction[i],
-                    picture: picture[i],
-                    updateOn: updateOn[i],
-                    updateToNow: updateToNow[i],
-                    urls: urls[i],
-                    username: username[i],
-                  ),
-
-                //bottom section
-                Container(
-                  height: 30,
-                ),
-              ],
-            ),
-          )),
+    return BuildTopBottomBar(
+        page: 'profile',
+        appBar: NormalAppBar(
+          title: "Profile",
+          actionButton: Container(
+              height: 25,
+              width: 25,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(365), color: color_dark),
+              child: Icon(
+                Ionicons.ellipsis_horizontal,
+                color: color_white,
+                size: 18,
+              )),
         ),
-        bottomNavigationBar: RenderBottomNav(
-          page: 'profile',
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+          child: SingleChildScrollView(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 21,
+              ),
+              //profile head section
+
+              //profile picture details
+              ProfileHead(
+                  username: "mariosnyder",
+                  imageUrl:
+                      "https://images.theconversation.com/files/443350/original/file-20220131-15-1ndq1m6.jpg?ixlib=rb-1.1.0&rect=0%2C0%2C3354%2C2464&q=45&auto=format&w=926&fit=clip",
+                  numberOfFollower: numberOfFollower,
+                  numberOfFollowing: numberOfFollowing),
+
+              //stats section
+              StatsCard(
+                  height: height,
+                  weight: weight,
+                  bmi: bmi,
+                  isPrivate: isPrivate),
+
+              //news and achievement toggle
+              TwoToggleIcons(
+                options1: Ionicons.newspaper,
+                options2: Ionicons.ribbon,
+                screenTo: UserProfileAchieve(),
+                isSelectOptn1: true,
+              ),
+
+              //post section
+              for (var i = 0; i < activityFeed.results.length; i++)
+                ActivityCard(
+                  actDetail: actDetail[i],
+                  actHeader: actHeader[i],
+                  commentCnt: commentCnt[i],
+                  comments: comments[i],
+                  iconUrl: iconUrl[i],
+                  likeCnt: likeCnt[i],
+                  likes: likes[i],
+                  onClickAction: onClickAction[i],
+                  picture: picture[i],
+                  updateOn: updateOn[i],
+                  updateToNow: updateToNow[i],
+                  urls: urls[i],
+                  username: username[i],
+                ),
+
+              //bottom section
+              Container(
+                height: 150,
+              ),
+            ],
+          )),
         ));
   }
 }

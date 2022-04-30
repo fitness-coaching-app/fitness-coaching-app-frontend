@@ -3,23 +3,26 @@ import 'package:flutter/material.dart';
 
 import '../RenderBottomNav.dart';
 
-class BuildBottomNavBar extends StatefulWidget{
+class BuildTopBottomBar extends StatefulWidget{
   Widget body;
+  String page;
+  PreferredSizeWidget? appBar;
 
-  BuildBottomNavBar({required this.body});
+  BuildTopBottomBar({required this.body, required this.page, this.appBar});
 
   @override
-  State<BuildBottomNavBar> createState() => _BuildBottomNavBarState();
+  State<BuildTopBottomBar> createState() => _BuildTopBottomBarState();
 }
 
-class _BuildBottomNavBarState extends State<BuildBottomNavBar> {
+class _BuildTopBottomBarState extends State<BuildTopBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
         body: widget.body,
+        appBar: widget.appBar,
         bottomNavigationBar: RenderBottomNav(
-          page: 'home',
+          page: widget.page,
         ));
   }
 }

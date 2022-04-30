@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
+import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:hive/hive.dart';
@@ -73,45 +74,6 @@ class HomeState extends State<Home> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(25, 21, 25, 0),
-                        child: Text(
-                            "Hello, ${Hive.box('user').get('data')["displayName"]}!",
-                            style: const TextStyle(
-                                color: color_dark,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 26.0),
-                            textAlign: TextAlign.left),
-                      ),
-                      Expanded(child: Container()),
-                      Padding(
-                          padding: EdgeInsets.fromLTRB(25, 21, 25, 0),
-                          child: SvgPicture.asset(
-                            'assets/Icon/Button_search.svg',
-                            height: 40,
-                          )),
-                    ],
-                  ),
-                  Container(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    child: Text("Good Morning.",
-                        style: const TextStyle(
-                            color: color_subtitle,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Poppins",
-                            fontStyle: FontStyle.normal,
-                            fontSize: 16.0),
-                        textAlign: TextAlign.left),
-                  ),
-                  SizedBox(height: 10),
                   ...sections,
                 ],
               ),
@@ -126,12 +88,23 @@ class HomeState extends State<Home> {
         future: getSections(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return BuildBottomNavBar(
-                body: buildHome(sections)
+            return BuildTopBottomBar(
+                body: buildHome(sections),
+                appBar: NormalAppBar(
+                  title: "Hello, ${Hive.box('user').get('data')["displayName"]}!",
+                  subtitle: "Welcome!",
+                  height: 100,
+                  actionButton: SvgPicture.asset(
+                    'assets/Icon/Button_search.svg',
+                    height: 40,
+                  ),
+                ),
+                page: 'home'
             );
           } else {
-            return BuildBottomNavBar(
-                body: Loading()
+            return BuildTopBottomBar(
+                body: Loading(),
+                page: 'home'
             );
           }
         });
