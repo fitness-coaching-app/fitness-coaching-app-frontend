@@ -6,13 +6,15 @@ class ReactionsBar extends StatefulWidget {
   final int likeCnt;
   final int commentCnt;
   final String updateToNow;
+  final bool isReacted;
 
-  ReactionsBar({
-    Key? key,
-    required this.likeCnt,
-    required this.commentCnt,
-    required this.updateToNow,
-  }) : super(key: key);
+  ReactionsBar(
+      {Key? key,
+      required this.likeCnt,
+      required this.commentCnt,
+      required this.updateToNow,
+      required this.isReacted})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ReactionsBarState();
@@ -27,11 +29,21 @@ class ReactionsBarState extends State<ReactionsBar> {
             margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
             child: Row(
               children: [
-                Icon(
-                  Ionicons.happy_outline,
-                  color: color_subtitle,
-                  size: 22,
-                ),
+                (() {
+                  if (widget.isReacted) {
+                    return Icon(
+                      Ionicons.heart,
+                      color: color_red,
+                      size: 22,
+                    );
+                  } else {
+                    return Icon(
+                      Ionicons.heart_outline,
+                      color: color_subtitle,
+                      size: 22,
+                    );
+                  }
+                }()),
                 Container(
                   width: 5,
                 ),
@@ -70,7 +82,7 @@ class ReactionsBarState extends State<ReactionsBar> {
         Align(
             alignment: Alignment.topLeft,
             child: Padding(
-                padding: EdgeInsets.fromLTRB(5, 0, 0, 20),
+                padding: EdgeInsets.fromLTRB(5, 10, 0, 20),
                 child: Text(widget.updateToNow + " hours ago",
                     style: const TextStyle(
                         color: color_subtitle,

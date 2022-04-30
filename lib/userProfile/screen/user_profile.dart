@@ -26,6 +26,7 @@ class _UserProfileState extends State<UserProfile> {
   var userActivity;
 
   Future<bool> loadProfile() async {
+    print("loadProfile");
     var response = await API
         .get('${Environment.getUserInfoUrl}/${userData["displayName"]}');
     API.responseAlertWhenError(

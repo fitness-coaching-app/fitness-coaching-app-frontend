@@ -55,16 +55,9 @@ class ActivityCardState extends State<ActivityCard> {
             context,
             MaterialPageRoute(
                 builder: (context) => ActivityDetail(
-                      activityId: widget.userActivity['_id'],
-                      username: widget.userData["displayName"],
-                      urls: widget.userData['profilePicture'],
-                      picture: picture,
-                      header: actHeader,
-                      detail: actDetail,
-                      comments: widget.userActivity['comments'],
-                      reactions: widget.userActivity['reactions'],
-                      timestamp: DateTime.parse(widget.userActivity['timestamp']),
-                    )));
+                    activityId: widget.userActivity['_id'],
+                    currentUserId: widget.userData['_id'],
+                )));
       },
       child: Container(
           margin: EdgeInsets.only(top: 20),
@@ -80,7 +73,10 @@ class ActivityCardState extends State<ActivityCard> {
                 picture: picture,
                 updateOn: updateOn),
             ReactionsBar(
-                likeCnt: likes, commentCnt: comments, updateToNow: updateOn)
+                likeCnt: likes,
+                commentCnt: comments,
+                updateToNow: updateOn,
+                isReacted: widget.userActivity['userReactionsList'][widget.userData["_id"]] != null )
           ])),
     );
   }

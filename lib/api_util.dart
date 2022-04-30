@@ -19,15 +19,18 @@ class API {
       return Right(SuccessResponse.fromResponse(response));
   }
 
-  static Future<Either<ErrorResponse, SuccessResponse>> get(String url,
-      {withToken = false}) async {
+  static Future<Either<ErrorResponse, SuccessResponse>> get(
+      String url,
+      {withToken = false,
+        queryParameters
+      }) async {
     Future<Either<ErrorResponse, SuccessResponse>> send() async {
       Map<String, String> headers = {};
       var token = Hive.box('token');
       if (withToken) {
         headers["Authorization"] = "Bearer ${token.get('accessToken')}";
       }
-      return _bodyProcessor(await http.get(Uri.parse(url), headers: headers));
+      return _bodyProcessor(await http.get(Uri.parse(url).replace(queryParameters: queryParameters), headers: headers));
     }
 
     var response = await send();
