@@ -29,21 +29,25 @@ class ActivityCardState extends State<ActivityCard> {
   String updateOn = "";
 
   void preBuild() {
-    if (widget.userActivity["activityType"] == "LEVEL_UP") {
-      actHeader = "Level Up";
-      actDetail =
-          '${widget.userData['displayName']} is on level ${widget.userActivity["data"]["level"]}';
-      picture = widget.userData['profilePicture'];
-    } else if (widget.userActivity["activityType"] == "EXERCISE") {
-      actHeader = "Course Complete";
-      actDetail = widget.userActivity['course']['name'];
-      picture = widget.userActivity['course']['coverPicture'];
-    }
-    likes = (widget.userActivity["reactions"].length);
-    comments = (widget.userActivity["comments"].length);
-    var timestamp = DateTime.parse(widget.userActivity['timestamp']);
-    var difference = DateTime.now().difference(timestamp).inHours;
-    updateOn = '$difference';
+    print("PRE BUILD STAGE");
+    print(widget.userActivity);
+    setState(() {
+      if (widget.userActivity["activityType"] == "LEVEL_UP") {
+        actHeader = "Level Up";
+        actDetail =
+            '${widget.userActivity['userData']['displayName']} has reached level ${widget.userActivity["data"]["level"]}';
+        picture = widget.userActivity['userData']['profilePicture'];
+      } else if (widget.userActivity["activityType"] == "EXERCISE") {
+        actHeader = "Course Complete";
+        actDetail = widget.userActivity['course']['name'];
+        picture = widget.userActivity['course']['coverPicture'];
+      }
+      likes = (widget.userActivity["reactions"].length);
+      comments = (widget.userActivity["comments"].length);
+      var timestamp = DateTime.parse(widget.userActivity['timestamp']);
+      var difference = DateTime.now().difference(timestamp).inHours;
+      updateOn = '$difference';
+    });
   }
 
   @override
@@ -55,16 +59,16 @@ class ActivityCardState extends State<ActivityCard> {
             context,
             MaterialPageRoute(
                 builder: (context) => ActivityDetail(
-                    activityId: widget.userActivity['_id'],
-                    currentUserId: widget.userData['_id'],
-                )));
+                      activityId: widget.userActivity['_id'],
+                      currentUserId: widget.userData['_id'],
+                    )));
       },
       child: Container(
           margin: EdgeInsets.only(top: 20),
           child: Column(children: [
             UsernameBar(
-                imageUrl: widget.userData["profilePicture"],
-                username: widget.userData["displayName"]),
+                imageUrl: widget.userActivity['userData']["profilePicture"],
+                username: widget.userActivity['userData']["displayName"]),
             ActivityFeedPicture(
                 actHeader: actHeader,
                 actDetail: actDetail,
@@ -73,10 +77,13 @@ class ActivityCardState extends State<ActivityCard> {
                 picture: picture,
                 updateOn: updateOn),
             ReactionsBar(
-                likeCnt: likes,
-                commentCnt: comments,
-                updateToNow: updateOn,
-                isReacted: widget.userActivity['userReactionsList'][widget.userData["_id"]] != null )
+              likeCnt: likes,
+              commentCnt: comments,
+              updateToNow: updateOn,
+              isReacted: widget.userActivity['userReactionsList']
+                      [widget.userData["_id"]] !=
+                  null,
+            )
           ])),
     );
   }

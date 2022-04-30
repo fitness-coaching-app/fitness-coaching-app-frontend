@@ -11,6 +11,7 @@ class ReactionsBarV2 extends StatefulWidget {
   final int reactionCount;
   final int commentCount;
   final bool isReacted;
+  final Function onUpdate;
 
   ReactionsBarV2(
       {Key? key,
@@ -18,6 +19,7 @@ class ReactionsBarV2 extends StatefulWidget {
       required this.reactionCount,
       required this.commentCount,
       required this.isReacted,
+        required this.onUpdate
       })
       : super(key: key);
 
@@ -32,6 +34,7 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
   int reactionCount = 0;
   int commentCount = 0;
   Future<void> update(r) async {
+    await widget.onUpdate();
     setState((){});
   }
   Future<void> addReaction() async {

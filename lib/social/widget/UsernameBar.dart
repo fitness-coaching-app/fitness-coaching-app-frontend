@@ -22,7 +22,7 @@ class UsernameBarState extends State<UsernameBar> {
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                  fit: BoxFit.fitWidth, image: NetworkImage(widget.imageUrl)))),
+                  fit: BoxFit.cover, image: NetworkImage(widget.imageUrl)))),
       Text(widget.username,
           style: const TextStyle(
               color: const Color(0xff000000),

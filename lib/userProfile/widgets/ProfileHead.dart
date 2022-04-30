@@ -34,7 +34,7 @@ class ProfileHeadState extends State<ProfileHead> {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: NetworkImage(widget.imageUrl),
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.cover,
                 ))),
         SizedBox(height: 12),
         Text(widget.username,

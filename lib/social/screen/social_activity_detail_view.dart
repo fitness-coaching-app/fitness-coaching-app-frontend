@@ -8,6 +8,7 @@ import 'package:fitness_coaching_application_test/social/widget/RenderComments.d
 import 'package:fitness_coaching_application_test/social/widget/TimeBar.dart';
 import 'package:fitness_coaching_application_test/social/widget/UsernameBar.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../api_util.dart';
@@ -18,11 +19,9 @@ class ActivityDetail extends StatefulWidget {
   final String activityId;
   final String currentUserId;
 
-  const ActivityDetail({
-    Key? key,
-    required this.activityId,
-    required this.currentUserId
-  }) : super(key: key);
+  const ActivityDetail(
+      {Key? key, required this.activityId, required this.currentUserId})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ActivityDetailState();
@@ -34,8 +33,6 @@ class ActivityDetailState extends State<ActivityDetail> {
   String activityPicture = "";
   String header = "";
   String detail = "";
-  DateTime timestamp = DateTime.now();
-
 
   Future<bool> loadActivity() async {
     var response = await API.get(
@@ -47,6 +44,19 @@ class ActivityDetailState extends State<ActivityDetail> {
         response: response,
         whenSuccess: (r) {
           activity = r.results!;
+          setState(() {
+            if (activity['activityType'] == 'EXERCISE') {
+              print(activity);
+              activityPicture = activity['course']['coverPicture'];
+              header = "Course Complete";
+              detail = activity['course']['name'];
+            }
+            else if(activity['activityType'] == 'LEVEL_UP'){
+              activityPicture = activity['userData']['profilePicture'];
+              header = "Level Up";
+              detail = '${activity['userData']['displayName']} has reached level ${activity['data']['level'].toString()}';
+            }
+          });
         });
 
     return true;
@@ -69,20 +79,23 @@ class ActivityDetailState extends State<ActivityDetail> {
             //activity detail
             Container(
                 child: Column(children: [
-              UsernameBar(imageUrl: activity['userData']['profilePicture'], username: activity['userData']['displayName']),
+              UsernameBar(
+                  imageUrl: activity['userData']['profilePicture'],
+                  username: activity['userData']['displayName']),
               ActivityPicture(
-                  picture: activityPicture,
-                  header: header,
-                  detail: detail),
-              TimeBar(time: timestamp),
+                  picture: activityPicture, header: header, detail: detail),
+              TimeBar(time: DateTime.parse(activity['timestamp'])),
               // LikeBar(reactions: widget.reactions),
               // FbReaction(),
               ReactionsBarV2(
                   activityId: widget.activityId,
                   reactionCount: activity['reactions'].length,
                   commentCount: activity['comments'].length,
-                  isReacted:
-                      activity['userReactionsList'][widget.currentUserId] != null),
+                  isReacted: activity['userReactionsList']
+                          [widget.currentUserId] !=
+                      null,
+                onUpdate: loadActivity
+              ),
 
               // comments section
               for (var i in activity['comments'])
