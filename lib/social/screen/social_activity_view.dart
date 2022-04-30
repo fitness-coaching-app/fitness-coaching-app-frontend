@@ -37,7 +37,6 @@ class ActivityState extends State<Activity> {
             var userData = Hive.box('user').get('data');
             if (activity != null) {
               for (var i in activity) {
-                print(i);
                 activityFeed.add(ActivityCard(
                     userActivity: i, userData: userData));
               }
@@ -49,21 +48,25 @@ class ActivityState extends State<Activity> {
 
   Widget buildActivityFeed() {
     return SafeArea(
-      child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //activity feed
-                ...activityFeed,
-                //bottom section
-                Container(
-                  height: 150,
-                ),
-              ],
-            ),
-          )),
+      child: RefreshIndicator(
+        onRefresh: fetchActivityFeed,
+        child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //activity feed
+                  ...activityFeed,
+                  //bottom section
+                  Container(
+                    height: 150,
+                  ),
+                ],
+              ),
+            )),
+      ),
     );
   }
 

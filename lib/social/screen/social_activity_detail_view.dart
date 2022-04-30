@@ -70,51 +70,54 @@ class ActivityDetailState extends State<ActivityDetail> {
 
   Widget buildActivityView() {
     return SafeArea(
-      child: SingleChildScrollView(
-          child: Padding(
-        padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //activity detail
-            Container(
-                child: Column(children: [
-              UsernameBar(
-                  imageUrl: activity['userData']['profilePicture'],
-                  username: activity['userData']['displayName']),
-              ActivityPicture(
-                  picture: activityPicture, header: header, detail: detail),
-              TimeBar(time: DateTime.parse(activity['timestamp'])),
-              // LikeBar(reactions: widget.reactions),
-              // FbReaction(),
-              ReactionsBarV2(
-                  activityId: widget.activityId,
-                  reactionCount: activity['reactions'].length,
-                  commentCount: activity['comments'].length,
-                  isReacted: activity['userReactionsList']
-                          [widget.currentUserId] !=
-                      null,
-                onUpdate: loadActivity
-              ),
-
-              // comments section
-              for (var i in activity['comments'])
-                RenderComments(
-                  profilePicture: activity['userCommentsList'][i["userId"]!]
-                      ["profilePicture"]!,
-                  username: activity['userCommentsList'][i["userId"]!]
-                      ["displayName"]!,
-                  comments: i["comment"],
+      child: RefreshIndicator(
+        onRefresh: loadActivity,
+        child: SingleChildScrollView(
+            child: Padding(
+          padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //activity detail
+              Container(
+                  child: Column(children: [
+                UsernameBar(
+                    imageUrl: activity['userData']['profilePicture'],
+                    username: activity['userData']['displayName']),
+                ActivityPicture(
+                    picture: activityPicture, header: header, detail: detail),
+                TimeBar(time: DateTime.parse(activity['timestamp'])),
+                // LikeBar(reactions: widget.reactions),
+                // FbReaction(),
+                ReactionsBarV2(
+                    activityId: widget.activityId,
+                    reactionCount: activity['reactions'].length,
+                    commentCount: activity['comments'].length,
+                    isReacted: activity['userReactionsList']
+                            [widget.currentUserId] !=
+                        null,
+                  onUpdate: loadActivity
                 ),
-            ])),
 
-            //bottom section
-            Container(
-              height: 30,
-            ),
-          ],
-        ),
-      )),
+                // comments section
+                for (var i in activity['comments'])
+                  RenderComments(
+                    profilePicture: activity['userCommentsList'][i["userId"]!]
+                        ["profilePicture"]!,
+                    username: activity['userCommentsList'][i["userId"]!]
+                        ["displayName"]!,
+                    comments: i["comment"],
+                  ),
+              ])),
+
+              //bottom section
+              Container(
+                height: 30,
+              ),
+            ],
+          ),
+        )),
+      ),
     );
   }
 

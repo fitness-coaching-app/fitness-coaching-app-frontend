@@ -6,6 +6,7 @@ import 'package:fitness_coaching_application_test/userProfile/widgets/ProfileHea
 import 'package:fitness_coaching_application_test/userProfile/widgets/StatsCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/TwoToggleIcons.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -84,41 +85,44 @@ class _UserProfileState extends State<UserProfile> {
   Widget buildProfile() {
     return Padding(
       padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-      child: SingleChildScrollView(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 21,
-          ),
-          //profile head section
+      child: RefreshIndicator(
+        onRefresh: loadProfile,
+        child: SingleChildScrollView(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 21,
+            ),
+            //profile head section
 
-          //profile picture details
-          ProfileHead(
-              username: userData["displayName"],
-              imageUrl: userData["profilePicture"],
-              numberOfFollower: userData["followerCount"].toString(),
-              numberOfFollowing: userData["followingCount"].toString()),
+            //profile picture details
+            ProfileHead(
+                username: userData["displayName"],
+                imageUrl: userData["profilePicture"],
+                numberOfFollower: userData["followerCount"].toString(),
+                numberOfFollowing: userData["followingCount"].toString()),
 
-          //stats section
-          StatsCard(height: "100", weight: "100", bmi: "100", isPrivate: true),
+            //stats section
+            StatsCard(height: "100", weight: "100", bmi: "100", isPrivate: true),
 
-          //news and achievement toggle
-          TwoToggleIcons(
-              options1: Ionicons.newspaper,
-              options2: Ionicons.ribbon,
-              onChanged: (option) {
-                setState(() {
-                  this.option = option;
-                });
-              }),
-          buildActivityFeed(),
-          //bottom section
-          Container(
-            height: 150,
-          ),
-        ],
-      )),
+            //news and achievement toggle
+            TwoToggleIcons(
+                options1: Ionicons.newspaper,
+                options2: Ionicons.ribbon,
+                onChanged: (option) {
+                  setState(() {
+                    this.option = option;
+                  });
+                }),
+            buildActivityFeed(),
+            //bottom section
+            Container(
+              height: 150,
+            ),
+          ],
+        )),
+      ),
     );
   }
 

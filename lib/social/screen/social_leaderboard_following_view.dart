@@ -55,31 +55,35 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
   }
 
   Widget buildFollowingLeaderboard() {
-    return SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        // //Top 3 Users
-        RenderTopThree(
-            rank: ["1", "2", "3"],
-            username: leaderboard
-                .getRange(0, min(3,leaderboard.length))
-                .map((e) => e["displayName"].toString())
-                .toList(),
-            score: leaderboard
-                .getRange(0, min(3,leaderboard.length))
-                .map((e) => e["xp"].toString())
-                .toList(),
-            urls: leaderboard
-                .getRange(0, min(3,leaderboard.length))
-                .map((e) => e["profilePicture"].toString())
-                .toList()),
+    return RefreshIndicator(
+      onRefresh: fetchLeaderboard,
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          // //Top 3 Users
+          RenderTopThree(
+              rank: ["1", "2", "3"],
+              username: leaderboard
+                  .getRange(0, min(3,leaderboard.length))
+                  .map((e) => e["displayName"].toString())
+                  .toList(),
+              score: leaderboard
+                  .getRange(0, min(3,leaderboard.length))
+                  .map((e) => e["xp"].toString())
+                  .toList(),
+              urls: leaderboard
+                  .getRange(0, min(3,leaderboard.length))
+                  .map((e) => e["profilePicture"].toString())
+                  .toList()),
 
-        //4th section
-        for (var i = 3; i < leaderboard.length; i++)
-          RenderLowerLeaderboard(
-              rank: (i + 1).toString(),
-              username: leaderboard[i]["displayName"],
-              urls: leaderboard[i]["profilePicture"])
-      ]),
+          //4th section
+          for (var i = 3; i < leaderboard.length; i++)
+            RenderLowerLeaderboard(
+                rank: (i + 1).toString(),
+                username: leaderboard[i]["displayName"],
+                urls: leaderboard[i]["profilePicture"])
+        ]),
+      ),
     );
   }
 

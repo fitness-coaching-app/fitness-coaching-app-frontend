@@ -83,7 +83,7 @@ class ReactionsBarState extends State<ReactionsBar> {
             alignment: Alignment.topLeft,
             child: Padding(
                 padding: EdgeInsets.fromLTRB(5, 10, 0, 20),
-                child: Text(widget.updateToNow + " hours ago",
+                child: Text(widget.updateToNow,
                     style: const TextStyle(
                         color: color_subtitle,
                         fontWeight: FontWeight.w300,

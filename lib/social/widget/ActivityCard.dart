@@ -4,6 +4,7 @@ import 'package:fitness_coaching_application_test/social/widget/ActivityFeedPict
 import 'package:fitness_coaching_application_test/social/widget/ReactionsBar.dart';
 import 'package:fitness_coaching_application_test/social/widget/UsernameBar.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 
 import '../../api_util.dart';
 
@@ -43,8 +44,7 @@ class ActivityCardState extends State<ActivityCard> {
       likes = (widget.userActivity["reactions"].length);
       comments = (widget.userActivity["comments"].length);
       var timestamp = DateTime.parse(widget.userActivity['timestamp']);
-      var difference = DateTime.now().difference(timestamp).inHours;
-      updateOn = '$difference';
+      updateOn = Jiffy(timestamp).fromNow();
     });
   }
 
