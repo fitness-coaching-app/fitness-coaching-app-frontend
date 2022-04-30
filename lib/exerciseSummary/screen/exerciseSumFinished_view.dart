@@ -125,7 +125,6 @@ class _ExerciseSumFinishedState extends State<ExerciseSumFinished> {
                                 activityId: activityId)),
                       );
                     }
-
                   }),
                   Container(
                     height: 50,

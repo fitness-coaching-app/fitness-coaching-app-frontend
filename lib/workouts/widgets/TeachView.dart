@@ -52,7 +52,7 @@ class _TeachViewState extends State<TeachView> {
         ),
       );
     } else {
-      return Text("Loading...");
+      return Expanded(child: Loading());
     }
   }
 

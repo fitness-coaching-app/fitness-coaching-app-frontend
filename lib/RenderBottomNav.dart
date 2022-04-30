@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/news/screen/news_feed_view.dart';
@@ -8,6 +10,7 @@ import 'package:ionicons/ionicons.dart';
 
 class RenderBottomNav extends StatefulWidget {
   final String page;
+
   RenderBottomNav({
     Key? key,
     required this.page,
@@ -20,129 +23,176 @@ class RenderBottomNav extends StatefulWidget {
 class RenderBottomNavState extends State<RenderBottomNav> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-        child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(15),
-              topLeft: Radius.circular(15),
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15),
-            ),
-            child: BottomAppBar(
-                color: Color(0xffffffff),
-                child: Container(
-                  height: 70,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(child: Container()),
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              tooltip: 'Home',
-                              icon: const Icon(
-                                Ionicons.home_outline,
-                                color: color_dark,
-                              ),
-                              onPressed: () {
-                                if (widget.page != 'home') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Home()),
-                                  );
-                                }
-                              },
-                            ),
-                            Container(
-                              height: 3,
-                              width: 20,
-                              color: widget.page == 'home'
-                                  ? color_teal
-                                  : color_white,
-                            )
-                          ]),
-                      Expanded(child: Container()),
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              tooltip: 'News',
-                              icon:
-                                  const Icon(Ionicons.globe, color: color_dark),
-                              onPressed: () {
-                                if (widget.page != 'news') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NewsFeed()));
-                                }
-                              },
-                            ),
-                            Container(
-                              height: 3,
-                              width: 20,
-                              color: widget.page == 'news'
-                                  ? color_teal
-                                  : color_white,
-                            )
-                          ]),
-                      Expanded(child: Container()),
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              tooltip: 'Social',
-                              icon: const Icon(Ionicons.people_outline,
-                                  color: color_dark),
-                              onPressed: () {
-                                if (widget.page != 'social') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Activity()));
-                                }
-                              },
-                            ),
-                            Container(
-                              height: 3,
-                              width: 20,
-                              color: widget.page == 'social'
-                                  ? color_teal
-                                  : color_white,
-                            )
-                          ]),
-                      Expanded(child: Container()),
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              tooltip: 'Profile',
-                              icon: const Icon(Ionicons.person_circle_outline,
-                                  color: color_dark),
-                              onPressed: () {
-                                if (widget.page != 'profile') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              UserProfileAct()));
-                                }
-                              },
-                            ),
-                            Container(
-                              height: 3,
-                              width: 20,
-                              color: widget.page == 'profile'
-                                  ? color_teal
-                                  : color_white,
-                            )
-                          ]),
-                      Expanded(child: Container()),
-                    ],
-                  ),
-                ))));
+    return SafeArea(
+      child: Padding(
+          padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
+          child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(15),
+                topLeft: Radius.circular(15),
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
+                child: BottomAppBar(
+                    color: Color.fromRGBO(239, 239, 239, 0.8),
+                    child: Container(
+                      height: 70,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          SizedBox(width: 32),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  tooltip: 'Home',
+                                  icon: Icon(
+                                    widget.page == 'home'
+                                        ? Ionicons.home
+                                        : Ionicons.home_outline,
+                                    color: color_dark,
+                                    size: 30,
+                                  ),
+                                  onPressed: () {
+                                    if (widget.page != 'home') {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1,
+                                                    animation2) =>
+                                                Home(),
+                                            transitionDuration: Duration.zero,
+                                            reverseTransitionDuration:
+                                                Duration.zero,
+                                          ),
+                                          (route) => false);
+                                    }
+                                  },
+                                ),
+                                Container(
+                                  height: 3,
+                                  width: 20,
+                                  color: widget.page == 'home'
+                                      ? color_teal
+                                      : Colors.transparent,
+                                )
+                              ]),
+                          Expanded(child: Container()),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  tooltip: 'News',
+                                  icon: Icon(
+                                      widget.page == 'news'
+                                          ? Ionicons.globe
+                                          : Ionicons.globe_outline,
+                                      color: color_dark,
+                                      size: 30),
+                                  onPressed: () {
+                                    if (widget.page != 'news') {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1,
+                                                    animation2) =>
+                                                NewsFeed(),
+                                            transitionDuration: Duration.zero,
+                                            reverseTransitionDuration:
+                                                Duration.zero,
+                                          ),
+                                          (r) => false);
+                                    }
+                                  },
+                                ),
+                                Container(
+                                  height: 3,
+                                  width: 20,
+                                  color: widget.page == 'news'
+                                      ? color_teal
+                                      : Colors.transparent,
+                                )
+                              ]),
+                          Expanded(child: Container()),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  tooltip: 'Social',
+                                  icon: Icon(
+                                      widget.page == 'social'
+                                          ? Ionicons.people
+                                          : Ionicons.people_outline,
+                                      color: color_dark,
+                                      size: 30),
+                                  onPressed: () {
+                                    if (widget.page != 'social') {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1,
+                                                    animation2) =>
+                                                Activity(),
+                                            transitionDuration: Duration.zero,
+                                            reverseTransitionDuration:
+                                                Duration.zero,
+                                          ),
+                                          (r) => false);
+                                    }
+                                  },
+                                ),
+                                Container(
+                                  height: 3,
+                                  width: 20,
+                                  color: widget.page == 'social'
+                                      ? color_teal
+                                      : Colors.transparent,
+                                )
+                              ]),
+                          Expanded(child: Container()),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  tooltip: 'Profile',
+                                  icon: Icon(
+                                    widget.page == 'profile'
+                                        ? Ionicons.person_circle
+                                        : Ionicons.person_circle_outline,
+                                    color: color_dark,
+                                    size: 30,
+                                  ),
+                                  onPressed: () {
+                                    if (widget.page != 'profile') {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1,
+                                                    animation2) =>
+                                                UserProfileAct(),
+                                            transitionDuration: Duration.zero,
+                                            reverseTransitionDuration:
+                                                Duration.zero,
+                                          ),
+                                          (r) => false);
+                                    }
+                                  },
+                                ),
+                                Container(
+                                  height: 3,
+                                  width: 20,
+                                  color: widget.page == 'profile'
+                                      ? color_teal
+                                      : Colors.transparent,
+                                )
+                              ]),
+                          SizedBox(width: 32),
+                        ],
+                      ),
+                    )),
+              ))),
+    );
   }
 }

@@ -96,7 +96,7 @@ class _WorkoutDetailState extends State<WorkoutDetail> {
                       QuickDetail(
                           difficulty: courseData["difficulty"],
                           overallRating:
-                              courseData["overallRating"].toString()),
+                              courseData["overallRating"].toStringAsFixed(1)),
                       SizedBox(height: 15),
                       Text(courseData["description"],
                           style: const TextStyle(

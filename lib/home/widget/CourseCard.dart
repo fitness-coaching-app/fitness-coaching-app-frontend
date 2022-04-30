@@ -31,7 +31,9 @@ class CourseCardState extends State<CourseCard> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => WorkoutDetail(courseId: widget.courseId)),
+              MaterialPageRoute(
+                  builder: (context) =>
+                      WorkoutDetail(courseId: widget.courseId)),
             );
           },
           child: Container(
@@ -53,12 +55,17 @@ class CourseCardState extends State<CourseCard> {
                             fontWeight: FontWeight.w600,
                             fontFamily: "Poppins",
                             fontStyle: FontStyle.normal,
-                            fontSize: 22),
+                            fontSize: 22,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(0.0, 0.0),
+                                blurRadius: 60,
+                                color: Color.fromRGBO(0, 0, 0, 1),
+                              )
+                            ]),
                         textAlign: TextAlign.left),
 
-                    SizedBox(
-                      height: 10
-                    ),
+                    SizedBox(height: 10),
                     //rated tag
                     Container(
                         height: 24,
@@ -72,8 +79,7 @@ class CourseCardState extends State<CourseCard> {
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment:
-                                CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SvgPicture.asset(
                                 'assets/Icon/Miscellaneous-Filled_star.svg',
@@ -81,7 +87,7 @@ class CourseCardState extends State<CourseCard> {
                               ),
                               Expanded(child: Container()),
                               Container(
-                                child: Text(widget.rating.toString(),
+                                child: Text(widget.rating.toStringAsFixed(1),
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w400,
@@ -89,7 +95,7 @@ class CourseCardState extends State<CourseCard> {
                                         fontStyle: FontStyle.normal,
                                         fontSize: 12.0),
                                     textAlign: TextAlign.left),
-                              ),
+                              )
                             ],
                           ),
                         )),

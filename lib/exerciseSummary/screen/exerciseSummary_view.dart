@@ -39,8 +39,10 @@ class _ExerciseSummaryState extends State<ExerciseSummary> {
       "courseId": widget.courseId,
       "activityId": widget.activityId,
       "isPublic": true,
-      "courseRating": courseRating > 0 ? courseRating : null
     };
+    if(courseRating > 0){
+      requestBody["courseRating"] = courseRating;
+    }
     var response = await API.post(Environment.postExerciseUrl, requestBody,
         withToken: true);
     setState(() {
