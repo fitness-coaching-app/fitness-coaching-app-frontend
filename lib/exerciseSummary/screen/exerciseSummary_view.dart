@@ -1,21 +1,63 @@
+import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
+import 'package:fitness_coaching_application_test/exerciseSummary/widget/rating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
-import 'color.dart';
+import '../../api_util.dart';
+import '../../color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ExerciseSummary extends StatelessWidget {
+class ExerciseSummary extends StatefulWidget {
   final int score;
   final int xpEarned;
   final int duration;
   final String activityId;
+  final String courseId;
 
+  const ExerciseSummary(
+      {Key? key,
+      required this.score,
+      required this.xpEarned,
+      required this.duration,
+      required this.activityId,
+      required this.courseId})
+      : super(key: key);
 
-  const ExerciseSummary({Key? key,
-    required this.score,
-    required this.xpEarned,
-    required this.duration,
-    required this.activityId
-  }) : super(key: key);
+  @override
+  State<ExerciseSummary> createState() => _ExerciseSummaryState();
+}
+
+class _ExerciseSummaryState extends State<ExerciseSummary> {
+  int courseRating = 0;
+  ButtonStatus doneButton = ButtonStatus.active;
+
+  Future<void> sendPostExercise() async {
+    setState(() {
+      doneButton = ButtonStatus.loading;
+    });
+    Map<String, dynamic> requestBody = {
+      "courseId": widget.courseId,
+      "activityId": widget.activityId,
+      "isPublic": true,
+      "courseRating": courseRating > 0 ? courseRating : null
+    };
+    var response = await API.post(Environment.postExerciseUrl, requestBody,
+        withToken: true);
+    setState(() {
+      doneButton = ButtonStatus.active;
+    });
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Home()), (r) => false);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,13 +110,13 @@ class ExerciseSummary extends StatelessWidget {
                                       valueColor: AlwaysStoppedAnimation<Color>(
                                           color_purple),
                                       backgroundColor: color_lightGrey,
-                                      value: (score / 100),
+                                      value: (widget.score / 100),
                                       strokeWidth: 7,
                                     ),
                                   ),
                                 ),
                                 Center(
-                                    child: Text("$score %",
+                                    child: Text("${widget.score} %",
                                         style: const TextStyle(
                                             color: color_purple,
                                             fontWeight: FontWeight.w600,
@@ -103,7 +145,7 @@ class ExerciseSummary extends StatelessWidget {
                                     fontSize: 20.0),
                                 textAlign: TextAlign.left),
                             Expanded(child: Container()),
-                            Text("$xpEarned",
+                            Text("${widget.xpEarned}",
                                 style: const TextStyle(
                                     color: color_dark,
                                     fontWeight: FontWeight.w600,
@@ -125,7 +167,8 @@ class ExerciseSummary extends StatelessWidget {
                                     fontSize: 20.0),
                                 textAlign: TextAlign.left),
                             Expanded(child: Container()),
-                            Text("${Duration(seconds: duration).inMinutes.toString().padLeft(2, "0")}:${Duration(seconds: duration).inSeconds.remainder(60).toString().padLeft(2, "0")}",
+                            Text(
+                                "${Duration(seconds: widget.duration).inMinutes.toString().padLeft(2, "0")}:${Duration(seconds: widget.duration).inSeconds.remainder(60).toString().padLeft(2, "0")}",
                                 style: const TextStyle(
                                     color: color_dark,
                                     fontWeight: FontWeight.w600,
@@ -134,28 +177,6 @@ class ExerciseSummary extends StatelessWidget {
                                     fontSize: 32.0),
                                 textAlign: TextAlign.right),
                           ]),
-                      // Row(
-                      //     mainAxisAlignment: MainAxisAlignment.start,
-                      //     crossAxisAlignment: CrossAxisAlignment.center,
-                      //     children: [
-                      //       Text("Calories",
-                      //           style: const TextStyle(
-                      //               color: color_dark,
-                      //               fontWeight: FontWeight.w600,
-                      //               fontFamily: "Poppins",
-                      //               fontStyle: FontStyle.normal,
-                      //               fontSize: 20.0),
-                      //           textAlign: TextAlign.left),
-                      //       Expanded(child: Container()),
-                      //       Text("300",
-                      //           style: const TextStyle(
-                      //               color: color_dark,
-                      //               fontWeight: FontWeight.w600,
-                      //               fontFamily: "Poppins",
-                      //               fontStyle: FontStyle.normal,
-                      //               fontSize: 32.0),
-                      //           textAlign: TextAlign.right),
-                      //     ]),
                       Container(
                         height: 20,
                       ),
@@ -170,83 +191,16 @@ class ExerciseSummary extends StatelessWidget {
                       Container(
                         height: 10,
                       ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: new SvgPicture.asset(
-                                'assets/Icon/Star-Outline.svg',
-                                height: 28.1,
-                              ),
-                            ),
-                            Container(
-                              width: 16.9,
-                            ),
-                            Container(
-                              child: new SvgPicture.asset(
-                                'assets/Icon/Star-Outline.svg',
-                                height: 28.1,
-                              ),
-                            ),
-                            Container(
-                              width: 16.9,
-                            ),
-                            Container(
-                              child: new SvgPicture.asset(
-                                'assets/Icon/Star-Outline.svg',
-                                height: 28.1,
-                              ),
-                            ),
-                            Container(
-                              width: 16.9,
-                            ),
-                            Container(
-                              child: new SvgPicture.asset(
-                                'assets/Icon/Star-Outline.svg',
-                                height: 28.1,
-                              ),
-                            ),
-                            Container(
-                              width: 16.9,
-                            ),
-                            Container(
-                              child: new SvgPicture.asset(
-                                'assets/Icon/Star-Outline.svg',
-                                height: 28.1,
-                              ),
-                            ),
-                          ]),
+                      RatingButton(onChanged: (rating) {
+                        setState(() {
+                          courseRating = rating;
+                        });
+                      })
                     ],
                   ),
                 )),
                 Expanded(child: Container()),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Expanded(
-                      child: new GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
-                    },
-                    child: Container(
-                        height: 60,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.5),
-                          child: new Text("Done",
-                              style: const TextStyle(
-                                  color: color_dark,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 18.0),
-                              textAlign: TextAlign.center),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            color: color_teal)),
-                  ))
-                ]),
+                MainButtonHighlight(text: "Done", onPressed: sendPostExercise),
                 Expanded(child: Container()),
               ],
             )),

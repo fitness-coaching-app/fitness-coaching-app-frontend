@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/exerciseSummary_view.dart';
-import 'color.dart';
-import 'components/main_button_highlight.dart';
+import 'package:fitness_coaching_application_test/exerciseSummary/screen/exerciseSummary_view.dart';
+import '../../color.dart';
+import '../../components/main_button_highlight.dart';
 
 class ExerciseSumLv extends StatelessWidget {
   final int currentLevel;
@@ -10,14 +10,19 @@ class ExerciseSumLv extends StatelessWidget {
   final int score;
   final int duration;
   final int xpEarned;
-  const ExerciseSumLv({Key? key,
-    required this.currentLevel,
-    this.newAchievementsId,
-    required this.activityId,
-    required this.score,
-    required this.duration,
-    required this.xpEarned
-  }) : super(key: key);
+  final String courseId;
+
+  const ExerciseSumLv(
+      {Key? key,
+      required this.currentLevel,
+      this.newAchievementsId,
+      required this.activityId,
+      required this.score,
+      required this.duration,
+      required this.xpEarned,
+      required this.courseId})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +70,8 @@ class ExerciseSumLv extends StatelessWidget {
                             )),
                       ),
                     ),
-                    Container(height: MediaQuery.of(context).size.height * 0.05),
+                    Container(
+                        height: MediaQuery.of(context).size.height * 0.05),
                     Text("Congratulations!\nYou’ve reached level $currentLevel",
                         style: const TextStyle(
                             color: Colors.white,
@@ -77,13 +83,20 @@ class ExerciseSumLv extends StatelessWidget {
                   ],
                 ),
               ),
-              MainButtonHighlight(text: "Continue", onPressed: () {
+              MainButtonHighlight(
+                  text: "Continue",
+                  onPressed: () {
                     Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ExerciseSummary(score: score, duration: duration, xpEarned: xpEarned, activityId: activityId)),
-                        );
-                    }),
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ExerciseSummary(
+                              courseId: courseId,
+                              score: score,
+                              duration: duration,
+                              xpEarned: xpEarned,
+                              activityId: activityId)),
+                    );
+                  }),
               Container(
                 //color: Colors.red,
                 height: 50,

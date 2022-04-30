@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:fitness_coaching_application_test/workouts/widgets/CameraView.dart';
 
-import '../../exerciseSumFinished_view.dart';
+import '../../exerciseSummary/screen/exerciseSumFinished_view.dart';
 import '../widgets/CurrentExerciseStateBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,11 +84,6 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
 
   void onExerciseComplete() {
     var summary = controller.getExerciseSummary();
-    var exerciseData = {
-      'courseId': widget.courseId,
-      'duration': summary.exerciseDuration,
-      'score': summary.score
-    };
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -106,7 +101,6 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
 
     var file = File(downloadPath);
     data = await file.readAsString();
-    print(data);
     controller = ExerciseController(data,
         onDisplayStateChange: onDisplayStateChange,
         onStepComplete: onStepComplete,

@@ -2,12 +2,12 @@ import 'package:fitness_coaching_application_test/api_util.dart';
 import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/exerciseSumLv_view.dart';
-import 'color.dart';
+import 'package:fitness_coaching_application_test/exerciseSummary/screen/exerciseSumLv_view.dart';
+import '../../color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'exerciseSummary_view.dart';
-import 'loading_view.dart';
+import '../../loading_view.dart';
 
 class ExerciseSumFinished extends StatefulWidget {
   final String courseId;
@@ -95,7 +95,15 @@ class _ExerciseSumFinishedState extends State<ExerciseSumFinished> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ExerciseSumLv(score: widget.score, duration: widget.duration, xpEarned: xpEarned, currentLevel: currentLevel, newAchievementsId: newAchievementsId, activityId: activityId)),
+                            builder: (context) => ExerciseSumLv(
+                              courseId: widget.courseId,
+                                score: widget.score,
+                                duration: widget.duration,
+                                xpEarned: xpEarned,
+                                currentLevel: currentLevel,
+                                newAchievementsId: newAchievementsId,
+                                activityId: activityId
+                            )),
                       );
                     }
                     // else if(newAchievementsId.isNotEmpty){
@@ -109,7 +117,12 @@ class _ExerciseSumFinishedState extends State<ExerciseSumFinished> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ExerciseSummary(score: widget.score, duration: widget.duration, xpEarned: xpEarned, activityId: activityId)),
+                            builder: (context) => ExerciseSummary(
+                                courseId: widget.courseId,
+                                score: widget.score,
+                                duration: widget.duration,
+                                xpEarned: xpEarned,
+                                activityId: activityId)),
                       );
                     }
 
