@@ -3,10 +3,46 @@ import 'package:fitness_coaching_application_test/components/main_button_highlig
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/loading_view.dart';
+import 'package:hive/hive.dart';
+
+import '../../api_util.dart';
+import '../../environment.dart';
 
 //New User Setup
-class NewUserSetupComp extends StatelessWidget {
+class NewUserSetupComp extends StatefulWidget {
   const NewUserSetupComp({Key? key}) : super(key: key);
+
+  @override
+  State<NewUserSetupComp> createState() => _NewUserSetupCompState();
+}
+
+class _NewUserSetupCompState extends State<NewUserSetupComp> {
+  ButtonStatus status = ButtonStatus.active;
+
+  Future<void> fetchUserInfo() async {
+    setState(() {
+      status = ButtonStatus.loading;
+    });
+    var response = await API.get(Environment.getUserInfoUrl, withToken: true);
+    var isSuccess = false;
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          var user = Hive.box('user');
+          user.put('data', r.results!);
+          isSuccess = true;
+        });
+    setState(() {
+      status = ButtonStatus.active;
+    });
+    if(isSuccess){
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+              (route) => false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +79,7 @@ class NewUserSetupComp extends StatelessWidget {
                 height: 10,
               ),
               MainButtonHighlight(
-                  text: "Let's Go",
-                  onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                      (route) => false
-                    );
-                  }),
+                  text: "Let's Go", status: status, onPressed: fetchUserInfo),
               Container(
                 //color: Colors.red,
                 height: 50,
