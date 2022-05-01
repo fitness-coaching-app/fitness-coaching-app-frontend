@@ -1,6 +1,7 @@
 import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_view.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/AchievementCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/ProfileHead.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/TwoToggleIcons.dart';
@@ -214,16 +215,22 @@ class _UserProfileState extends State<UserProfile> {
         page: 'profile',
         appBar: NormalAppBar(
           title: "Profile",
-          actionButton: Container(
-              height: 25,
-              width: 25,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: color_dark),
-              child: Icon(
-                Ionicons.ellipsis_horizontal,
-                color: color_white,
-                size: 18,
-              )),
+          actionButton: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (route) => UserProfileSettings()));
+            },
+            child: Container(
+                height: 25,
+                width: 25,
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, color: color_dark),
+                child: Icon(
+                  Ionicons.ellipsis_horizontal,
+                  color: color_white,
+                  size: 18,
+                )),
+          ),
         ),
         body: buildProfile());
   }
