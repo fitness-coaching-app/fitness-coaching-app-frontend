@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -24,6 +23,7 @@ class _TeachViewState extends State<TeachView> {
     _controller = VideoPlayerController.network(widget.mediaUrl)
       ..initialize().then((_) {
         setState(() {});
+        _controller.seekTo(Duration(seconds: 0));
         _controller.setVolume(0.0);
         _controller.play();
       });

@@ -84,6 +84,8 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
 
   void onExerciseComplete() {
     var summary = controller.getExerciseSummary();
+    print("EXERCISE COMPLETE SUMMARY: ");
+    print(summary);
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -145,7 +147,7 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
                     ),
                     (() {
                       if (isStepComplete) {
-                        return Text("Complete");
+                        return Container();
                       }
                       if (currentDisplayState == DisplayState.teach) {
                         return TeachView(

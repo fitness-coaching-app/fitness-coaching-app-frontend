@@ -1,11 +1,11 @@
 import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/exerciseSummary/widget/rating_button.dart';
-import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
+import 'package:flutter/material.dart';
+
 import '../../api_util.dart';
 import '../../color.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ExerciseSummary extends StatefulWidget {
   final int score;
@@ -53,10 +53,8 @@ class _ExerciseSummaryState extends State<ExerciseSummary> {
         context: context,
         response: response,
         whenSuccess: (r) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Home()), (r) => false);
+          Navigator.pushAndRemoveUntil(context,
+              MaterialPageRoute(builder: (context) => Home()), (r) => false);
         });
   }
 
