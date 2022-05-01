@@ -1,41 +1,59 @@
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:ionicons/ionicons.dart';
 
-class RenderNewsArticle extends StatefulWidget {
-  final String newsHeader;
-  final String newsDetails;
-  final String likes;
-  final String picture;
+import '../../api_util.dart';
+import '../../environment.dart';
 
-  RenderNewsArticle({
-    Key? key,
-    required this.newsHeader,
-    required this.newsDetails,
-    required this.likes,
-    required this.picture,
-  }) : super(key: key);
+class RenderNewsArticle extends StatefulWidget {
+  final String newsId;
+  final String title;
+  final String markdownString;
+  int likeCount;
+  final String coverPicture;
+  bool userIdLike;
+
+  RenderNewsArticle(
+      {Key? key,
+      required this.newsId,
+      required this.title,
+      required this.markdownString,
+      required this.likeCount,
+      required this.coverPicture,
+      required this.userIdLike})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => RenderNewsArticleState();
 }
 
 class RenderNewsArticleState extends State<RenderNewsArticle> {
+  Future<void> likeNews() async {
+    print('${Environment.likeNewsUrl}/${widget.newsId}');
+    var response = await API.get('${Environment.likeNewsUrl}/${widget.newsId}',
+        withToken: true);
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          print(r.results!);
+        });
+  }
+
+  Future<void> unlikeNews() async {
+    print('${Environment.unlikeNewsUrl}/${widget.newsId}');
+    var response = await API
+        .get('${Environment.unlikeNewsUrl}/${widget.newsId}', withToken: true);
+
+    API.responseAlertWhenError(
+        context: context, response: response, whenSuccess: (r) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
-        height: 21,
-      ),
-      GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Ionicons.arrow_back,
-            size: 30,
-            color: color_dark,
-          )),
       Padding(
           padding: EdgeInsets.symmetric(vertical: 15),
           child: GestureDetector(
@@ -44,9 +62,7 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                   height: MediaQuery.of(context).size.height * 0.35,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(widget.picture),
-                          colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.5), BlendMode.darken),
+                          image: NetworkImage(widget.coverPicture),
                           fit: BoxFit.fill),
                       borderRadius: BorderRadius.circular(15)),
                   child: Padding(
@@ -54,7 +70,18 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                     child: Align(
                         alignment: Alignment.bottomRight,
                         child: GestureDetector(
-                            onTap: () {},
+                            onTap: () async {
+                              if (widget.userIdLike) {
+                                widget.likeCount--;
+                                await unlikeNews();
+                              } else {
+                                widget.likeCount++;
+                                await likeNews();
+                              }
+                              setState(() {
+                                widget.userIdLike = !widget.userIdLike;
+                              });
+                            },
                             child: Container(
                                 height: 45,
                                 width: 85,
@@ -68,7 +95,7 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                                     child: Row(
                                       children: [
                                         Expanded(child: Container()),
-                                        Text(widget.likes,
+                                        Text(widget.likeCount.toString(),
                                             style: const TextStyle(
                                                 color: const Color(0xff000000),
                                                 fontWeight: FontWeight.w600,
@@ -77,41 +104,20 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                                                 fontSize: 16.0),
                                             textAlign: TextAlign.right),
                                         Expanded(child: Container()),
-                                        Container(
-                                            height: 30,
-                                            width: 30,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(365),
-                                                color: const Color(0x11000000)),
-                                            child: Icon(
-                                              Ionicons.heart_outline,
-                                              color: color_dark,
-                                              size: 23,
-                                            )),
+                                        Icon(
+                                          widget.userIdLike
+                                              ? Ionicons.heart
+                                              : Ionicons.heart_outline,
+                                          color: widget.userIdLike
+                                              ? color_red
+                                              : color_dark,
+                                          size: 23,
+                                        ),
                                         Expanded(child: Container()),
                                       ],
                                     ))))),
                   )))),
-      Text(widget.newsHeader,
-          style: const TextStyle(
-              color: color_dark,
-              fontWeight: FontWeight.w600,
-              fontFamily: "Poppins",
-              fontStyle: FontStyle.normal,
-              fontSize: 20.0),
-          textAlign: TextAlign.left),
-      Container(
-        height: MediaQuery.of(context).size.height * 0.02,
-      ),
-      Text(widget.newsDetails,
-          style: const TextStyle(
-              color: const Color(0xff000000),
-              fontWeight: FontWeight.w400,
-              fontFamily: "Poppins",
-              fontStyle: FontStyle.normal,
-              fontSize: 14.0),
-          textAlign: TextAlign.left)
+      MarkdownBody(data: widget.markdownString)
     ]);
   }
 }

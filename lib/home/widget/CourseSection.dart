@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../color.dart';
-import 'CourseCard.dart';
+import '../../components/CourseCard.dart';
 
 class CourseSection extends StatefulWidget {
   final String title;

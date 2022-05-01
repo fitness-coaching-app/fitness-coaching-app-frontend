@@ -1,11 +1,12 @@
 import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/userProfile/screen/user_qr_view.dart';
+import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_editProfile_view.dart';
-import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_notifications_view.dart';
 import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_password_view.dart';
-import 'package:fitness_coaching_application_test/userProfile/screen/user_settings_privacy_view.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
+
+import '../../signIn_view.dart';
 
 class UserProfileSettings extends StatefulWidget {
   const UserProfileSettings({Key? key}) : super(key: key);
@@ -15,11 +16,26 @@ class UserProfileSettings extends StatefulWidget {
 }
 
 class UserProfileSettingsState extends State<UserProfileSettings> {
+  var userData = Hive.box('user').get('data');
+  bool loading = false;
+
+  Future<void> signOut() async {
+    setState(() {
+      loading = true;
+    });
+    await Hive.box('user').clear();
+    await Hive.box('token').clear();
+    setState(() {
+      loading = false;
+    });
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (route) => SignIn()), (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    String url =
-        "https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/3:2/w_3329,h_2219,c_limit/1521-WIRED-Cat.jpeg";
     return Scaffold(
+      appBar: NormalAppBar(title: "Settings", backButton: true),
       body: SafeArea(
         child: SingleChildScrollView(
             child: Padding(
@@ -31,42 +47,34 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                 height: 21,
               ),
               //profile head section
-              GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(
-                    Ionicons.arrow_back,
-                    size: 30,
-                    color: color_dark,
-                  )),
 
-              //profile picture details
-              Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 30),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 20),
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(360),
+                  //profile picture details
+                  Container(
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      margin: EdgeInsets.fromLTRB(0, 10, 0, 30),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 20),
+                            height: MediaQuery.of(context).size.height * 0.10,
+                            child: GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.2,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
                                     image: DecorationImage(
-                                      image: NetworkImage(url),
+                                      image: NetworkImage(
+                                          userData["profilePicture"]),
                                       fit: BoxFit.cover,
                                     )))),
-                      ),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("MarioSnyder",
+                          ),
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(userData["displayName"],
                                 style: const TextStyle(
                                     color: color_dark,
                                     fontWeight: FontWeight.w600,
@@ -74,10 +82,11 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                                     fontStyle: FontStyle.normal,
                                     fontSize: 20.0),
                                 textAlign: TextAlign.left),
-                            Container(
-                              height: 5,
-                            ),
-                            Text("Level 4     2550 XP",
+                                Container(
+                                  height: 5,
+                                ),
+                                Text(
+                                "Level ${userData["level"]}     ${userData["xp"]} XP",
                                 style: const TextStyle(
                                     color: color_dark,
                                     fontWeight: FontWeight.w400,
@@ -86,22 +95,22 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                                     fontSize: 14.0),
                                 textAlign: TextAlign.left)
                           ]),
-                    ],
-                  )),
+                        ],
+                      )),
 
-              //options section
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UserSettingsProfile()));
-                  },
-                  child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(children: [
-                        Text("Edit Profile",
-                            style: const TextStyle(
+                  //options section
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserSettingsProfile()));
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(children: [
+                            Text("Edit Profile",
+                                style: const TextStyle(
                                 color: color_dark,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: "Poppins",
@@ -112,70 +121,70 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                         Icon(Ionicons.chevron_forward,
                             size: 22, color: Color(0xb2517086))
                       ]))),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UserSettingsPrivacy()));
-                  },
-                  child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(children: [
-                        Text("Privacy",
-                            style: const TextStyle(
-                                color: color_dark,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16.0),
-                            textAlign: TextAlign.left),
-                        Expanded(child: Container()),
-                        Icon(Ionicons.chevron_forward,
-                            size: 22, color: Color(0xb2517086))
-                      ]))),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UserSettingsNotifications()));
-                  },
-                  child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(children: [
-                        Text("Notifications",
-                            style: const TextStyle(
-                                color: color_dark,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16.0),
-                            textAlign: TextAlign.left),
-                        Expanded(child: Container()),
-                        Icon(Ionicons.chevron_forward,
-                            size: 22, color: Color(0xb2517086))
-                      ]))),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => UserQrcode()));
-                  },
-                  child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(children: [
-                        Text("My QR Code",
-                            style: const TextStyle(
-                                color: color_dark,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16.0),
-                            textAlign: TextAlign.left),
-                        Expanded(child: Container()),
-                        Icon(Ionicons.chevron_forward,
-                            size: 22, color: Color(0xb2517086))
-                      ]))),
+              // GestureDetector(
+              //     onTap: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => UserSettingsPrivacy()));
+              //     },
+              //     child: Padding(
+              //         padding: EdgeInsets.all(10),
+              //         child: Row(children: [
+              //           Text("Privacy",
+              //               style: const TextStyle(
+              //                   color: color_dark,
+              //                   fontWeight: FontWeight.w600,
+              //                   fontFamily: "Poppins",
+              //                   fontStyle: FontStyle.normal,
+              //                   fontSize: 16.0),
+              //               textAlign: TextAlign.left),
+              //           Expanded(child: Container()),
+              //           Icon(Ionicons.chevron_forward,
+              //               size: 22, color: Color(0xb2517086))
+              //         ]))),
+              // GestureDetector(
+              //     onTap: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => UserSettingsNotifications()));
+              //     },
+              //     child: Padding(
+              //         padding: EdgeInsets.all(10),
+              //         child: Row(children: [
+              //           Text("Notifications",
+              //               style: const TextStyle(
+              //                   color: color_dark,
+              //                   fontWeight: FontWeight.w600,
+              //                   fontFamily: "Poppins",
+              //                   fontStyle: FontStyle.normal,
+              //                   fontSize: 16.0),
+              //               textAlign: TextAlign.left),
+              //           Expanded(child: Container()),
+              //           Icon(Ionicons.chevron_forward,
+              //               size: 22, color: Color(0xb2517086))
+              //         ]))),
+              // GestureDetector(
+              //     onTap: () {
+              //       Navigator.push(context,
+              //           MaterialPageRoute(builder: (context) => UserQrcode()));
+              //     },
+              //     child: Padding(
+              //         padding: EdgeInsets.all(10),
+              //         child: Row(children: [
+              //           Text("My QR Code",
+              //               style: const TextStyle(
+              //                   color: color_dark,
+              //                   fontWeight: FontWeight.w600,
+              //                   fontFamily: "Poppins",
+              //                   fontStyle: FontStyle.normal,
+              //                   fontSize: 16.0),
+              //               textAlign: TextAlign.left),
+              //           Expanded(child: Container()),
+              //           Icon(Ionicons.chevron_forward,
+              //               size: 22, color: Color(0xb2517086))
+              //         ]))),
               GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -187,20 +196,22 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                       padding: EdgeInsets.all(10),
                       child: Row(children: [
                         Text("Change Password",
-                            style: const TextStyle(
-                                color: color_dark,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16.0),
-                            textAlign: TextAlign.left),
-                        Expanded(child: Container()),
-                        Icon(Ionicons.chevron_forward,
-                            size: 22, color: Color(0xb2517086))
-                      ]))),
-              Container(height: 38),
-              GestureDetector(
-                  onTap: () {},
+                                style: const TextStyle(
+                                    color: color_dark,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 16.0),
+                                textAlign: TextAlign.left),
+                            Expanded(child: Container()),
+                            Icon(Ionicons.chevron_forward,
+                                size: 22, color: Color(0xb2517086))
+                          ]))),
+                  Container(height: 38),
+                  GestureDetector(
+                  onTap: () async {
+                    await signOut();
+                  },
                   child: Center(
                       child: Text("Sign Out",
                           style: const TextStyle(
@@ -211,13 +222,13 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                               fontSize: 16.0),
                           textAlign: TextAlign.center))),
 
-              //bottom section
-              Container(
-                height: 30,
+                  //bottom section
+                  Container(
+                    height: 30,
+                  ),
+                ],
               ),
-            ],
-          ),
-        )),
+            )),
       ),
     );
   }

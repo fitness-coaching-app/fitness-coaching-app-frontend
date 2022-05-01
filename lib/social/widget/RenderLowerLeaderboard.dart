@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../environment.dart';
+
 class RenderLowerLeaderboard extends StatefulWidget {
   final String rank;
   final String username;
@@ -19,36 +21,39 @@ class RenderLowerLeaderboard extends StatefulWidget {
 class RenderLowerLeaderboardState extends State<RenderLowerLeaderboard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(children: [
-      Padding(
-          padding: EdgeInsets.only(bottom: 10),
-          child: Row(children: [
-            Text(widget.rank,
+    return Padding(
+        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Container(
+            width: 40,
+            child: Text(widget.rank,
                 style: const TextStyle(
                     color: const Color(0xff000000),
                     fontWeight: FontWeight.w400,
                     fontFamily: "Poppins",
                     fontStyle: FontStyle.normal,
                     fontSize: 14.0),
-                textAlign: TextAlign.center),
-            Container(
-                margin: EdgeInsets.fromLTRB(40, 0, 15, 0),
-                height: MediaQuery.of(context).size.height * 0.06,
-                width: MediaQuery.of(context).size.height * 0.06,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(365),
-                    image: DecorationImage(
-                        fit: BoxFit.cover, image: NetworkImage(widget.urls)))),
-            Text(widget.username,
-                style: const TextStyle(
-                    color: const Color(0xff000000),
-                    fontWeight: FontWeight.w500,
-                    fontFamily: "Poppins",
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14.0),
-                textAlign: TextAlign.left)
-          ])),
-    ]));
+                textAlign: TextAlign.left),
+          ),
+          Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(widget.urls == ""
+                          ? Environment.noImageUrl
+                          : widget.urls)))),
+          SizedBox(width: 20),
+          Text(widget.username,
+              style: const TextStyle(
+                  color: const Color(0xff000000),
+                  fontWeight: FontWeight.w500,
+                  fontFamily: "Poppins",
+                  fontStyle: FontStyle.normal,
+                  fontSize: 14.0),
+              textAlign: TextAlign.left)
+        ]));
   }
 }

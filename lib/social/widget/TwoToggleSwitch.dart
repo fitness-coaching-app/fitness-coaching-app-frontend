@@ -4,16 +4,14 @@ class TwoToggleSwitch extends StatefulWidget {
   final BuildContext context;
   final String options1;
   final String options2;
-  final StatefulWidget screenTo;
-  final bool selectOptn1;
+  final Function(int option)? onChanged;
 
   TwoToggleSwitch(
       {Key? key,
       required this.context,
       required this.options1,
       required this.options2,
-      required this.screenTo,
-      required this.selectOptn1})
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -21,6 +19,7 @@ class TwoToggleSwitch extends StatefulWidget {
 }
 
 class TwoToggleSwitchState extends State<TwoToggleSwitch> {
+  int options = 1;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,28 +30,28 @@ class TwoToggleSwitchState extends State<TwoToggleSwitch> {
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           GestureDetector(
               onTap: () {
-                if (widget.selectOptn1 == false) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => widget.screenTo),
-                  );
+                if(options != 1){
+                  options = 1;
+                  if(widget.onChanged != null) {
+                    widget.onChanged!(options);
+                  }
                 }
               },
               child: Container(
                   height: 40,
                   width: (MediaQuery.of(context).size.width / 2) - 25,
                   decoration: BoxDecoration(
-                      color: widget.selectOptn1 == false
+                      color: options == 2
                           ? Color(0xFFefefef)
                           : Color(0xFFC0FFD9),
                       borderRadius: BorderRadius.circular(40)),
                   child: Center(
                     child: Text(widget.options1,
                         style: TextStyle(
-                            color: widget.selectOptn1 == false
+                            color: options == 2
                                 ? Color(0xffc9c9c9)
                                 : Color(0xff00a682),
-                            fontWeight: widget.selectOptn1 == false
+                            fontWeight: options == 2
                                 ? FontWeight.w400
                                 : FontWeight.w600,
                             fontFamily: "Poppins",
@@ -63,28 +62,28 @@ class TwoToggleSwitchState extends State<TwoToggleSwitch> {
           Expanded(child: Container()),
           GestureDetector(
               onTap: () {
-                if (widget.selectOptn1 == true) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => widget.screenTo),
-                  );
+                if(options != 2){
+                  options = 2;
+                  if(widget.onChanged != null) {
+                    widget.onChanged!(options);
+                  }
                 }
               },
               child: Container(
                   height: 40,
                   width: (MediaQuery.of(context).size.width / 2) - 25,
                   decoration: BoxDecoration(
-                      color: widget.selectOptn1 == true
+                      color: options == 1
                           ? Color(0xFFefefef)
                           : Color(0xFFC0FFD9),
                       borderRadius: BorderRadius.circular(40)),
                   child: Center(
                       child: Text(widget.options2,
                           style: TextStyle(
-                              color: widget.selectOptn1 == true
+                              color: options == 1
                                   ? Color(0xffc9c9c9)
                                   : Color(0xff00a682),
-                              fontWeight: widget.selectOptn1 == true
+                              fontWeight: options == 1
                                   ? FontWeight.w400
                                   : FontWeight.w600,
                               fontFamily: "Poppins",

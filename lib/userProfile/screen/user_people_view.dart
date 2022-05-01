@@ -1,355 +1,290 @@
-import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
+import 'package:fitness_coaching_application_test/components/thin_button_highlight.dart';
+import 'package:fitness_coaching_application_test/components/thin_button_inverted.dart';
+import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
+import 'package:fitness_coaching_application_test/userProfile/widgets/AchievementCard.dart';
+import 'package:fitness_coaching_application_test/userProfile/widgets/ProfileHead.dart';
+import 'package:fitness_coaching_application_test/userProfile/widgets/TwoToggleIcons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 
-import 'user_profile_achieve_view.dart';
-import 'user_profile_follower_view.dart';
-import 'user_profile_following_view.dart';
+import '../../api_util.dart';
+import '../../color.dart';
+import '../../environment.dart';
+import '../../loading_view.dart';
 
-class UserPeople extends StatefulWidget {
-  const UserPeople({Key? key}) : super(key: key);
+class UserPeopleView extends StatefulWidget {
+  final String userId;
+
+  UserPeopleView({required this.userId});
 
   @override
-  State<StatefulWidget> createState() => UserPeopleState();
+  State<UserPeopleView> createState() => _UserPeopleViewState();
 }
 
-class UserPeopleState extends State<UserPeople> {
-  String username = "sixtyfoldviolator";
-  String followButton = "Follow";
-  Color followButtonBg = color_teal;
+class _UserPeopleViewState extends State<UserPeopleView> {
+  int option = 1;
+  Future? loadProfileFuture;
+  Future? loadAchievementFuture;
+  Map<String, bool> userAchievementList = {};
+  bool follow = false;
+  var userData;
+  var userActivity;
+
+  void updateAchievementList() {
+    userAchievementList = {};
+    for (var i in userData['achievement']) {
+      userAchievementList[i["achievementId"]] = true;
+    }
+    print(userAchievementList);
+  }
+
+  Future<bool> addFollower() async {
+    var response = await API.get('${Environment.addFollowerUrl}',
+        withToken: true,
+        queryParameters: {"displayName": userData["displayName"]});
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          print(r.message);
+        });
+    return true;
+  }
+
+  Future<bool> removeFollower() async {
+    var response = await API.get('${Environment.removeFollowerUrl}',
+        withToken: true,
+        queryParameters: {"displayName": userData["displayName"]});
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          print(r.message);
+        });
+    return true;
+  }
+
+  Future<bool> loadProfile() async {
+    var response =
+        await API.get('${Environment.getUserInfoByIdUrl}/${widget.userId}');
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          setState(() {
+            userData = r.results!;
+          });
+        });
+
+    var activity = await API.get(
+        '${Environment.activityWithDisplayNameUrl}/${userData["displayName"]}');
+    API.responseAlertWhenError(
+        context: context,
+        response: activity,
+        whenSuccess: (r) {
+          setState(() {
+            userActivity = r.results!;
+          });
+        });
+
+    var following =
+        await API.get('${Environment.getFollowingListUrl}', withToken: true);
+    API.responseAlertWhenError(
+        context: context,
+        response: following,
+        whenSuccess: (r) {
+          var followingList = r.results!;
+          for (var f in followingList) {
+            if (f["followingData"][0]["displayName"] ==
+                userData["displayName"]) {
+              setState(() {
+                follow = true;
+              });
+              break;
+            }
+          }
+        });
+    return true;
+  }
+
   @override
-  Widget build(BuildContext context) {
-    String url =
-        "https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/3:2/w_3329,h_2219,c_limit/1521-WIRED-Cat.jpeg";
-    return Scaffold(
-      body: SafeArea(
+  void initState() {
+    super.initState();
+    loadProfileFuture = loadProfile();
+  }
+
+  Widget buildActivityFeed() {
+    List<ActivityCard> activityFeed = [];
+    if (userActivity != null) {
+      for (var i = 0; i < userActivity.length; i++) {
+        activityFeed.add(ActivityCard(
+            userActivity: userActivity[i], ownerUserData: userData));
+      }
+    }
+
+    return Column(children: activityFeed);
+  }
+
+  Future<dynamic> fetchAchievementsList() async {
+    var response = await API.get(Environment.achievementListUrl);
+    var achievementList = [];
+    updateAchievementList();
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          achievementList = r.results!;
+        });
+    return achievementList;
+  }
+
+  Widget buildAchievementTile(dynamic achievementList) {
+    List<Widget> toReturn = [];
+    List<Widget> tempRow = [];
+
+    for (var i in achievementList) {
+      tempRow.add(AchievementCard(
+        header: i["title"],
+        description: i["description"],
+        imageUrl: i["picture"],
+        received: userAchievementList[i["_id"]] != null,
+      ));
+      if (tempRow.length == 2) {
+        toReturn.add(Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: tempRow));
+        tempRow = [];
+      }
+    }
+    if (tempRow.isNotEmpty) {
+      toReturn.add(Row(children: tempRow));
+    }
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      child: Column(children: toReturn),
+    );
+  }
+
+  Widget buildAchievement() {
+    loadAchievementFuture = fetchAchievementsList();
+    return FutureBuilder(
+        future: loadAchievementFuture,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return buildAchievementTile(snapshot.data);
+          } else {
+            return Align(
+              alignment: Alignment.center,
+              child: Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: SpinKitThreeBounce(color: color_dark, size: 30)),
+            );
+          }
+        });
+  }
+
+  Widget buildProfile() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          await loadProfile();
+          await fetchAchievementsList();
+        },
         child: SingleChildScrollView(
-            child: Padding(
-          padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 21,
-              ),
-              //profile head section
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(
-                        Ionicons.arrow_back,
-                        size: 30,
-                        color: color_dark,
-                      )),
-                  Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text("$username",
-                          style: const TextStyle(
-                              color: color_dark,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 26.0),
-                          textAlign: TextAlign.left)),
-                ],
-              ),
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 21,
+                ),
+                //profile head section
+                //profile picture details
+                ProfileHead(
+                  username: userData["displayName"],
+                  imageUrl: userData["profilePicture"],
+                  numberOfFollower: userData["followerCount"].toString(),
+                  numberOfFollowing: userData["followingCount"].toString(),
+                  level: userData["level"].toString(),
+                  disableFollowListTap: true,
+                ),
 
-              //profile picture details
-              Container(
-                height: 20,
-              ),
-              Container(
-                  height: MediaQuery.of(context).size.height * 0.28,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.20,
-                        child: Center(
-                            child: GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.40,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.20,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(360),
-                                        image: DecorationImage(
-                                          image: NetworkImage(url),
-                                          fit: BoxFit.cover,
-                                        ))))),
-                      ),
-                      Expanded(child: Container()),
-                      Text("$username",
-                          style: const TextStyle(
-                              color: color_dark,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 20.0),
-                          textAlign: TextAlign.center),
-                      Expanded(child: Container()),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UserProfileFollower()),
-                                  );
-                                },
-                                child: RichText(
-                                    text: TextSpan(children: [
-                                  TextSpan(
-                                      style: const TextStyle(
-                                          color: color_subtitle,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "Poppins",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14.0),
-                                      text: "20 "),
-                                  TextSpan(
-                                      style: const TextStyle(
-                                          color: color_subtitle,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Poppins",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14.0),
-                                      text: " Follower"),
-                                ]))),
-                            Container(
-                              width: 42,
-                            ),
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UserProfileFollowing()),
-                                  );
-                                },
-                                child: RichText(
-                                    text: TextSpan(children: [
-                                  TextSpan(
-                                      style: const TextStyle(
-                                          color: color_subtitle,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "Poppins",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14.0),
-                                      text: "40 "),
-                                  TextSpan(
-                                      style: const TextStyle(
-                                          color: color_subtitle,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "Poppins",
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 14.0),
-                                      text: " Following")
-                                ])))
-                          ]),
-                    ],
-                  )),
+                Container(
+                  height: 20,
+                ),
+                (() {
+                  if (follow) {
+                    return ThinButtonInverted(
+                        text: 'Following',
+                        onPressed: () async {
+                          setState(() {
+                            follow = false;
+                          });
+                          await removeFollower();
+                          await loadProfile();
+                          await fetchAchievementsList();
+                        });
+                  } else {
+                    return ThinButtonHighlight(
+                        text: 'Follow',
+                        onPressed: () async {
+                          setState(() {
+                            follow = true;
+                          });
+                          await addFollower();
+                          await loadProfile();
+                          await fetchAchievementsList();
+                        });
+                  }
+                }()),
 
-              //follow button
-              Container(
-                height: 10,
-              ),
-              GestureDetector(
-                  onTap: () {
-                    if (followButton == "Follow") {
+                //news and achievement toggle
+                TwoToggleIcons(
+                    options1: Ionicons.newspaper,
+                    options2: Ionicons.ribbon,
+                    onChanged: (option) {
                       setState(() {
-                        followButton = "Unfollow";
-                        followButtonBg = color_lightGrey;
+                        this.option = option;
                       });
-                    } else {
-                      setState(() {
-                        followButton = "Follow";
-                        followButtonBg = color_teal;
-                      });
-                    }
-                  },
-                  child: Container(
-                      height: 40,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: followButtonBg,
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Center(
-                          child: Text(followButton,
-                              style: const TextStyle(
-                                  color: color_dark,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 16.0),
-                              textAlign: TextAlign.center)))),
-
-              //news and achievement toggle
-              Container(
-                height: 20,
-              ),
-              Container(
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Color(0xFFefefef),
-                    borderRadius: BorderRadius.circular(40)),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: (MediaQuery.of(context).size.width / 2) - 25,
-                        decoration: BoxDecoration(
-                            color: Color(0xFFC0FFD9),
-                            borderRadius: BorderRadius.circular(40)),
-                        child: Icon(
-                          Ionicons.newspaper,
-                          color: Color(0xFF00A682),
-                        ),
-                      ),
-                      Expanded(child: Container()),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UserProfileAchieve()),
-                            );
-                          },
-                          child: Icon(
-                            Ionicons.ribbon,
-                            color: Color(0xffc9c9c9),
-                          )),
-                      Expanded(child: Container()),
-                    ]),
-              ),
-
-              //post section
-              Container(
-                height: 10,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.35,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 10,
-                      ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                                child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(360),
-                                        image: DecorationImage(
-                                          image: NetworkImage(url),
-                                          fit: BoxFit.cover,
-                                        )))),
-                            Container(
-                              width: 15,
-                            ),
-                            Text("$username",
-                                style: const TextStyle(
-                                    color: color_dark,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14.0),
-                                textAlign: TextAlign.left),
-                          ]),
-                      Container(
-                        height: 10,
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color(0xFFC0FFD9)),
-                      ),
-                      Container(
-                        height: 10,
-                      ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                                child: Icon(
-                              Ionicons.happy_outline,
-                              size: 20,
-                              color: color_subtitle,
-                            )),
-                            Container(
-                              width: 5,
-                            ),
-                            Text("123",
-                                style: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12.0),
-                                textAlign: TextAlign.left),
-                            Container(
-                              width: 22,
-                            ),
-                            Container(
-                                child: Icon(
-                              Ionicons.chatbubble_outline,
-                              size: 20,
-                              color: color_subtitle,
-                            )),
-                            Container(
-                              width: 5,
-                            ),
-                            Text("123",
-                                style: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 12.0),
-                                textAlign: TextAlign.left),
-                          ]),
-                      Container(
-                        height: 5,
-                      ),
-                      Text("13 hours ago",
-                          style: const TextStyle(
-                              color: color_subtitle,
-                              fontWeight: FontWeight.w300,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 11.0),
-                          textAlign: TextAlign.left)
-                    ]),
-              ),
-
-              //bottom section
-              Container(
-                height: 30,
-              ),
-            ],
-          ),
-        )),
+                    }),
+                (() {
+                  if (option == 1) {
+                    return buildActivityFeed();
+                  } else
+                    return buildAchievement();
+                }()),
+                //bottom section
+                Container(
+                  height: 150,
+                ),
+              ],
+            )),
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: NormalAppBar(
+          title: userData == null ? "Profile" : userData["displayName"],
+          backButton: true,
+        ),
+        body: FutureBuilder(
+            future: loadProfileFuture,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return buildProfile();
+              } else {
+                return Loading();
+              }
+            }));
   }
 }

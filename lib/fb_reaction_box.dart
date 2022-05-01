@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'color.dart';
+
 class FbReactionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -411,7 +413,7 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                     // Icons
                     renderIcons(),
                   ],
-                  alignment: Alignment.bottomCenter,
+                  alignment: Alignment.center,
                 ),
 
                 // Button like
@@ -573,6 +575,13 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
     );
   }
 
+  var defaultTextStyle = const TextStyle(
+                              color: color_subtitle,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 14.0);
+
   Widget renderIcons() {
     return Container(
       child: Row(
@@ -587,7 +596,7 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                           child: Text(
                             'Like',
                             style:
-                                TextStyle(fontSize: 8.0, color: Colors.white),
+                                defaultTextStyle,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
@@ -633,7 +642,7 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                           child: Text(
                             'Love',
                             style:
-                                TextStyle(fontSize: 8.0, color: Colors.white),
+                                defaultTextStyle,
                           ),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
@@ -678,7 +687,7 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                           child: Text(
                             'Haha',
                             style:
-                                TextStyle(fontSize: 8.0, color: Colors.white),
+                                defaultTextStyle,
                           ),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
@@ -723,7 +732,7 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                           child: Text(
                             'Wow',
                             style:
-                                TextStyle(fontSize: 8.0, color: Colors.white),
+                                defaultTextStyle,
                           ),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
@@ -768,7 +777,7 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                           child: Text(
                             'Sad',
                             style:
-                                TextStyle(fontSize: 8.0, color: Colors.white),
+                                defaultTextStyle,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
@@ -814,7 +823,7 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
                           child: Text(
                             'Angry',
                             style:
-                                TextStyle(fontSize: 8.0, color: Colors.white),
+                                defaultTextStyle,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
@@ -912,11 +921,9 @@ class FbReactionState extends State<FbReaction> with TickerProviderStateMixin {
       ),
       width: 100.0,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: Colors.white,
-        border: Border.all(color: getColorBorderBtn()),
+        color: Colors.transparent,
+        // border: Border.all(color: getColorBorderBtn()),
       ),
-      margin: EdgeInsets.only(top: 70.0),
     );
   }
 

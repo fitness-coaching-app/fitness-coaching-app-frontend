@@ -10,48 +10,139 @@ class Environment {
   }
 
   static String get signInUrl {
-    return dotenv.env['SIGN_IN_URL'] ?? 'SIGN IN API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/auth/signIn';
   }
 
   static String get registerUrl {
-    return dotenv.env['REGISTER_URL'] ?? 'REGISTER API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/auth/register';
   }
 
   static String get verifyEmailUrl {
-    return dotenv.env['VERIFY_EMAIL_URL'] ?? 'VERIFY EMAIL API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/auth/verifyEmail';
   }
 
   static String get refreshTokenUrl {
-    return dotenv.env['REFRESH_TOKEN_URL'] ?? 'REFRESH TOKEN API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/auth/refreshToken';
   }
 
   static String get forgetPasswordUrl {
-    return dotenv.env['FORGET_PASSWORD_URL'] ?? 'FORGET PASSWORD API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/auth/forgetPassword';
+  }
+  static String get resendVerificationEmailUrl {
+    return '${dotenv.env['API_BASE_URL']}/auth/resendVerificationEmail';
   }
 
   static String get getUserInfoUrl {
-    return dotenv.env['GET_USER_INFO_URL'] ?? 'GET USER INFO API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/user/getUserInfo';
+  }
+
+  static String get getUserInfoByIdUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/getUserInfo/id';
   }
 
   static String get editUserInfoUrl {
-    return dotenv.env['EDIT_UESR_INFO_URL'] ?? 'EDIT USER INFO API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/user/editUserInfo';
   }
 
   static String get editProfilePictureUrl {
-    return dotenv.env['EDIT_PROFILE_PICTURE_URL'] ??
-        'EDIT PROFILE PICTURE API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/user/editProfilePicture';
   }
 
   static String get newUserSetupUrl {
-    return dotenv.env['NEW_USER_SETUP_URL'] ?? 'NEW USER SETUP API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/user/newUserSetup';
   }
 
   static String get checkVerificationStatusUrl {
-    return dotenv.env['CHECK_VERIFICATION_STATUS_URL'] ??
-        'CHECK VERIFICATION STATUS API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/user/checkVerificationStatus';
+  }
+
+  static String get setNewPasswordUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/setNewPassword';
+  }
+
+  static String get addFollowerUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/addFollower';
+  }
+
+  static String get removeFollowerUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/removeFollower';
+  }
+
+  static String get getFollowerListUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/getFollowerList';
+  }
+
+  static String get getFollowingListUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/getFollowingList';
+  }
+
+  static String get userActivityUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/activity';
+  }
+
+  static String get activityWithDisplayNameUrl {
+    return '${dotenv.env['API_BASE_URL']}/user/activity';
   }
 
   static String get getSectionsUrl {
-    return dotenv.env['GET_SECTIONS_URL'] ?? 'GET SECTIONS API NOT FOUND';
+    return '${dotenv.env['API_BASE_URL']}/home/getSections';
   }
+
+  static String get getCourseByIdUrl {
+    return '${dotenv.env['API_BASE_URL']}/course/id';
+  }
+
+  static String get exerciseCompleteUrl {
+    return '${dotenv.env['API_BASE_URL']}/exercise/complete';
+  }
+
+  static String get postExerciseUrl {
+    return '${dotenv.env['API_BASE_URL']}/exercise/postExercise';
+  }
+
+  static String get searchUrl {
+    return '${dotenv.env['API_BASE_URL']}/search';
+  }
+
+  static String get getFilterParamsUrl {
+    return '${dotenv.env['API_BASE_URL']}/search/getFilterParams';
+  }
+
+  static String get achievementListUrl {
+    return '${dotenv.env['API_BASE_URL']}/achievement/getList';
+  }
+
+  static String get globalLeaderboardUrl {
+    return '${dotenv.env['API_BASE_URL']}/leaderboard/global';
+  }
+  static String get followingUsersLeaderboardUrl {
+    return '${dotenv.env['API_BASE_URL']}/leaderboard/followingUsers';
+  }
+
+  static String get fetchNewsUrl {
+    return '${dotenv.env['API_BASE_URL']}/news/fetch';
+  }
+  static String get likeNewsUrl {
+    return '${dotenv.env['API_BASE_URL']}/news/like';
+  }
+  static String get unlikeNewsUrl {
+    return '${dotenv.env['API_BASE_URL']}/news/unlike';
+  }
+
+  static String get activityFeedUrl {
+    return '${dotenv.env['API_BASE_URL']}/activity/feed';
+  }
+  static String getSpecificActivityUrl({required activityId}) {
+    return '${dotenv.env['API_BASE_URL']}/activity/$activityId/get';
+  }
+  static String addReactionUrl({required activityId}) {
+    return '${dotenv.env['API_BASE_URL']}/activity/$activityId/reaction/add';
+  }
+  static String removeReactionUrl({required activityId}) {
+    return '${dotenv.env['API_BASE_URL']}/activity/$activityId/reaction/remove';
+  }
+  static String addCommentUrl({required activityId}) {
+    return '${dotenv.env['API_BASE_URL']}/activity/$activityId/comment/add';
+  }
+  static String noImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 }

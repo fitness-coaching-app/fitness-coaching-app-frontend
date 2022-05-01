@@ -1,14 +1,31 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:fitness_coaching_application_test/forgotPw/screen/forgotPassword0_view.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
+import 'package:fitness_coaching_application_test/register/screen/register2_view.dart';
 import 'package:fitness_coaching_application_test/register/screen/register3_view.dart';
+import 'package:fitness_coaching_application_test/register/screen/register4_view.dart';
 import 'package:fitness_coaching_application_test/userProfile/userInfo.dart';
+import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup0_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/loading_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'api_util.dart';
 import 'color.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+
+
+import 'components/main_button_highlight.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import 'package:fitness_coaching_application_test/components/text_box.dart';
+import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
+
+import 'components/touchable_text.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -18,31 +35,61 @@ class SignIn extends StatefulWidget {
 }
 
 class SignInState extends State<SignIn> {
-  UserInfo? _dataFromAPI;
   TextEditingController emailController = new TextEditingController();
   TextEditingController pwController = new TextEditingController();
 
-  FlutterTts flutterTts = FlutterTts();
+  ButtonStatus signInButtonStatus = ButtonStatus.active;
 
-  Future<void> getUserInfo(String user) async {
-    // var user = "poramee";
-    var url = Uri.parse(Environment.getUserInfoUrl + user);
-    var response = await http.get(url);
-    _dataFromAPI = userInfoFromJson(response.body);
-    print(response.body);
-  }
+  Future<dartz.Either<ErrorResponse, SuccessResponse>> signInButtonPressed(
+      String email, String password) async {
+    setState(() {
+      signInButtonStatus = ButtonStatus.loading;
+    });
+    var response = await API
+        .post(Environment.signInUrl, {"email": email, "password": password});
+    setState(() {
+      signInButtonStatus = ButtonStatus.active;
+    });
 
-  Future<void> logIn(String email, String password) async {
-    var url = Uri.parse(Environment.signInUrl);
-    var response = await http.post(url,
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({"email": email, "password": password}));
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else {
-      print("login failed");
-      print(response.body);
-    }
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          var token = Hive.box('token');
+          var user = Hive.box('user');
+          token.put('accessToken', r.results["accessToken"]);
+          token.put('refreshToken', r.results["refreshToken"]);
+          user.put('data', r.results["user"]);
+
+          if(r.results["user"]["status"] == "VERIFICATION"){
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Register2(email: email, password: password)),
+            );
+          }
+          else if(r.results["user"]["status"] == "SETTING_UP"){
+            if(r.results["user"]["profilePicture"] == null){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Register4()),
+              );
+            }
+            else{
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => NewUserSetup0()),
+              );
+            }
+
+          }
+          else if(r.results["user"]["status"] == "ACTIVE"){
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Home()),
+            );
+          }
+        });
+    return response;
   }
 
   String? validateEmail(String? value) {
@@ -59,224 +106,122 @@ class SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    Future _speak() async {
-      await flutterTts.setLanguage("th - TH");
-      await flutterTts.setPitch(1);
-      await flutterTts.setSpeechRate(0.6);
-      await flutterTts.speak(
-          "ยินดีต้อนรับเข้าสู่ Application ออกกำลังกาย\nกรุณาเข้าสู่ระบบค่ะ");
-    }
-
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Padding(
-                    padding: EdgeInsets.only(top: 21),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                                  color: const Color(0xffc4c4c4))),
-                          Container(
-                            //color: Colors.red,
-                            height: 25,
-                          ),
-                          GestureDetector(
-                              onTap: () => _speak(),
-                              child: Text("Sign In",
-                                  style: const TextStyle(
-                                      color: color_dark,
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: "Poppins",
-                                      fontStyle: FontStyle.normal,
-                                      fontSize: 26.0),
-                                  textAlign: TextAlign.left)),
-                          Container(
-                            //color: Colors.red,
-                            height: 5,
-                          ), // Welcome back !
-                          Text("Welcome back !",
-                              style: const TextStyle(
-                                  color: const Color(0xb210334b),
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 16.0),
-                              textAlign: TextAlign.left),
-                          Container(
-                            //color: Colors.red,
-                            height: 25,
-                          ),
-                          // Rectangle 2
-                          Container(
-                            //width: 325,
-                            height: 63,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                hintText: "Email",
-                                hintStyle: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 16.0),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(20),
-                              ),
-                              controller: emailController,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (String? value) =>
-                                  validateEmail(value),
-                              onSaved: (String? value) {
-                                // This optional block of code can be used to run
-                                // code when the user saves the form.
-                              },
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                                color: color_lightGrey),
-                            padding: EdgeInsets.zero,
-                          ),
-                          Container(
-                            //color: Colors.red,
-                            height: 15,
-                          ),
-                          // Rectangle 2
-                          Container(
-                            //width: 325,
-                            height: 63,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                hintText: "Password",
-                                hintStyle: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 16.0),
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(20),
-                              ),
-                              controller: pwController,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              obscureText: true,
-                              validator: (String? value) {
-                                return (value!.isEmpty)
-                                    ? 'Please enter a password.'
-                                    : null;
-                              },
-                              onSaved: (String? value) {
-                                // This optional block of code can be used to run
-                                // code when the user saves the form.
-                              },
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                                color: color_lightGrey),
-                            padding: EdgeInsets.zero,
-                          ),
-                          Container(
-                            height: 25,
-                          ),
-                          // Sign In Button
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: new GestureDetector(
-                                      onTap: () {
-                                        // logIn("poramee.chansuksett@gmail.com", "poramee");
-                                        logIn(emailController.text,
-                                            pwController.text);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Loading()),
-                                        );
-                                      },
-                                      child: Container(
-                                          height: 60,
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 16.5),
-                                            child: new Text("Sign In",
-                                                style: const TextStyle(
-                                                    color: color_dark,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: "Poppins",
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 18.0),
-                                                textAlign: TextAlign.center),
-                                          ),
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(15)),
-                                              color: color_teal))),
-                                )
-                              ]),
-                          Container(
-                            height: 20,
-                          ),
-                          Center(
-                            child: new GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ForgotPassword0()),
-                                  );
-                                },
-                                child: Text("Forget Password?",
-                                    style: const TextStyle(
-                                        color: color_dimmedTeal,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "Poppins",
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 16.0),
-                                    textAlign: TextAlign.center)),
-                          ),
-                          Expanded(child: Container()),
-                          // Didn’t have account? Register
-                          Center(
-                              child: new GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Register3()),
-                                    );
-                                  },
-                                  child: RichText(
-                                      text: TextSpan(children: [
-                                    TextSpan(
-                                        style: const TextStyle(
-                                            color: color_dark,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "Poppins",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 16.0),
-                                        text: "Didn’t have account?"),
-                                    TextSpan(
-                                        style: const TextStyle(
-                                            color: color_dimmedTeal,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: "Poppins",
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 16.0),
-                                        text: " Register")
-                                  ])))),
-                          Expanded(child: Container()),
-                        ])))));
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: KeyboardAwareView(
+            child: Column(
+              children: <Widget>[
+                Flexible(
+                  flex: 223,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/Icon/Cartoon Illustration_wavinghand.svg',
+                        height: 100,
+                      ),
+                      SizedBox(height: 25),
+                      Text("Sign In",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 26.0),
+                          textAlign: TextAlign.left),
+                      Container(
+                        //color: Colors.red,
+                        height: 5,
+                      ), // Welcome back !
+                      Text("Welcome back !",
+                          style: const TextStyle(
+                              color: const Color(0xb210334b),
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 16.0),
+                          textAlign: TextAlign.left),
+                      Container(
+                        //color: Colors.red,
+                        height: 25,
+                      ),
+                      TextBox(
+                        hintText: "Email",
+                        controller: emailController,
+                        validator: (String? value) => validateEmail(value),
+                      ),
+                      Container(
+                        //color: Colors.red,
+                        height: 15,
+                      ),
+                      TextBox(
+                          hintText: "Password",
+                          controller: pwController,
+                          validator: (String? value) {
+                            return (value!.isEmpty)
+                                ? 'Please enter a password.'
+                                : null;
+                          },
+                          obscureText: true),
+                      Container(
+                        height: 25,
+                      ),
+                      // Sign In Button
+                      MainButtonHighlight(
+                          text: "Sign In",
+                          status: signInButtonStatus,
+                          onPressed: () async => await signInButtonPressed(
+                              emailController.text, pwController.text)),
+                      Container(
+                        height: 20,
+                      ),
+                      Center(
+                          child: TouchableText(
+                              text: "Forget Password?",
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ForgotPassword0()),
+                                );
+                              })),
+                    ],
+                  ),
+                ),
+
+                // Didn’t have account? Register
+                Flexible(
+                  flex: 33,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Didn’t have account?",
+                            style: const TextStyle(
+                                color: color_dark,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Poppins",
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16.0)),
+                        SizedBox(width: 5),
+                        TouchableText(
+                            text: "Register",
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Register3()),
+                              );
+                            })
+                      ]),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

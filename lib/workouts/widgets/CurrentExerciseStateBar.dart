@@ -1,6 +1,7 @@
 import 'package:fca_pose_validation/fca_pose_processor.dart';
-import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:recase/recase.dart';
@@ -8,9 +9,13 @@ import 'package:recase/recase.dart';
 class CurrentExerciseStateBar extends StatefulWidget {
   ExerciseState currentState;
   bool isComplete;
+  double teachingVideoProgress;
 
   CurrentExerciseStateBar(
-      {Key? key, required this.currentState, required this.isComplete})
+      {Key? key,
+      required this.currentState,
+      required this.isComplete,
+      required this.teachingVideoProgress})
       : super(key: key);
 
   @override
@@ -18,6 +23,48 @@ class CurrentExerciseStateBar extends StatefulWidget {
 }
 
 class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
+  void dialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                      (route) => false);
+                },
+                child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      Icon(Ionicons.stop_circle, color: color_red, size: 50),
+                      Text("Stop Exercise",
+                          style: const TextStyle(
+                              color: color_dark,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 16.0))
+                    ])),
+              ));
+        });
+  }
+
+  Widget dotMenu() {
+    return GestureDetector(
+      onTap: () {
+        dialog();
+      },
+      child: Center(
+          child: SvgPicture.asset(
+        'assets/Icon/Detail Expand Icon.svg', // dot dot dot
+      )),
+    );
+  }
+
   Widget _introStateBar() {
     return Container(
       decoration: new BoxDecoration(color: color_dark),
@@ -26,7 +73,7 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
         children: [
           LinearProgressIndicator(
             minHeight: 3,
-            value: 0.6,
+            value: widget.teachingVideoProgress,
             valueColor: AlwaysStoppedAnimation(color_dimmedTeal),
             backgroundColor: color_dark,
             semanticsLabel: 'Linear progress indicator',
@@ -76,10 +123,7 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
               )
             ]),
           ),
-          Center(
-              child: SvgPicture.asset(
-            'assets/Icon/Detail Expand Icon.svg', // dot dot dot
-          )),
+          dotMenu(),
           SizedBox(
             height: 10,
           )
@@ -146,10 +190,7 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
               )
             ]),
           ),
-          Center(
-              child: SvgPicture.asset(
-            'assets/Icon/Detail Expand Icon.svg', // dot dot dot
-          )),
+          dotMenu(),
           SizedBox(
             height: 10,
           )
@@ -215,10 +256,7 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
               ],
             ),
           ),
-          Center(
-              child: SvgPicture.asset(
-            'assets/Icon/Detail Expand Icon.svg', // dot dot dot
-          )),
+          dotMenu(),
           SizedBox(
             height: 10,
           )
@@ -271,10 +309,7 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
               )
             ]),
           ),
-          Center(
-              child: SvgPicture.asset(
-            'assets/Icon/Detail Expand Icon.svg', // dot dot dot
-          )),
+          dotMenu(),
           SizedBox(
             height: 10,
           )

@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class NewsCard extends StatefulWidget {
-  final String newsHeader;
-  final String newsDetails;
-  final String likes;
-  final String picture;
+  final String newsId;
+  final String title;
+  final String coverPicture;
+  final int likeCount;
+  final String data;
+  final bool userIdLike;
 
   NewsCard(
       {Key? key,
-      required this.newsHeader,
-      required this.newsDetails,
-      required this.likes,
-      required this.picture})
+      required this.newsId,
+      required this.title,
+      required this.coverPicture,
+      required this.likeCount,
+      required this.data,
+      required this.userIdLike})
       : super(key: key);
 
   @override
@@ -32,27 +36,29 @@ class NewsCardState extends State<NewsCard> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => NewsArticle(
-                        newsHeader: widget.newsHeader,
-                        newsDetails: widget.newsDetails,
-                        likes: widget.likes,
-                        picture: widget.picture)),
+                        newsId: widget.newsId,
+                        title: widget.title,
+                        data: widget.data,
+                        likeCount: widget.likeCount,
+                        coverPicture: widget.coverPicture,
+                        userIdLike: widget.userIdLike)),
               );
             },
             child: Container(
                 height: MediaQuery.of(context).size.height * 0.35,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(widget.picture),
+                        image: NetworkImage(widget.coverPicture),
                         colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.5), BlendMode.darken),
+                            Colors.black.withOpacity(0.3), BlendMode.darken),
                         fit: BoxFit.fill),
                     borderRadius: BorderRadius.circular(15)),
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 15),
+                    padding: EdgeInsets.all(20),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.newsHeader,
+                          Text(widget.title,
                               style: const TextStyle(
                                   color: const Color(0xffffffff),
                                   fontWeight: FontWeight.w600,
@@ -76,11 +82,13 @@ class NewsCardState extends State<NewsCard> {
                                     children: [
                                       Icon(
                                         Ionicons.heart,
-                                        color: color_dark,
+                                        color: widget.userIdLike
+                                            ? color_red
+                                            : color_dark,
                                         size: 20,
                                       ),
                                       Expanded(child: Container()),
-                                      Text(widget.likes,
+                                      Text(widget.likeCount.toString(),
                                           style: const TextStyle(
                                               color: color_dark,
                                               fontWeight: FontWeight.w400,
@@ -91,16 +99,6 @@ class NewsCardState extends State<NewsCard> {
                                       Expanded(child: Container()),
                                     ],
                                   ))),
-                          Expanded(child: Container()),
-                          Text(widget.newsDetails,
-                              style: const TextStyle(
-                                  color: const Color(0xffffffff),
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 14.0),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left)
                         ])))));
   }
 }

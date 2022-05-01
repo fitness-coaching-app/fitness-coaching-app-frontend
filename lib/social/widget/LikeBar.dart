@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class LikeBar extends StatefulWidget {
-  final List<List<String>>? likesUsername;
+  final List<dynamic>? reactions;
 
-  LikeBar({Key? key, required this.likesUsername}) : super(key: key);
+  LikeBar({Key? key, required this.reactions}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => LikeBarState();
@@ -24,11 +24,11 @@ class LikeBarState extends State<LikeBar> {
                 color: Colors.orangeAccent,
                 size: 20,
               ),
-              if (widget.likesUsername != null)
-                for (var i = 0; i < widget.likesUsername!.length; i++)
+              if (widget.reactions != null)
+                for (var i = 0; i < widget.reactions!.length; i++)
                   Container(
                       margin: EdgeInsets.only(left: 5),
-                      child: Text(widget.likesUsername![0][i].toString() + ",",
+                      child: Text(widget.reactions![0][i].toString() + ",",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               color: color_subtitle,
@@ -37,7 +37,7 @@ class LikeBarState extends State<LikeBar> {
                               fontStyle: FontStyle.normal,
                               fontSize: 12.0),
                           textAlign: TextAlign.left)),
-              Text(widget.likesUsername != null ? " and others" : "",
+              Text(widget.reactions != null ? " and others" : "",
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       color: color_subtitle,

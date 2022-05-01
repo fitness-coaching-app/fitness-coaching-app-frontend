@@ -1,16 +1,17 @@
-import 'dart:convert';
-
-import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
-import 'package:flutter/material.dart';
+import 'package:fitness_coaching_application_test/components/CourseCard.dart';
+import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
+import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:http/http.dart' as http;
-import '../../color.dart';
-import '../widget/BannerSection.dart';
-import '../widget/BannerCard.dart';
-import '../widget/CourseSection.dart';
-import '../widget/CourseCard.dart';
+import 'package:fitness_coaching_application_test/home/widget/CourseSection.dart';
+import 'package:fitness_coaching_application_test/search/screen/searching_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
+
+import '../../api_util.dart';
 import '../../loading_view.dart';
+import '../widget/BannerCard.dart';
+import '../widget/BannerSection.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -20,111 +21,109 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  Future<List<Widget>> getSections(String accessToken) async {
-    var url = Uri.parse(Environment.getSectionsUrl);
-    var response = await http
-        .get(url, headers: {"Authorization": "Bearer " + accessToken});
+  List<Widget> sections = [];
+  Future? fetchHomeFuture;
 
-    // print(response.body);
-    var _dataFromAPI = json.decode(response.body);
-    // HomeSection _homeData = HomeSection.fromJson(_dataFromAPI);
-    List<Widget> sections = [];
-    print(_dataFromAPI);
-    if (_dataFromAPI["results"] != null)
-      for (var i in _dataFromAPI["results"]!) {
-        // print(i);
-        if (i["sectionType"] == "BANNER") {
-          List<BannerCard> banners = [];
-          for (var a in i["data"]!) {
-            banners.add(BannerCard(
-                imageUrl: a["picture"]!, action: a["onClickAction"]!));
+  @override
+  void initState() {
+    super.initState();
+    fetchHomeFuture = getSections();
+  }
+
+  Future<List<Widget>> getSections() async {
+    var response = await API.get(Environment.getSectionsUrl, withToken: true);
+
+    sections = API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          List<Widget> sections = [];
+          for (var i in r.results!) {
+            if (i["sectionType"] == "BANNER") {
+              List<BannerCard> banners = [];
+              for (var a in i["data"]!) {
+                banners.add(BannerCard(
+                    imageUrl: a["picture"]!, action: a["onClickAction"]!));
+              }
+              sections.add(BannerSection(
+                banners: banners,
+              ));
+            } else if (i["sectionType"] == "COURSE") {
+              List<CourseCard> cards = [];
+              for (var a in i["data"]!) {
+                cards.add(CourseCard(
+                    courseId: a["courseId"],
+                    title: a["name"],
+                    coverPictureUrl: a["coverPicture"],
+                    rating: a["overallRating"] * 1.0));
+              }
+              sections.add(CourseSection(
+                title: i["name"],
+                cards: cards,
+              ));
+            }
           }
-          sections.add(BannerSection(
-            banners: banners,
-          ));
-        }
-        if (i["sectionType"] == "COURSE") {
-          List<CourseCard> cards = [];
-          for (var a in i["data"]!) {
-            cards.add(CourseCard(
-                title: a["name"],
-                coverPictureUrl: a["coverPicture"],
-                rating: a["overallRating"] * 1.0));
-          }
-          sections.add(CourseSection(
-            title: i["name"],
-            cards: cards,
-          ));
-        }
-      }
+          setState(() {
+            this.sections = sections;
+          });
+          return sections;
+        });
     return sections;
   }
 
-  Widget buildHome(List<Widget> sections) {
-    return Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(25, 21, 25, 0),
-                      child: Text("Hello, Robert!",
-                          style: const TextStyle(
-                              color: color_dark,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 26.0),
-                          textAlign: TextAlign.left),
-                    ),
-                    Expanded(child: Container()),
-                    Padding(
-                        padding: EdgeInsets.fromLTRB(25, 21, 25, 0),
-                        child: SvgPicture.asset(
-                          'assets/Icon/Button_search.svg',
-                          height: 40,
-                        )),
-                  ],
-                ),
-                Container(
-                  height: 5,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Text("Good Morning.",
-                      style: const TextStyle(
-                          color: color_subtitle,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Poppins",
-                          fontStyle: FontStyle.normal,
-                          fontSize: 16.0),
-                      textAlign: TextAlign.left),
-                ),
-                SizedBox(height: 10),
-                ...sections,
-              ],
+  Widget buildHome() {
+    return SafeArea(
+      bottom: false,
+      top: false,
+      child: RefreshIndicator(
+        onRefresh: getSections,
+        edgeOffset: 100,
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 100),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...sections,
+                ],
+              ),
             ),
           ),
         ),
-        bottomNavigationBar: RenderBottomNav(
-          page: 'home',
-        ));
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getSections(
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzVG9rZW4iLCJkaXNwbGF5TmFtZSI6InBvcmFtZWUiLCJpYXQiOjE2NTA4OTYzNzAsImV4cCI6MTY1MDg5Njk3MH0.htCZs0bGDyu6B3Rem_RMM9Roldlh7pXBQ2s8RmfZ65k"),
+        future: fetchHomeFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return buildHome(snapshot.data);
+            return BuildTopBottomBar(
+                body: buildHome(),
+                appBar: NormalAppBar(
+                  title:
+                      "Hello, ${Hive.box('user').get('data')["displayName"]}!",
+                  subtitle: "Welcome!",
+                  height: 100,
+                  actionButton: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Searching()));
+                    },
+                    child: SvgPicture.asset(
+                      'assets/Icon/Button_search.svg',
+                      height: 40,
+                    ),
+                  ),
+                ),
+                page: 'home');
           } else {
-            return Loading();
+            return BuildTopBottomBar(body: Loading(), page: 'home');
           }
         });
   }
