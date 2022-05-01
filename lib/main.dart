@@ -1,17 +1,17 @@
-import 'package:fitness_coaching_application_test/register/screen/register4_view.dart';
-import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup0_view.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'api_util.dart';
 import 'color.dart';
 import 'components/main_button_highlight.dart';
 import 'environment.dart';
+import 'home/screen/home_view.dart';
+import 'loading_view.dart';
 import 'signIn_view.dart';
-
-import 'package:camera/camera.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -91,49 +91,83 @@ class MyApp extends StatelessWidget {
 }
 
 //home
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  Future? checkTokenFuture;
+
+  Future<bool> checkToken() async {
+    if (Hive.box('token').get('accessToken') == null) return false;
+
+    var response = await API.get(Environment.getUserInfoUrl, withToken: true);
+    response.fold((l) {
+      print(l.message);
+    }, (r) {
+      Hive.box('user').put('data', r.results!);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (route) => Home()), (route) => false);
+    });
+    return true;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkTokenFuture = checkToken();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: color_dark,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(child: Container()),
-            Center(
-                child: Text("FIT+",
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                        fontFamily: "Poppins",
-                        fontStyle: FontStyle.normal,
-                        fontSize: 48.0),
-                    textAlign: TextAlign.center)),
-            Expanded(child: Container()),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                child:
-                    MainButtonHighlight(
-                        text: "Get Started",
-                        onPressed: () async {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                settings: RouteSettings(name: "/SignIn"),
-                                  builder: (context) => SignIn())
-                          );
-                        }),
+    return FutureBuilder(
+      future: checkTokenFuture,
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: color_dark,
+            body: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(child: Container()),
+                  Center(
+                      child: Text("FIT+",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 48.0),
+                          textAlign: TextAlign.center)),
+                  Expanded(child: Container()),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: MainButtonHighlight(
+                          text: "Get Started",
+                          onPressed: () async {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    settings: RouteSettings(name: "/SignIn"),
+                                    builder: (context) => SignIn()));
+                          }),
+                    ),
+                  ),
+                  Container(
+                    //color: Colors.red,
+                    height: 50,
+                  )
+                ],
               ),
             ),
-            Container(
-              //color: Colors.red,
-              height: 50,
-            )
-          ],
-        ),
-      ),
+          );
+        } else {
+          return Loading();
+        }
+      },
     );
   }
 }
