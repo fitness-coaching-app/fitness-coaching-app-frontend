@@ -1,6 +1,5 @@
 import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/userProfile/screen/user_profile_follower_view.dart';
-import 'package:fitness_coaching_application_test/userProfile/screen/user_profile_following_view.dart';
+import 'package:fitness_coaching_application_test/userProfile/screen/user_profile_follow_list.dart';
 import 'package:flutter/material.dart';
 
 import '../../environment.dart';
@@ -10,14 +9,16 @@ class ProfileHead extends StatefulWidget {
   final String imageUrl;
   final String numberOfFollower;
   final String numberOfFollowing;
+  final bool disableFollowListTap;
 
-  ProfileHead({
-    Key? key,
-    required this.username,
-    required this.imageUrl,
-    required this.numberOfFollower,
-    required this.numberOfFollowing,
-  }) : super(key: key);
+  ProfileHead(
+      {Key? key,
+      required this.username,
+      required this.imageUrl,
+      required this.numberOfFollower,
+      required this.numberOfFollowing,
+      this.disableFollowListTap = false})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ProfileHeadState();
@@ -53,11 +54,14 @@ class ProfileHeadState extends State<ProfileHead> {
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UserProfileFollower()),
-                );
+                if (!widget.disableFollowListTap) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProfileFollowList(
+                            type: FollowListType.Follower)),
+                  );
+                }
               },
               child: RichText(
                   text: TextSpan(children: [
@@ -83,11 +87,14 @@ class ProfileHeadState extends State<ProfileHead> {
           ),
           GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UserProfileFollowing()),
-                );
+                if (!widget.disableFollowListTap) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProfileFollowList(
+                            type: FollowListType.Following)),
+                  );
+                }
               },
               child: RichText(
                   text: TextSpan(children: [

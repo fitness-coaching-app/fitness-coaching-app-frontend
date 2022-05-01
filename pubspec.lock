@@ -125,7 +125,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: fa8a2ac5f3a2e5d4341067e19cf396ddf1282eff
+      resolved-ref: "07052ddcc906ceadb99357b0f16ab87938d202b4"
       url: "https://github.com/fitness-coaching-app/fca_pose_validation.git"
     source: git
     version: "1.2.1"

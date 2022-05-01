@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ionicons/ionicons.dart';
 
 import '../color.dart';
 import 'back_button.dart';
@@ -15,7 +14,12 @@ class NormalAppBar extends StatelessWidget with PreferredSizeWidget {
   final double height;
   final bool backButton;
 
-  NormalAppBar({required this.title, this.subtitle, this.actionButton, this.height = 70, this.backButton = false});
+  NormalAppBar(
+      {required this.title,
+      this.subtitle,
+      this.actionButton,
+      this.height = 90,
+      this.backButton = false});
 
   @override
   Size get preferredSize => Size.fromHeight(height);
