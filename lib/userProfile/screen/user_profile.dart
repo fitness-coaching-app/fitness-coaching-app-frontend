@@ -1,19 +1,19 @@
 import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
-import 'package:fitness_coaching_application_test/social/social_activity.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
+import 'package:fitness_coaching_application_test/userProfile/widgets/AchievementCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/ProfileHead.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/StatsCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/TwoToggleIcons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../api_util.dart';
 import '../../color.dart';
 import '../../environment.dart';
-import '../../loading_view.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -23,21 +23,32 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   int option = 1;
   Future? loadProfileFuture;
+  Future? loadAchievementFuture;
+  Map<String, bool> userAchievementList = {};
   var userData;
   var userActivity;
 
+  void updateAchievementList() {
+    userAchievementList = {};
+    for (var i in userData['achievement']) {
+      userAchievementList[i["achievementId"]] = true;
+    }
+    print(userAchievementList);
+  }
+
   Future<bool> loadProfile() async {
     print("loadProfile");
-    var response = await API
-        .get('${Environment.getUserInfoUrl}',withToken: true);
+    var response =
+        await API.get('${Environment.getUserInfoUrl}', withToken: true);
     API.responseAlertWhenError(
         context: context,
         response: response,
         whenSuccess: (r) {
           setState(() {
             var user = Hive.box('user');
-            user.put('data',r.results!);
+            user.put('data', r.results!);
             userData = r.results!;
+            // updateAchievementList();
           });
         });
 
@@ -71,22 +82,83 @@ class _UserProfileState extends State<UserProfile> {
 
   Widget buildActivityFeed() {
     List<ActivityCard> activityFeed = [];
-    if(userActivity != null){
-      for (var i = 0; i < userActivity.length; i++){
-        activityFeed.add(ActivityCard(userActivity: userActivity[i], userData: userData));
+    if (userActivity != null) {
+      for (var i = 0; i < userActivity.length; i++) {
+        activityFeed.add(
+            ActivityCard(userActivity: userActivity[i], userData: userData));
       }
     }
 
-    return Column(
-        children: activityFeed
+    return Column(children: activityFeed);
+  }
+
+  Future<dynamic> fetchAchievementsList() async {
+    var response = await API.get(Environment.achievementListUrl);
+    var achievementList = [];
+    updateAchievementList();
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          achievementList = r.results!;
+        });
+    return achievementList;
+  }
+
+  Widget buildAchievementTile(dynamic achievementList) {
+    List<Widget> toReturn = [];
+    List<Widget> tempRow = [];
+
+    for (var i in achievementList) {
+      tempRow.add(AchievementCard(
+        header: i["title"],
+        description: i["description"],
+        imageUrl: i["picture"],
+        received: userAchievementList[i["_id"]] != null,
+      ));
+      if (tempRow.length == 2) {
+        toReturn.add(Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: tempRow));
+        tempRow = [];
+      }
+    }
+    if (tempRow.isNotEmpty) {
+      toReturn.add(Row(children: tempRow));
+    }
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      child: Column(children: toReturn),
     );
+  }
+
+  Widget buildAchievement() {
+    loadAchievementFuture = fetchAchievementsList();
+    return FutureBuilder(
+        future: loadAchievementFuture,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return buildAchievementTile(snapshot.data);
+          } else {
+            return Align(
+              alignment: Alignment.center,
+              child: Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: SpinKitThreeBounce(color: color_dark, size: 30)),
+            );
+          }
+        });
   }
 
   Widget buildProfile() {
     return Padding(
       padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
       child: RefreshIndicator(
-        onRefresh: loadProfile,
+        onRefresh: () async {
+          await loadProfile();
+          await fetchAchievementsList();
+        },
         child: SingleChildScrollView(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +176,8 @@ class _UserProfileState extends State<UserProfile> {
                 numberOfFollowing: userData["followingCount"].toString()),
 
             //stats section
-            StatsCard(height: "100", weight: "100", bmi: "100", isPrivate: true),
+            StatsCard(
+                height: "100", weight: "100", bmi: "100", isPrivate: true),
 
             //news and achievement toggle
             TwoToggleIcons(
@@ -115,7 +188,12 @@ class _UserProfileState extends State<UserProfile> {
                     this.option = option;
                   });
                 }),
-            buildActivityFeed(),
+            (() {
+              if (option == 1) {
+                return buildActivityFeed();
+              } else
+                return buildAchievement();
+            }()),
             //bottom section
             Container(
               height: 150,

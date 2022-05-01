@@ -1,5 +1,4 @@
 import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/components/text_box.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -162,30 +161,6 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
                 )
               ],
             )),
-
-        //comment tab
-        showCommentTextBox
-            ? Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: TextBox(
-                  hintText: "Write a comment...",
-                  controller: commentController,
-                  suffixIcon: GestureDetector(
-                      onTap: () {
-                        addComment();
-                        setState((){
-                          commentController.text = "";
-                          commentCount++;
-                        });
-                      },
-                      child: Icon(
-                        Ionicons.send,
-                        size: 25,
-                        color: color_dark,
-                      )),
-                ),
-              )
-            : Container(),
       ],
     );
   }

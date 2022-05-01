@@ -1,14 +1,12 @@
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
-import 'package:fitness_coaching_application_test/fb_reaction_box.dart';
+import 'package:fitness_coaching_application_test/components/text_box.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityPicture.dart';
-import 'package:fitness_coaching_application_test/social/widget/LikeBar.dart';
 import 'package:fitness_coaching_application_test/social/widget/ReactionsBarV2.dart';
 import 'package:fitness_coaching_application_test/social/widget/RenderComments.dart';
 import 'package:fitness_coaching_application_test/social/widget/TimeBar.dart';
 import 'package:fitness_coaching_application_test/social/widget/UsernameBar.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../api_util.dart';
@@ -33,6 +31,7 @@ class ActivityDetailState extends State<ActivityDetail> {
   String activityPicture = "";
   String header = "";
   String detail = "";
+  TextEditingController commentController = new TextEditingController();
 
   Future<bool> loadActivity() async {
     var response = await API.get(
@@ -54,12 +53,26 @@ class ActivityDetailState extends State<ActivityDetail> {
             else if(activity['activityType'] == 'LEVEL_UP'){
               activityPicture = activity['userData']['profilePicture'];
               header = "Level Up";
-              detail = '${activity['userData']['displayName']} has reached level ${activity['data']['level'].toString()}';
+              detail =
+                  '${activity['userData']['displayName']} has reached level ${activity['data']['level'].toString()}';
             }
           });
         });
 
     return true;
+  }
+
+  Future<void> addComment() async {
+    var response = await API.post(
+        Environment.addCommentUrl(activityId: widget.activityId),
+        {"comment": commentController.text},
+        withToken: true);
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) async {
+          await loadActivity();
+        });
   }
 
   @override
@@ -70,53 +83,77 @@ class ActivityDetailState extends State<ActivityDetail> {
 
   Widget buildActivityView() {
     return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: loadActivity,
-        child: SingleChildScrollView(
-            child: Padding(
-          padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //activity detail
-              Container(
-                  child: Column(children: [
-                UsernameBar(
-                    imageUrl: activity['userData']['profilePicture'],
-                    username: activity['userData']['displayName']),
-                ActivityPicture(
-                    picture: activityPicture, header: header, detail: detail),
-                TimeBar(time: DateTime.parse(activity['timestamp'])),
-                // LikeBar(reactions: widget.reactions),
-                // FbReaction(),
-                ReactionsBarV2(
-                    activityId: widget.activityId,
-                    reactionCount: activity['reactions'].length,
-                    commentCount: activity['comments'].length,
-                    isReacted: activity['userReactionsList']
-                            [widget.currentUserId] !=
-                        null,
-                  onUpdate: loadActivity
+      child: Container(
+        padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
+        child: Stack(
+          children: [
+            RefreshIndicator(
+              onRefresh: loadActivity,
+              child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //activity detail
+                      UsernameBar(
+                          imageUrl: activity['userData']['profilePicture'],
+                          username: activity['userData']['displayName']),
+                      ActivityPicture(
+                          picture: activityPicture,
+                          header: header,
+                          detail: detail),
+                      TimeBar(
+                          time:
+                              DateTime.parse(activity['timestamp']).toLocal()),
+                      // LikeBar(reactions: widget.reactions),
+                      // FbReaction(),
+                      ReactionsBarV2(
+                          activityId: widget.activityId,
+                          reactionCount: activity['reactions'].length,
+                          commentCount: activity['comments'].length,
+                          isReacted: activity['userReactionsList']
+                                  [widget.currentUserId] !=
+                              null,
+                          onUpdate: loadActivity),
+
+                      // comments section
+                      for (var i in activity['comments'])
+                        RenderComments(
+                          profilePicture: activity['userCommentsList']
+                              [i["userId"]!]["profilePicture"]!,
+                          username: activity['userCommentsList'][i["userId"]!]
+                              ["displayName"]!,
+                          comments: i["comment"],
+                        ),
+                      Container(
+                        height: 60,
+                      ),
+                    ],
+                  )),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                child: TextBox(
+                  hintText: "Write a comment...",
+                  controller: commentController,
+                  suffixIcon: GestureDetector(
+                      onTap: () {
+                        addComment();
+                        setState(() {
+                          commentController.text = "";
+                        });
+                      },
+                      child: Icon(
+                        Ionicons.send,
+                        size: 25,
+                        color: color_dark,
+                      )),
                 ),
-
-                // comments section
-                for (var i in activity['comments'])
-                  RenderComments(
-                    profilePicture: activity['userCommentsList'][i["userId"]!]
-                        ["profilePicture"]!,
-                    username: activity['userCommentsList'][i["userId"]!]
-                        ["displayName"]!,
-                    comments: i["comment"],
-                  ),
-              ])),
-
-              //bottom section
-              Container(
-                height: 30,
               ),
-            ],
-          ),
-        )),
+            )
+          ],
+        ),
       ),
     );
   }

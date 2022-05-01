@@ -1,13 +1,9 @@
 import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
 import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/userProfile/widgets/AchievementCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/ProfileHead.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/StatsCard.dart';
-import 'package:fitness_coaching_application_test/userProfile/widgets/TwoToggleIcons.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-
-import 'user_profile_act_view.dart';
 
 class UserProfileAchieve extends StatefulWidget {
   const UserProfileAchieve({Key? key}) : super(key: key);
@@ -90,22 +86,22 @@ class UserProfileAchieveState extends State<UserProfileAchieve> {
                 Container(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    AchievementCard(
-                        header: "Move Goal Achieved",
-                        description: "Imperdiet odio integer.",
-                        imageUrl:
-                            "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f3c6.png"),
-                    Expanded(child: Container()),
-                    AchievementCard(
-                        header: "Move Goal Achieved",
-                        description: "Imperdiet odio integer.",
-                        imageUrl:
-                            "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f3c6.png"),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     AchievementCard(
+                //         header: "Move Goal Achieved",
+                //         description: "Imperdiet odio integer.",
+                //         imageUrl:
+                //             "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f3c6.png"),
+                //     Expanded(child: Container()),
+                //     AchievementCard(
+                //         header: "Move Goal Achieved",
+                //         description: "Imperdiet odio integer.",
+                //         imageUrl:
+                //             "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/1f3c6.png"),
+                //   ],
+                // ),
 
                 //bottom section
                 Container(

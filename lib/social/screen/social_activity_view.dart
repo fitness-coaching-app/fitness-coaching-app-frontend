@@ -1,18 +1,14 @@
-import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
-import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/social/screen/social_leaderboard_following_view.dart';
-import 'package:fitness_coaching_application_test/social/social_activity.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
 
+import './social_leaderboard.dart';
 import '../../api_util.dart';
 import '../../loading_view.dart';
-import './social_leaderboard.dart';
 
 class Activity extends StatefulWidget {
   const Activity({Key? key}) : super(key: key);
@@ -33,12 +29,13 @@ class ActivityState extends State<Activity> {
         whenSuccess: (r) {
           setState(() {
             var activity = r.results!;
+            print(activity);
             activityFeed = [];
             var userData = Hive.box('user').get('data');
             if (activity != null) {
               for (var i in activity) {
-                activityFeed.add(ActivityCard(
-                    userActivity: i, userData: userData));
+                activityFeed
+                    .add(ActivityCard(userActivity: i, userData: userData));
               }
             }
           });
