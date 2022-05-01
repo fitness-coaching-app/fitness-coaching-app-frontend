@@ -56,6 +56,17 @@ class ActivityState extends State<Activity> {
                 children: [
                   //activity feed
                   ...activityFeed,
+                  (() {
+                    if (activityFeed.isEmpty) {
+                      return Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                          child: Text(
+                              "Start following to see activity feed here."));
+                    } else {
+                      return Container();
+                    }
+                  }()),
                   //bottom section
                   Container(
                     height: 150,

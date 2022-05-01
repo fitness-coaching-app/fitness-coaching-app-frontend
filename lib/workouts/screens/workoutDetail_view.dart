@@ -2,13 +2,12 @@ import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/workouts/widgets/lets_go_button.dart';
 import 'package:fitness_coaching_application_test/workouts/widgets/quick_detail.dart';
 import 'package:flutter/material.dart';
+
 import '../../api_util.dart';
+import '../../color.dart';
 import '../../environment.dart';
 import '../../loading_view.dart';
 import 'WorkoutPortraitMain_view.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ionicons/ionicons.dart';
-import '../../color.dart';
 
 class WorkoutDetail extends StatefulWidget {
   final String courseId;
@@ -62,62 +61,95 @@ class _WorkoutDetailState extends State<WorkoutDetail> {
   }
 
   Widget buildWorkoutDetail() {
+    final _screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-                height: 365,
-                decoration: new BoxDecoration(color: Colors.white),
-                child: Stack(
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Stack(
                   children: [
-                    Image.network(courseData["coverPicture"],
-                        fit: BoxFit.cover),
-                    Positioned(left: 0, top: 45, child: FCABackButton())
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                          image: NetworkImage(courseData["coverPicture"]),
+                          fit: BoxFit.cover,
+                        ))),
+                    Positioned(top: 50, left: 25, child: FCABackButton()),
                   ],
-                )),
-            Container(
-              decoration: new BoxDecoration(color: color_dark),
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(25, 25, 25, 50),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(courseData["name"],
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 28.0),
-                          textAlign: TextAlign.left),
-                      SizedBox(height: 15),
-                      QuickDetail(
-                          difficulty: courseData["difficulty"],
-                          overallRating:
-                              courseData["overallRating"].toStringAsFixed(1)),
-                      SizedBox(height: 15),
-                      Text(courseData["description"],
-                          style: const TextStyle(
-                              color: color_lightGrey,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Poppins",
-                              fontStyle: FontStyle.normal,
-                              fontSize: 14.0),
-                          textAlign: TextAlign.left),
-                      SizedBox(height: 40),
-                      LetsGoButton(
-                        onPressed: (){
-                          // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => WorkoutMainView(courseDataUrl: courseData['courseData'])), (route) => false);
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WorkoutMainView(courseId: courseData['courseId'],courseDataUrl: courseData['courseData'])));
-                        }
-                      )
-                    ]),
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height * 0.4),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
+                    decoration: new BoxDecoration(color: color_dark),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(courseData["name"],
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 28.0),
+                              textAlign: TextAlign.left),
+                          SizedBox(height: 15),
+                          QuickDetail(
+                              difficulty: courseData["difficulty"],
+                              overallRating: courseData["overallRating"]
+                                  .toStringAsFixed(1)),
+                          SizedBox(height: 15),
+                          Text(courseData["description"],
+                              style: const TextStyle(
+                                  color: color_lightGrey,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "Poppins",
+                                  fontStyle: FontStyle.normal,
+                                  fontSize: 14.0),
+                              textAlign: TextAlign.left),
+                          SizedBox(height: 100),
+                        ]),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: _screenSize.height - 90,
+            left: 0.0,
+            right: 0.0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 25,
+                      offset: Offset(0, 0), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: LetsGoButton(onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => WorkoutMainView(
+                              courseId: courseData['courseId'],
+                              courseDataUrl: courseData['courseData'])),
+                      (route) => false);
+                }),
               ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
