@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/workouts/screens/workoutDetail_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CourseCard extends StatefulWidget {
