@@ -3,13 +3,15 @@ import 'package:fitness_coaching_application_test/social/widget/ActivityFeedPict
 import 'package:fitness_coaching_application_test/social/widget/ReactionsBar.dart';
 import 'package:fitness_coaching_application_test/social/widget/UsernameBar.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:jiffy/jiffy.dart';
 
 class ActivityCard extends StatefulWidget {
   final userActivity;
-  final userData;
+  final ownerUserData;
 
-  ActivityCard({Key? key, required this.userActivity, required this.userData})
+  ActivityCard(
+      {Key? key, required this.userActivity, required this.ownerUserData})
       : super(key: key);
 
   @override
@@ -25,6 +27,7 @@ class ActivityCardState extends State<ActivityCard> {
   int comments = 0;
   String picture = "";
   String updateOn = "";
+  var userData;
 
   void preBuild() {
     setState(() {
@@ -42,7 +45,13 @@ class ActivityCardState extends State<ActivityCard> {
       comments = (widget.userActivity["comments"].length);
       var timestamp = DateTime.parse(widget.userActivity['timestamp']);
       updateOn = Jiffy(timestamp).fromNow();
+      userData = Hive.box('user').get('data');
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -55,7 +64,7 @@ class ActivityCardState extends State<ActivityCard> {
             MaterialPageRoute(
                 builder: (context) => ActivityDetail(
                       activityId: widget.userActivity['_id'],
-                      currentUserId: widget.userData['_id'],
+                      currentUserId: widget.ownerUserData['_id'],
                     )));
       },
       child: Container(
@@ -77,7 +86,7 @@ class ActivityCardState extends State<ActivityCard> {
               commentCnt: comments,
               updateToNow: updateOn,
               isReacted: widget.userActivity['userReactionsList']
-                      [widget.userData["_id"]] !=
+                      [userData["_id"]] !=
                   null,
             )
           ])),

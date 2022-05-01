@@ -34,8 +34,8 @@ class ActivityState extends State<Activity> {
             var userData = Hive.box('user').get('data');
             if (activity != null) {
               for (var i in activity) {
-                activityFeed
-                    .add(ActivityCard(userActivity: i, userData: userData));
+                activityFeed.add(
+                    ActivityCard(userActivity: i, ownerUserData: userData));
               }
             }
           });

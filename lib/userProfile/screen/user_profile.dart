@@ -83,8 +83,8 @@ class _UserProfileState extends State<UserProfile> {
     List<ActivityCard> activityFeed = [];
     if (userActivity != null) {
       for (var i = 0; i < userActivity.length; i++) {
-        activityFeed.add(
-            ActivityCard(userActivity: userActivity[i], userData: userData));
+        activityFeed.add(ActivityCard(
+            userActivity: userActivity[i], ownerUserData: userData));
       }
     }
 
@@ -175,7 +175,8 @@ class _UserProfileState extends State<UserProfile> {
                   username: userData["displayName"],
                   imageUrl: userData["profilePicture"],
                   numberOfFollower: userData["followerCount"].toString(),
-                  numberOfFollowing: userData["followingCount"].toString()),
+                  numberOfFollowing: userData["followingCount"].toString(),
+                  level: userData["level"].toString()),
 
               //stats section
               // StatsCard(

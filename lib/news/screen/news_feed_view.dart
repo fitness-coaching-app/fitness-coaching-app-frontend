@@ -65,6 +65,7 @@ class NewsFeedState extends State<NewsFeed> {
                           var newsArray = [];
                           for (var newsI in news) {
                             newsArray.add(NewsCard(
+                                newsId: newsI["_id"],
                                 title: newsI["title"],
                                 coverPicture: newsI["coverPicture"],
                                 likeCount: newsI["likeCount"],

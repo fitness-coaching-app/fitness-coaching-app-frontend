@@ -5,11 +5,13 @@ import 'package:dio/dio.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/news/widget/renderNewsArticle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../loading_view.dart';
+import '../../color.dart';
 
 class NewsArticle extends StatefulWidget {
+  final String newsId;
   final String title;
   final String data;
   final int likeCount;
@@ -18,6 +20,7 @@ class NewsArticle extends StatefulWidget {
 
   const NewsArticle(
       {Key? key,
+      required this.newsId,
       required this.title,
       required this.data,
       required this.likeCount,
@@ -69,13 +72,14 @@ class NewsArticleState extends State<NewsArticle> {
                         AsyncSnapshot<dynamic> snapshot) {
                       if (snapshot.hasData) {
                         return RenderNewsArticle(
+                            newsId: widget.newsId,
                             title: widget.title,
                             markdownString: markdownString,
                             likeCount: widget.likeCount,
                             coverPicture: widget.coverPicture,
                             userIdLike: widget.userIdLike);
                       } else {
-                        return Loading();
+                        return SpinKitThreeBounce(color: color_dark, size: 30);
                       }
                     },
                   )),

@@ -1,17 +1,13 @@
-import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
-import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/components/thin_button_highlight.dart';
 import 'package:fitness_coaching_application_test/components/thin_button_inverted.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/AchievementCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/ProfileHead.dart';
-import 'package:fitness_coaching_application_test/userProfile/widgets/StatsCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/TwoToggleIcons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
 
 import '../../api_util.dart';
@@ -126,8 +122,8 @@ class _UserPeopleViewState extends State<UserPeopleView> {
     List<ActivityCard> activityFeed = [];
     if (userActivity != null) {
       for (var i = 0; i < userActivity.length; i++) {
-        activityFeed.add(
-            ActivityCard(userActivity: userActivity[i], userData: userData));
+        activityFeed.add(ActivityCard(
+            userActivity: userActivity[i], ownerUserData: userData));
       }
     }
 
@@ -216,6 +212,7 @@ class _UserPeopleViewState extends State<UserPeopleView> {
                   imageUrl: userData["profilePicture"],
                   numberOfFollower: userData["followerCount"].toString(),
                   numberOfFollowing: userData["followingCount"].toString(),
+                  level: userData["level"].toString(),
                   disableFollowListTap: true,
                 ),
 

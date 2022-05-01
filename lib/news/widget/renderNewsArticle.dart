@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../api_util.dart';
+import '../../environment.dart';
+
 class RenderNewsArticle extends StatefulWidget {
+  final String newsId;
   final String title;
   final String markdownString;
-  final int likeCount;
+  int likeCount;
   final String coverPicture;
-  final bool userIdLike;
+  bool userIdLike;
 
   RenderNewsArticle(
       {Key? key,
+      required this.newsId,
       required this.title,
       required this.markdownString,
       required this.likeCount,
@@ -24,6 +29,28 @@ class RenderNewsArticle extends StatefulWidget {
 }
 
 class RenderNewsArticleState extends State<RenderNewsArticle> {
+  Future<void> likeNews() async {
+    print('${Environment.likeNewsUrl}/${widget.newsId}');
+    var response = await API.get('${Environment.likeNewsUrl}/${widget.newsId}',
+        withToken: true);
+
+    API.responseAlertWhenError(
+        context: context,
+        response: response,
+        whenSuccess: (r) {
+          print(r.results!);
+        });
+  }
+
+  Future<void> unlikeNews() async {
+    print('${Environment.unlikeNewsUrl}/${widget.newsId}');
+    var response = await API
+        .get('${Environment.unlikeNewsUrl}/${widget.newsId}', withToken: true);
+
+    API.responseAlertWhenError(
+        context: context, response: response, whenSuccess: (r) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -43,7 +70,18 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                     child: Align(
                         alignment: Alignment.bottomRight,
                         child: GestureDetector(
-                            onTap: () {},
+                            onTap: () async {
+                              if (widget.userIdLike) {
+                                widget.likeCount--;
+                                await unlikeNews();
+                              } else {
+                                widget.likeCount++;
+                                await likeNews();
+                              }
+                              setState(() {
+                                widget.userIdLike = !widget.userIdLike;
+                              });
+                            },
                             child: Container(
                                 height: 45,
                                 width: 85,
@@ -67,8 +105,12 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                                             textAlign: TextAlign.right),
                                         Expanded(child: Container()),
                                         Icon(
-                                          Ionicons.heart_outline,
-                                          color: color_dark,
+                                          widget.userIdLike
+                                              ? Ionicons.heart
+                                              : Ionicons.heart_outline,
+                                          color: widget.userIdLike
+                                              ? color_red
+                                              : color_dark,
                                           size: 23,
                                         ),
                                         Expanded(child: Container()),

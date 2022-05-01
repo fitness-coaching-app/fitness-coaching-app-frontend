@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class NewsCard extends StatefulWidget {
+  final String newsId;
   final String title;
   final String coverPicture;
   final int likeCount;
@@ -12,6 +13,7 @@ class NewsCard extends StatefulWidget {
 
   NewsCard(
       {Key? key,
+      required this.newsId,
       required this.title,
       required this.coverPicture,
       required this.likeCount,
@@ -34,6 +36,7 @@ class NewsCardState extends State<NewsCard> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => NewsArticle(
+                        newsId: widget.newsId,
                         title: widget.title,
                         data: widget.data,
                         likeCount: widget.likeCount,

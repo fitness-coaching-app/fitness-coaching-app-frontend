@@ -9,6 +9,7 @@ class ProfileHead extends StatefulWidget {
   final String imageUrl;
   final String numberOfFollower;
   final String numberOfFollowing;
+  final String level;
   final bool disableFollowListTap;
 
   ProfileHead(
@@ -17,6 +18,7 @@ class ProfileHead extends StatefulWidget {
       required this.imageUrl,
       required this.numberOfFollower,
       required this.numberOfFollowing,
+      required this.level,
       this.disableFollowListTap = false})
       : super(key: key);
 
@@ -37,19 +39,39 @@ class ProfileHeadState extends State<ProfileHead> {
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: NetworkImage(widget.imageUrl == ""
-                          ? Environment.noImageUrl
-                          : widget.imageUrl),
+                      ? Environment.noImageUrl
+                      : widget.imageUrl),
                   fit: BoxFit.cover,
                 ))),
         SizedBox(height: 12),
-        Text(widget.username,
-            style: const TextStyle(
-                color: color_dark,
-                fontWeight: FontWeight.w600,
-                fontFamily: "Poppins",
-                fontStyle: FontStyle.normal,
-                fontSize: 20.0),
-            textAlign: TextAlign.center),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text(widget.username,
+              style: const TextStyle(
+                  color: color_dark,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "Poppins",
+                  fontStyle: FontStyle.normal,
+                  fontSize: 20.0),
+              textAlign: TextAlign.center),
+          SizedBox(width: 10),
+          Container(
+              width: 30,
+              height: 30,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: color_dimmedTeal),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(widget.level,
+                    style: const TextStyle(
+                        color: color_dark,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Poppins",
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16),
+                    textAlign: TextAlign.center),
+              ))
+        ]),
         SizedBox(height: 10),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           GestureDetector(
