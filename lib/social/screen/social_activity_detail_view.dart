@@ -49,16 +49,17 @@ class ActivityDetailState extends State<ActivityDetail> {
               activityPicture = activity['course']['coverPicture'];
               header = "Course Complete";
               detail = activity['course']['name'];
-            }
-            else if(activity['activityType'] == 'LEVEL_UP'){
+            } else if (activity['activityType'] == 'LEVEL_UP') {
               activityPicture = activity['userData']['profilePicture'];
               header = "Level Up";
               detail =
                   '${activity['userData']['displayName']} has reached level ${activity['data']['level'].toString()}';
             }
           });
+        },
+        whenError: (l) {
+          Navigator.of(context).pop();
         });
-
     return true;
   }
 

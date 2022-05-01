@@ -1,20 +1,17 @@
-import 'dart:convert';
-
-import 'package:fitness_coaching_application_test/RenderBottomNav.dart';
+import 'package:fitness_coaching_application_test/components/CourseCard.dart';
 import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
-import 'package:flutter/material.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:hive/hive.dart';
-import 'package:http/http.dart' as http;
-import '../../api_util.dart';
-import '../../color.dart';
-import '../widget/BannerSection.dart';
-import '../widget/BannerCard.dart';
-import '../widget/CourseSection.dart';
-import '../widget/CourseCard.dart';
+import 'package:fitness_coaching_application_test/home/widget/CourseSection.dart';
+import 'package:fitness_coaching_application_test/search/screen/searching_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
+
+import '../../api_util.dart';
 import '../../loading_view.dart';
+import '../widget/BannerCard.dart';
+import '../widget/BannerSection.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -67,19 +64,19 @@ class HomeState extends State<Home> {
 
   Widget buildHome(List<Widget> sections) {
     return SafeArea(
-          bottom: false,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 150),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...sections,
-                ],
-              ),
-            ),
+      bottom: false,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 150),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...sections,
+            ],
           ),
-        );
+        ),
+      ),
+    );
   }
 
   @override
@@ -91,21 +88,24 @@ class HomeState extends State<Home> {
             return BuildTopBottomBar(
                 body: buildHome(sections),
                 appBar: NormalAppBar(
-                  title: "Hello, ${Hive.box('user').get('data')["displayName"]}!",
+                  title:
+                      "Hello, ${Hive.box('user').get('data')["displayName"]}!",
                   subtitle: "Welcome!",
                   height: 100,
-                  actionButton: SvgPicture.asset(
-                    'assets/Icon/Button_search.svg',
-                    height: 40,
+                  actionButton: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Searching()));
+                    },
+                    child: SvgPicture.asset(
+                      'assets/Icon/Button_search.svg',
+                      height: 40,
+                    ),
                   ),
                 ),
-                page: 'home'
-            );
+                page: 'home');
           } else {
-            return BuildTopBottomBar(
-                body: Loading(),
-                page: 'home'
-            );
+            return BuildTopBottomBar(body: Loading(), page: 'home');
           }
         });
   }

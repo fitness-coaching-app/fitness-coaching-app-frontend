@@ -1,13 +1,13 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
-
-import 'environment.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:dartz/dartz.dart';
+
+import 'environment.dart';
 
 class API {
   static Either<ErrorResponse, SuccessResponse> _bodyProcessor(
@@ -115,8 +115,8 @@ class API {
       {required BuildContext context,
       required Either<ErrorResponse, SuccessResponse> response,
       required Function(SuccessResponse r) whenSuccess,
-        String? customErrorMessage
-      }) {
+      Function(ErrorResponse r)? whenError,
+      String? customErrorMessage}) {
     return response.fold((l) {
       showDialog(
           context: context,
@@ -129,6 +129,9 @@ class API {
                     child: Text("OK"),
                     onPressed: () {
                       Navigator.of(context).pop();
+                      if (whenError != null) {
+                        whenError(l);
+                      }
                     },
                   )
                 ]);

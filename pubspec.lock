@@ -125,10 +125,10 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: f78de5cb57ba86b29f8e69e387a11d0d7b56db3d
+      resolved-ref: fa8a2ac5f3a2e5d4341067e19cf396ddf1282eff
       url: "https://github.com/fitness-coaching-app/fca_pose_validation.git"
     source: git
-    version: "1.2.0"
+    version: "1.2.1"
   ffi:
     dependency: transitive
     description:
