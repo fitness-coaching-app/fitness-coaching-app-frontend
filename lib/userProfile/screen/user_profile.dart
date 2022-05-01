@@ -120,11 +120,13 @@ class _UserProfileState extends State<UserProfile> {
         toReturn.add(Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: tempRow));
+        toReturn.add(SizedBox(height: 10));
         tempRow = [];
       }
     }
     if (tempRow.isNotEmpty) {
       toReturn.add(Row(children: tempRow));
+      toReturn.add(SizedBox(height: 10));
     }
 
     return Padding(
