@@ -1,12 +1,9 @@
-import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/social/screen/social_activity_detail_view.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityFeedPicture.dart';
 import 'package:fitness_coaching_application_test/social/widget/ReactionsBar.dart';
 import 'package:fitness_coaching_application_test/social/widget/UsernameBar.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
-
-import '../../api_util.dart';
 
 class ActivityCard extends StatefulWidget {
   final userActivity;
@@ -66,7 +63,8 @@ class ActivityCardState extends State<ActivityCard> {
           child: Column(children: [
             UsernameBar(
                 imageUrl: widget.userActivity['userData']["profilePicture"],
-                username: widget.userActivity['userData']["displayName"]),
+                username: widget.userActivity['userData']["displayName"],
+                userId: widget.userActivity['userData']["_id"]),
             ActivityFeedPicture(
                 actHeader: actHeader,
                 actDetail: actDetail,

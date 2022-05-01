@@ -7,9 +7,9 @@ import '../../api_util.dart';
 
 class ReactionsBarV2 extends StatefulWidget {
   final String activityId;
-  final int reactionCount;
-  final int commentCount;
-  final bool isReacted;
+  int reactionCount;
+  int commentCount;
+  bool isReacted;
   final Function onUpdate;
 
   ReactionsBarV2(
@@ -18,8 +18,7 @@ class ReactionsBarV2 extends StatefulWidget {
       required this.reactionCount,
       required this.commentCount,
       required this.isReacted,
-        required this.onUpdate
-      })
+      required this.onUpdate})
       : super(key: key);
 
   @override
@@ -29,9 +28,7 @@ class ReactionsBarV2 extends StatefulWidget {
 class ReactionsBarV2State extends State<ReactionsBarV2> {
   TextEditingController commentController = new TextEditingController();
   bool showCommentTextBox = false;
-  bool isReacted = false;
-  int reactionCount = 0;
-  int commentCount = 0;
+
   Future<void> update(r) async {
     await widget.onUpdate();
     setState((){});
@@ -63,11 +60,6 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
   @override
   void initState(){
     super.initState();
-    setState(() {
-      isReacted = widget.isReacted;
-      reactionCount = widget.reactionCount;
-      commentCount = widget.commentCount;
-    });
   }
 
   @override
@@ -80,16 +72,15 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    setState((){
-                      if(isReacted){
-                        reactionCount--;
+                    setState(() {
+                      if (widget.isReacted) {
+                        widget.reactionCount--;
                         removeReaction();
-                      }
-                      else{
-                        reactionCount++;
+                      } else {
+                        widget.reactionCount++;
                         addReaction();
                       }
-                      isReacted = !isReacted;
+                      widget.isReacted = !widget.isReacted;
                     });
                   },
                   child: Container(
@@ -97,7 +88,7 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
                     child: Row(
                       children: [
                         (() {
-                          if (isReacted) {
+                          if (widget.isReacted) {
                             return Icon(
                               Ionicons.heart,
                               color: color_red,
@@ -114,9 +105,11 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
                         Container(
                           width: 10,
                         ),
-                        Text(reactionCount.toString(),
+                        Text(widget.reactionCount.toString(),
                             style: TextStyle(
-                                color: isReacted? color_red : color_subtitle,
+                                color: widget.isReacted
+                                    ? color_red
+                                    : color_subtitle,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: "Poppins",
                                 fontStyle: FontStyle.normal,
@@ -147,7 +140,7 @@ class ReactionsBarV2State extends State<ReactionsBarV2> {
                         Container(
                           width: 10,
                         ),
-                        Text(commentCount.toString(),
+                        Text(widget.commentCount.toString(),
                             style: const TextStyle(
                                 color: color_subtitle,
                                 fontWeight: FontWeight.w500,

@@ -100,7 +100,8 @@ class ActivityDetailState extends State<ActivityDetail> {
                       //activity detail
                       UsernameBar(
                           imageUrl: activity['userData']['profilePicture'],
-                          username: activity['userData']['displayName']),
+                          username: activity['userData']['displayName'],
+                          userId: activity['userData']['_id']),
                       ActivityPicture(
                           picture: activityPicture,
                           header: header,

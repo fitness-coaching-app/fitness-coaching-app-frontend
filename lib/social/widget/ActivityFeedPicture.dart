@@ -1,7 +1,4 @@
-import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/social/screen/social_activity_detail_view.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 
 class ActivityFeedPicture extends StatefulWidget {
   final String actHeader;
@@ -68,20 +65,20 @@ class ActivityFeedPictureState extends State<ActivityFeedPicture> {
                             textAlign: TextAlign.left),
                       ]),
                   Expanded(child: Container()),
-                  Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Color(0xccee9715),
-                      ),
-                      child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Icon(
-                            Ionicons.dice,
-                            color: color_white,
-                            size: 18,
-                          )))
+                  // Container(
+                  //     height: 30,
+                  //     width: 30,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(5.0),
+                  //       color: Color(0xccee9715),
+                  //     ),
+                  //     child: Padding(
+                  //         padding: EdgeInsets.all(5),
+                  //         child: Icon(
+                  //           Ionicons.dice,
+                  //           color: color_white,
+                  //           size: 18,
+                  //         )))
                 ]),
               )),
         ));

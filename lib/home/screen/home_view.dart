@@ -22,6 +22,13 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   List<Widget> sections = [];
+  Future? fetchHomeFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchHomeFuture = getSections();
+  }
 
   Future<List<Widget>> getSections() async {
     var response = await API.get(Environment.getSectionsUrl, withToken: true);
@@ -56,27 +63,33 @@ class HomeState extends State<Home> {
               ));
             }
           }
-          this.sections = sections;
+          setState(() {
+            this.sections = sections;
+          });
           return sections;
         });
     return sections;
   }
 
-  Widget buildHome(List<Widget> sections) {
+  Widget buildHome() {
     return SafeArea(
       bottom: false,
       top: false,
-      child: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
-        child: SafeArea(
-          bottom: false,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 100),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...sections,
-              ],
+      child: RefreshIndicator(
+        onRefresh: getSections,
+        edgeOffset: 100,
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 100),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...sections,
+                ],
+              ),
             ),
           ),
         ),
@@ -87,11 +100,11 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getSections(),
+        future: fetchHomeFuture,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return BuildTopBottomBar(
-                body: buildHome(sections),
+                body: buildHome(),
                 appBar: NormalAppBar(
                   title:
                       "Hello, ${Hive.box('user').get('data')["displayName"]}!",

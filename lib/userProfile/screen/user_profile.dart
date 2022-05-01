@@ -3,7 +3,6 @@ import 'package:fitness_coaching_application_test/components/normal_app_bar.dart
 import 'package:fitness_coaching_application_test/social/widget/ActivityCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/AchievementCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/ProfileHead.dart';
-import 'package:fitness_coaching_application_test/userProfile/widgets/StatsCard.dart';
 import 'package:fitness_coaching_application_test/userProfile/widgets/TwoToggleIcons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -179,8 +178,8 @@ class _UserProfileState extends State<UserProfile> {
                   numberOfFollowing: userData["followingCount"].toString()),
 
               //stats section
-              StatsCard(
-                  height: "100", weight: "100", bmi: "100", isPrivate: true),
+              // StatsCard(
+              //     height: "100", weight: "100", bmi: "100", isPrivate: true),
 
               //news and achievement toggle
               TwoToggleIcons(

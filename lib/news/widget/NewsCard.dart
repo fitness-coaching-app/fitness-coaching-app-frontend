@@ -47,11 +47,11 @@ class NewsCardState extends State<NewsCard> {
                     image: DecorationImage(
                         image: NetworkImage(widget.coverPicture),
                         colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.5), BlendMode.darken),
+                            Colors.black.withOpacity(0.3), BlendMode.darken),
                         fit: BoxFit.fill),
                     borderRadius: BorderRadius.circular(15)),
                 child: Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 15),
+                    padding: EdgeInsets.all(20),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -79,7 +79,9 @@ class NewsCardState extends State<NewsCard> {
                                     children: [
                                       Icon(
                                         Ionicons.heart,
-                                        color: color_dark,
+                                        color: widget.userIdLike
+                                            ? color_red
+                                            : color_dark,
                                         size: 20,
                                       ),
                                       Expanded(child: Container()),

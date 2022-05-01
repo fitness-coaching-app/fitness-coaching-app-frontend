@@ -1,5 +1,6 @@
 import 'package:fitness_coaching_application_test/components/build_bottom_nav_bar.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
+import 'package:fitness_coaching_application_test/news/widget/NewsCard.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -48,33 +49,40 @@ class NewsFeedState extends State<NewsFeed> {
           future: newsFuture,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
-              return SingleChildScrollView(
+              return RefreshIndicator(
+                onRefresh: fetchNewsFeed,
+                edgeOffset: 90,
+                child: SingleChildScrollView(
+                    child: SafeArea(
+                  bottom: false,
                   child: Padding(
-                padding: EdgeInsets.fromLTRB(25, 110, 25, 150),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //news section
-                    // ...(() {
-                    //   var newsArray = [];
-                    //   for (var newsI in news) {
-                    //     newsArray.add(NewsCard(
-                    //         title: newsI["title"],
-                    //         coverPicture: newsI["coverPicture"],
-                    //         likeCount: newsI["likeCount"],
-                    //         data: newsI["data"],
-                    //         userIdLike: newsI["userIdLike"]));
-                    //   }
-                    //   return newsArray;
-                    // }()),
+                    padding: EdgeInsets.fromLTRB(25, 0, 25, 100),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // news section
+                        ...(() {
+                          var newsArray = [];
+                          for (var newsI in news) {
+                            newsArray.add(NewsCard(
+                                title: newsI["title"],
+                                coverPicture: newsI["coverPicture"],
+                                likeCount: newsI["likeCount"],
+                                data: newsI["data"],
+                                userIdLike: newsI["userIdLike"]));
+                          }
+                          return newsArray;
+                        }()),
 
-                    //bottom section
-                    Container(
-                      height: 30,
+                        //bottom section
+                        Container(
+                          height: 30,
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ));
+                  ),
+                )),
+              );
             } else {
               return Loading();
             }
