@@ -44,11 +44,13 @@ class ActivityState extends State<Activity> {
   }
 
   Widget buildActivityFeed() {
-    return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: fetchActivityFeed,
-        child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
+    return RefreshIndicator(
+      edgeOffset: 90,
+      onRefresh: fetchActivityFeed,
+      child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: SafeArea(
+            bottom: false,
             child: Padding(
               padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
               child: Column(
@@ -73,8 +75,8 @@ class ActivityState extends State<Activity> {
                   ),
                 ],
               ),
-            )),
-      ),
+            ),
+          )),
     );
   }
 

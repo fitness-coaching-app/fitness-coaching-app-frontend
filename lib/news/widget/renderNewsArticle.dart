@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class RenderNewsArticle extends StatefulWidget {
-  final String newsHeader;
-  final String newsDetails;
-  final String likes;
-  final String picture;
+  final String title;
+  final String data;
+  final int likeCount;
+  final String coverPicture;
+  final bool userIdLike;
 
-  RenderNewsArticle({
-    Key? key,
-    required this.newsHeader,
-    required this.newsDetails,
-    required this.likes,
-    required this.picture,
-  }) : super(key: key);
+  RenderNewsArticle(
+      {Key? key,
+      required this.title,
+      required this.data,
+      required this.likeCount,
+      required this.coverPicture,
+      required this.userIdLike})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => RenderNewsArticleState();
@@ -44,7 +46,7 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                   height: MediaQuery.of(context).size.height * 0.35,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(widget.picture),
+                          image: NetworkImage(widget.coverPicture),
                           colorFilter: ColorFilter.mode(
                               Colors.black.withOpacity(0.5), BlendMode.darken),
                           fit: BoxFit.fill),
@@ -68,7 +70,7 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                                     child: Row(
                                       children: [
                                         Expanded(child: Container()),
-                                        Text(widget.likes,
+                                        Text(widget.likeCount.toString(),
                                             style: const TextStyle(
                                                 color: const Color(0xff000000),
                                                 fontWeight: FontWeight.w600,
@@ -93,7 +95,7 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
                                       ],
                                     ))))),
                   )))),
-      Text(widget.newsHeader,
+      Text(widget.title,
           style: const TextStyle(
               color: color_dark,
               fontWeight: FontWeight.w600,
@@ -104,14 +106,14 @@ class RenderNewsArticleState extends State<RenderNewsArticle> {
       Container(
         height: MediaQuery.of(context).size.height * 0.02,
       ),
-      Text(widget.newsDetails,
-          style: const TextStyle(
-              color: const Color(0xff000000),
-              fontWeight: FontWeight.w400,
-              fontFamily: "Poppins",
-              fontStyle: FontStyle.normal,
-              fontSize: 14.0),
-          textAlign: TextAlign.left)
+      // Text(widget.data,
+      //     style: const TextStyle(
+      //         color: const Color(0xff000000),
+      //         fontWeight: FontWeight.w400,
+      //         fontFamily: "Poppins",
+      //         fontStyle: FontStyle.normal,
+      //         fontSize: 14.0),
+      //     textAlign: TextAlign.left)
     ]);
   }
 }

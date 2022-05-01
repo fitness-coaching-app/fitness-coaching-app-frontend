@@ -19,6 +19,7 @@ class _BuildTopBottomBarState extends State<BuildTopBottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
+        extendBodyBehindAppBar: true,
         body: widget.body,
         appBar: widget.appBar,
         bottomNavigationBar: RenderBottomNav(

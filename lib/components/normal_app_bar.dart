@@ -31,52 +31,56 @@ class NormalAppBar extends StatelessWidget with PreferredSizeWidget {
       child: Container(
         height: height,
         child: ClipRRect(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
+            child: Container(
+              color: Colors.white.withOpacity(0.8),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      ...(() {
-                        if(backButton) {
-                          return [FCABackButton(),SizedBox(width: 20)];
-                        }
-                        return [];
-                      }()),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          Text(title,
-                              style: const TextStyle(
-                                  color: color_dark,
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 26.0),
-                              textAlign: TextAlign.left),
-                          if(subtitle != null)
-                            Text(subtitle!,
-                                style: const TextStyle(
-                                    color: color_subtitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 16.0),
-                                textAlign: TextAlign.left),
-
-                        ]
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ...(() {
+                            if (backButton) {
+                              return [FCABackButton(), SizedBox(width: 20)];
+                            }
+                            return [];
+                          }()),
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(title,
+                                    style: const TextStyle(
+                                        color: color_dark,
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: "Poppins",
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 26.0),
+                                    textAlign: TextAlign.left),
+                                if (subtitle != null)
+                                  Text(subtitle!,
+                                      style: const TextStyle(
+                                          color: color_subtitle,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Poppins",
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 16.0),
+                                      textAlign: TextAlign.left),
+                              ]),
+                          Expanded(child: Container()),
+                          if (actionButton != null) actionButton!
+                        ],
                       ),
-                      Expanded(child: Container()),
-                      if(actionButton != null) actionButton!
                     ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

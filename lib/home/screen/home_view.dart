@@ -65,14 +65,19 @@ class HomeState extends State<Home> {
   Widget buildHome(List<Widget> sections) {
     return SafeArea(
       bottom: false,
+      top: false,
       child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 150),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ...sections,
-            ],
+        physics: AlwaysScrollableScrollPhysics(),
+        child: SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 100),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ...sections,
+              ],
+            ),
           ),
         ),
       ),

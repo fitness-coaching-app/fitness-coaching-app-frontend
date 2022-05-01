@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class NewsCard extends StatefulWidget {
-  final String newsHeader;
-  final String newsDetails;
-  final String likes;
-  final String picture;
+  final String title;
+  final String coverPicture;
+  final int likeCount;
+  final String data;
+  final bool userIdLike;
 
   NewsCard(
       {Key? key,
-      required this.newsHeader,
-      required this.newsDetails,
-      required this.likes,
-      required this.picture})
+      required this.title,
+      required this.coverPicture,
+      required this.likeCount,
+      required this.data,
+      required this.userIdLike})
       : super(key: key);
 
   @override
@@ -32,17 +34,18 @@ class NewsCardState extends State<NewsCard> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => NewsArticle(
-                        newsHeader: widget.newsHeader,
-                        newsDetails: widget.newsDetails,
-                        likes: widget.likes,
-                        picture: widget.picture)),
+                        title: widget.title,
+                        data: widget.data,
+                        likeCount: widget.likeCount,
+                        coverPicture: widget.coverPicture,
+                        userIdLike: widget.userIdLike)),
               );
             },
             child: Container(
                 height: MediaQuery.of(context).size.height * 0.35,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(widget.picture),
+                        image: NetworkImage(widget.coverPicture),
                         colorFilter: ColorFilter.mode(
                             Colors.black.withOpacity(0.5), BlendMode.darken),
                         fit: BoxFit.fill),
@@ -52,7 +55,7 @@ class NewsCardState extends State<NewsCard> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.newsHeader,
+                          Text(widget.title,
                               style: const TextStyle(
                                   color: const Color(0xffffffff),
                                   fontWeight: FontWeight.w600,
@@ -80,7 +83,7 @@ class NewsCardState extends State<NewsCard> {
                                         size: 20,
                                       ),
                                       Expanded(child: Container()),
-                                      Text(widget.likes,
+                                      Text(widget.likeCount.toString(),
                                           style: const TextStyle(
                                               color: color_dark,
                                               fontWeight: FontWeight.w400,
@@ -91,16 +94,6 @@ class NewsCardState extends State<NewsCard> {
                                       Expanded(child: Container()),
                                     ],
                                   ))),
-                          Expanded(child: Container()),
-                          Text(widget.newsDetails,
-                              style: const TextStyle(
-                                  color: const Color(0xffffffff),
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Poppins",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 14.0),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left)
                         ])))));
   }
 }

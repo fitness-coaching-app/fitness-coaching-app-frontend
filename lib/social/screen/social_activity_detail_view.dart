@@ -83,15 +83,17 @@ class ActivityDetailState extends State<ActivityDetail> {
   }
 
   Widget buildActivityView() {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
-        child: Stack(
-          children: [
-            RefreshIndicator(
-              onRefresh: loadActivity,
-              child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
+    return Container(
+      padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
+      child: Stack(
+        children: [
+          RefreshIndicator(
+            edgeOffset: 90,
+            onRefresh: loadActivity,
+            child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: SafeArea(
+                  bottom: false,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -130,31 +132,31 @@ class ActivityDetailState extends State<ActivityDetail> {
                         height: 60,
                       ),
                     ],
-                  )),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                child: TextBox(
-                  hintText: "Write a comment...",
-                  controller: commentController,
-                  suffixIcon: GestureDetector(
-                      onTap: () {
-                        addComment();
-                        setState(() {
-                          commentController.text = "";
-                        });
-                      },
-                      child: Icon(
-                        Ionicons.send,
-                        size: 25,
-                        color: color_dark,
-                      )),
-                ),
+                  ),
+                )),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              child: TextBox(
+                hintText: "Write a comment...",
+                controller: commentController,
+                suffixIcon: GestureDetector(
+                    onTap: () {
+                      addComment();
+                      setState(() {
+                        commentController.text = "";
+                      });
+                    },
+                    child: Icon(
+                      Ionicons.send,
+                      size: 25,
+                      color: color_dark,
+                    )),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -162,6 +164,7 @@ class ActivityDetailState extends State<ActivityDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: NormalAppBar(title: 'Activity', backButton: true),
         body: FutureBuilder(
           future: loadActivityFuture,

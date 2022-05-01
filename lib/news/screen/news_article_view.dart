@@ -2,17 +2,19 @@ import 'package:fitness_coaching_application_test/news/widget/renderNewsArticle.
 import 'package:flutter/material.dart';
 
 class NewsArticle extends StatefulWidget {
-  final String newsHeader;
-  final String newsDetails;
-  final String likes;
-  final String picture;
+  final String title;
+  final String data;
+  final int likeCount;
+  final String coverPicture;
+  final bool userIdLike;
 
   const NewsArticle(
       {Key? key,
-      required this.newsHeader,
-      required this.newsDetails,
-      required this.likes,
-      required this.picture})
+      required this.title,
+      required this.data,
+      required this.likeCount,
+      required this.coverPicture,
+      required this.userIdLike})
       : super(key: key);
 
   @override
@@ -29,9 +31,10 @@ class NewsArticleState extends State<NewsArticle> {
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(25, 0, 25, 10),
                     child: RenderNewsArticle(
-                        newsHeader: widget.newsHeader,
-                        newsDetails: widget.newsDetails,
-                        likes: widget.likes,
-                        picture: widget.picture)))));
+                        title: widget.title,
+                        data: widget.data,
+                        likeCount: widget.likeCount,
+                        coverPicture: widget.coverPicture,
+                        userIdLike: widget.userIdLike)))));
   }
 }

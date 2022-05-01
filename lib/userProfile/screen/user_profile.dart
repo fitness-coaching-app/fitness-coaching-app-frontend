@@ -155,50 +155,54 @@ class _UserProfileState extends State<UserProfile> {
     return Padding(
       padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
       child: RefreshIndicator(
+        edgeOffset: 90,
         onRefresh: () async {
           await loadProfile();
           await fetchAchievementsList();
         },
         child: SingleChildScrollView(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 21,
-            ),
-            //profile head section
+            child: SafeArea(
+          bottom: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 21,
+              ),
+              //profile head section
 
-            //profile picture details
-            ProfileHead(
-                username: userData["displayName"],
-                imageUrl: userData["profilePicture"],
-                numberOfFollower: userData["followerCount"].toString(),
-                numberOfFollowing: userData["followingCount"].toString()),
+              //profile picture details
+              ProfileHead(
+                  username: userData["displayName"],
+                  imageUrl: userData["profilePicture"],
+                  numberOfFollower: userData["followerCount"].toString(),
+                  numberOfFollowing: userData["followingCount"].toString()),
 
-            //stats section
-            StatsCard(
-                height: "100", weight: "100", bmi: "100", isPrivate: true),
+              //stats section
+              StatsCard(
+                  height: "100", weight: "100", bmi: "100", isPrivate: true),
 
-            //news and achievement toggle
-            TwoToggleIcons(
-                options1: Ionicons.newspaper,
-                options2: Ionicons.ribbon,
-                onChanged: (option) {
-                  setState(() {
-                    this.option = option;
-                  });
-                }),
-            (() {
-              if (option == 1) {
-                return buildActivityFeed();
-              } else
-                return buildAchievement();
-            }()),
-            //bottom section
-            Container(
-              height: 150,
-            ),
-          ],
+              //news and achievement toggle
+              TwoToggleIcons(
+                  options1: Ionicons.newspaper,
+                  options2: Ionicons.ribbon,
+                  onChanged: (option) {
+                    setState(() {
+                      this.option = option;
+                    });
+                  }),
+              (() {
+                if (option == 1) {
+                  return buildActivityFeed();
+                } else
+                  return buildAchievement();
+              }()),
+              //bottom section
+              Container(
+                height: 150,
+              ),
+            ],
+          ),
         )),
       ),
     );
@@ -213,8 +217,8 @@ class _UserProfileState extends State<UserProfile> {
           actionButton: Container(
               height: 25,
               width: 25,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(365), color: color_dark),
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: color_dark),
               child: Icon(
                 Ionicons.ellipsis_horizontal,
                 color: color_white,
