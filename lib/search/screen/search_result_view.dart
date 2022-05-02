@@ -38,7 +38,10 @@ class SearchResultState extends State<SearchResult> {
       usersResultWidget.add(userCard(
           displayName: user["displayName"],
           userId: user["_id"],
-          profilePicture: user["profilePicture"]));
+          profilePicture:
+              user["profilePicture"] == null || user["profilePicture"] == ""
+                  ? Environment.noImageUrl
+                  : user["profilePicture"]));
     }
     print(usersResultWidget);
   }

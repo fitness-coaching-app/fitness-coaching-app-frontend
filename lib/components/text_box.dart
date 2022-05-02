@@ -39,6 +39,7 @@ class _TextBoxState extends State<TextBox> {
       onEditingComplete: widget.onEditingComplete,
       keyboardType: widget.keyboardType,
       decoration: InputDecoration(
+          errorMaxLines: 2,
           hintText: widget.hintText,
           hintStyle: const TextStyle(
             color: color_subtitle,
@@ -47,9 +48,7 @@ class _TextBoxState extends State<TextBox> {
             fontStyle: FontStyle.normal,
             fontSize: 16.0,
           ),
-          errorStyle: const TextStyle(
-              color: color_red
-          ),
+          errorStyle: const TextStyle(color: color_red),
           filled: true,
           fillColor: color_lightGrey,
           focusColor: color_lightGrey,

@@ -142,18 +142,22 @@ class ActivityDetailState extends State<ActivityDetail> {
               child: TextBox(
                 hintText: "Write a comment...",
                 controller: commentController,
-                suffixIcon: GestureDetector(
-                    onTap: () {
-                      addComment();
-                      setState(() {
-                        commentController.text = "";
-                      });
-                    },
-                    child: Icon(
-                      Ionicons.send,
-                      size: 25,
-                      color: color_dark,
-                    )),
+                suffixIcon: (() {
+                  if (commentController.text.isNotEmpty) {
+                    return GestureDetector(
+                        onTap: () {
+                          addComment();
+                          setState(() {
+                            commentController.text = "";
+                          });
+                        },
+                        child: Icon(
+                          Ionicons.send,
+                          size: 25,
+                          color: color_dark,
+                        ));
+                  }
+                }()),
               ),
             ),
           )

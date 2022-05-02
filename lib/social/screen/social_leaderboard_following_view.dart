@@ -1,20 +1,13 @@
 import 'dart:math';
 
 import 'package:fitness_coaching_application_test/color.dart';
-import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/social/screen/social_activity_view.dart';
-import 'package:fitness_coaching_application_test/social/social_leaderboard.dart';
-import 'package:fitness_coaching_application_test/social/screen/social_leaderboard_global_view.dart';
 import 'package:fitness_coaching_application_test/social/widget/RenderLowerLeaderboard.dart';
 import 'package:fitness_coaching_application_test/social/widget/RenderTopThree.dart';
-import 'package:fitness_coaching_application_test/social/widget/TwoToggleSwitch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:ionicons/ionicons.dart';
 
 import '../../api_util.dart';
-import '../../loading_view.dart';
 
 class LeaderboardFollowing extends StatefulWidget {
   const LeaderboardFollowing({Key? key}) : super(key: key);
@@ -72,8 +65,11 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
                   .map((e) => e["xp"].toString())
                   .toList(),
               urls: leaderboard
-                  .getRange(0, min(3,leaderboard.length))
-                  .map((e) => e["profilePicture"].toString())
+                  .getRange(0, min(3, leaderboard.length))
+                  .map((e) =>
+                      e["profilePicture"] == null || e["profilePicture"] == ""
+                          ? Environment.noImageUrl
+                          : e["profilePicture"].toString())
                   .toList()),
 
           //4th section
@@ -81,7 +77,10 @@ class LeaderboardFollowingState extends State<LeaderboardFollowing> {
             RenderLowerLeaderboard(
                 rank: (i + 1).toString(),
                 username: leaderboard[i]["displayName"],
-                urls: leaderboard[i]["profilePicture"])
+                urls: leaderboard[i]["profilePicture"] == null ||
+                        leaderboard[i]["profilePicture"] == ""
+                    ? Environment.noImageUrl
+                    : leaderboard[i]["profilePicture"])
         ]),
       ),
     );

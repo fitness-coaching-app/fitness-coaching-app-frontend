@@ -1,3 +1,4 @@
+import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/social/screen/social_activity_detail_view.dart';
 import 'package:fitness_coaching_application_test/social/widget/ActivityFeedPicture.dart';
 import 'package:fitness_coaching_application_test/social/widget/ReactionsBar.dart';
@@ -10,8 +11,7 @@ class ActivityCard extends StatefulWidget {
   final userActivity;
   final ownerUserData;
 
-  ActivityCard(
-      {Key? key, required this.userActivity, required this.ownerUserData})
+  ActivityCard({Key? key, required this.userActivity, required this.ownerUserData})
       : super(key: key);
 
   @override
@@ -35,7 +35,10 @@ class ActivityCardState extends State<ActivityCard> {
         actHeader = "Level Up";
         actDetail =
             '${widget.userActivity['userData']['displayName']} has reached level ${widget.userActivity["data"]["level"]}';
-        picture = widget.userActivity['userData']['profilePicture'];
+        picture = widget.userActivity['userData']['profilePicture'] == null ||
+                widget.userActivity['userData']['profilePicture'] == ''
+            ? Environment.noImageUrl
+            : widget.userActivity['userData']['profilePicture'];
       } else if (widget.userActivity["activityType"] == "EXERCISE") {
         actHeader = "Course Complete";
         actDetail = widget.userActivity['course']['name'];
@@ -63,15 +66,19 @@ class ActivityCardState extends State<ActivityCard> {
             context,
             MaterialPageRoute(
                 builder: (context) => ActivityDetail(
-                      activityId: widget.userActivity['_id'],
-                      currentUserId: widget.ownerUserData['_id'],
-                    )));
+                  activityId: widget.userActivity['_id'],
+                  currentUserId: widget.ownerUserData['_id'],
+                )));
       },
       child: Container(
           margin: EdgeInsets.only(top: 20),
           child: Column(children: [
             UsernameBar(
-                imageUrl: widget.userActivity['userData']["profilePicture"],
+                imageUrl: widget.userActivity['userData']['profilePicture'] ==
+                            null ||
+                        widget.userActivity['userData']['profilePicture'] == ''
+                    ? Environment.noImageUrl
+                    : widget.userActivity['userData']['profilePicture'],
                 username: widget.userActivity['userData']["displayName"],
                 userId: widget.userActivity['userData']["_id"]),
             ActivityFeedPicture(
@@ -86,7 +93,7 @@ class ActivityCardState extends State<ActivityCard> {
               commentCnt: comments,
               updateToNow: updateOn,
               isReacted: widget.userActivity['userReactionsList']
-                      [userData["_id"]] !=
+              [userData["_id"]] !=
                   null,
             )
           ])),

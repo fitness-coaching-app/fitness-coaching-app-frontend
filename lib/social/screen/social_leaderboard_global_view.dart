@@ -67,16 +67,22 @@ class LeaderboardGlobalState extends State<LeaderboardGlobal> {
                   .toList(),
               urls: leaderboard
                   .getRange(0, min(3, leaderboard.length))
-                  .map((e) => e["profilePicture"].toString())
+                  .map((e) =>
+                      e["profilePicture"] == null || e["profilePicture"] == ''
+                          ? Environment.noImageUrl
+                          : e["profilePicture"].toString())
                   .toList()),
 
-              //4th section
-              for (var i = 3; i < leaderboard.length; i++)
-                RenderLowerLeaderboard(
-                    rank: (i + 1).toString(),
-                    username: leaderboard[i]["displayName"],
-                    urls: leaderboard[i]["profilePicture"]),
-            ]),
+          //4th section
+          for (var i = 3; i < leaderboard.length; i++)
+            RenderLowerLeaderboard(
+                rank: (i + 1).toString(),
+                username: leaderboard[i]["displayName"],
+                urls: leaderboard[i]["profilePicture"] == null ||
+                        leaderboard[i]["profilePicture"] == ''
+                    ? Environment.noImageUrl
+                    : leaderboard[i]["profilePicture"]),
+        ]),
       ),
     );
   }

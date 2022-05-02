@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../environment.dart';
 import '../../signIn_view.dart';
 
 class UserProfileSettings extends StatefulWidget {
@@ -67,7 +68,11 @@ class UserProfileSettingsState extends State<UserProfileSettings> {
                                         shape: BoxShape.circle,
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          userData["profilePicture"]),
+                                          userData["profilePicture"] == null ||
+                                                  userData["profilePicture"] ==
+                                                      ''
+                                              ? Environment.noImageUrl
+                                              : userData["profilePicture"]),
                                       fit: BoxFit.cover,
                                     )))),
                           ),

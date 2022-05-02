@@ -119,7 +119,9 @@ class UserSettingsProfileState extends State<UserSettingsProfile> {
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          userData['profilePicture'] == ""
+                                          userData['profilePicture'] == null ||
+                                                  userData['profilePicture'] ==
+                                                      ""
                                               ? Environment.noImageUrl
                                               : userData['profilePicture']),
                                       fit: BoxFit.cover,

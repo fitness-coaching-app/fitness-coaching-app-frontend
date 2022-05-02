@@ -3,10 +3,10 @@ import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
 import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'newUserSetup3_exPref_view.dart';
+
 import '../../components/text_box.dart';
+import 'newUserSetup3_exPref_view.dart';
 
 class NewUserSetupWeight extends StatefulWidget {
   final String gender;
@@ -87,17 +87,21 @@ class NewUserSetupWeightState extends State<NewUserSetupWeight> {
                         keyboardType: TextInputType.number,
                         hintText: "Enter your weight",
                         suffixIcon: Padding(
-                            padding: EdgeInsets.all(20),
-                            child: Text("kg",
-                                style: const TextStyle(
-                                    color: color_dimmedTeal,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14.0),
-                                textAlign: TextAlign.right)),
-                        controller: weightController,
-                      ),
+                      padding: EdgeInsets.all(20),
+                      child: Text("kg",
+                          style: const TextStyle(
+                              color: color_dimmedTeal,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 14.0),
+                          textAlign: TextAlign.right)),
+                  controller: weightController,
+                  validator: (String? value) {
+                    if (value != null && value.isEmpty) {
+                      return "Please enter your weight";
+                    }
+                  }),
                       Container(
                         height: 15,
                       ),
@@ -105,17 +109,21 @@ class NewUserSetupWeightState extends State<NewUserSetupWeight> {
                         keyboardType: TextInputType.number,
                         hintText: "Enter your height",
                         suffixIcon: Padding(
-                            padding: EdgeInsets.all(20),
-                            child: Text("cm",
-                                style: const TextStyle(
-                                    color: color_dimmedTeal,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "Poppins",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14.0),
-                                textAlign: TextAlign.right)),
-                        controller: heightController,
-                      ),
+                      padding: EdgeInsets.all(20),
+                      child: Text("cm",
+                          style: const TextStyle(
+                              color: color_dimmedTeal,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Poppins",
+                              fontStyle: FontStyle.normal,
+                              fontSize: 14.0),
+                          textAlign: TextAlign.right)),
+                  controller: heightController,
+                  validator: (String? value) {
+                    if (value != null && value.isEmpty) {
+                      return "Please enter your height";
+                    }
+                  }),
                       Container(
                         height: 40,
                       ),

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
-
-import '../../color.dart';
 
 class ActivityPicture extends StatefulWidget {
   final String picture;
@@ -54,21 +51,6 @@ class ActivityPictureState extends State<ActivityPicture> {
                                 fontSize: 14.0),
                             textAlign: TextAlign.left),
                       ]),
-                  Expanded(child: Container()),
-                  Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Color(0xccee9715),
-                      ),
-                      child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Icon(
-                            Ionicons.dice,
-                            color: color_white,
-                            size: 18,
-                          )))
                 ]),
               )
           ),

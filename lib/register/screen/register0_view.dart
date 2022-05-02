@@ -2,9 +2,9 @@ import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
 import 'package:fitness_coaching_application_test/components/text_box.dart';
+import 'package:fitness_coaching_application_test/components/validators.dart';
 import 'package:fitness_coaching_application_test/register/screen/register1_view.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Register0 extends StatefulWidget {
@@ -18,18 +18,6 @@ class Register0 extends StatefulWidget {
 
 class Register0State extends State<Register0> {
   TextEditingController emailController = new TextEditingController();
-
-  String? validateEmail(String? value) {
-    String pattern =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?)*$";
-    RegExp regex = RegExp(pattern);
-    if (value == null || value.isEmpty || !regex.hasMatch(value))
-      return 'Please enter a valid email address';
-    else
-      return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +76,7 @@ class Register0State extends State<Register0> {
                         TextBox(
                           hintText: "Enter your email",
                           controller: emailController,
-                          validator: (String? value) => validateEmail(value),
+                          validator: (String? value) => emailValidator(value),
                         ),
                         Container(
                           height: 40,

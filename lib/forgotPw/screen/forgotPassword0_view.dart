@@ -1,14 +1,13 @@
 import 'package:fitness_coaching_application_test/color.dart';
+import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
 import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
 import 'package:fitness_coaching_application_test/components/text_box.dart';
-import 'package:fitness_coaching_application_test/components/back_button.dart';
+import 'package:fitness_coaching_application_test/components/validators.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/forgotPw/screen/forgotPassword1_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
-import 'package:dartz/dartz.dart' as dartz;
 
 import '../../api_util.dart';
 
@@ -104,7 +103,7 @@ class _ForgotPassword0State extends State<ForgotPassword0> {
                   TextBox(
                     hintText: "Enter your email",
                     controller: emailController,
-                    validator: (String? value) => validateEmail(value),
+                    validator: (String? value) => emailValidator(value),
                   ),
                   Container(
                     height: 40,

@@ -1,16 +1,13 @@
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
-import 'package:fitness_coaching_application_test/components/text_box.dart';
 import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
-import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
+import 'package:fitness_coaching_application_test/components/text_box.dart';
+import 'package:fitness_coaching_application_test/components/validators.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/register/screen/register2_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:hive/hive.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
 
 import '../../api_util.dart';
 
@@ -66,7 +63,7 @@ class Register1State extends State<Register1> {
                     height: 45,
                   ),
                   SvgPicture.asset(
-                    'assets/Icon/Cartoon Illustration_lock1.svg',
+                    'assets/Icon/icons8-lock.svg',
                     height: 100,
                   ),
                   Container(
@@ -97,11 +94,7 @@ class Register1State extends State<Register1> {
                   TextBox(
                     hintText: "Password",
                     controller: pwController,
-                    validator: (String? value) {
-                      return (value!.isEmpty)
-                          ? 'Please enter a password.'
-                          : null;
-                    },
+                    validator: (String? value) => passwordValidator(value),
                     obscureText: true,
                   ),
                   Container(

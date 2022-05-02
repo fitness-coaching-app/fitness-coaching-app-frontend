@@ -211,7 +211,10 @@ class _UserPeopleViewState extends State<UserPeopleView> {
                 //profile picture details
                 ProfileHead(
                   username: userData["displayName"],
-                  imageUrl: userData["profilePicture"],
+                  imageUrl: userData["profilePicture"] == null ||
+                          userData["profilePicture"] == ''
+                      ? Environment.noImageUrl
+                      : userData["profilePicture"],
                   numberOfFollower: userData["followerCount"].toString(),
                   numberOfFollowing: userData["followingCount"].toString(),
                   level: userData["level"].toString(),

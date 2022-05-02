@@ -3,6 +3,7 @@ import 'package:fitness_coaching_application_test/components/keyboard_aware.dart
 import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
 import 'package:fitness_coaching_application_test/components/normal_app_bar.dart';
 import 'package:fitness_coaching_application_test/components/text_box.dart';
+import 'package:fitness_coaching_application_test/components/validators.dart';
 import 'package:flutter/material.dart';
 
 import '../../api_util.dart';
@@ -69,12 +70,14 @@ class UserSettingsPasswordState extends State<UserSettingsPassword> {
                   TextBox(
                     hintText: "New Password",
                     controller: newPwController,
+                    validator: (String? value) => passwordValidator(value),
                     obscureText: true,
                   ),
                   SizedBox(height: 20),
                   TextBox(
                     hintText: "Confirm New Password",
                     controller: confirmPwController,
+                    validator: (String? value) => passwordValidator(value),
                     obscureText: true,
                   ),
                   Container(
