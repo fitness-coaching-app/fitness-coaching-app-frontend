@@ -1,21 +1,19 @@
+import 'dart:async' as dartAsync;
 import 'dart:io';
-import 'package:fitness_coaching_application_test/workouts/widgets/CameraView.dart';
 
-import '../../exerciseSummary/screen/exerciseSumFinished_view.dart';
-import '../widgets/CurrentExerciseStateBar.dart';
+import 'package:dio/dio.dart';
+import 'package:fca_pose_validation/fca_pose_processor.dart';
+import 'package:fitness_coaching_application_test/workouts/widgets/CameraView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:path_provider/path_provider.dart';
 
+import '../../exerciseSummary/screen/exerciseSumFinished_view.dart';
 import '../../loading_view.dart';
 import '../pose_painter.dart';
+import '../widgets/CurrentExerciseStateBar.dart';
 import '../widgets/TeachView.dart';
-
-import 'package:fca_pose_validation/fca_pose_processor.dart';
-
-import 'dart:async' as dartAsync;
-import 'package:path_provider/path_provider.dart';
-import 'package:dio/dio.dart';
 
 class WorkoutMainView extends StatefulWidget {
   String courseId;
@@ -182,11 +180,13 @@ class _WorkoutMainViewState extends State<WorkoutMainView> {
     isBusy = true;
     final poses = await poseDetector.processImage(inputImage);
     if (poses.isNotEmpty) processPose(poses[0]);
-    final DateTime poseProcessorTime = DateTime.now();
     if (inputImage.inputImageData?.size != null &&
         inputImage.inputImageData?.imageRotation != null) {
-      final painter = PosePainter(poses, inputImage.inputImageData!.size,
-          inputImage.inputImageData!.imageRotation);
+      final painter = PosePainter(
+          poses,
+          inputImage.inputImageData!.size,
+          inputImage.inputImageData!.imageRotation,
+          controller.getCurrentState());
       customPaint = CustomPaint(painter: painter);
     } else {
       customPaint = null;
