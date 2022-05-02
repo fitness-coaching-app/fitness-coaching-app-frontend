@@ -99,7 +99,11 @@ class ActivityDetailState extends State<ActivityDetail> {
                     children: [
                       //activity detail
                       UsernameBar(
-                          imageUrl: activity['userData']['profilePicture'],
+                          imageUrl: activity['userData']['profilePicture'] ==
+                                      null ||
+                                  activity['userData']['profilePicture'] == ""
+                              ? Environment.noImageUrl
+                              : activity['userData']['profilePicture'],
                           username: activity['userData']['displayName'],
                           userId: activity['userData']['_id']),
                       ActivityPicture(
@@ -124,7 +128,14 @@ class ActivityDetailState extends State<ActivityDetail> {
                       for (var i in activity['comments'])
                         RenderComments(
                           profilePicture: activity['userCommentsList']
-                              [i["userId"]!]["profilePicture"]!,
+                                          [i["userId"]!]["profilePicture"] ==
+                                      null ||
+                                  activity['userCommentsList'][i["userId"]!]
+                                          ["profilePicture"] ==
+                                      ""
+                              ? Environment.noImageUrl
+                              : activity['userCommentsList'][i["userId"]!]
+                                  ["profilePicture"],
                           username: activity['userCommentsList'][i["userId"]!]
                               ["displayName"]!,
                           comments: i["comment"],
@@ -143,11 +154,10 @@ class ActivityDetailState extends State<ActivityDetail> {
                 hintText: "Write a comment...",
                 controller: commentController,
                 suffixIcon: (() {
-                  if (commentController.text.isNotEmpty) {
                     return GestureDetector(
                         onTap: () {
-                          addComment();
-                          setState(() {
+                          if (commentController.text.length > 0) addComment();
+                        setState(() {
                             commentController.text = "";
                           });
                         },
@@ -156,7 +166,6 @@ class ActivityDetailState extends State<ActivityDetail> {
                           size: 25,
                           color: color_dark,
                         ));
-                  }
                 }()),
               ),
             ),
