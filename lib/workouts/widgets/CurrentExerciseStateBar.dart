@@ -65,6 +65,16 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
     );
   }
 
+  Widget subposeIndicator() {
+    return LinearProgressIndicator(
+      minHeight: 5,
+      value: 1,
+      valueColor: AlwaysStoppedAnimation(color_dimmedTeal),
+      backgroundColor: Colors.transparent,
+      semanticsLabel: 'Linear progress indicator',
+    );
+  }
+
   Widget _introStateBar() {
     return Container(
       decoration: new BoxDecoration(color: color_dark),
@@ -191,6 +201,7 @@ class _CurrentExerciseStateBarState extends State<CurrentExerciseStateBar> {
             ]),
           ),
           dotMenu(),
+          // subposeIndicator(),
           SizedBox(
             height: 10,
           )

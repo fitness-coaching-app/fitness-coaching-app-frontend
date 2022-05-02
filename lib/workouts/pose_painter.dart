@@ -1,25 +1,33 @@
+import 'package:fca_pose_validation/fca_pose_processor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
+import '../color.dart';
 import '../coordinates_translator.dart';
 
 class PosePainter extends CustomPainter {
   // PosePainter(this.poses, this.absoluteImageSize, this.rotation, this.armAngle, this.elbowAngle);
-  PosePainter(this.poses, this.absoluteImageSize, this.rotation);
+  PosePainter(
+      this.poses, this.absoluteImageSize, this.rotation, this.currentState);
 
   final List<Pose> poses;
   final Size absoluteImageSize;
   final InputImageRotation rotation;
+  final ExerciseState currentState;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final leftDot = Paint()
-      ..style = PaintingStyle.fill
-      ..color = const Color.fromRGBO(252, 119, 3, 1.0);
-    final rightDot = Paint()
-      ..style = PaintingStyle.fill
-      ..color = const Color.fromRGBO(3, 223, 252, 1);
+    // final leftDot = Paint()
+    //   ..style = PaintingStyle.fill
+    //   ..color = const Color.fromRGBO(252, 119, 3, 1.0);
+    // final rightDot = Paint()
+    //   ..style = PaintingStyle.fill
+    //   ..color = const Color.fromRGBO(3, 223, 252, 1);
     final dot = Paint()
+      ..style = PaintingStyle.fill
+      ..color = color_darkBlue;
+
+    final dotHighlight = Paint()
       ..style = PaintingStyle.fill
       ..color = Colors.purpleAccent;
 
@@ -71,13 +79,36 @@ class PosePainter extends CustomPainter {
           PoseLandmarkType.rightKnee, PoseLandmarkType.rightAnkle, bodyLine);
 
       pose.landmarks.forEach((landmarkType, landmark) {
-        canvas.drawCircle(
-            Offset(
-              translateX(landmark.x, rotation, size, absoluteImageSize),
-              translateY(landmark.y, rotation, size, absoluteImageSize),
-            ),
-            6,
-            dot);
+        if (currentState.isWarning()) {
+          var warning = currentState.getWarning();
+          List<PoseLandmarkType> warningHighlight =
+              warning["warningPoseHighlight"] as List<PoseLandmarkType>;
+          if (warningHighlight.contains(landmarkType)) {
+            canvas.drawCircle(
+                Offset(
+                  translateX(landmark.x, rotation, size, absoluteImageSize),
+                  translateY(landmark.y, rotation, size, absoluteImageSize),
+                ),
+                12,
+                dotHighlight);
+          } else {
+            canvas.drawCircle(
+                Offset(
+                  translateX(landmark.x, rotation, size, absoluteImageSize),
+                  translateY(landmark.y, rotation, size, absoluteImageSize),
+                ),
+                6,
+                dot);
+          }
+        } else {
+          canvas.drawCircle(
+              Offset(
+                translateX(landmark.x, rotation, size, absoluteImageSize),
+                translateY(landmark.y, rotation, size, absoluteImageSize),
+              ),
+              6,
+              dot);
+        }
       });
     });
   }
