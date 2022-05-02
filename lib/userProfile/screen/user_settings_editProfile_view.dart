@@ -60,6 +60,8 @@ class UserSettingsProfileState extends State<UserSettingsProfile> {
   }
 
   Future<void> editProfilePicture() async {
+    if (_image == null) return;
+
     print("compress...");
     await compressFile(_image!);
     var response = await API.formData(Environment.editProfilePictureUrl,
