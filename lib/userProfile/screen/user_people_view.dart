@@ -158,11 +158,13 @@ class _UserPeopleViewState extends State<UserPeopleView> {
         toReturn.add(Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: tempRow));
+        toReturn.add(SizedBox(height: 10));
         tempRow = [];
       }
     }
     if (tempRow.isNotEmpty) {
       toReturn.add(Row(children: tempRow));
+      toReturn.add(SizedBox(height: 10));
     }
 
     return Padding(
