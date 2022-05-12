@@ -23,8 +23,12 @@ class Register1 extends StatefulWidget {
 }
 
 class Register1State extends State<Register1> {
-  ButtonStatus status = ButtonStatus.active;
+  ButtonStatus status = ButtonStatus.inactive;
   TextEditingController pwController = new TextEditingController();
+  GlobalKey<FormState> _passwordKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _confirmPasswordKey = GlobalKey<FormState>();
+  bool validPassword = false;
+  bool validConfirmPassword = false;
 
   Future<void> registerUserPressed(
       String displayName, String email, String password) async {
@@ -44,8 +48,19 @@ class Register1State extends State<Register1> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Register2(email: widget.email, password: pwController.text)));
+                  builder: (context) => Register2(
+                      email: widget.email, password: pwController.text)));
         });
+  }
+
+  void isValid() {
+    setState(() {
+      if (validPassword && validConfirmPassword) {
+        status = ButtonStatus.active;
+      } else if (status != ButtonStatus.loading) {
+        status = ButtonStatus.inactive;
+      }
+    });
   }
 
   @override
@@ -91,23 +106,38 @@ class Register1State extends State<Register1> {
                   Container(
                     height: 40,
                   ),
-                  TextBox(
-                    hintText: "Password",
-                    controller: pwController,
-                    validator: (String? value) => passwordValidator(value),
-                    obscureText: true,
+                  Form(
+                    key: _passwordKey,
+                    child: TextBox(
+                      hintText: "Password",
+                      controller: pwController,
+                      validator: passwordValidator,
+                      onChanged: (value) {
+                        validPassword = _passwordKey.currentState!.validate();
+                        isValid();
+                      },
+                      obscureText: true,
+                    ),
                   ),
                   Container(
                     height: 15,
                   ),
-                  TextBox(
-                    hintText: "Confirm Password",
-                    validator: (String? value) {
-                      return (value != null && value != pwController.text)
-                          ? 'Password did not match.'
-                          : null;
-                    },
-                    obscureText: true,
+                  Form(
+                    key: _confirmPasswordKey,
+                    child: TextBox(
+                      hintText: "Confirm Password",
+                      validator: (String? value) {
+                        return (value != null && value != pwController.text)
+                            ? 'Password did not match.'
+                            : null;
+                      },
+                      onChanged: (value) {
+                        validConfirmPassword =
+                            _confirmPasswordKey.currentState!.validate();
+                        isValid();
+                      },
+                      obscureText: true,
+                    ),
                   ),
                   Container(
                     height: 40,

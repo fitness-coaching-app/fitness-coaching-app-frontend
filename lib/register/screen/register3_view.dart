@@ -3,8 +3,8 @@ import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
 import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
 import 'package:fitness_coaching_application_test/components/text_box.dart';
+import 'package:fitness_coaching_application_test/components/validators.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'register0_view.dart';
@@ -17,9 +17,22 @@ class Register3 extends StatefulWidget {
 }
 
 class Register3State extends State<Register3> {
+  TextEditingController displayNameController = new TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  ButtonStatus displayNameStatus = ButtonStatus.inactive;
+
+  void isValid() {
+    setState(() {
+      if (_formKey.currentState!.validate()) {
+        displayNameStatus = ButtonStatus.active;
+      } else {
+        displayNameStatus = ButtonStatus.inactive;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController displayNameController = new TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: KeyboardAwareView(
@@ -46,22 +59,22 @@ class Register3State extends State<Register3> {
                   ),
                   Container(
                       child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.4),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Pick Your Display Name",
-                            style: const TextStyle(
-                                color: color_dark,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: "Poppins",
-                                fontStyle: FontStyle.normal,
-                                fontSize: 26.0),
-                            textAlign: TextAlign.left),
-                        Container(
-                          height: 5,
-                        ),
-                        Text("Pick a display name for your account",
+                        padding: const EdgeInsets.symmetric(horizontal: 4.4),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Pick Your Display Name",
+                                style: const TextStyle(
+                                    color: color_dark,
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: "Poppins",
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 26.0),
+                                textAlign: TextAlign.left),
+                            Container(
+                              height: 5,
+                            ),
+                            Text("Pick a display name for your account",
                             style: const TextStyle(
                                 color: color_subtitle,
                                 fontWeight: FontWeight.w400,
@@ -72,14 +85,15 @@ class Register3State extends State<Register3> {
                         Container(
                           height: 40,
                         ),
-                        TextBox(
-                          hintText: "Enter your display name",
-                          controller: displayNameController,
-                          validator: (String? value) {
-                            return (value!.isEmpty)
-                                ? 'Please enter a display name.'
-                                : null;
-                          },
+                        Form(
+                          key: _formKey,
+                          child: TextBox(
+                              hintText: "Enter your display name",
+                              controller: displayNameController,
+                              validator: displayNameValidator,
+                              onChanged: (value) {
+                                isValid();
+                              }),
                         ),
 
                         Container(
@@ -88,6 +102,7 @@ class Register3State extends State<Register3> {
                         // Send Instructions Button
                         MainButtonHighlight(
                             text: "Next",
+                            status: displayNameStatus,
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -98,9 +113,9 @@ class Register3State extends State<Register3> {
                                         )),
                               );
                             }),
-                      ],
-                    ),
-                  )),
+                          ],
+                        ),
+                      )),
                   Expanded(child: Container()),
                 ],
               )),

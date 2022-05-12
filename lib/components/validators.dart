@@ -25,3 +25,14 @@ String? passwordValidatorOnSignIn(String? value) {
   } else
     return null;
 }
+
+String? displayNameValidator(String? value) {
+  String pattern =
+      r"^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$";
+  RegExp regex = RegExp(pattern);
+  if (value == null || value.isEmpty || !regex.hasMatch(value)) {
+    return 'Please enter a valid display name';
+  } else {
+    return null;
+  }
+}
