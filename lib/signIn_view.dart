@@ -46,23 +46,6 @@ class SignInState extends State<SignIn> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    emailController.addListener(() {
-      setState(() {
-        validEmail = emailFormKey.currentState!.validate();
-      });
-      isFormValid();
-    });
-    pwController.addListener(() {
-      setState(() {
-        validPassword = passwordFormKey.currentState!.validate();
-      });
-      isFormValid();
-    });
-  }
-
   Future<dartz.Either<ErrorResponse, SuccessResponse>> signInButtonPressed(
       String email, String password) async {
     setState(() {
