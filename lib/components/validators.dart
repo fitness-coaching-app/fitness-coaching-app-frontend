@@ -18,3 +18,10 @@ String? passwordValidator(String? value) {
   else
     return null;
 }
+
+String? passwordValidatorOnSignIn(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Password must not be empty';
+  } else
+    return null;
+}

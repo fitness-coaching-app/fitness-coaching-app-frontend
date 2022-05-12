@@ -14,6 +14,7 @@ class TextBox extends StatefulWidget {
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
   final Function()? onEditingComplete;
+  final Function(String)? onChanged;
 
   TextBox(
       {this.onEditingComplete,
@@ -26,7 +27,8 @@ class TextBox extends StatefulWidget {
       this.suffixIcon,
       this.readOnly = false,
       this.enable,
-      this.keyboardType});
+      this.keyboardType,
+      this.onChanged});
 
   @override
   State<StatefulWidget> createState() => _TextBoxState();
@@ -82,6 +84,6 @@ class _TextBoxState extends State<TextBox> {
       obscureText: widget.obscureText,
       readOnly: widget.readOnly,
       enabled: widget.enable,
-    );
+        onChanged: widget.onChanged);
   }
 }
