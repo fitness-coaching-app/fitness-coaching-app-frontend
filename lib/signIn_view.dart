@@ -1,30 +1,22 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart' as dartz;
+import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
+import 'package:fitness_coaching_application_test/components/text_box.dart';
+import 'package:fitness_coaching_application_test/components/validators.dart';
+import 'package:fitness_coaching_application_test/environment.dart';
 import 'package:fitness_coaching_application_test/forgotPw/screen/forgotPassword0_view.dart';
 import 'package:fitness_coaching_application_test/home/screen/home_view.dart';
 import 'package:fitness_coaching_application_test/register/screen/register2_view.dart';
 import 'package:fitness_coaching_application_test/register/screen/register3_view.dart';
 import 'package:fitness_coaching_application_test/register/screen/register4_view.dart';
-import 'package:fitness_coaching_application_test/userProfile/userInfo.dart';
 import 'package:fitness_coaching_application_test/userSetup/screen/newUserSetup0_view.dart';
 import 'package:flutter/material.dart';
-import 'package:fitness_coaching_application_test/environment.dart';
-import 'package:fitness_coaching_application_test/loading_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http/http.dart' as http;
-import 'api_util.dart';
-import 'color.dart';
-import 'package:flutter_tts/flutter_tts.dart';
-
-
-import 'components/main_button_highlight.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:fitness_coaching_application_test/components/text_box.dart';
-import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
-
+import 'api_util.dart';
+import 'color.dart';
+import 'components/main_button_highlight.dart';
 import 'components/touchable_text.dart';
 
 class SignIn extends StatefulWidget {
@@ -37,8 +29,22 @@ class SignIn extends StatefulWidget {
 class SignInState extends State<SignIn> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController pwController = new TextEditingController();
+  GlobalKey<FormState> emailFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> passwordFormKey = GlobalKey<FormState>();
+  bool validEmail = false;
+  bool validPassword = false;
 
-  ButtonStatus signInButtonStatus = ButtonStatus.active;
+  ButtonStatus signInButtonStatus = ButtonStatus.inactive;
+
+  void isFormValid() {
+    setState(() {
+      if (validEmail && validPassword) {
+        signInButtonStatus = ButtonStatus.active;
+      } else {
+        signInButtonStatus = ButtonStatus.inactive;
+      }
+    });
+  }
 
   Future<dartz.Either<ErrorResponse, SuccessResponse>> signInButtonPressed(
       String email, String password) async {
@@ -61,28 +67,26 @@ class SignInState extends State<SignIn> {
           token.put('refreshToken', r.results["refreshToken"]);
           user.put('data', r.results["user"]);
 
-          if(r.results["user"]["status"] == "VERIFICATION"){
+          if (r.results["user"]["status"] == "VERIFICATION") {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Register2(email: email, password: password)),
+              MaterialPageRoute(
+                  builder: (context) =>
+                      Register2(email: email, password: password)),
             );
-          }
-          else if(r.results["user"]["status"] == "SETTING_UP"){
-            if(r.results["user"]["profilePicture"] == null){
+          } else if (r.results["user"]["status"] == "SETTING_UP") {
+            if (r.results["user"]["profilePicture"] == null) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => Register4()),
               );
-            }
-            else{
+            } else {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => NewUserSetup0()),
               );
             }
-
-          }
-          else if(r.results["user"]["status"] == "ACTIVE"){
+          } else if (r.results["user"]["status"] == "ACTIVE") {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => Home()),
@@ -90,18 +94,6 @@ class SignInState extends State<SignIn> {
           }
         });
     return response;
-  }
-
-  String? validateEmail(String? value) {
-    String pattern =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?)*$";
-    RegExp regex = RegExp(pattern);
-    if (value == null || value.isEmpty || !regex.hasMatch(value))
-      return 'Please enter a valid email address';
-    else
-      return null;
   }
 
   @override
@@ -148,24 +140,38 @@ class SignInState extends State<SignIn> {
                         //color: Colors.red,
                         height: 25,
                       ),
-                      TextBox(
-                        hintText: "Email",
-                        controller: emailController,
-                        validator: (String? value) => validateEmail(value),
+
+                      Form(
+                        key: emailFormKey,
+                        child: TextBox(
+                          hintText: "Email",
+                          controller: emailController,
+                          onChanged: (value) {
+                            validEmail = emailFormKey.currentState!.validate();
+                            isFormValid();
+                          },
+                          validator: (String? value) => emailValidator(value),
+                        ),
                       ),
+
                       Container(
                         //color: Colors.red,
                         height: 15,
                       ),
-                      TextBox(
-                          hintText: "Password",
-                          controller: pwController,
-                          validator: (String? value) {
-                            return (value!.isEmpty)
-                                ? 'Please enter a password.'
-                                : null;
-                          },
-                          obscureText: true),
+
+                      Form(
+                        key: passwordFormKey,
+                        child: TextBox(
+                            hintText: "Password",
+                            controller: pwController,
+                            onChanged: (value) {
+                              validPassword =
+                                  passwordFormKey.currentState!.validate();
+                              isFormValid();
+                            },
+                            validator: passwordValidatorOnSignIn,
+                            obscureText: true),
+                      ),
                       Container(
                         height: 25,
                       ),

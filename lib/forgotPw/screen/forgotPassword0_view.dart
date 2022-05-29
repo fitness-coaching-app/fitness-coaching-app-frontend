@@ -19,17 +19,28 @@ class ForgotPassword0 extends StatefulWidget {
 }
 
 class _ForgotPassword0State extends State<ForgotPassword0> {
-  bool loading = false;
+  ButtonStatus status = ButtonStatus.inactive;
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = new TextEditingController();
 
-  Future<void> forgotPasswordPressed(
-      String email) async {
+  void isValid(String value) {
     setState(() {
-      loading = true;
+      if (_formKey.currentState!.validate()) {
+        status = ButtonStatus.active;
+      } else {
+        status = ButtonStatus.inactive;
+      }
+    });
+  }
+
+  Future<void> forgotPasswordPressed(String email) async {
+    setState(() {
+      status = ButtonStatus.loading;
     });
     var response =
         await API.post(Environment.forgetPasswordUrl, {"email": email});
     setState(() {
-      loading = false;
+      status = ButtonStatus.active;
     });
 
     API.responseAlertWhenError(
@@ -43,21 +54,8 @@ class _ForgotPassword0State extends State<ForgotPassword0> {
         });
   }
 
-  String? validateEmail(String? value) {
-    String pattern =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?)*$";
-    RegExp regex = RegExp(pattern);
-    if (value == null || value.isEmpty || !regex.hasMatch(value))
-      return 'Please enter a valid email address';
-    else
-      return null;
-  }
-
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = new TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: KeyboardAwareView(
@@ -100,18 +98,20 @@ class _ForgotPassword0State extends State<ForgotPassword0> {
                   Container(
                     height: 40,
                   ),
-                  TextBox(
-                    hintText: "Enter your email",
-                    controller: emailController,
-                    validator: (String? value) => emailValidator(value),
+                  Form(
+                    key: _formKey,
+                    child: TextBox(
+                        hintText: "Enter your email",
+                        controller: emailController,
+                        validator: emailValidator,
+                        onChanged: isValid),
                   ),
                   Container(
                     height: 40,
                   ),
                   MainButtonHighlight(
                       text: "Send Instruction",
-                      status:
-                          loading ? ButtonStatus.loading : ButtonStatus.active,
+                      status: status,
                       onPressed: () async =>
                           await forgotPasswordPressed(emailController.text)),
                 ],

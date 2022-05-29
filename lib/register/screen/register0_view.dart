@@ -1,6 +1,7 @@
 import 'package:fitness_coaching_application_test/color.dart';
 import 'package:fitness_coaching_application_test/components/back_button.dart';
 import 'package:fitness_coaching_application_test/components/keyboard_aware.dart';
+import 'package:fitness_coaching_application_test/components/main_button_highlight.dart';
 import 'package:fitness_coaching_application_test/components/text_box.dart';
 import 'package:fitness_coaching_application_test/components/validators.dart';
 import 'package:fitness_coaching_application_test/register/screen/register1_view.dart';
@@ -18,6 +19,18 @@ class Register0 extends StatefulWidget {
 
 class Register0State extends State<Register0> {
   TextEditingController emailController = new TextEditingController();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  ButtonStatus nextButtonStatus = ButtonStatus.inactive;
+
+  void isValid(String value) {
+    setState(() {
+      if (_formKey.currentState!.validate()) {
+        nextButtonStatus = ButtonStatus.active;
+      } else {
+        nextButtonStatus = ButtonStatus.inactive;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,51 +86,31 @@ class Register0State extends State<Register0> {
                         Container(
                           height: 40,
                         ),
-                        TextBox(
-                          hintText: "Enter your email",
-                          controller: emailController,
-                          validator: (String? value) => emailValidator(value),
+                        Form(
+                          key: _formKey,
+                          child: TextBox(
+                            hintText: "Enter your email",
+                            controller: emailController,
+                            validator: emailValidator,
+                            onChanged: isValid,
+                          ),
                         ),
                         Container(
                           height: 40,
                         ),
-                        // Send Instructions Button
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: new GestureDetector(
-                                    onTap: () {
-                                      //emailController.text
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Register1(
-                                                  displayName: widget.displayName,
-                                                  email: emailController.text,
-                                                )),
-                                      );
-                                    },
-                                    child: Container(
-                                        height: 60,
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 16.5),
-                                          child: new Text("Next",
-                                              style: const TextStyle(
-                                                  color: color_dark,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: "Poppins",
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 18.0),
-                                              textAlign: TextAlign.center),
-                                        ),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(15)),
-                                            color: color_teal))),
-                              )
-                            ]),
+                        MainButtonHighlight(
+                            text: "Next",
+                            status: nextButtonStatus,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Register1(
+                                          displayName: widget.displayName,
+                                          email: emailController.text,
+                                        )),
+                              );
+                            })
                       ],
                     ),
                   )),
